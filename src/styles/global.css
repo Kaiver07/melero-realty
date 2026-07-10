@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+:root {
+  --color-primary: #1a3a5c;
+  --color-secondary: #c9a84c;
+  --color-light: #f5f0eb;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Georgia', serif;
+  color: #1a1a1a;
+}

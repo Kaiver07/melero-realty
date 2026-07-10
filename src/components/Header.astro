@@ -1,0 +1,78 @@
+---
+import { SITE } from '../config/site';
+
+const navLinks = [
+  { href: '/', label: 'Inicio' },
+  { href: '/propiedades', label: 'Propiedades' },
+  { href: '/servicios', label: 'Servicios' },
+  { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
+  { href: '/contacto', label: 'Contacto' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="bg-white shadow-sm sticky top-0 z-50">
+  <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2">
+      <span class="text-2xl font-bold" style="color: var(--color-primary)">Melero</span>
+      <span class="text-2xl font-light" style="color: var(--color-secondary)">Realty</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden md:flex items-center gap-6">
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class={`text-sm font-medium transition-colors hover:text-amber-600 ${
+              currentPath === href ? 'text-amber-600 border-b-2 border-amber-500 pb-1' : 'text-gray-700'
+            }`}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <a
+      href={`tel:${SITE.phone}`}
+      class="hidden md:inline-flex items-center gap-2 text-sm font-semibold text-white px-4 py-2 rounded-lg transition-colors"
+      style="background-color: var(--color-primary)"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.24 1.01l-2.21 2.21z"/>
+      </svg>
+      {SITE.phone}
+    </a>
+
+    <!-- Mobile menu button -->
+    <button id="menu-btn" class="md:hidden p-2" aria-label="Abrir menú">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-t px-4 pb-4">
+    <ul class="flex flex-col gap-3 pt-3">
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a href={href} class="block text-gray-700 hover:text-amber-600 font-medium py-1">{label}</a>
+        </li>
+      ))}
+      <li>
+        <a href={`tel:${SITE.phone}`} class="block text-white text-center py-2 px-4 rounded-lg font-semibold mt-2" style="background-color: var(--color-primary)">
+          Llamar ahora
+        </a>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => menu?.classList.toggle('hidden'));
+</script>

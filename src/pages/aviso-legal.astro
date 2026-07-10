@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../config/site';
+---
+
+<Layout title="Aviso Legal" description="Aviso legal de Melero Realty. Información sobre titularidad, condiciones de uso y responsabilidades.">
+  <Header />
+  <main class="flex-1 py-16">
+    <div class="max-w-3xl mx-auto px-4 prose prose-gray">
+      <h1 style="color: var(--color-primary)">Aviso Legal</h1>
+      <p>En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se facilitan los siguientes datos:</p>
+      <ul>
+        <li><strong>Titular:</strong> {SITE.name}</li>
+        <li><strong>Email:</strong> {SITE.email}</li>
+        <li><strong>Teléfono:</strong> {SITE.phone}</li>
+        <li><strong>Domicilio:</strong> {SITE.address}</li>
+      </ul>
+      <h2>Condiciones de Uso</h2>
+      <p>El acceso y uso de este sitio web está sujeto a los términos y condiciones que se detallan a continuación. El usuario acepta estas condiciones por el mero hecho de acceder y navegar por el sitio.</p>
+      <h2>Propiedad Intelectual</h2>
+      <p>Todos los contenidos de este sitio web, incluyendo textos, imágenes, diseño y código, son propiedad de {SITE.name} o de terceros que han autorizado su uso, y están protegidos por las leyes de propiedad intelectual.</p>
+      <h2>Responsabilidad</h2>
+      <p>{SITE.name} no se responsabiliza de los daños o perjuicios derivados del uso de la información contenida en este sitio web.</p>
+    </div>
+  </main>
+  <Footer />
+</Layout>

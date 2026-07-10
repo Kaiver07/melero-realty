@@ -1,0 +1,70 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../config/site';
+---
+
+<Layout title="Sobre Nosotros" description="Conoce el equipo de Melero Realty. Años de experiencia en el sector inmobiliario al servicio de nuestros clientes.">
+  <Header />
+
+  <main class="flex-1">
+    <section class="py-20">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center mb-14">
+          <h1 class="text-4xl font-bold mb-4" style="color: var(--color-primary)">Sobre Nosotros</h1>
+          <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
+            Somos una agencia inmobiliaria fundada con la misión de hacer del proceso de compra, venta y alquiler una experiencia sencilla, transparente y satisfactoria.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-10">
+          <h2 class="text-2xl font-bold mb-4" style="color: var(--color-primary)">Nuestra Historia</h2>
+          <p class="text-gray-600 leading-relaxed mb-4">
+            Melero Realty nació de la pasión por el sector inmobiliario y el compromiso con nuestros clientes. Desde nuestros inicios, hemos trabajado para ofrecer un servicio personalizado y de calidad, adaptándonos a las necesidades de cada cliente.
+          </p>
+          <p class="text-gray-600 leading-relaxed">
+            Con más de 10 años de experiencia en el mercado, hemos ayudado a cientos de familias y particulares a encontrar la propiedad ideal, siempre con honestidad, profesionalidad y dedicación.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6 mb-10">
+          <div class="text-center p-6 rounded-2xl" style="background-color: var(--color-light)">
+            <div class="text-4xl font-bold mb-2" style="color: var(--color-primary)">+200</div>
+            <p class="text-gray-600 font-medium">Operaciones realizadas</p>
+          </div>
+          <div class="text-center p-6 rounded-2xl" style="background-color: var(--color-light)">
+            <div class="text-4xl font-bold mb-2" style="color: var(--color-primary)">10+</div>
+            <p class="text-gray-600 font-medium">Años en el sector</p>
+          </div>
+          <div class="text-center p-6 rounded-2xl" style="background-color: var(--color-light)">
+            <div class="text-4xl font-bold mb-2" style="color: var(--color-primary)">98%</div>
+            <p class="text-gray-600 font-medium">Clientes satisfechos</p>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+          <h2 class="text-2xl font-bold mb-6" style="color: var(--color-primary)">Nuestros Valores</h2>
+          <div class="grid sm:grid-cols-2 gap-4">
+            {[
+              { icon: '🤝', title: 'Honestidad', desc: 'Actuamos con transparencia en cada operación.' },
+              { icon: '⭐', title: 'Excelencia', desc: 'Buscamos siempre el mejor resultado para nuestros clientes.' },
+              { icon: '💡', title: 'Innovación', desc: 'Utilizamos las mejores herramientas del mercado.' },
+              { icon: '❤️', title: 'Compromiso', desc: 'Nos involucramos personalmente en cada proyecto.' },
+            ].map(v => (
+              <div class="flex items-start gap-3 p-4 rounded-xl bg-gray-50">
+                <span class="text-3xl">{v.icon}</span>
+                <div>
+                  <h3 class="font-bold" style="color: var(--color-primary)">{v.title}</h3>
+                  <p class="text-sm text-gray-600">{v.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

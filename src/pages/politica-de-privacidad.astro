@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../config/site';
+---
+
+<Layout title="Política de Privacidad" description="Política de privacidad de Melero Realty. Cómo tratamos tus datos personales conforme al RGPD.">
+  <Header />
+  <main class="flex-1 py-16">
+    <div class="max-w-3xl mx-auto px-4 prose prose-gray">
+      <h1 style="color: var(--color-primary)">Política de Privacidad</h1>
+      <p>En {SITE.name} nos comprometemos a proteger tu privacidad. Esta política explica cómo recopilamos, usamos y protegemos tus datos personales en conformidad con el Reglamento General de Protección de Datos (RGPD).</p>
+      <h2>Responsable del Tratamiento</h2>
+      <ul>
+        <li><strong>Identidad:</strong> {SITE.name}</li>
+        <li><strong>Email:</strong> {SITE.email}</li>
+      </ul>
+      <h2>Datos que Recopilamos</h2>
+      <p>Recopilamos los datos que nos proporcionas voluntariamente a través del formulario de contacto: nombre, email, teléfono y consulta.</p>
+      <h2>Finalidad</h2>
+      <p>Los datos recogidos se utilizan exclusivamente para responder a tus consultas y gestionar la relación comercial.</p>
+      <h2>Conservación</h2>
+      <p>Conservamos tus datos durante el tiempo necesario para la finalidad para la que fueron recabados, y en todo caso durante los plazos legalmente establecidos.</p>
+      <h2>Tus Derechos</h2>
+      <p>Tienes derecho a acceder, rectificar, suprimir, oponerte y limitar el tratamiento de tus datos. Puedes ejercer estos derechos enviando un email a {SITE.email}.</p>
+    </div>
+  </main>
+  <Footer />
+</Layout>
