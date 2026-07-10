@@ -2,122 +2,292 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE } from '../config/site';
-
-const services = [
-  {
-    icon: '🏠',
-    title: 'Compra de Vivienda',
-    desc: 'Te ayudamos a encontrar la propiedad perfecta según tus necesidades y presupuesto.',
-  },
-  {
-    icon: '💰',
-    title: 'Venta de Propiedades',
-    desc: 'Maximizamos el valor de tu propiedad con estrategias de marketing efectivas.',
-  },
-  {
-    icon: '🔑',
-    title: 'Alquiler',
-    desc: 'Gestión integral de alquileres para propietarios e inquilinos.',
-  },
-  {
-    icon: '📋',
-    title: 'Asesoramiento',
-    desc: 'Orientación experta en inversiones inmobiliarias y trámites legales.',
-  },
-];
+import VideoEmbed from '../components/VideoEmbed.astro';
+import { SITE, STATS, STATS_BIG, SERVICES, COMPARISON, TESTIMONIALS, TEAM, FAQ } from '../config/site';
 ---
 
-<Layout title={SITE.name} description={SITE.description}>
+<Layout
+  title="Melero Realty | Generación de Leads para Agencias Inmobiliarias"
+  description="Creamos sistemas de captación de leads cualificados para agencias y asesores inmobiliarios en España y EEUU. Sin portales. Sin referidos. +300% ROI medio."
+  includeFaqSchema={true}
+>
   <Header />
 
-  <!-- Hero -->
-  <section class="relative min-h-[90vh] flex items-center" style="background: linear-gradient(135deg, var(--color-primary) 0%, #0d2a47 100%)">
-    <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"></div>
-    <div class="relative max-w-6xl mx-auto px-4 text-center text-white py-20">
-      <p class="text-amber-400 font-semibold tracking-widest uppercase text-sm mb-4">Agencia Inmobiliaria</p>
-      <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6">
-        Encuentra tu hogar<br />
-        <span style="color: var(--color-secondary)">con Melero Realty</span>
-      </h1>
-      <p class="text-xl text-blue-200 max-w-2xl mx-auto mb-10">
-        Expertos en compra, venta y alquiler de propiedades. Te acompañamos en cada paso del camino para que tomes la mejor decisión.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="/propiedades"
-          class="inline-block text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all hover:scale-105 hover:shadow-xl"
-          style="background-color: var(--color-secondary)"
-        >
-          Ver Propiedades
-        </a>
-        <a
-          href="/contacto"
-          class="inline-block border-2 border-white text-white font-semibold px-8 py-4 rounded-lg text-lg transition-all hover:bg-white hover:text-blue-900"
-        >
-          Contactar Ahora
-        </a>
-      </div>
-    </div>
-  </section>
+  <main class="flex-1">
 
-  <!-- Stats -->
-  <section class="bg-amber-50 py-10 border-y border-amber-100">
-    <div class="max-w-4xl mx-auto px-4 grid grid-cols-3 gap-8 text-center">
-      <div>
-        <p class="text-4xl font-bold" style="color: var(--color-primary)">+200</p>
-        <p class="text-gray-600 text-sm mt-1">Propiedades vendidas</p>
-      </div>
-      <div>
-        <p class="text-4xl font-bold" style="color: var(--color-primary)">10+</p>
-        <p class="text-gray-600 text-sm mt-1">Años de experiencia</p>
-      </div>
-      <div>
-        <p class="text-4xl font-bold" style="color: var(--color-primary)">98%</p>
-        <p class="text-gray-600 text-sm mt-1">Clientes satisfechos</p>
-      </div>
-    </div>
-  </section>
+    <!-- ═══════════════════════════════
+         HERO
+    ════════════════════════════════ -->
+    <section
+      class="relative overflow-hidden py-24 md:py-36"
+      style="background: var(--c-dark)"
+    >
+      <!-- subtle grid pattern -->
+      <div
+        class="absolute inset-0 opacity-[0.04]"
+        style="background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, #fff 39px, #fff 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #fff 39px, #fff 40px)"
+      ></div>
 
-  <!-- Servicios -->
-  <section class="py-20 bg-white">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-14">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--color-primary)">Nuestros Servicios</h2>
-        <p class="text-gray-600 max-w-xl mx-auto">Ofrecemos una gama completa de servicios inmobiliarios para cubrir todas tus necesidades.</p>
+      <div class="relative max-w-4xl mx-auto px-4 text-center">
+        <div
+          class="inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1.5 rounded-full mb-6 border"
+          style="color: var(--c-gold); border-color: var(--c-gold)/30; background: color-mix(in srgb, var(--c-gold) 10%, transparent)"
+        >
+          Agencia de marketing inmobiliario B2B
+        </div>
+
+        <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
+          Si el 80% de tus leads<br class="hidden md:block" />
+          vienen de un portal,<br class="hidden md:block" />
+          <span style="color: var(--c-gold)">tienes un problema.</span>
+        </h1>
+
+        <p class="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-10 leading-relaxed">
+          Creamos sistemas de captación de leads cualificados para negocios inmobiliarios en activo.
+          Sin portales. Sin referidos. Sin curiosos.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/contacto" class="btn-gold text-base">
+            Agendar diagnóstico estratégico
+          </a>
+          <a href="#servicios" class="btn-outline text-base">
+            Ver qué hacemos
+          </a>
+        </div>
       </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        {services.map(s => (
-          <div class="text-center p-6 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow hover:-translate-y-1 duration-300">
-            <div class="text-5xl mb-4">{s.icon}</div>
-            <h3 class="text-lg font-bold mb-2" style="color: var(--color-primary)">{s.title}</h3>
-            <p class="text-gray-500 text-sm leading-relaxed">{s.desc}</p>
+    </section>
+
+    <!-- ═══════════════════════════════
+         BARRA DE MÉTRICAS
+    ════════════════════════════════ -->
+    <section style="background: var(--c-gold)">
+      <div class="max-w-5xl mx-auto px-4 py-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        {STATS.map(({ value, label }) => (
+          <div>
+            <p class="text-3xl font-black" style="color: var(--c-dark)">{value}</p>
+            <p class="text-sm font-medium mt-0.5" style="color: color-mix(in srgb, var(--c-dark) 70%, transparent)">{label}</p>
           </div>
         ))}
       </div>
-      <div class="text-center mt-10">
-        <a href="/servicios" class="inline-block font-semibold px-6 py-3 rounded-lg border-2 transition-colors hover:text-white" style="border-color: var(--color-primary); color: var(--color-primary);" onmouseover="this.style.backgroundColor='var(--color-primary)'" onmouseout="this.style.backgroundColor='transparent'">
-          Ver todos los servicios
+    </section>
+
+    <!-- ═══════════════════════════════
+         SERVICIOS
+    ════════════════════════════════ -->
+    <section id="servicios" class="py-20" style="background: var(--c-bg-lt)">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-14">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-gold)">Lo que hacemos</p>
+          <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
+            Un sistema completo de captación
+          </h2>
+          <p class="text-base max-w-xl mx-auto" style="color: var(--c-muted)">
+            Cada servicio está diseñado para que tu agencia capte leads de calidad sin depender de terceros.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {SERVICES.map(({ icon, title, desc }) => (
+            <div class="bg-white rounded-2xl p-6 border border-gray-100 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+              <span class="text-4xl block mb-4">{icon}</span>
+              <h3 class="font-bold text-lg mb-2" style="color: var(--c-dark)">{title}</h3>
+              {desc
+                ? <p class="text-sm leading-relaxed" style="color: var(--c-muted)">{desc}</p>
+                : <p class="text-sm italic" style="color: var(--c-muted)/60">Descripción próximamente.</p>
+              }
+            </div>
+          ))}
+        </div>
+
+        <div class="text-center mt-12">
+          <a href="/contacto" class="btn-gold">Quiero empezar</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════
+         POR QUÉ MELERO REALTY — vídeo + métricas
+    ════════════════════════════════ -->
+    <section id="resultados" class="py-20" style="background: var(--c-dark)">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-14">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-gold)">Por qué Melero Realty</p>
+          <h2 class="text-3xl md:text-4xl font-black text-white mb-4">
+            Resultados que puedes medir
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+          <!-- Video lazy -->
+          <div>
+            <VideoEmbed videoId={SITE.youtubeId} title="Por qué Melero Realty" />
+          </div>
+
+          <!-- Big stats -->
+          <div class="flex flex-col gap-8">
+            {STATS_BIG.map(({ value, label }) => (
+              <div class="border-l-4 pl-6" style="border-color: var(--c-gold)">
+                <p class="text-5xl font-black" style="color: var(--c-gold)">{value}</p>
+                <p class="text-white/60 mt-1">{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════
+         TABLA COMPARATIVA
+    ════════════════════════════════ -->
+    <section class="py-20" style="background: var(--c-bg)">
+      <div class="max-w-4xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-gold)">La diferencia</p>
+          <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
+            Otras agencias vs. Melero Realty
+          </h2>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden border border-gray-200 shadow-sm">
+          <!-- Header row -->
+          <div class="grid grid-cols-2">
+            <div class="py-3 px-6 text-sm font-bold text-white/80 text-center bg-gray-400/60">
+              Otras agencias
+            </div>
+            <div class="py-3 px-6 text-sm font-bold text-center text-white" style="background: var(--c-navy)">
+              Melero Realty
+            </div>
+          </div>
+
+          {COMPARISON.map(({ ellos, nosotros }, i) => (
+            <div class={`grid grid-cols-2 ${i % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+              <div class="py-4 px-6 text-sm border-r border-gray-200 flex items-start gap-2 text-gray-500">
+                <span class="mt-0.5 text-red-400 shrink-0">✗</span>
+                {ellos}
+              </div>
+              <div class="py-4 px-6 text-sm flex items-start gap-2 font-medium" style="color: var(--c-navy)">
+                <span class="mt-0.5 shrink-0" style="color: var(--c-gold)">✓</span>
+                {nosotros}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="text-center mt-10">
+          <a href="/contacto" class="btn-gold">Agenda tu diagnóstico gratuito</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════
+         TESTIMONIOS
+    ════════════════════════════════ -->
+    <section class="py-20" style="background: var(--c-bg-lt)">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-gold)">Clientes</p>
+          <h2 class="text-3xl md:text-4xl font-black" style="color: var(--c-dark)">
+            Lo que dicen quienes ya escalan
+          </h2>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          {TESTIMONIALS.map(({ quote, name, role }) => (
+            <div class="bg-white rounded-2xl p-7 border border-gray-100 flex flex-col">
+              <svg class="w-8 h-8 mb-4 opacity-30" style="color: var(--c-gold)" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/>
+              </svg>
+              <p class="text-base leading-relaxed flex-1" style="color: var(--c-text)">"{quote}"</p>
+              <div class="mt-5 pt-5 border-t border-gray-100">
+                <p class="font-bold text-sm" style="color: var(--c-dark)">{name}</p>
+                <p class="text-xs mt-0.5" style="color: var(--c-muted)">{role}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════
+         EQUIPO
+    ════════════════════════════════ -->
+    <section class="py-20" style="background: var(--c-dark)">
+      <div class="max-w-5xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-gold)">El equipo</p>
+          <h2 class="text-3xl md:text-4xl font-black text-white">
+            Las personas detrás de tus resultados
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+          {TEAM.map(({ name, role, initials }) => (
+            <div class="text-center">
+              <div
+                class="w-20 h-20 rounded-full mx-auto mb-3 flex items-center justify-center text-xl font-black"
+                style="background: var(--c-navy); color: var(--c-gold)"
+              >
+                {initials}
+              </div>
+              <p class="font-bold text-white text-sm">{name}</p>
+              <p class="text-white/40 text-xs mt-0.5 leading-snug">{role}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════
+         FAQ
+    ════════════════════════════════ -->
+    <section class="py-20" style="background: var(--c-bg)">
+      <div class="max-w-2xl mx-auto px-4">
+        <div class="text-center mb-12">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-gold)">FAQ</p>
+          <h2 class="text-3xl md:text-4xl font-black" style="color: var(--c-dark)">
+            Preguntas frecuentes
+          </h2>
+        </div>
+
+        <div class="space-y-3">
+          {FAQ.map(({ q, a }) => (
+            <details class="rounded-xl border border-gray-200 overflow-hidden group">
+              <summary class="flex items-center justify-between px-5 py-4 font-semibold text-sm cursor-pointer select-none" style="color: var(--c-dark)">
+                {q}
+                <span class="faq-icon ml-4 shrink-0 text-lg leading-none" style="color: var(--c-gold)">+</span>
+              </summary>
+              <div class="px-5 pb-5 text-sm leading-relaxed" style="color: var(--c-muted)">
+                {a
+                  ? a
+                  : <span class="italic opacity-50">Respuesta próximamente.</span>
+                }
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════
+         CTA FINAL
+    ════════════════════════════════ -->
+    <section class="py-24" style="background: var(--c-navy)">
+      <div class="max-w-3xl mx-auto px-4 text-center">
+        <h2 class="text-3xl md:text-5xl font-black text-white mb-4 leading-tight">
+          ¿Listo para dejar de<br class="hidden md:block" />
+          depender de portales?
+        </h2>
+        <p class="text-white/60 text-lg mb-10 max-w-xl mx-auto">
+          Agenda un diagnóstico estratégico gratuito. En 30 minutos sabemos si podemos ayudarte y cómo.
+        </p>
+        <a href="/contacto" class="btn-gold text-base">
+          Agendar diagnóstico estratégico de negocio →
         </a>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CTA -->
-  <section class="py-20" style="background-color: var(--color-primary)">
-    <div class="max-w-3xl mx-auto px-4 text-center text-white">
-      <h2 class="text-3xl md:text-4xl font-bold mb-4">¿Listo para dar el siguiente paso?</h2>
-      <p class="text-blue-200 mb-8 text-lg">Contacta con nosotros hoy mismo y te ayudaremos a encontrar la propiedad de tus sueños.</p>
-      <a
-        href={`tel:${SITE.phone}`}
-        class="inline-flex items-center gap-3 font-bold px-8 py-4 rounded-lg text-lg transition-all hover:scale-105"
-        style="background-color: var(--color-secondary); color: var(--color-primary)"
-      >
-        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.47 11.47 0 003.58.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.24 1.01l-2.21 2.21z"/></svg>
-        Llámanos: {SITE.phone}
-      </a>
-    </div>
-  </section>
+  </main>
 
   <Footer />
 </Layout>

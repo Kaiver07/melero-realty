@@ -5,24 +5,41 @@ import Footer from '../components/Footer.astro';
 import { SITE } from '../config/site';
 ---
 
-<Layout title="Aviso Legal" description="Aviso legal de Melero Realty. Información sobre titularidad, condiciones de uso y responsabilidades.">
+<Layout title="Aviso Legal" description="Aviso legal de Melero Realty conforme a la LSSI-CE.">
   <Header />
-  <main class="flex-1 py-16">
-    <div class="max-w-3xl mx-auto px-4 prose prose-gray">
-      <h1 style="color: var(--color-primary)">Aviso Legal</h1>
-      <p>En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), se facilitan los siguientes datos:</p>
-      <ul>
-        <li><strong>Titular:</strong> {SITE.name}</li>
-        <li><strong>Email:</strong> {SITE.email}</li>
-        <li><strong>Teléfono:</strong> {SITE.phone}</li>
-        <li><strong>Domicilio:</strong> {SITE.address}</li>
-      </ul>
-      <h2>Condiciones de Uso</h2>
-      <p>El acceso y uso de este sitio web está sujeto a los términos y condiciones que se detallan a continuación. El usuario acepta estas condiciones por el mero hecho de acceder y navegar por el sitio.</p>
-      <h2>Propiedad Intelectual</h2>
-      <p>Todos los contenidos de este sitio web, incluyendo textos, imágenes, diseño y código, son propiedad de {SITE.name} o de terceros que han autorizado su uso, y están protegidos por las leyes de propiedad intelectual.</p>
-      <h2>Responsabilidad</h2>
-      <p>{SITE.name} no se responsabiliza de los daños o perjuicios derivados del uso de la información contenida en este sitio web.</p>
+  <main class="flex-1 py-16 max-w-3xl mx-auto px-4">
+    <h1 class="text-3xl font-black mb-8" style="color: var(--c-dark)">Aviso Legal</h1>
+
+    <div class="prose prose-gray max-w-none space-y-6 text-sm leading-relaxed" style="color: var(--c-muted)">
+      <section>
+        <h2 class="text-base font-bold mb-2" style="color: var(--c-dark)">1. Datos identificativos</h2>
+        <p>En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico (LSSI-CE), se facilita la siguiente información:</p>
+        <ul class="mt-2 space-y-1 list-disc list-inside">
+          <li><strong>Titular:</strong> {SITE.name}</li>
+          <li><strong>Sitio web:</strong> {SITE.url}</li>
+          <li><strong>Email de contacto:</strong> {SITE.email}</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-base font-bold mb-2" style="color: var(--c-dark)">2. Objeto y ámbito de aplicación</h2>
+        <p>Las presentes condiciones regulan el acceso y uso del sitio web {SITE.url}, así como los servicios ofrecidos a través del mismo. El acceso y uso del sitio implica la aceptación plena de las presentes condiciones.</p>
+      </section>
+
+      <section>
+        <h2 class="text-base font-bold mb-2" style="color: var(--c-dark)">3. Propiedad intelectual e industrial</h2>
+        <p>Todos los contenidos del sitio web (textos, imágenes, logotipos, diseño gráfico, código fuente) son propiedad de {SITE.name} o de terceros que han autorizado su uso. Queda prohibida su reproducción, distribución o comunicación pública sin autorización expresa.</p>
+      </section>
+
+      <section>
+        <h2 class="text-base font-bold mb-2" style="color: var(--c-dark)">4. Exclusión de responsabilidad</h2>
+        <p>{SITE.name} no se responsabiliza de los daños o perjuicios que pudieran derivarse del acceso o uso del sitio web, ni de posibles inexactitudes o contenidos desactualizados. Asimismo, no garantiza la disponibilidad continua del sitio.</p>
+      </section>
+
+      <section>
+        <h2 class="text-base font-bold mb-2" style="color: var(--c-dark)">5. Legislación aplicable</h2>
+        <p>Las presentes condiciones se rigen por la legislación española. Para la resolución de conflictos, las partes se someten a los juzgados y tribunales competentes.</p>
+      </section>
     </div>
   </main>
   <Footer />

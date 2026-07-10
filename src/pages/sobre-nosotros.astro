@@ -2,68 +2,103 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE } from '../config/site';
+import { TEAM } from '../config/site';
 ---
 
-<Layout title="Sobre Nosotros" description="Conoce el equipo de Melero Realty. Años de experiencia en el sector inmobiliario al servicio de nuestros clientes.">
+<Layout
+  title="Sobre Nosotros"
+  description="Conoce el equipo de Melero Realty. Especialistas en marketing inmobiliario B2B con un único objetivo: que tu agencia capte sin depender de portales."
+>
   <Header />
 
   <main class="flex-1">
-    <section class="py-20">
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-14">
-          <h1 class="text-4xl font-bold mb-4" style="color: var(--color-primary)">Sobre Nosotros</h1>
-          <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-            Somos una agencia inmobiliaria fundada con la misión de hacer del proceso de compra, venta y alquiler una experiencia sencilla, transparente y satisfactoria.
-          </p>
-        </div>
 
-        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-10">
-          <h2 class="text-2xl font-bold mb-4" style="color: var(--color-primary)">Nuestra Historia</h2>
-          <p class="text-gray-600 leading-relaxed mb-4">
-            Melero Realty nació de la pasión por el sector inmobiliario y el compromiso con nuestros clientes. Desde nuestros inicios, hemos trabajado para ofrecer un servicio personalizado y de calidad, adaptándonos a las necesidades de cada cliente.
-          </p>
-          <p class="text-gray-600 leading-relaxed">
-            Con más de 10 años de experiencia en el mercado, hemos ayudado a cientos de familias y particulares a encontrar la propiedad ideal, siempre con honestidad, profesionalidad y dedicación.
-          </p>
-        </div>
+    <!-- Hero -->
+    <section class="py-20" style="background: var(--c-dark)">
+      <div class="max-w-3xl mx-auto px-4 text-center">
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-gold)">Sobre nosotros</p>
+        <h1 class="text-4xl md:text-5xl font-black text-white mb-6">
+          Especialistas en<br />captación inmobiliaria
+        </h1>
+        <p class="text-white/60 text-lg leading-relaxed">
+          No somos una agencia de marketing genérica que un día decidió tocar el sector inmobiliario. Nacimos aquí, y solo trabajamos aquí.
+        </p>
+      </div>
+    </section>
 
-        <div class="grid md:grid-cols-3 gap-6 mb-10">
-          <div class="text-center p-6 rounded-2xl" style="background-color: var(--color-light)">
-            <div class="text-4xl font-bold mb-2" style="color: var(--color-primary)">+200</div>
-            <p class="text-gray-600 font-medium">Operaciones realizadas</p>
-          </div>
-          <div class="text-center p-6 rounded-2xl" style="background-color: var(--color-light)">
-            <div class="text-4xl font-bold mb-2" style="color: var(--color-primary)">10+</div>
-            <p class="text-gray-600 font-medium">Años en el sector</p>
-          </div>
-          <div class="text-center p-6 rounded-2xl" style="background-color: var(--color-light)">
-            <div class="text-4xl font-bold mb-2" style="color: var(--color-primary)">98%</div>
-            <p class="text-gray-600 font-medium">Clientes satisfechos</p>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-          <h2 class="text-2xl font-bold mb-6" style="color: var(--color-primary)">Nuestros Valores</h2>
-          <div class="grid sm:grid-cols-2 gap-4">
-            {[
-              { icon: '🤝', title: 'Honestidad', desc: 'Actuamos con transparencia en cada operación.' },
-              { icon: '⭐', title: 'Excelencia', desc: 'Buscamos siempre el mejor resultado para nuestros clientes.' },
-              { icon: '💡', title: 'Innovación', desc: 'Utilizamos las mejores herramientas del mercado.' },
-              { icon: '❤️', title: 'Compromiso', desc: 'Nos involucramos personalmente en cada proyecto.' },
-            ].map(v => (
-              <div class="flex items-start gap-3 p-4 rounded-xl bg-gray-50">
-                <span class="text-3xl">{v.icon}</span>
-                <div>
-                  <h3 class="font-bold" style="color: var(--color-primary)">{v.title}</h3>
-                  <p class="text-sm text-gray-600">{v.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+    <!-- Historia -->
+    <section class="py-20" style="background: var(--c-bg)">
+      <div class="max-w-3xl mx-auto px-4">
+        <h2 class="text-2xl font-black mb-6" style="color: var(--c-dark)">Nuestra historia</h2>
+        <div class="space-y-4 text-base leading-relaxed" style="color: var(--c-muted)">
+          <p>
+            Melero Realty nació de una frustración real: ver cómo agencias y asesores inmobiliarios con talento y trabajo seguían dependiendo de portales para sobrevivir, pagando más cada año por leads de peor calidad, sin control sobre su propio crecimiento.
+          </p>
+          <p>
+            Vimos que el problema no era la agencia. Era la falta de un sistema de captación propio. Y decidimos construirlo para ellos.
+          </p>
+          <p>
+            Hoy trabajamos con más de 40 agencias y asesores en España y EEUU, con una tasa de retención del 98% y un ROI medio del +300% en campañas de captación.
+          </p>
         </div>
       </div>
     </section>
+
+    <!-- Valores -->
+    <section class="py-20" style="background: var(--c-bg-lt)">
+      <div class="max-w-4xl mx-auto px-4">
+        <h2 class="text-2xl font-black mb-10 text-center" style="color: var(--c-dark)">Cómo trabajamos</h2>
+        <div class="grid sm:grid-cols-2 gap-6">
+          {[
+            { title: 'Solo inmobiliario', desc: 'No tocamos otras industrias. Eso nos da una ventaja de conocimiento que ninguna agencia generalista puede replicar.' },
+            { title: 'KPIs reales', desc: 'Hablamos de coste por lead, coste por cliente y ROI. No de impresiones ni de followers.' },
+            { title: 'Resultados antes que contrato', desc: 'Hacemos un diagnóstico real antes de empezar. Si no podemos ayudarte, te lo decimos.' },
+            { title: 'Acompañamiento continuo', desc: 'No lanzamos y desaparecemos. Reporte semanal y acceso directo a la CEO durante todo el proceso.' },
+          ].map(v => (
+            <div class="bg-white rounded-2xl p-6 border border-gray-100">
+              <div class="w-2 h-2 rounded-full mb-3" style="background: var(--c-gold)"></div>
+              <h3 class="font-bold mb-2" style="color: var(--c-dark)">{v.title}</h3>
+              <p class="text-sm leading-relaxed" style="color: var(--c-muted)">{v.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Equipo ampliado -->
+    <section class="py-20" style="background: var(--c-dark)">
+      <div class="max-w-4xl mx-auto px-4">
+        <h2 class="text-2xl font-black text-white mb-10 text-center">El equipo</h2>
+        <div class="grid sm:grid-cols-2 gap-6">
+          {TEAM.map(({ name, role, initials }) => (
+            <div class="flex items-center gap-5 bg-white/5 rounded-2xl p-6 border border-white/10">
+              <div
+                class="w-16 h-16 rounded-full shrink-0 flex items-center justify-center text-lg font-black"
+                style="background: var(--c-navy); color: var(--c-gold)"
+              >
+                {initials}
+              </div>
+              <div>
+                <p class="font-bold text-white">{name}</p>
+                <p class="text-sm mt-0.5" style="color: var(--c-gold)">{role}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="py-20" style="background: var(--c-navy)">
+      <div class="max-w-2xl mx-auto px-4 text-center">
+        <h2 class="text-2xl md:text-3xl font-black text-white mb-4">
+          ¿Quieres que hablemos de tu caso?
+        </h2>
+        <p class="text-white/60 mb-8">30 minutos. Sin compromiso. Con análisis real de tu situación.</p>
+        <a href="/contacto" class="btn-gold">Solicitar diagnóstico gratuito</a>
+      </div>
+    </section>
+
   </main>
 
   <Footer />

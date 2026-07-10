@@ -5,23 +5,56 @@ import Footer from '../components/Footer.astro';
 import { SITE } from '../config/site';
 ---
 
-<Layout title="Política de Cookies" description="Política de cookies de Melero Realty. Información sobre el uso de cookies en nuestra web.">
+<Layout title="Política de Cookies" description="Política de cookies de Melero Realty.">
   <Header />
-  <main class="flex-1 py-16">
-    <div class="max-w-3xl mx-auto px-4 prose prose-gray">
-      <h1 style="color: var(--color-primary)">Política de Cookies</h1>
-      <p>Este sitio web utiliza cookies propias y de terceros para mejorar la experiencia de navegación.</p>
-      <h2>¿Qué son las cookies?</h2>
-      <p>Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas una página web. Permiten recordar tus preferencias y mejorar la funcionalidad del sitio.</p>
-      <h2>Tipos de cookies que utilizamos</h2>
-      <ul>
-        <li><strong>Cookies técnicas:</strong> Necesarias para el funcionamiento del sitio web.</li>
-        <li><strong>Cookies analíticas:</strong> Nos ayudan a entender cómo los usuarios interactúan con el sitio (Google Analytics).</li>
-      </ul>
-      <h2>Gestión de cookies</h2>
-      <p>Puedes gestionar o deshabilitar las cookies desde la configuración de tu navegador. Ten en cuenta que deshabilitar ciertas cookies puede afectar al funcionamiento del sitio.</p>
-      <h2>Más información</h2>
-      <p>Para más información sobre el tratamiento de tus datos, consulta nuestra <a href="/politica-de-privacidad">Política de Privacidad</a>.</p>
+  <main class="flex-1 py-16 max-w-3xl mx-auto px-4">
+    <h1 class="text-3xl font-black mb-8" style="color: var(--c-dark)">Política de Cookies</h1>
+
+    <div class="space-y-6 text-sm leading-relaxed" style="color: var(--c-muted)">
+      <section>
+        <h2 class="text-base font-bold mb-2" style="color: var(--c-dark)">¿Qué son las cookies?</h2>
+        <p>Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitas un sitio web. Permiten recordar tus preferencias, analizar el tráfico y mejorar la experiencia de navegación.</p>
+      </section>
+
+      <section>
+        <h2 class="text-base font-bold mb-2" style="color: var(--c-dark)">¿Qué cookies utilizamos?</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full border-collapse text-xs">
+            <thead>
+              <tr class="border-b border-gray-200">
+                <th class="py-2 px-3 text-left font-semibold" style="color: var(--c-dark)">Cookie</th>
+                <th class="py-2 px-3 text-left font-semibold" style="color: var(--c-dark)">Tipo</th>
+                <th class="py-2 px-3 text-left font-semibold" style="color: var(--c-dark)">Finalidad</th>
+                <th class="py-2 px-3 text-left font-semibold" style="color: var(--c-dark)">Duración</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-gray-100">
+                <td class="py-2 px-3">_ga, _gid</td>
+                <td class="py-2 px-3">Analítica (Google Analytics)</td>
+                <td class="py-2 px-3">Análisis de tráfico y comportamiento anónimo</td>
+                <td class="py-2 px-3">2 años / 24h</td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-2 px-3">cookie_consent</td>
+                <td class="py-2 px-3">Técnica / propia</td>
+                <td class="py-2 px-3">Recordar tu aceptación del banner de cookies</td>
+                <td class="py-2 px-3">1 año</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-base font-bold mb-2" style="color: var(--c-dark)">Gestión y retirada del consentimiento</h2>
+        <p>Puedes gestionar o deshabilitar las cookies desde la configuración de tu navegador. Ten en cuenta que deshabilitar ciertas cookies puede afectar al funcionamiento del sitio. Para retirar tu consentimiento puedes contactarnos en <a href={`mailto:${SITE.email}`} class="underline" style="color: var(--c-navy)">{SITE.email}</a>.</p>
+      </section>
+
+      <section>
+        <h2 class="text-base font-bold mb-2" style="color: var(--c-dark)">Más información</h2>
+        <p>Para más detalles sobre el tratamiento de tus datos, consulta nuestra <a href="/politica-de-privacidad" class="underline" style="color: var(--c-navy)">Política de Privacidad</a>.</p>
+      </section>
     </div>
   </main>
   <Footer />

@@ -1,20 +1,43 @@
 ---
 import '../styles/global.css';
-import { SITE } from '../config/site';
+import { SITE, FAQ } from '../config/site';
 
 interface Props {
   title: string;
   description?: string;
-  canonicalURL?: string;
+  canonical?: string;
+  includeFaqSchema?: boolean;
 }
 
 const {
   title,
   description = SITE.description,
-  canonicalURL = new URL(Astro.url.pathname, SITE.url).href,
+  canonical = new URL(Astro.url.pathname, SITE.url).href,
+  includeFaqSchema = false,
 } = Astro.props;
 
-const fullTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
+const fullTitle =
+  title === SITE.name ? title : `${title} | ${SITE.name}`;
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: SITE.name,
+  url: SITE.url,
+  description: SITE.description,
+  email: SITE.email,
+  sameAs: [SITE.social.instagram],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.filter(f => f.a).map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
 <!doctype html>
@@ -24,25 +47,30 @@ const fullTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalURL} />
+    <link rel="canonical" href={canonical} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="robots" content="index, follow" />
+
     <!-- Open Graph -->
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+
     <!-- Schema.org -->
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "RealEstateAgent",
-      "name": SITE.name,
-      "description": SITE.description,
-      "url": SITE.url,
-      "telephone": SITE.phone,
-      "email": SITE.email,
-    })} />
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    {includeFaqSchema && faqSchema.mainEntity.length > 0 && (
+      <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    )}
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://img.youtube.com" />
   </head>
   <body class="min-h-screen flex flex-col">
     <slot />
