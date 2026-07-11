@@ -2,10 +2,13 @@
 import { SITE } from '../config/site';
 const year = new Date().getFullYear();
 
-const footerNav = [
+const secciones = [
   { href: '/#servicios', label: 'Servicios' },
-  { href: '/#resultados', label: 'Resultados' },
-  { href: '/sobre-nosotros', label: 'Sobre nosotros' },
+  { href: '/#equipo', label: 'Equipo' },
+  { href: '/#testimonios', label: 'Testimonios' },
+];
+const informacion = [
+  { href: '/#faq', label: "FAQ's" },
   { href: '/contacto', label: 'Contacto' },
 ];
 const legal = [
@@ -22,7 +25,7 @@ const legal = [
     <div class="max-w-6xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
       <div>
         <p class="text-lg font-bold">Únete a la familia Melero.Realty</p>
-        <p class="text-white/50 text-sm mt-1">Estrategias, casos reales y recursos para escalar tu agencia. Sin spam.</p>
+        <p class="text-white/50 text-sm mt-1">Suscríbete y no te pierdas nada. Obtendrás descuentos únicos y te enterarás antes que nadie.</p>
       </div>
       <form
         action="https://api.web3forms.com/submit"
@@ -43,7 +46,7 @@ const legal = [
           type="submit"
           class="btn-gold text-sm whitespace-nowrap"
         >
-          Suscribirme
+          Notifícame
         </button>
       </form>
     </div>
@@ -73,9 +76,9 @@ const legal = [
     </div>
 
     <div>
-      <p class="text-xs uppercase tracking-widest text-white/40 mb-4">Navegación</p>
+      <p class="text-xs uppercase tracking-widest text-white/40 mb-4">Secciones</p>
       <ul class="space-y-2">
-        {footerNav.map(({ href, label }) => (
+        {secciones.map(({ href, label }) => (
           <li>
             <a href={href} class="text-sm text-white/60 hover:text-white transition-colors">
               {label}
@@ -86,15 +89,21 @@ const legal = [
     </div>
 
     <div>
-      <p class="text-xs uppercase tracking-widest text-white/40 mb-4">Contacto</p>
+      <p class="text-xs uppercase tracking-widest text-white/40 mb-4">Información</p>
+      <ul class="space-y-2">
+        {informacion.map(({ href, label }) => (
+          <li>
+            <a href={href} class="text-sm text-white/60 hover:text-white transition-colors">
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
       <a
         href={`mailto:${SITE.email}`}
-        class="text-sm text-white/60 hover:text-white transition-colors block mb-2"
+        class="text-sm text-white/60 hover:text-white transition-colors block mt-2"
       >
         {SITE.email}
-      </a>
-      <a href="/contacto" class="btn-gold text-sm mt-4 inline-block">
-        Agendar diagnóstico
       </a>
     </div>
   </div>

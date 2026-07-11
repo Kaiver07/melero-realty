@@ -12,7 +12,7 @@ export const SITE = {
   // web3forms access key — get yours free at web3forms.com
   web3formsKey: 'TU_ACCESS_KEY_AQUI',
   // YouTube video ID for the "Por qué Melero Realty" section
-  youtubeId: 'TU_VIDEO_ID_AQUI',
+  youtubeId: 'TLz7i5DMY-c',
   social: {
     instagram: 'https://instagram.com/melerorealty',
   },
@@ -33,32 +33,32 @@ export const STATS_BIG = [
 
 export const SERVICES = [
   {
-    icon: '📢',
+    icon: 'trend',
     title: 'Paid Ads Inmobiliario',
     desc: 'Campañas en Meta y Google diseñadas para captar propietarios y compradores cualificados. Sin presupuesto tirado.',
   },
   {
-    icon: '🔀',
+    icon: 'chat',
     title: 'Embudo de Captación',
     desc: 'Diseñamos el recorrido completo: desde el primer clic hasta la llamada agendada. Sin fricción.',
   },
   {
-    icon: '🎯',
+    icon: 'percent',
     title: 'Generación de Leads',
     desc: 'Leads exclusivos para tu agencia. No compartidos, no comprados a terceros. Tuyos.',
   },
   {
-    icon: '🏆',
+    icon: 'doc',
     title: 'Posicionamiento de Marca',
     desc: 'Construimos la presencia digital que hace que los clientes elijan tu agencia antes de llamar a la competencia.',
   },
   {
-    icon: '✍️',
+    icon: 'pencil',
     title: 'Contenido Estratégico',
     desc: 'Contenido que posiciona, educa y filtra. No publicaciones para rellenar el feed.',
   },
   {
-    icon: '🗺️',
+    icon: 'link',
     title: 'Estrategia y Consultoría',
     desc: 'Para agencias que quieren entender qué está fallando en su captación y cómo arreglarlo.',
   },
