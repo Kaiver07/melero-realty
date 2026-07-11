@@ -65,7 +65,7 @@ const CTA_TEXT = {
         </div>
 
         <!-- Foto + tarjetas flotantes -->
-        <div class="relative max-w-sm mx-auto md:mx-0 md:ml-auto pb-16 pr-6 md:pb-20 md:pr-10">
+        <div class="relative max-w-sm mx-auto md:mx-0 md:ml-auto">
           <div
             class="relative aspect-[4/5] rounded-3xl overflow-hidden"
             style="background: linear-gradient(160deg, var(--c-navy), var(--c-dark))"
@@ -74,19 +74,22 @@ const CTA_TEXT = {
             <svg class="absolute inset-0 w-full h-full text-white/10" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-10a4 4 0 110 8 4 4 0 010-8z"/>
             </svg>
+          </div>
 
-            <!-- avatar flotante -->
-            <div class="absolute -top-4 -right-4 w-14 h-14 rounded-full flex items-center justify-center border-4 border-white/10" style="background: rgba(255,255,255,0.15); backdrop-filter: blur(4px)">
-              <svg class="w-6 h-6 text-white/70" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-10a4 4 0 110 8 4 4 0 010-8z"/>
-              </svg>
-            </div>
+          <!-- avatar flotante -->
+          <div
+            class="absolute -top-5 -right-5 w-14 h-14 rounded-full flex items-center justify-center shadow-lg"
+            style="background: linear-gradient(160deg, #7a8a8c, #4a5a5c)"
+          >
+            <svg class="w-6 h-6 text-white/80" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 12c2.7 0 8 1.34 8 4v2H4v-2c0-2.66 5.3-4 8-4zm0-10a4 4 0 110 8 4 4 0 010-8z"/>
+            </svg>
           </div>
 
           <!-- tarjeta: inmobiliarias -->
           <div
-            class="absolute left-0 bottom-24 md:bottom-28 flex items-center gap-2 pl-4 pr-5 py-2.5 rounded-full"
-            style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(8px)"
+            class="absolute left-[-1.5rem] bottom-[33%] flex items-center gap-2 pl-4 pr-5 py-2.5 rounded-full shadow-lg"
+            style="background: rgba(20,30,32,0.75); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(8px)"
           >
             <span class="text-base">🏆</span>
             <span class="text-sm text-white font-medium whitespace-nowrap">{STATS[1].value} {STATS[1].label}</span>
@@ -94,8 +97,8 @@ const CTA_TEXT = {
 
           <!-- tarjeta: ROI -->
           <div
-            class="absolute left-0 bottom-0 w-64 p-5 rounded-2xl"
-            style="background: rgba(0,35,41,0.6); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(8px)"
+            class="absolute left-[-1.5rem] bottom-[9%] w-60 p-5 rounded-2xl shadow-lg"
+            style="background: rgba(0,20,24,0.8); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(8px)"
           >
             <div class="flex items-center gap-2 mb-2">
               <span class="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style="background: rgba(255,255,255,0.1)">⚡</span>
