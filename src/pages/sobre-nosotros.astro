@@ -16,7 +16,7 @@ import { TEAM } from '../config/site';
     <!-- Hero -->
     <section class="py-20" style="background: var(--c-dark)">
       <div class="max-w-3xl mx-auto px-4 text-center">
-        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-gold)">Sobre nosotros</p>
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent)">Sobre nosotros</p>
         <h1 class="text-4xl md:text-5xl font-black text-white mb-6">
           Especialistas en<br />captación inmobiliaria
         </h1>
@@ -56,7 +56,7 @@ import { TEAM } from '../config/site';
             { title: 'Acompañamiento continuo', desc: 'No lanzamos y desaparecemos. Reporte semanal y acceso directo a la CEO durante todo el proceso.' },
           ].map(v => (
             <div class="bg-white rounded-2xl p-6 border border-gray-100">
-              <div class="w-2 h-2 rounded-full mb-3" style="background: var(--c-gold)"></div>
+              <div class="w-2 h-2 rounded-full mb-3" style="background: var(--c-accent)"></div>
               <h3 class="font-bold mb-2" style="color: var(--c-dark)">{v.title}</h3>
               <p class="text-sm leading-relaxed" style="color: var(--c-muted)">{v.desc}</p>
             </div>
@@ -70,17 +70,12 @@ import { TEAM } from '../config/site';
       <div class="max-w-4xl mx-auto px-4">
         <h2 class="text-2xl font-black text-white mb-10 text-center">El equipo</h2>
         <div class="grid sm:grid-cols-2 gap-6">
-          {TEAM.map(({ name, role, initials }) => (
+          {TEAM.map(({ name, role, photo }) => (
             <div class="flex items-center gap-5 bg-white/5 rounded-2xl p-6 border border-white/10">
-              <div
-                class="w-16 h-16 rounded-full shrink-0 flex items-center justify-center text-lg font-black"
-                style="background: var(--c-navy); color: var(--c-gold)"
-              >
-                {initials}
-              </div>
+              <img src={photo} alt={name} class="w-16 h-16 rounded-full shrink-0 object-cover" loading="lazy" />
               <div>
                 <p class="font-bold text-white">{name}</p>
-                <p class="text-sm mt-0.5" style="color: var(--c-gold)">{role}</p>
+                <p class="text-sm mt-0.5" style="color: var(--c-accent)">{role}</p>
               </div>
             </div>
           ))}
