@@ -43,12 +43,6 @@ export const SERVICES = [
     desc: 'Diseñamos el recorrido completo: desde el primer clic hasta la llamada agendada. Sin fricción.',
   },
   {
-    icon: '💼',
-    title: 'Business Solutions',
-    // Pendiente de definir por el equipo — contenido por añadir
-    desc: '',
-  },
-  {
     icon: '🎯',
     title: 'Generación de Leads',
     desc: 'Leads exclusivos para tu agencia. No compartidos, no comprados a terceros. Tuyos.',
@@ -123,27 +117,26 @@ export const TEAM = [
 export const FAQ = [
   {
     q: '¿Trabajáis con cualquier tipo de agencia?',
-    // Pendiente de respuesta real
-    a: '',
+    a: 'Trabajamos con inmobiliarias, siempre que estén en activo.',
   },
   {
     q: '¿Qué necesito para empezar?',
-    a: '',
+    a: 'Muchas ganas de crecer y una mentalidad abierta para empezar a trabajar desde la identidad de la marca.',
   },
   {
     q: '¿Cuánto tiempo hasta ver resultados?',
-    a: '',
+    a: 'Los primeros resultados se empiezan a ver en torno a 20 días. Antes de 3 meses no se puede garantizar nada: el margen de error es nuestro mejor amigo.',
   },
   {
     q: '¿Qué presupuesto mínimo necesito?',
-    a: '',
+    a: 'El presupuesto mínimo necesario es de 3.200€.',
   },
   {
     q: '¿Trabajáis con exclusividad por zona?',
-    a: '',
+    a: 'Sí.',
   },
   {
     q: '¿Cuánto dura el contrato?',
-    a: '',
+    a: 'El contrato tiene una duración de 6 meses.',
   },
 ] as const;
