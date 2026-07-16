@@ -11,7 +11,7 @@
   --c-bg-lt:     #f5f5f5;
   --c-text:      #0d0d0d;
   --c-muted:     #5c6b6d;
-  --c-hero-gradient: linear-gradient(206deg, #33824d 0%, #002329 46%, #002329 100%);
+  --c-hero-gradient: #002329;
 }
 
 html { scroll-behavior: smooth; }
