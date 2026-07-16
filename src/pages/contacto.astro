@@ -39,15 +39,9 @@ import { SITE } from '../config/site';
       <!-- Form -->
       <form
         id="diag-form"
-        action="https://api.web3forms.com/submit"
-        method="POST"
+        data-sheets-url={SITE.sheetsWebAppUrl}
         class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
       >
-        <input type="hidden" name="access_key" value={SITE.web3formsKey} />
-        <input type="hidden" name="subject" value="Nuevo diagnóstico de captación inmobiliaria" />
-        <input type="hidden" name="redirect" value="false" />
-        <input type="hidden" name="from_name" value="Formulario Melero Realty" />
-
         <!-- ── PASO 1: Perfil ── -->
         <fieldset data-step="1" class="step-panel px-6 py-8 space-y-5">
           <legend class="text-lg font-bold mb-6" style="color: var(--c-dark)">Cuéntanos sobre ti</legend>
@@ -342,23 +336,25 @@ import { SITE } from '../config/site';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  // Web3Forms async submit
+  // Envío a Google Sheets vía Apps Script
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     btnSub.disabled = true;
     btnSub.textContent = 'Enviando…';
 
     const data = new FormData(form);
-    const res = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      body: data,
-    });
+    try {
+      const res = await fetch(form.dataset.sheetsUrl!, {
+        method: 'POST',
+        body: data,
+      });
 
-    if (res.ok) {
+      if (!res.ok) throw new Error('request failed');
+
       form.classList.add('hidden');
       success.classList.remove('hidden');
       document.getElementById('diag-form')?.previousElementSibling?.classList.add('hidden');
-    } else {
+    } catch {
       btnSub.disabled = false;
       btnSub.textContent = 'Enviar diagnóstico →';
       alert('Hubo un error al enviar. Por favor, inténtalo de nuevo.');
