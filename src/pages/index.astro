@@ -36,6 +36,8 @@ const CTA_TEXT = {
       <img
         src="/images/hero-villa.webp"
         alt=""
+        width="1672"
+        height="941"
         fetchpriority="high"
         class="absolute inset-0 w-full h-full object-cover"
       />
@@ -47,7 +49,7 @@ const CTA_TEXT = {
       <div class="relative max-w-6xl mx-auto px-4 w-full">
         <div class="max-w-3xl">
           <h1
-            class="text-3xl sm:text-4xl md:text-5xl font-semibold tracking-wide text-white leading-snug mb-8"
+            class="text-3xl sm:text-4xl md:text-5xl font-black tracking-wide text-white leading-snug mb-8"
             style="text-shadow: 0 2px 16px rgba(0,0,0,0.45)"
           >
             El sistema de captación de <em class="font-serif italic">leads</em> en el que confían las agencias inmobiliarias <em class="font-serif italic">líderes</em>.
@@ -79,7 +81,7 @@ const CTA_TEXT = {
     <section id="servicios" class="py-20" style="background: var(--c-bg-lt)">
       <div class="max-w-6xl mx-auto px-4">
         <div class="text-center mb-14">
-          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent)">Lo que hacemos</p>
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent-dk)">Lo que hacemos</p>
           <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
             Un sistema completo de captación
           </h2>
@@ -115,7 +117,7 @@ const CTA_TEXT = {
     <!-- ═══════════════════════════════
          PRUEBA SOCIAL
     ════════════════════════════════ -->
-    <section class="py-16" style="background: var(--c-dark)">
+    <section class="py-16 md:py-20" style="background: var(--c-dark)">
       <div class="max-w-4xl mx-auto px-4 text-center">
         <p class="text-xl md:text-2xl font-bold text-white mb-10">
           Especializados al 100% en captación para negocios inmobiliarios.
@@ -136,8 +138,8 @@ const CTA_TEXT = {
     ════════════════════════════════ -->
     <section id="proceso" class="py-20" style="background: var(--c-bg)">
       <div class="max-w-5xl mx-auto px-4">
-        <div class="text-center mb-16">
-          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent)">Cómo trabajamos</p>
+        <div class="text-center mb-14">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent-dk)">Cómo trabajamos</p>
           <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
             De la primera llamada a los primeros leads
           </h2>
@@ -175,6 +177,7 @@ const CTA_TEXT = {
 
       <div class="relative max-w-4xl mx-auto px-4">
         <div class="text-center mb-14">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent)">Especialización real</p>
           <h2 class="text-3xl md:text-4xl font-black text-white mb-4">
             Por qué Melero Realty
           </h2>
@@ -213,7 +216,8 @@ const CTA_TEXT = {
     ════════════════════════════════ -->
     <section class="py-20" style="background: var(--c-dark)">
       <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-12">
+        <div class="text-center mb-14">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent)">La diferencia</p>
           <h2 class="text-3xl md:text-4xl font-black text-white mb-4">
             Por qué Melero Realty y no otra agencia
           </h2>
@@ -260,8 +264,9 @@ const CTA_TEXT = {
     ════════════════════════════════ -->
     <section id="testimonios" class="py-20" style="background: var(--c-bg)">
       <div class="max-w-6xl mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-black mb-3" style="color: var(--c-dark)">
+        <div class="text-center mb-14">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent-dk)">Resultados reales</p>
+          <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
             Lo que dicen los que ya trabajan con nosotros
           </h2>
           <p style="color: var(--c-muted)">Sin filtros.</p>
@@ -286,14 +291,15 @@ const CTA_TEXT = {
     ════════════════════════════════ -->
     <section id="equipo" class="py-20" style="background: var(--c-bg-lt)">
       <div class="max-w-5xl mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-black mb-3" style="color: var(--c-dark)">
+        <div class="text-center mb-14">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent-dk)">El equipo</p>
+          <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
             Quiénes están detrás
           </h2>
           <p style="color: var(--c-muted)">Un equipo pequeño, especializado y con las manos en la masa.</p>
         </div>
 
-        <div class="grid grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
           {TEAM.map(({ name, role, photo }) => (
             <div class="relative aspect-[3/4] rounded-2xl overflow-hidden">
               <img src={photo} alt={name} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
@@ -313,8 +319,9 @@ const CTA_TEXT = {
     ════════════════════════════════ -->
     <section id="faq" class="py-20" style="background: var(--c-bg-lt)">
       <div class="max-w-2xl mx-auto px-4">
-        <div class="text-center mb-12">
-          <h2 class="text-3xl md:text-4xl font-black mb-3" style="color: var(--c-dark)">
+        <div class="text-center mb-14">
+          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent-dk)">Preguntas frecuentes</p>
+          <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
             Lo que nos suelen preguntar
           </h2>
           <p style="color: var(--c-muted)">Si tienes otra duda, escríbenos.</p>
