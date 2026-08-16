@@ -8,7 +8,7 @@ const nav = [
 
 <header
   class="sticky top-0 z-50 border-b border-white/10"
-  style="background: var(--c-dark)"
+  style="background: linear-gradient(100deg, var(--c-dark) 0%, var(--c-dark) 9%, #0a0a0a 40%, #000000 100%)"
 >
   <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-6">
 
@@ -24,17 +24,24 @@ const nav = [
         <li>
           <a
             href={href}
-            class="text-sm font-medium text-white/70 hover:text-white transition-colors"
+            class="group relative inline-block py-1 text-sm font-medium text-white transition-colors"
           >
             {label}
+            <span class="absolute left-0 -bottom-1 h-0.5 w-full origin-left scale-x-0 rounded-full transition-transform duration-200 group-hover:scale-x-100" style="background: var(--c-gold)"></span>
           </a>
         </li>
       ))}
     </ul>
 
     <!-- CTA -->
-    <a href="/contacto" class="btn-gold shrink-0 text-sm hidden sm:inline-block">
-      Contáctanos
+    <a
+      href="/contacto"
+      aria-label="Contáctanos"
+      class="group shrink-0 hidden sm:flex w-11 h-11 items-center justify-center rounded-full border-2 border-white/70 bg-transparent transition-colors hover:bg-[var(--c-gold)] hover:border-[var(--c-gold)] active:bg-[var(--c-gold)] active:border-[var(--c-gold)]"
+    >
+      <svg class="w-5 h-5 text-white group-hover:text-[var(--c-dark)] group-active:text-[var(--c-dark)] transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+      </svg>
     </a>
 
     <!-- Mobile burger -->

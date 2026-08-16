@@ -64,6 +64,34 @@ export const SERVICES = [
   },
 ] as const;
 
+export const PROCESO = [
+  {
+    step: '01',
+    title: 'Diagnóstico inicial',
+    desc: 'Analizamos tu agencia, tu zona y tu competencia para detectar dónde estás perdiendo leads.',
+  },
+  {
+    step: '02',
+    title: 'Estrategia a medida',
+    desc: 'Diseñamos el embudo y los canales de captación específicos para tu mercado. Nada genérico.',
+  },
+  {
+    step: '03',
+    title: 'Lanzamiento y captación',
+    desc: 'Activamos las campañas y el sistema de captación exclusivo para tu marca.',
+  },
+  {
+    step: '04',
+    title: 'Optimización continua',
+    desc: 'Ajustamos semana a semana según coste por lead y calidad real, no métricas de vanidad.',
+  },
+  {
+    step: '05',
+    title: 'Resultados y escalado',
+    desc: 'Con el sistema validado, escalamos inversión y ampliamos zonas de captación.',
+  },
+] as const;
+
 export const COMPARISON = [
   {
     ellos: 'Estrategias genéricas sin conocimiento del sector',
