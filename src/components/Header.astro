@@ -1,53 +1,47 @@
 ---
 const nav = [
   { href: '/#servicios', label: 'Servicios' },
-  { href: '/#resultados', label: 'Nuestro trabajo' },
-  { href: '/sobre-nosotros', label: 'Sobre nosotros' },
+  { href: '/#proceso', label: 'Proceso' },
+  { href: '/#comparativa', label: 'Comparativa' },
+  { href: '/#equipo', label: 'Equipo' },
+  { href: '/#faq', label: 'FAQ' },
 ];
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-white/10"
-  style="background: linear-gradient(100deg, var(--c-dark) 0%, var(--c-dark) 9%, #0a0a0a 40%, #000000 100%)"
+  class="sticky top-0 z-50"
+  style="background: var(--color-bg); border-bottom: 2px solid var(--color-divider)"
 >
-  <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-6">
+  <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-3.5 flex items-center gap-10">
 
-    <!-- Logo -->
-    <a href="/" class="shrink-0 flex items-baseline gap-1">
-      <span class="text-xl font-bold text-white tracking-tight">Melero</span>
-      <span class="text-xl font-light text-white/80">Realty</span>
-    </a>
-
-    <!-- Desktop nav -->
-    <ul class="hidden md:flex items-center gap-7">
-      {nav.map(({ href, label }) => (
-        <li>
-          <a
-            href={href}
-            class="group relative inline-block py-1 text-sm font-medium text-white transition-colors"
-          >
-            {label}
-            <span class="absolute left-0 -bottom-1 h-0.5 w-full origin-left scale-x-0 rounded-full transition-transform duration-200 group-hover:scale-x-100" style="background: var(--c-gold)"></span>
-          </a>
-        </li>
-      ))}
-    </ul>
-
-    <!-- CTA -->
     <a
-      href="/contacto"
-      aria-label="Contáctanos"
-      class="group shrink-0 hidden sm:flex w-11 h-11 items-center justify-center rounded-full border-2 border-white/70 bg-transparent transition-colors hover:bg-[var(--c-gold)] hover:border-[var(--c-gold)] active:bg-[var(--c-gold)] active:border-[var(--c-gold)]"
+      href="/"
+      style="font-family: var(--font-heading); font-weight: 800; font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-text); text-decoration: none"
     >
-      <svg class="w-5 h-5 text-white group-hover:text-[var(--c-dark)] group-active:text-[var(--c-dark)] transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-      </svg>
+      Melero Realty
     </a>
 
-    <!-- Mobile burger -->
+    <nav id="nav-links" class="hidden lg:flex items-center gap-7 ml-auto">
+      {nav.map(({ href, label }) => (
+        <a
+          href={href}
+          class="group relative"
+          style="font-size: 13px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--color-text); text-decoration: none"
+        >
+          {label}
+          <span class="absolute left-0 -bottom-1 h-px w-full origin-left scale-x-0 transition-transform duration-200 group-hover:scale-x-100" style="background: var(--color-accent)"></span>
+        </a>
+      ))}
+    </nav>
+
+    <a href="/contacto" class="btn btn-primary ml-auto lg:ml-0 whitespace-nowrap">
+      Agendar diagnóstico
+    </a>
+
     <button
       id="burger"
-      class="md:hidden p-2 text-white/70 hover:text-white"
+      class="lg:hidden p-2 -mr-2"
+      style="color: var(--color-text)"
       aria-label="Abrir menú"
     >
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -55,23 +49,21 @@ const nav = [
         <path id="burger-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
       </svg>
     </button>
-  </nav>
+  </div>
 
-  <!-- Mobile menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-white/10">
-    <ul class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-3">
+  <div id="mobile-menu" class="hidden lg:hidden" style="border-top: 2px solid var(--color-divider); background: var(--color-bg)">
+    <ul class="max-w-[1440px] mx-auto px-4 py-4 flex flex-col gap-1">
       {nav.map(({ href, label }) => (
         <li>
-          <a href={href} class="block text-white/80 hover:text-white py-1 text-sm font-medium">
+          <a
+            href={href}
+            class="block py-2.5"
+            style="font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--color-text); text-decoration: none"
+          >
             {label}
           </a>
         </li>
       ))}
-      <li class="pt-2">
-        <a href="/contacto" class="btn-gold text-sm w-full text-center block">
-          Contáctanos
-        </a>
-      </li>
     </ul>
   </div>
 </header>
@@ -89,7 +81,6 @@ const nav = [
     close.classList.toggle('hidden', isOpen);
   });
 
-  // Close on nav link click
   menu.querySelectorAll('a').forEach(a =>
     a.addEventListener('click', () => {
       menu.classList.add('hidden');

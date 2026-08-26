@@ -11,28 +11,28 @@ import { SITE } from '../config/site';
 >
   <Header />
 
-  <main class="flex-1 py-16" style="background: var(--c-bg-lt)">
+  <main class="flex-1 py-16" style="background: var(--color-surface)">
     <div class="max-w-2xl mx-auto px-4">
 
       <!-- Intro -->
       <div class="text-center mb-10">
-        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent)">Primer paso</p>
-        <h1 class="text-3xl md:text-4xl font-black mb-3" style="color: var(--c-dark)">
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent)">Primer paso</p>
+        <h1 class="text-3xl md:text-4xl font-black mb-3" style="color: var(--color-text)">
           Diagnóstico de Captación Inmobiliaria
         </h1>
-        <p class="text-base" style="color: var(--c-muted)">
+        <p class="text-base" style="color: var(--color-muted)">
           Rellena este formulario y analizamos tu situación actual. Solo trabajamos con agencias con las que podemos generar un impacto real.
         </p>
       </div>
 
       <!-- Progress bar -->
       <div class="mb-8">
-        <div class="flex justify-between text-xs mb-2" style="color: var(--c-muted)">
+        <div class="flex justify-between text-xs mb-2" style="color: var(--color-muted)">
           <span id="step-label">Paso 1 de 5</span>
           <span id="step-pct">20%</span>
         </div>
         <div class="h-1.5 rounded-full bg-gray-200 overflow-hidden">
-          <div id="progress-bar" class="h-full rounded-full transition-all duration-300" style="background: var(--c-accent); width: 20%"></div>
+          <div id="progress-bar" class="h-full rounded-full transition-all duration-300" style="background: var(--color-accent); width: 20%"></div>
         </div>
       </div>
 
@@ -44,74 +44,74 @@ import { SITE } from '../config/site';
       >
         <!-- ── PASO 1: Perfil ── -->
         <fieldset data-step="1" class="step-panel px-6 py-8 space-y-5">
-          <legend class="text-lg font-bold mb-6" style="color: var(--c-dark)">Cuéntanos sobre ti</legend>
+          <legend class="text-lg font-bold mb-6" style="color: var(--color-text)">Cuéntanos sobre ti</legend>
 
           <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--c-dark)">Nombre completo *</label>
+            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">Nombre completo *</label>
             <input type="text" name="nombre" required placeholder="Tu nombre" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors" />
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--c-dark)">Correo electrónico *</label>
+            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">Correo electrónico *</label>
             <input type="email" name="email" required placeholder="tu@email.com" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors" />
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--c-dark)">Teléfono / WhatsApp *</label>
+            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">Teléfono / WhatsApp *</label>
             <input type="tel" name="telefono" required placeholder="+34 600 000 000" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors" />
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--c-dark)">Instagram o web de tu negocio *</label>
+            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">Instagram o web de tu negocio *</label>
             <input type="text" name="instagram_web" required placeholder="@tuagencia o https://tuagencia.com" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors" />
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--c-dark)">¿Cuál es tu rol actualmente? *</label>
+            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Cuál es tu rol actualmente? *</label>
             <div class="space-y-2">
               {['Asesor/a inmobiliario', 'Dueño/a de agencia'].map(opt => (
                 <label class="flex items-center gap-2.5 cursor-pointer">
                   <input type="radio" name="rol" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--c-text)">{opt}</span>
+                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
                 </label>
               ))}
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--c-dark)">¿En qué zona trabajas principalmente? *</label>
+            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿En qué zona trabajas principalmente? *</label>
             <input type="text" name="zona" required placeholder="Ej: Madrid, Barcelona, Miami…" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors" />
           </div>
         </fieldset>
 
         <!-- ── PASO 2: Tu negocio ── -->
         <fieldset data-step="2" class="step-panel hidden px-6 py-8 space-y-5">
-          <legend class="text-lg font-bold mb-6" style="color: var(--c-dark)">Tu negocio</legend>
+          <legend class="text-lg font-bold mb-6" style="color: var(--color-text)">Tu negocio</legend>
 
           <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--c-dark)">¿Qué tipo de propiedades trabajas? *</label>
+            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Qué tipo de propiedades trabajas? *</label>
             <div class="space-y-2">
               {['Residencial', 'Lujo', 'Inversión', 'Promociones / obra nueva', 'Variado'].map(opt => (
                 <label class="flex items-center gap-2.5 cursor-pointer">
                   <input type="checkbox" name="tipo_propiedades" value={opt} class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--c-text)">{opt}</span>
+                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
                 </label>
               ))}
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--c-dark)">¿Cómo estás consiguiendo clientes actualmente? *</label>
+            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Cómo estás consiguiendo clientes actualmente? *</label>
             <textarea name="captacion_actual" required rows="3" placeholder="Portales, referidos, redes sociales…" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors resize-none"></textarea>
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--c-dark)">¿Estás invirtiendo en publicidad ahora mismo? *</label>
+            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Estás invirtiendo en publicidad ahora mismo? *</label>
             <div class="space-y-2">
               {['Sí, de forma constante', 'Sí, pero sin estructura', 'No'].map(opt => (
                 <label class="flex items-center gap-2.5 cursor-pointer">
                   <input type="radio" name="publicidad" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--c-text)">{opt}</span>
+                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
                 </label>
               ))}
             </div>
@@ -120,39 +120,39 @@ import { SITE } from '../config/site';
 
         <!-- ── PASO 3: Números ── -->
         <fieldset data-step="3" class="step-panel hidden px-6 py-8 space-y-5">
-          <legend class="text-lg font-bold mb-6" style="color: var(--c-dark)">Tus números</legend>
+          <legend class="text-lg font-bold mb-6" style="color: var(--color-text)">Tus números</legend>
 
           <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--c-dark)">¿Cuántos leads generas al mes aproximadamente? *</label>
+            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Cuántos leads generas al mes aproximadamente? *</label>
             <div class="space-y-2">
               {['Menos de 10', '10-30', '30-100', '+100'].map(opt => (
                 <label class="flex items-center gap-2.5 cursor-pointer">
                   <input type="radio" name="leads_mes" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--c-text)">{opt}</span>
+                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
                 </label>
               ))}
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--c-dark)">¿Qué porcentaje de esos leads se convierten en clientes reales? *</label>
+            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Qué porcentaje de esos leads se convierten en clientes reales? *</label>
             <div class="space-y-2">
               {['Muy bajo', 'Medio', 'Alto', 'No lo tengo medido'].map(opt => (
                 <label class="flex items-center gap-2.5 cursor-pointer">
                   <input type="radio" name="conversion" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--c-text)">{opt}</span>
+                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
                 </label>
               ))}
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--c-dark)">Facturación mensual aproximada *</label>
+            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">Facturación mensual aproximada *</label>
             <div class="space-y-2">
               {['Menos de 3.000€', '3.000€ - 10.000€', '10.000€ - 30.000€', '+30.000€'].map(opt => (
                 <label class="flex items-center gap-2.5 cursor-pointer">
                   <input type="radio" name="facturacion" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--c-text)">{opt}</span>
+                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
                 </label>
               ))}
             </div>
@@ -161,66 +161,66 @@ import { SITE } from '../config/site';
 
         <!-- ── PASO 4: Situación y objetivos ── -->
         <fieldset data-step="4" class="step-panel hidden px-6 py-8 space-y-5">
-          <legend class="text-lg font-bold mb-6" style="color: var(--c-dark)">Tu situación y objetivos</legend>
+          <legend class="text-lg font-bold mb-6" style="color: var(--color-text)">Tu situación y objetivos</legend>
 
           <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--c-dark)">¿Cuál es tu objetivo realista para los próximos 6 meses? *</label>
+            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Cuál es tu objetivo realista para los próximos 6 meses? *</label>
             <textarea name="objetivo_6m" required rows="3" placeholder="Duplicar leads, cerrar 5 ventas más al mes…" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors resize-none"></textarea>
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--c-dark)">¿Cuál es el mayor bloqueo ahora mismo en tu captación o ventas? *</label>
+            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Cuál es el mayor bloqueo ahora mismo en tu captación o ventas? *</label>
             <textarea name="bloqueo" required rows="3" placeholder="Cuéntanos qué es lo que más te frena" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors resize-none"></textarea>
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--c-dark)">¿Qué has probado hasta ahora que no ha funcionado? *</label>
+            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Qué has probado hasta ahora que no ha funcionado? *</label>
             <textarea name="intentado" required rows="3" placeholder="Agencias, portales, ads por tu cuenta…" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors resize-none"></textarea>
           </div>
         </fieldset>
 
         <!-- ── PASO 5: Decisión + envío ── -->
         <fieldset data-step="5" class="step-panel hidden px-6 py-8 space-y-5">
-          <legend class="text-lg font-bold mb-6" style="color: var(--c-dark)">Antes de terminar</legend>
+          <legend class="text-lg font-bold mb-6" style="color: var(--color-text)">Antes de terminar</legend>
 
           <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--c-dark)">¿Qué prioridad tiene para ti resolver esto? *</label>
+            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Qué prioridad tiene para ti resolver esto? *</label>
             <div class="space-y-2">
               {['Urgente (lo necesito ya)', 'Alto (quiero resolverlo en breve)', 'Media (estoy explorando opciones)'].map(opt => (
                 <label class="flex items-center gap-2.5 cursor-pointer">
                   <input type="radio" name="prioridad" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--c-text)">{opt}</span>
+                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
                 </label>
               ))}
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--c-dark)">¿Podrías tomar una decisión económica hoy solo/a? *</label>
+            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Podrías tomar una decisión económica hoy solo/a? *</label>
             <div class="space-y-2">
               {['Sí', 'No, dependo de socios', 'No, dependo de otra persona'].map(opt => (
                 <label class="flex items-center gap-2.5 cursor-pointer">
                   <input type="radio" name="decisor" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--c-text)">{opt}</span>
+                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
                 </label>
               ))}
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--c-dark)">Capital líquido disponible hoy para implementar una solución *</label>
+            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">Capital líquido disponible hoy para implementar una solución *</label>
             <div class="space-y-2">
               {['Menos de 1.000€', 'Menos de 1.000€ pero puedo conseguir más', '1.000€ - 3.000€', '3.000€ - 6.000€', '+6.000€'].map(opt => (
                 <label class="flex items-center gap-2.5 cursor-pointer">
                   <input type="radio" name="capital" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--c-text)">{opt}</span>
+                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
                 </label>
               ))}
             </div>
           </div>
 
           <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--c-dark)">¿Por qué quieres escalar ahora tu negocio? *</label>
+            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Por qué quieres escalar ahora tu negocio? *</label>
             <textarea name="por_que_ahora" required rows="3" placeholder="Cuéntanos qué te ha llevado a buscar una solución ahora" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors resize-none"></textarea>
           </div>
 
@@ -228,9 +228,9 @@ import { SITE } from '../config/site';
           <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
             <label class="flex items-start gap-3 cursor-pointer">
               <input type="checkbox" name="consentimiento" value="De acuerdo" required class="mt-0.5 accent-amber-500" />
-              <span class="text-xs leading-relaxed" style="color: var(--c-muted)">
+              <span class="text-xs leading-relaxed" style="color: var(--color-muted)">
                 Acepto recibir comunicaciones comerciales y promociones de Melero Realty. Entiendo que mis datos serán tratados conforme a la
-                <a href="/politica-de-privacidad" class="underline hover:text-gray-900" style="color: var(--c-navy)" target="_blank">política de privacidad</a>
+                <a href="/politica-de-privacidad" class="underline hover:text-gray-900" style="color: var(--color-accent)" target="_blank">política de privacidad</a>
                 y que puedo darme de baja en cualquier momento.
               </span>
             </label>
@@ -268,8 +268,8 @@ import { SITE } from '../config/site';
       <!-- Success message (hidden) -->
       <div id="form-success" class="hidden text-center py-16">
         <div class="text-5xl mb-4">🎯</div>
-        <h2 class="text-2xl font-black mb-2" style="color: var(--c-dark)">¡Diagnóstico recibido!</h2>
-        <p class="text-base mb-6" style="color: var(--c-muted)">
+        <h2 class="text-2xl font-black mb-2" style="color: var(--color-text)">¡Diagnóstico recibido!</h2>
+        <p class="text-base mb-6" style="color: var(--color-muted)">
           Revisaremos tu caso y nos pondremos en contacto contigo en las próximas 24-48h.
         </p>
         <a href="/" class="btn-gold">Volver al inicio</a>

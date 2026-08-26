@@ -14,9 +14,9 @@ import { TEAM } from '../config/site';
   <main class="flex-1">
 
     <!-- Hero -->
-    <section class="py-20" style="background: var(--c-dark)">
+    <section class="py-20" style="background: var(--color-ink)">
       <div class="max-w-3xl mx-auto px-4 text-center">
-        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent)">Sobre nosotros</p>
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent)">Sobre nosotros</p>
         <h1 class="text-4xl md:text-5xl font-black text-white mb-6">
           Especialistas en<br />captación inmobiliaria
         </h1>
@@ -27,10 +27,10 @@ import { TEAM } from '../config/site';
     </section>
 
     <!-- Historia -->
-    <section class="py-20" style="background: var(--c-bg)">
+    <section class="py-20" style="background: var(--color-bg)">
       <div class="max-w-3xl mx-auto px-4">
-        <h2 class="text-2xl font-black mb-6" style="color: var(--c-dark)">Nuestra historia</h2>
-        <div class="space-y-4 text-base leading-relaxed" style="color: var(--c-muted)">
+        <h2 class="text-2xl font-black mb-6" style="color: var(--color-text)">Nuestra historia</h2>
+        <div class="space-y-4 text-base leading-relaxed" style="color: var(--color-muted)">
           <p>
             Melero Realty nació de una frustración real: ver cómo agencias y asesores inmobiliarios con talento y trabajo seguían dependiendo de portales para sobrevivir, pagando más cada año por leads de peor calidad, sin control sobre su propio crecimiento.
           </p>
@@ -45,9 +45,9 @@ import { TEAM } from '../config/site';
     </section>
 
     <!-- Valores -->
-    <section class="py-20" style="background: var(--c-bg-lt)">
+    <section class="py-20" style="background: var(--color-surface)">
       <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-2xl font-black mb-10 text-center" style="color: var(--c-dark)">Cómo trabajamos</h2>
+        <h2 class="text-2xl font-black mb-10 text-center" style="color: var(--color-text)">Cómo trabajamos</h2>
         <div class="grid sm:grid-cols-2 gap-6">
           {[
             { title: 'Solo inmobiliario', desc: 'No tocamos otras industrias. Eso nos da una ventaja de conocimiento que ninguna agencia generalista puede replicar.' },
@@ -56,9 +56,9 @@ import { TEAM } from '../config/site';
             { title: 'Acompañamiento continuo', desc: 'No lanzamos y desaparecemos. Reporte semanal y acceso directo a la CEO durante todo el proceso.' },
           ].map(v => (
             <div class="bg-white rounded-2xl p-6 border border-gray-100">
-              <div class="w-2 h-2 rounded-full mb-3" style="background: var(--c-accent)"></div>
-              <h3 class="font-bold mb-2" style="color: var(--c-dark)">{v.title}</h3>
-              <p class="text-sm leading-relaxed" style="color: var(--c-muted)">{v.desc}</p>
+              <div class="w-2 h-2 rounded-full mb-3" style="background: var(--color-accent)"></div>
+              <h3 class="font-bold mb-2" style="color: var(--color-text)">{v.title}</h3>
+              <p class="text-sm leading-relaxed" style="color: var(--color-muted)">{v.desc}</p>
             </div>
           ))}
         </div>
@@ -66,7 +66,7 @@ import { TEAM } from '../config/site';
     </section>
 
     <!-- Equipo ampliado -->
-    <section class="py-20" style="background: var(--c-dark)">
+    <section class="py-20" style="background: var(--color-ink)">
       <div class="max-w-4xl mx-auto px-4">
         <h2 class="text-2xl font-black text-white mb-10 text-center">El equipo</h2>
         <div class="grid sm:grid-cols-3 gap-6">
@@ -75,7 +75,7 @@ import { TEAM } from '../config/site';
               <img src={photo} alt={name} class="w-16 h-16 rounded-full shrink-0 object-cover" loading="lazy" />
               <div>
                 <p class="font-bold text-white">{name}</p>
-                <p class="text-sm mt-0.5" style="color: var(--c-accent)">{role}</p>
+                <p class="text-sm mt-0.5" style="color: var(--color-accent)">{role}</p>
               </div>
             </div>
           ))}
@@ -84,7 +84,7 @@ import { TEAM } from '../config/site';
     </section>
 
     <!-- CTA -->
-    <section class="py-20" style="background: var(--c-navy)">
+    <section class="py-20" style="background: var(--color-ink)">
       <div class="max-w-2xl mx-auto px-4 text-center">
         <h2 class="text-2xl md:text-3xl font-black text-white mb-4">
           ¿Quieres que hablemos de tu caso?

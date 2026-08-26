@@ -6,17 +6,18 @@ import VideoEmbed from '../components/VideoEmbed.astro';
 import { SITE, STATS_BIG, SERVICES, PROCESO, COMPARISON, TESTIMONIALS, TEAM, FAQ } from '../config/site';
 
 const ICONS: Record<string, string> = {
-  trend: 'M12 19V5M5 12l7-7 7 7',
-  chat: 'M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z',
-  doc: 'M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8zM14 2v6h6',
-  pencil: 'M12 20h9M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4z',
-  link: 'M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1',
+  trend: '<polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="15 7 21 7 21 13"></polyline>',
+  chat: '<path d="M3 4h18l-6 8v6l-6 3v-9z"></path>',
+  percent: '<circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><line x1="19" y1="5" x2="5" y2="19"></line>',
+  doc: '<path d="M5 3h9l5 5v13H5z"></path><polyline points="14 3 14 8 19 8"></polyline><line x1="9" y1="13" x2="15" y2="13"></line><line x1="9" y1="17" x2="15" y2="17"></line>',
+  pencil: '<path d="M4 20h4L20 8l-4-4L4 16z"></path><line x1="14" y1="6" x2="18" y2="10"></line>',
+  link: '<path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"></path><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"></path>',
 };
 
-const CTA_TEXT = {
-  heading: '¿Estás listo/a para potenciar tu agencia y abrir nuevas vías de crecimiento?',
-  sub: 'Trabajamos desde la estructura, para crear sistemas sostenibles a largo plazo.',
-  btn: 'Agendar un diagnóstico estratégico de negocio',
+const TEAM_PHOTOS: Record<string, string> = {
+  'Valeria Melero': '/team/valeria.jpg',
+  'Yerai Jiménez': '/team/yerai.jpg',
+  'Carlos Bernabé': '/team/carlos.jpg',
 };
 ---
 
@@ -27,38 +28,46 @@ const CTA_TEXT = {
 >
   <Header />
 
-  <main class="flex-1">
+  <main class="flex-1" style="overflow-x: hidden">
 
     <!-- ═══════════════════════════════
          HERO
     ════════════════════════════════ -->
-    <section class="relative overflow-hidden h-[74vh] min-h-[560px] flex items-center pb-[16vh]">
-      <img
-        src="/images/hero-villa.webp"
-        alt=""
-        width="1672"
-        height="941"
-        fetchpriority="high"
-        class="absolute inset-0 w-full h-full object-cover"
-      />
-      <div
-        class="absolute inset-0"
-        style="background: linear-gradient(90deg, rgba(0,20,24,0.55) 0%, rgba(0,20,24,0.28) 45%, rgba(0,20,24,0.05) 75%)"
-      ></div>
+    <section id="top" style="position: relative; background: var(--color-ink)">
+      <div style="position: absolute; inset: 0" class="grayscale">
+        <img
+          src="/images/hero-villa.webp"
+          alt=""
+          style="width: 100%; height: 100%; object-fit: cover"
+        />
+      </div>
+      <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,13,.94) 0%, rgba(15,14,13,.72) 46%, rgba(15,14,13,.28) 100%); pointer-events: none"></div>
 
-      <div class="relative max-w-6xl mx-auto px-4 w-full">
-        <div class="max-w-3xl">
-          <h1
-            class="text-3xl sm:text-4xl md:text-5xl font-black tracking-wide text-white leading-snug mb-8"
-            style="text-shadow: 0 2px 16px rgba(0,0,0,0.45)"
-          >
-            El sistema de captación de <em class="font-serif italic">leads</em> en el que confían las agencias inmobiliarias <em class="font-serif italic">líderes</em>.
-          </h1>
+      <div style="position: relative; max-width: 1440px; margin: 0 auto; padding: 120px 16px 0; min-height: 82vh; display: flex; flex-direction: column; justify-content: flex-end" class="sm:px-8">
+        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 28px">
+          <span style="width: 46px; height: 2px; background: var(--color-accent)"></span>
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #f3f2f2">Captación inmobiliaria · España &amp; EEUU</span>
+        </div>
+        <h1 style="margin: 0; max-width: 20ch; font-size: clamp(38px, 6.4vw, 104px); line-height: 0.96; letter-spacing: -0.03em; text-transform: uppercase; color: #f8f4f4">
+          Si el 80% de tus leads vienen de un portal, tienes un problema.
+        </h1>
+        <p style="margin: 32px 0 0; max-width: 54ch; font-size: 18px; line-height: 1.5; color: rgba(248,244,244,.72)">
+          {SITE.subtitulo}
+        </p>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 40px 0 64px">
+          <a class="btn btn-primary" href="/contacto" style="padding: 14px 24px; font-size: 15px">Agendar diagnóstico</a>
+          <a class="btn" href="#comparativa" style="padding: 14px 24px; font-size: 15px; color: #f8f4f4; border-color: rgba(248,244,244,.4)">Ver la comparativa</a>
+        </div>
+      </div>
 
-          <a href="/contacto" class="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-white hover:gap-3 transition-all">
-            <span aria-hidden="true">→</span>
-            Solicita tu diagnóstico
-          </a>
+      <div style="position: relative; border-top: 2px solid rgba(248,244,244,.28); background: rgba(15,14,13,.72)">
+        <div class="grid-3" style="max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr)">
+          {STATS_BIG.map(({ value, label }, i) => (
+            <div style={`padding: 28px 24px; ${i < 2 ? 'border-right: 2px solid rgba(248,244,244,.28)' : ''}`}>
+              <div style={`font-family: var(--font-heading); font-weight: 800; font-size: clamp(38px, 4.6vw, 68px); line-height: 1; letter-spacing: -0.03em; color: ${i === 2 ? 'var(--color-accent)' : '#f8f4f4'}`}>{value}</div>
+              <div style="margin-top: 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(248,244,244,.6)">{label}</div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -66,67 +75,52 @@ const CTA_TEXT = {
     <!-- ═══════════════════════════════
          DECLARACIÓN DE MARCA
     ════════════════════════════════ -->
-    <section class="py-16 md:py-20" style="background: var(--c-bg)">
-      <div class="max-w-3xl mx-auto px-4 text-center">
-        <p class="text-2xl md:text-3xl font-bold leading-snug" style="color: var(--c-dark)">
-          En Melero Realty construimos el <span style="color: var(--c-muted)">sistema</span> que hace
-          que los clientes <span style="color: var(--c-muted)">lleguen a ti</span>, no al revés.
-        </p>
+    <section style="border-bottom: 2px solid var(--color-divider)">
+      <div class="grid-2 sm:px-8" style="max-width: 1440px; margin: 0 auto; padding: 64px 16px; display: grid; grid-template-columns: 1.45fr 1fr; gap: 40px; align-items: end" data-reveal>
+        <h2 style="margin: 0; font-size: clamp(28px, 3.4vw, 54px); line-height: 1.06; letter-spacing: -0.025em; max-width: 26ch">Hablamos de números, no de followers.</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--color-muted)">Trabajamos con inmobiliarias y asesores que ya facturan y necesitan un canal propio de captación. No vendemos alcance: vendemos coste por lead, coste por cliente y retorno medible.</p>
       </div>
     </section>
 
     <!-- ═══════════════════════════════
          SERVICIOS
     ════════════════════════════════ -->
-    <section id="servicios" class="py-20" style="background: var(--c-bg-lt)">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="text-center mb-14">
-          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent-dk)">Lo que hacemos</p>
-          <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
-            Un sistema completo de captación
-          </h2>
-          <p class="text-base max-w-xl mx-auto" style="color: var(--c-muted)">
-            Cada servicio está diseñado para que tu agencia capte leads de calidad sin depender de terceros.
-          </p>
+    <section id="servicios" style="border-bottom: 2px solid var(--color-divider)">
+      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 0" class="sm:px-8" data-reveal>
+        <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px; flex-wrap: wrap">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">01 / Servicios</span>
+          <h2 style="margin: 0 0 0 auto; font-size: clamp(24px, 2.6vw, 40px); letter-spacing: -0.02em">El sistema, por partes</h2>
         </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SERVICES.map(({ icon, title, desc }) => (
-            <div class="rounded-2xl p-6 bg-white">
-              <span class="w-11 h-11 rounded-full flex items-center justify-center mb-4 shadow-md ring-1 ring-black/5 bg-white">
-                {icon === 'percent'
-                  ? <span class="text-lg font-bold" style="color: var(--c-dark)">%</span>
-                  : <svg class="w-5 h-5" style="color: var(--c-dark)" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d={ICONS[icon]}/></svg>
-                }
-              </span>
-              <h3 class="font-bold text-lg mb-2" style="color: var(--c-dark)">{title}</h3>
-              {desc
-                ? <p class="text-sm leading-relaxed" style="color: var(--c-muted)">{desc}</p>
-                : <p class="text-sm italic" style="color: var(--c-muted)/60">Descripción próximamente.</p>
-              }
+      </div>
+      <div class="grid-3" style="max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--color-divider); border-left: 2px solid var(--color-divider)" data-reveal>
+        {SERVICES.map(({ icon, title, desc }, i) => (
+          <div style="padding: 36px 24px 40px; border-right: 2px solid var(--color-divider); border-bottom: 2px solid var(--color-divider)">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="square" set:html={ICONS[icon]} />
+              <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: color-mix(in srgb, var(--color-text) 40%, transparent)">{String(i + 1).padStart(2, '0')}</span>
             </div>
-          ))}
-        </div>
-
-        <div class="text-center mt-12">
-          <a href="/contacto" class="btn-gold">Quiero empezar</a>
-        </div>
+            <h3 style="margin: 0 0 12px; font-size: 21px; letter-spacing: -0.015em">{title}</h3>
+            <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--color-muted)">{desc}</p>
+          </div>
+        ))}
       </div>
     </section>
 
     <!-- ═══════════════════════════════
-         PRUEBA SOCIAL
+         PROCESO
     ════════════════════════════════ -->
-    <section class="py-16 md:py-20" style="background: var(--c-dark)">
-      <div class="max-w-4xl mx-auto px-4 text-center">
-        <p class="text-xl md:text-2xl font-bold text-white mb-10">
-          Especializados al 100% en captación para negocios inmobiliarios.
-        </p>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {STATS_BIG.map(({ value, label }) => (
-            <div>
-              <p class="text-4xl md:text-5xl font-black text-white">{value}</p>
-              <p class="text-white/50 mt-2 text-sm">{label}</p>
+    <section id="proceso" style="border-bottom: 2px solid var(--color-divider)">
+      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 88px" class="sm:px-8" data-reveal>
+        <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 48px; flex-wrap: wrap">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">02 / Proceso</span>
+          <h2 style="margin: 0 0 0 auto; font-size: clamp(24px, 2.6vw, 40px); letter-spacing: -0.02em">Cinco pasos, sin humo</h2>
+        </div>
+        <div style="border-top: 2px solid var(--color-divider)">
+          {PROCESO.map(({ step, title, desc }, i) => (
+            <div class="grid-2" style="display: grid; grid-template-columns: 90px 1.1fr 1.4fr; gap: 24px; padding: 26px 0; border-bottom: 2px solid var(--color-divider); align-items: start">
+              <div style={`font-family: var(--font-heading); font-weight: 800; font-size: 36px; line-height: 1; letter-spacing: -0.03em; color: ${i === 0 ? 'var(--color-accent)' : 'color-mix(in srgb, var(--color-text) 30%, transparent)'}`}>{step}</div>
+              <h3 style="margin: 0; font-size: 20px; letter-spacing: -0.015em">{title}</h3>
+              <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--color-muted)">{desc}</p>
             </div>
           ))}
         </div>
@@ -134,127 +128,51 @@ const CTA_TEXT = {
     </section>
 
     <!-- ═══════════════════════════════
-         PROCESO — cómo trabajamos
+         POR QUÉ MELERO REALTY
     ════════════════════════════════ -->
-    <section id="proceso" class="py-20" style="background: var(--c-bg)">
-      <div class="max-w-5xl mx-auto px-4">
-        <div class="text-center mb-14">
-          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent-dk)">Cómo trabajamos</p>
-          <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
-            De la primera llamada a los primeros leads
-          </h2>
-          <p class="text-base max-w-xl mx-auto" style="color: var(--c-muted)">
-            Un proceso claro, sin sorpresas, pensado para negocios inmobiliarios en activo.
-          </p>
-        </div>
-
-        <div class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4">
-          <div class="hidden lg:block absolute top-7 left-[10%] right-[10%] h-px" style="background: var(--c-bg-lt)"></div>
-          {PROCESO.map(({ step, title, desc }) => (
-            <div class="relative text-center lg:text-left">
-              <div
-                class="relative z-10 w-14 h-14 mx-auto lg:mx-0 rounded-full flex items-center justify-center font-black text-lg mb-5"
-                style="background: var(--c-dark); color: var(--c-accent-lt)"
-              >
-                {step}
+    <section id="resultados" style="background: #1a1817; border-bottom: 2px solid var(--color-divider)">
+      <div class="grid-2" style="max-width: 1440px; margin: 0 auto; padding: 64px 16px; display: grid; grid-template-columns: 1fr 1.35fr; gap: 40px; align-items: center" data-reveal>
+          <div>
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">03 / Por qué</span>
+            <h2 style="margin: 20px 0 18px; font-size: clamp(26px, 3vw, 46px); line-height: 1.04; letter-spacing: -0.025em; color: #f8f4f4">Por qué Melero Realty</h2>
+            <p style="margin: 0 0 32px; font-size: 16px; line-height: 1.6; color: rgba(248,244,244,.66)">Especialización exclusiva en inmobiliario, acompañamiento 1:1 con la CEO y reporte semanal sobre las cifras que deciden: coste por lead, coste por cliente y ROI.</p>
+            <div style="display: flex; flex-direction: column; gap: 12px">
+              <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 2px solid rgba(248,244,244,.24)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="square"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"></path><polyline points="9 12 11.5 14.5 16 10"></polyline></svg>
+                <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #f8f4f4">Exclusividad por zona</span>
               </div>
-              <h3 class="font-bold text-base mb-2" style="color: var(--c-dark)">{title}</h3>
-              <p class="text-sm leading-relaxed" style="color: var(--c-muted)">{desc}</p>
+              <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 2px solid rgba(248,244,244,.24)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="square"><line x1="4" y1="20" x2="4" y2="10"></line><line x1="10" y1="20" x2="10" y2="4"></line><line x1="16" y1="20" x2="16" y2="13"></line><line x1="22" y1="20" x2="22" y2="7"></line></svg>
+                <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #f8f4f4">Reporte semanal de KPIs</span>
+              </div>
+            </div>
+          </div>
+          <div>
+            <VideoEmbed videoId={SITE.youtubeId} title="Por qué Melero Realty" />
+          </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════
+         COMPARATIVA
+    ════════════════════════════════ -->
+    <section id="comparativa" style="border-bottom: 2px solid var(--color-divider)">
+      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 88px" class="sm:px-8" data-reveal>
+        <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 44px; flex-wrap: wrap">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">04 / Comparativa</span>
+          <h2 style="margin: 0 0 0 auto; font-size: clamp(24px, 2.6vw, 40px); letter-spacing: -0.02em">La diferencia, punto por punto</h2>
+        </div>
+        <div style="border-top: 2px solid var(--color-text); overflow-x: auto">
+          <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--color-text); min-width: 480px">
+            <div style="padding: 14px 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-muted); border-right: 2px solid var(--color-divider)">Otras agencias</div>
+            <div style="padding: 14px 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent); background: var(--color-ink)">Melero Realty</div>
+          </div>
+          {COMPARISON.map(({ ellos, nosotros }) => (
+            <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--color-divider); min-width: 480px">
+              <div style="padding: 20px; font-size: 15px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 55%, transparent); border-right: 2px solid var(--color-divider); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--color-text) 30%, transparent)">{ellos}</div>
+              <div style="padding: 20px; font-size: 15px; line-height: 1.5; font-weight: 600">{nosotros}</div>
             </div>
           ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════
-         POR QUÉ MELERO REALTY — vídeo + métricas
-    ════════════════════════════════ -->
-    <section id="resultados" class="relative overflow-hidden py-20" style="background: var(--c-dark)">
-      <div
-        class="absolute inset-0 opacity-[0.05]"
-        style="background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, #fff 39px, #fff 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #fff 39px, #fff 40px)"
-      ></div>
-
-      <div class="relative max-w-4xl mx-auto px-4">
-        <div class="text-center mb-14">
-          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent)">Especialización real</p>
-          <h2 class="text-3xl md:text-4xl font-black text-white mb-4">
-            Por qué Melero Realty
-          </h2>
-          <p class="text-white/60 max-w-lg mx-auto">
-            No somos una agencia generalista que también hace inmobiliario. Solo hacemos esto.
-          </p>
-        </div>
-
-        <!-- Video + badges flotantes -->
-        <div class="relative max-w-2xl mx-auto pb-10 pl-6 md:pl-10">
-          <VideoEmbed videoId={SITE.youtubeId} title="Por qué Melero Realty" />
-
-          <!-- badge: experiencia -->
-          <div
-            class="absolute left-0 bottom-0 flex items-center gap-2 pl-4 pr-5 py-2.5 rounded-full"
-            style="background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(8px)"
-          >
-            <span class="text-base">✨</span>
-            <span class="text-sm text-white font-medium whitespace-nowrap">+3 Años de Experiencia</span>
-          </div>
-
-          <!-- badge: resultados -->
-          <div
-            class="absolute right-2 top-6 md:right-4 md:top-8 flex items-center gap-3 pl-3 pr-5 py-2.5 rounded-full"
-            style="background: rgba(13,13,13,0.7); border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(8px)"
-          >
-            <span class="w-8 h-8 rounded-full flex items-center justify-center shrink-0" style="background: rgba(255,255,255,0.1)">📊</span>
-            <span class="text-sm text-white font-medium leading-snug">Resultados medibles,<br/>no promesas</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════
-         TABLA COMPARATIVA
-    ════════════════════════════════ -->
-    <section class="py-20" style="background: var(--c-dark)">
-      <div class="max-w-4xl mx-auto px-4">
-        <div class="text-center mb-14">
-          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent)">La diferencia</p>
-          <h2 class="text-3xl md:text-4xl font-black text-white mb-4">
-            Por qué Melero Realty y no otra agencia
-          </h2>
-          <p class="text-white/60">La diferencia está en lo que medimos.</p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-5">
-          <div>
-            <p class="text-sm font-bold text-white/50 text-center mb-4">Otras Agencias</p>
-            <div class="rounded-2xl border border-white/15 p-6 space-y-4">
-              {COMPARISON.map(({ ellos }) => (
-                <div class="flex items-start gap-3 text-sm text-white/60">
-                  <span class="mt-0.5 shrink-0 w-4 h-4 rounded-full border border-white/30 flex items-center justify-center text-[10px]">✕</span>
-                  {ellos}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <p class="text-sm font-bold text-white text-center mb-4">Melero Realty</p>
-            <div
-              class="rounded-2xl border border-white/15 p-6 space-y-4"
-              style="background: linear-gradient(160deg, #33824d, var(--c-dark) 70%)"
-            >
-              {COMPARISON.map(({ nosotros }) => (
-                <div class="flex items-start gap-3 text-sm text-white font-medium">
-                  <span class="mt-0.5 shrink-0 w-4 h-4 rounded-full bg-white/20 flex items-center justify-center text-[10px]">✓</span>
-                  {nosotros}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div class="text-center mt-12">
-          <a href="/contacto" class="btn-gold">Agenda tu diagnóstico gratuito</a>
         </div>
       </div>
     </section>
@@ -262,112 +180,85 @@ const CTA_TEXT = {
     <!-- ═══════════════════════════════
          TESTIMONIOS
     ════════════════════════════════ -->
-    <section id="testimonios" class="py-20" style="background: var(--c-bg)">
-      <div class="max-w-6xl mx-auto px-4">
-        <div class="text-center mb-14">
-          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent-dk)">Resultados reales</p>
-          <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
-            Lo que dicen los que ya trabajan con nosotros
-          </h2>
-          <p style="color: var(--c-muted)">Sin filtros.</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6">
-          {TESTIMONIALS.map(({ quote, name, role }) => (
-            <div class="rounded-2xl p-7 flex flex-col" style="background: var(--c-bg-lt)">
-              <p class="text-base leading-relaxed flex-1" style="color: var(--c-text)">{quote}</p>
-              <div class="mt-5">
-                <p class="font-bold text-sm" style="color: var(--c-dark)">{name}</p>
-                <p class="text-xs mt-0.5" style="color: var(--c-muted)">{role}</p>
-              </div>
+    <section id="testimonios" style="border-bottom: 2px solid var(--color-divider); background: var(--color-surface)">
+      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 0" class="sm:px-8" data-reveal>
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">05 / Clientes</span>
+      </div>
+      <div class="grid-3" style="max-width: 1440px; margin: 40px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--color-divider)" data-reveal>
+        {TESTIMONIALS.map(({ quote, name, role }, i) => (
+          <div style={`padding: 36px 24px; ${i < 2 ? 'border-right: 2px solid var(--color-divider);' : ''} display: flex; flex-direction: column; gap: 28px`}>
+            <p style="margin: 0; font-family: var(--font-heading); font-weight: 700; font-size: 19px; line-height: 1.35; letter-spacing: -0.015em">«{quote}»</p>
+            <div style="margin-top: auto">
+              <div style="width: 32px; height: 2px; background: var(--color-accent); margin-bottom: 14px"></div>
+              <div style="font-size: 14px; font-weight: 700">{name}</div>
+              <div style="font-size: 13px; color: var(--color-muted)">{role}</div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
 
     <!-- ═══════════════════════════════
          EQUIPO
     ════════════════════════════════ -->
-    <section id="equipo" class="py-20" style="background: var(--c-bg-lt)">
-      <div class="max-w-5xl mx-auto px-4">
-        <div class="text-center mb-14">
-          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent-dk)">El equipo</p>
-          <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
-            Quiénes están detrás
-          </h2>
-          <p style="color: var(--c-muted)">Un equipo pequeño, especializado y con las manos en la masa.</p>
+    <section id="equipo" style="border-bottom: 2px solid var(--color-divider)">
+      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 0" class="sm:px-8" data-reveal>
+        <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px; flex-wrap: wrap">
+          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">06 / Equipo</span>
+          <h2 style="margin: 0 0 0 auto; font-size: clamp(24px, 2.6vw, 40px); letter-spacing: -0.02em">Quién trabaja tu cuenta</h2>
         </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
-          {TEAM.map(({ name, role, photo }) => (
-            <div class="relative aspect-[3/4] rounded-2xl overflow-hidden">
-              <img src={photo} alt={name} class="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-              <div class="absolute inset-0" style="background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.75) 100%)"></div>
-              <div class="absolute bottom-0 left-0 right-0 p-5">
-                <p class="font-bold text-white">{name}</p>
-                <p class="text-white/70 text-sm mt-0.5 leading-snug">{role}</p>
-              </div>
+      </div>
+      <div class="grid-3 sm:px-8" style="max-width: 1440px; margin: 0 auto; padding: 0 16px 88px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px" data-reveal>
+        {TEAM.map(({ name, role, photo }) => (
+          <figure style="margin: 0">
+            <div class="grayscale" style="position: relative; aspect-ratio: 3/4; background: var(--color-surface); overflow: hidden">
+              <img src={TEAM_PHOTOS[name] ?? photo} alt={name} style="width: 100%; height: 100%; object-fit: cover" loading="lazy" />
             </div>
-          ))}
-        </div>
+            <figcaption style="margin: 0; padding-top: 16px; border-top: 2px solid var(--color-text)">
+              <div style="font-family: var(--font-heading); font-weight: 800; font-size: 18px; letter-spacing: -0.015em">{name}</div>
+              <div style="margin-top: 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent)">{role}</div>
+            </figcaption>
+          </figure>
+        ))}
       </div>
     </section>
 
     <!-- ═══════════════════════════════
          FAQ
     ════════════════════════════════ -->
-    <section id="faq" class="py-20" style="background: var(--c-bg-lt)">
-      <div class="max-w-2xl mx-auto px-4">
-        <div class="text-center mb-14">
-          <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--c-accent-dk)">Preguntas frecuentes</p>
-          <h2 class="text-3xl md:text-4xl font-black mb-4" style="color: var(--c-dark)">
-            Lo que nos suelen preguntar
-          </h2>
-          <p style="color: var(--c-muted)">Si tienes otra duda, escríbenos.</p>
+    <section id="faq" style="border-bottom: 2px solid var(--color-divider)">
+      <div class="grid-2 sm:px-8" style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 88px; display: grid; grid-template-columns: 0.6fr 1.4fr; gap: 40px" data-reveal>
+          <div>
+            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">07 / FAQ</span>
+            <h2 style="margin: 20px 0 0; font-size: clamp(24px, 2.6vw, 40px); line-height: 1.06; letter-spacing: -0.02em">Lo que preguntan antes de firmar</h2>
+          </div>
+          <div style="border-top: 2px solid var(--color-text)">
+            {FAQ.map(({ q, a }) => (
+              <details style="border-bottom: 2px solid var(--color-divider)">
+                <summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0; font-family: var(--font-heading); font-weight: 700; font-size: 18px; letter-spacing: -0.01em">
+                  {q}
+                  <span class="faq-plus" style="flex: none; font-weight: 400; font-size: 24px; color: var(--color-accent)">+</span>
+                </summary>
+                <p style="margin: 0; padding: 0 40px 24px 0; font-size: 15px; line-height: 1.6; color: var(--color-muted)">{a}</p>
+              </details>
+            ))}
+          </div>
         </div>
-
-        <div class="space-y-3">
-          {FAQ.map(({ q, a }) => (
-            <details class="rounded-xl overflow-hidden group" style="background: var(--c-bg)">
-              <summary class="flex items-center justify-between px-5 py-4 font-semibold text-sm cursor-pointer select-none" style="color: var(--c-dark)">
-                {q}
-                <span class="faq-icon ml-4 shrink-0 text-lg leading-none" style="color: var(--c-dark)">+</span>
-              </summary>
-              <div class="px-5 pb-5 text-sm leading-relaxed" style="color: var(--c-muted)">
-                {a
-                  ? a
-                  : <span class="italic opacity-50">Respuesta próximamente.</span>
-                }
-              </div>
-            </details>
-          ))}
-        </div>
-      </div>
     </section>
 
     <!-- ═══════════════════════════════
-         CTA FINAL
+         CONTACTO
     ════════════════════════════════ -->
-    <section class="px-4 py-16 md:py-20" style="background: var(--c-bg-lt)">
-      <div
-        class="relative overflow-hidden max-w-5xl mx-auto rounded-3xl py-16 md:py-20 px-6 text-center"
-        style="background: var(--c-dark)"
-      >
-        <div
-          class="absolute inset-0 opacity-[0.05]"
-          style="background-image: repeating-linear-gradient(0deg, transparent, transparent 39px, #fff 39px, #fff 40px), repeating-linear-gradient(90deg, transparent, transparent 39px, #fff 39px, #fff 40px)"
-        ></div>
-        <div class="relative max-w-2xl mx-auto">
-          <h2 class="text-3xl md:text-4xl font-black text-white mb-4 leading-tight">
-            {CTA_TEXT.heading}
-          </h2>
-          <p class="text-white/60 text-lg mb-10">
-            {CTA_TEXT.sub}
-          </p>
-          <a href="/contacto" class="btn-gold text-base">
-            {CTA_TEXT.btn}
-          </a>
+    <section id="contacto" style="background: var(--color-ink)">
+      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px" class="sm:px-8" data-reveal>
+        <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">08 / Empezar</div>
+        <h2 style="margin: 24px 0 0; max-width: 24ch; font-size: clamp(34px, 6vw, 96px); line-height: 0.96; letter-spacing: -0.035em; text-transform: uppercase; color: #f8f4f4">Deja de alquilar tus leads.</h2>
+        <div class="grid-2" style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end">
+          <p style="margin: 0; max-width: 46ch; font-size: 17px; line-height: 1.6; color: rgba(248,244,244,.86)">Diagnóstico gratuito de tu captación actual. Si no vemos margen real de mejora, te lo decimos en la llamada.</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 12px">
+            <a class="btn btn-primary" href="/contacto" style="padding: 16px 26px; font-size: 15px">Agendar diagnóstico</a>
+            <a class="btn" href={`mailto:${SITE.email}`} style="padding: 16px 26px; font-size: 15px; color: #f8f4f4; border-color: rgba(248,244,244,.5)">{SITE.email}</a>
+          </div>
         </div>
       </div>
     </section>
