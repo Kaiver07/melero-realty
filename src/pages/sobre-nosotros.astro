@@ -3,6 +3,28 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { TEAM } from '../config/site';
+
+/* Cómo trabajamos — mismo contenido que ya estaba aprobado en la página,
+   solo movido al frontmatter para poder numerarlo en la maqueta. No se
+   reescribe ni una palabra. */
+const VALORES = [
+  {
+    title: 'Solo inmobiliario',
+    desc: 'No tocamos otras industrias. Eso nos da una ventaja de conocimiento que ninguna agencia generalista puede replicar.',
+  },
+  {
+    title: 'KPIs reales',
+    desc: 'Hablamos de coste por lead, coste por cliente y ROI. No de impresiones ni de followers.',
+  },
+  {
+    title: 'Resultados antes que contrato',
+    desc: 'Hacemos un diagnóstico real antes de empezar. Si no podemos ayudarte, te lo decimos.',
+  },
+  {
+    title: 'Acompañamiento continuo',
+    desc: 'No lanzamos y desaparecemos. Reporte semanal y acceso directo a la CEO durante todo el proceso.',
+  },
+];
 ---
 
 <Layout
@@ -13,84 +35,108 @@ import { TEAM } from '../config/site';
 
   <main class="flex-1">
 
-    <!-- Hero -->
-    <section class="py-20" style="background: var(--color-ink)">
-      <div class="max-w-3xl mx-auto px-4 text-center">
-        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent)">Sobre nosotros</p>
-        <h1 class="text-4xl md:text-5xl font-black text-white mb-6">
-          Especialistas en<br />captación inmobiliaria
-        </h1>
-        <p class="text-white/60 text-lg leading-relaxed">
-          No somos una agencia de marketing genérica que un día decidió tocar el sector inmobiliario. Nacimos aquí, y solo trabajamos aquí.
-        </p>
-      </div>
-    </section>
-
-    <!-- Historia -->
-    <section class="py-20" style="background: var(--color-bg)">
-      <div class="max-w-3xl mx-auto px-4">
-        <h2 class="text-2xl font-black mb-6" style="color: var(--color-text)">Nuestra historia</h2>
-        <div class="space-y-4 text-base leading-relaxed" style="color: var(--color-muted)">
-          <p>
-            Melero Realty nació de una frustración real: ver cómo agencias y asesores inmobiliarios con talento y trabajo seguían dependiendo de portales para sobrevivir, pagando más cada año por leads de peor calidad, sin control sobre su propio crecimiento.
-          </p>
-          <p>
-            Vimos que el problema no era la agencia. Era la falta de un sistema de captación propio. Y decidimos construirlo para ellos.
-          </p>
-          <p>
-            Hoy trabajamos con más de 40 agencias y asesores en España y EEUU, con una tasa de retención del 98% y un ROI medio del +300% en campañas de captación.
+    <!-- ================= 1 · HERO — plancha #122f35, anclado a la izquierda ================= -->
+    <section class="sn-hero" aria-labelledby="sn-h1">
+      <div class="wrap">
+        <p class="sn-eyebrow sn-eyebrow--dark">Sobre nosotros</p>
+        <div class="sn-hero-grid">
+          <h1 id="sn-h1">Especialistas en<br />captación inmobiliaria</h1>
+          <p class="sn-hero-support">
+            No somos una agencia de marketing genérica que un día decidió tocar el sector inmobiliario. Nacimos aquí, y solo trabajamos aquí.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- Valores -->
-    <section class="py-20" style="background: var(--color-surface)">
-      <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-2xl font-black mb-10 text-center" style="color: var(--color-text)">Cómo trabajamos</h2>
-        <div class="grid sm:grid-cols-2 gap-6">
-          {[
-            { title: 'Solo inmobiliario', desc: 'No tocamos otras industrias. Eso nos da una ventaja de conocimiento que ninguna agencia generalista puede replicar.' },
-            { title: 'KPIs reales', desc: 'Hablamos de coste por lead, coste por cliente y ROI. No de impresiones ni de followers.' },
-            { title: 'Resultados antes que contrato', desc: 'Hacemos un diagnóstico real antes de empezar. Si no podemos ayudarte, te lo decimos.' },
-            { title: 'Acompañamiento continuo', desc: 'No lanzamos y desaparecemos. Reporte semanal y acceso directo a la CEO durante todo el proceso.' },
-          ].map(v => (
-            <div class="bg-white rounded-2xl p-6 border border-gray-100">
-              <div class="w-2 h-2 rounded-full mb-3" style="background: var(--color-accent)"></div>
-              <h3 class="font-bold mb-2" style="color: var(--color-text)">{v.title}</h3>
-              <p class="text-sm leading-relaxed" style="color: var(--color-muted)">{v.desc}</p>
-            </div>
+    <!-- ================= 2 · HISTORIA — dos columnas, titular a la izquierda ================= -->
+    <section class="sn-section sn-section--white" aria-labelledby="sn-hist">
+      <div class="wrap">
+        <div class="sn-split" data-reveal>
+          <div class="sn-split-side">
+            <p class="sn-eyebrow">(01)</p>
+            <h2 id="sn-hist">Nuestra historia</h2>
+          </div>
+          <div class="sn-prose">
+            <p>
+              Melero Realty nació de una frustración real: ver cómo agencias y asesores inmobiliarios con talento y trabajo seguían dependiendo de portales para sobrevivir, pagando más cada año por leads de peor calidad, sin control sobre su propio crecimiento.
+            </p>
+            <p>
+              Vimos que el problema no era la agencia. Era la falta de un sistema de captación propio. Y decidimos construirlo para ellos.
+            </p>
+            <p>
+              Hoy trabajamos con más de 40 agencias y asesores en España y EEUU, con una tasa de retención del 98% y un ROI medio del +300% en campañas de captación.
+            </p>
+          </div>
+        </div>
+        <div class="sn-rule" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- ================= 3 · CÓMO TRABAJAMOS — lista con filetes, sin tarjetas ================= -->
+    <section class="sn-section sn-section--paper" aria-labelledby="sn-val">
+      <div class="wrap">
+        <div class="sn-split" data-reveal>
+          <div class="sn-split-side">
+            <p class="sn-eyebrow">(02)</p>
+            <h2 id="sn-val">Cómo trabajamos</h2>
+          </div>
+          <ol class="sn-vals">
+            {VALORES.map((v, i) => (
+              <li class="sn-val">
+                <span class="sn-val-n">{String(i + 1).padStart(2, '0')}</span>
+                <div class="sn-val-body">
+                  <h3>{v.title}</h3>
+                  <p>{v.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 4 · EQUIPO — mismo tratamiento que la home: color, 4/5, rejilla acotada ================= -->
+    <section class="sn-section sn-section--white" aria-labelledby="sn-team">
+      <div class="wrap sn-team-head" data-reveal>
+        <p class="sn-eyebrow">(03)</p>
+        <h2 id="sn-team">El equipo</h2>
+      </div>
+      <div class="wrap">
+        <div class="sn-team-grid">
+          {TEAM.map((m) => (
+            <figure class="sn-member">
+              <img
+                src={m.photo}
+                alt={`Retrato de ${m.name}, ${m.role} de Melero Realty`}
+                width="1000"
+                height="1250"
+                loading="lazy"
+                decoding="async"
+              />
+              <figcaption>
+                <span class="sn-member-name">{m.name}</span>
+                <span class="sn-member-role">{m.role}</span>
+              </figcaption>
+            </figure>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- Equipo ampliado -->
-    <section class="py-20" style="background: var(--color-ink)">
-      <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-2xl font-black text-white mb-10 text-center">El equipo</h2>
-        <div class="grid sm:grid-cols-3 gap-6">
-          {TEAM.map(({ name, role, photo }) => (
-            <div class="flex items-center gap-5 bg-white/5 rounded-2xl p-6 border border-white/10">
-              <img src={photo} alt={name} class="w-16 h-16 rounded-full shrink-0 object-cover" loading="lazy" />
-              <div>
-                <p class="font-bold text-white">{name}</p>
-                <p class="text-sm mt-0.5" style="color: var(--color-accent)">{role}</p>
-              </div>
-            </div>
-          ))}
+    <!-- ================= 5 · CTA — plancha #122f35, contigua al pie en #0d2226 ================= -->
+    <section class="sn-cta" aria-labelledby="sn-cta-t">
+      <div class="wrap">
+        <p class="sn-eyebrow sn-eyebrow--dark">(04)</p>
+        <div class="sn-cta-grid">
+          <h2 id="sn-cta-t">¿Quieres que hablemos de tu caso?</h2>
+          <div class="sn-cta-body">
+            <p>30 minutos. Sin compromiso. Con análisis real de tu situación.</p>
+            <a class="sn-btn" href="/contacto">
+              Solicitar diagnóstico gratuito
+              <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+            </a>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="py-20" style="background: var(--color-ink)">
-      <div class="max-w-2xl mx-auto px-4 text-center">
-        <h2 class="text-2xl md:text-3xl font-black text-white mb-4">
-          ¿Quieres que hablemos de tu caso?
-        </h2>
-        <p class="text-white/60 mb-8">30 minutos. Sin compromiso. Con análisis real de tu situación.</p>
-        <a href="/contacto" class="btn-gold">Solicitar diagnóstico gratuito</a>
       </div>
     </section>
 
@@ -98,3 +144,286 @@ import { TEAM } from '../config/site';
 
   <Footer />
 </Layout>
+
+<style>
+  /* ==========================================================================
+     SOBRE NOSOTROS — sistema visual V4A
+     Radio 0 en TODA la página, sin excepciones y sin sombras: la jerarquía la
+     hacen los filetes de 1px (--rule / --rule-dark) y las planchas de color.
+     Composición asimétrica anclada a la izquierda; nada centrado.
+     Tipografía: titulares Poppins 600/700 con letter-spacing -.03em; lectura
+     en 300/400 a 1.65. El peso 500 no está cargado y no se usa.
+     Color: texto en --text, planchas en --ink/--ink-2, acento --teal solo
+     sobre blanco (5.31:1) — nunca como texto sobre plancha oscura (2.66:1).
+     ========================================================================== */
+
+  .sn-section { padding-block: clamp(72px, 10vw, 150px); }
+  .sn-section--white { background: var(--white); }
+  .sn-section--paper { background: var(--paper); }
+
+  /* ---------- eyebrow ---------- */
+  .sn-eyebrow {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  .sn-eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 1px;
+    background: var(--teal);
+    flex: none;
+  }
+  /* sobre plancha oscura el teal cae a 2.66:1: se sustituye por --muted-dark
+     y el filete pasa a blanco al 50%. */
+  .sn-eyebrow--dark { color: var(--muted-dark); }
+  .sn-eyebrow--dark::before { background: var(--white); opacity: .5; }
+
+  /* ---------- 1 · hero ---------- */
+  .sn-hero {
+    background: var(--ink);
+    color: var(--white);
+    padding-block: clamp(64px, 9vw, 132px) clamp(72px, 10vw, 140px);
+  }
+  .sn-hero-grid {
+    margin-top: clamp(1.6rem, 3.2vw, 2.6rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, .92fr);
+    gap: clamp(1.6rem, 5vw, 5rem);
+    align-items: end;
+  }
+  .sn-hero h1 {
+    margin: 0;
+    font-size: clamp(2.05rem, 5.6vw, 4.3rem);
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: .98;
+    color: var(--white);
+  }
+  .sn-hero-support {
+    margin: 0;
+    font-size: clamp(.95rem, 1.15vw, 1.0625rem);
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--muted-dark);
+    max-width: 40ch;
+    padding-bottom: .35rem;
+  }
+  /* el <br> del titular es el corte de escritorio; en móvil se suelta */
+  @media (max-width: 620px) { .sn-hero h1 br { display: none; } }
+  @media (max-width: 880px) {
+    .sn-hero-grid { grid-template-columns: 1fr; align-items: start; gap: 1.4rem; }
+    .sn-hero-support { max-width: 48ch; padding-bottom: 0; }
+  }
+
+  /* ---------- rejilla asimétrica compartida (historia y valores) ---------- */
+  .sn-split {
+    display: grid;
+    grid-template-columns: minmax(0, .74fr) minmax(0, 1.62fr);
+    gap: clamp(2rem, 6vw, 6.5rem);
+    align-items: start;
+  }
+  .sn-split-side h2 {
+    margin: 1.3rem 0 0;
+    font-size: clamp(1.7rem, 3.4vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -.03em;
+    line-height: 1.03;
+    color: var(--text);
+    max-width: 14ch;
+  }
+  @media (max-width: 900px) {
+    .sn-split { grid-template-columns: 1fr; gap: 2rem; }
+    .sn-split-side h2 { max-width: none; }
+  }
+
+  /* ---------- 2 · historia ---------- */
+  .sn-prose p {
+    margin: 0;
+    font-size: clamp(1rem, 1.4vw, 1.0625rem);
+    font-weight: 300;
+    line-height: 1.68;
+    color: var(--muted);
+    max-width: 62ch;
+  }
+  .sn-prose p + p { margin-top: 1.35rem; }
+  /* el primer párrafo entra el bloque: la jerarquía la marca la escala, no
+     una sombra ni una tarjeta */
+  .sn-prose p:first-child {
+    font-size: clamp(1.1rem, 1.85vw, 1.45rem);
+    font-weight: 400;
+    letter-spacing: -.02em;
+    line-height: 1.42;
+    color: var(--text);
+    max-width: 46ch;
+  }
+  .sn-rule {
+    height: 1px;
+    background: var(--rule);
+    margin-top: clamp(2.4rem, 5vw, 4rem);
+  }
+
+  /* ---------- 3 · cómo trabajamos ---------- */
+  .sn-vals { margin: 0; padding: 0; list-style: none; }
+  .sn-val {
+    display: grid;
+    grid-template-columns: 3.4rem minmax(0, 1fr);
+    gap: clamp(.6rem, 2vw, 1.6rem);
+    padding: clamp(1.3rem, 2.4vw, 1.9rem) 0;
+    border-top: 1px solid var(--rule);
+  }
+  .sn-val:first-child { border-top: 1px solid var(--ink); }
+  .sn-val:last-child { border-bottom: 1px solid var(--rule); }
+  .sn-val-n {
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+    line-height: 1.9;
+    color: var(--muted);
+  }
+  .sn-val-body h3 {
+    margin: 0;
+    font-size: clamp(1.02rem, 1.6vw, 1.24rem);
+    font-weight: 600;
+    letter-spacing: -.025em;
+    line-height: 1.2;
+    color: var(--text);
+  }
+  .sn-val-body p {
+    margin: .55rem 0 0;
+    font-size: .9375rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--muted);
+    max-width: 54ch;
+  }
+  @media (max-width: 520px) {
+    .sn-val { grid-template-columns: 1fr; gap: .4rem; }
+    .sn-val-n { line-height: 1.4; }
+  }
+
+  /* ---------- 4 · equipo ----------
+     Mismo tratamiento que la home: fotos A COLOR (nada de blanco y negro),
+     4/5, encuadre alto y ajuste suave para unificar tres sesiones distintas.
+     Rejilla acotada en ancho, no a sangre. */
+  .sn-team-head { padding-bottom: clamp(2rem, 4vw, 3rem); }
+  .sn-team-head h2 {
+    margin: 1.3rem 0 0;
+    font-size: clamp(1.7rem, 3.4vw, 2.75rem);
+    font-weight: 600;
+    letter-spacing: -.03em;
+    line-height: 1.03;
+    color: var(--text);
+    max-width: 20ch;
+  }
+  .sn-team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    max-width: min(100%, 700px);
+  }
+  .sn-member { position: relative; margin: 0; background: var(--ink-2); }
+  .sn-member img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 25%;
+    filter: saturate(.95) contrast(1.03);
+  }
+  .sn-member figcaption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: clamp(2.1rem, 4vw, 2.8rem) clamp(.85rem, 1.4vw, 1.15rem) clamp(.85rem, 1.4vw, 1.15rem);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--ink-2) 0%, transparent) 0%,
+      color-mix(in srgb, var(--ink-2) 55%, transparent) 38%,
+      color-mix(in srgb, var(--ink-2) 94%, transparent) 78%,
+      var(--ink-2) 100%
+    );
+    color: var(--white);
+  }
+  .sn-member-name {
+    display: block;
+    font-size: clamp(.88rem, 1.05vw, 1rem);
+    font-weight: 600;
+    letter-spacing: -.025em;
+    line-height: 1.2;
+    color: var(--white);
+  }
+  .sn-member-role {
+    display: block;
+    margin-top: .35rem;
+    font-size: .58rem;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted-dark);
+  }
+  @media (max-width: 760px) {
+    .sn-team-grid { grid-template-columns: 1fr; max-width: 420px; }
+  }
+
+  /* ---------- 5 · CTA ---------- */
+  .sn-cta {
+    background: var(--ink);
+    color: var(--white);
+    padding-block: clamp(76px, 11vw, 156px);
+  }
+  .sn-cta-grid {
+    margin-top: clamp(1.4rem, 3vw, 2.2rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: clamp(1.8rem, 5vw, 5rem);
+    align-items: end;
+  }
+  .sn-cta h2 {
+    margin: 0;
+    font-size: clamp(1.85rem, 4.2vw, 3.4rem);
+    font-weight: 600;
+    letter-spacing: -.03em;
+    line-height: 1.02;
+    color: var(--white);
+    max-width: 15ch;
+  }
+  .sn-cta-body p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--muted-dark);
+    max-width: 40ch;
+  }
+  .sn-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: .85rem;
+    margin-top: 1.8rem;
+    padding: 1.05rem 2.1rem;
+    border: 1px solid transparent;
+    border-radius: 0;
+    background: var(--white);
+    color: var(--text);
+    font-size: .74rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color .25s var(--ease), color .25s var(--ease);
+  }
+  .sn-btn:hover { background: var(--paper-2); color: var(--text); }
+  .sn-btn svg { width: 15px; height: 15px; flex: none; }
+  .sn-cta :focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+  @media (max-width: 880px) {
+    .sn-cta-grid { grid-template-columns: 1fr; align-items: start; gap: 1.6rem; }
+    .sn-cta h2 { max-width: none; }
+  }
+</style>

@@ -3,6 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE } from '../config/site';
+
+/* Página de conversión. Portada al sistema visual V4A (el mismo de la home):
+   radio 0, cero sombras, jerarquía por filetes de 1px y planchas de color,
+   composición asimétrica anclada a la izquierda.
+
+   NO SE HA TOCADO NADA DEL FORMULARIO: los `name` de los campos, el copy de
+   etiquetas/preguntas/ayudas/errores, el paso a paso, la validación, la barra
+   de progreso y el POST a SITE.sheetsWebAppUrl son idénticos a antes. El
+   cambio es de tratamiento, no de contenido ni de lógica. */
 ---
 
 <Layout
@@ -11,275 +20,650 @@ import { SITE } from '../config/site';
 >
   <Header />
 
-  <main class="flex-1 py-16" style="background: var(--color-surface)">
-    <div class="max-w-2xl mx-auto px-4">
+  <main class="ct">
 
-      <!-- Intro -->
-      <div class="text-center mb-10">
-        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: var(--color-accent)">Primer paso</p>
-        <h1 class="text-3xl md:text-4xl font-black mb-3" style="color: var(--color-text)">
-          Diagnóstico de Captación Inmobiliaria
-        </h1>
-        <p class="text-base" style="color: var(--color-muted)">
-          Rellena este formulario y analizamos tu situación actual. Solo trabajamos con agencias con las que podemos generar un impacto real.
-        </p>
-      </div>
-
-      <!-- Progress bar -->
-      <div class="mb-8">
-        <div class="flex justify-between text-xs mb-2" style="color: var(--color-muted)">
-          <span id="step-label">Paso 1 de 5</span>
-          <span id="step-pct">20%</span>
-        </div>
-        <div class="h-1.5 rounded-full bg-gray-200 overflow-hidden">
-          <div id="progress-bar" class="h-full rounded-full transition-all duration-300" style="background: var(--color-accent); width: 20%"></div>
+    <!-- ================= 1 · CABECERA — plancha #122f35 =================
+         Continúa la banda oscura de la cabecera compartida: una sola plancha
+         desde el borde superior. Composición asimétrica, titular a la
+         izquierda y texto de apoyo en columna aparte, como en la home. -->
+    <section class="ct-hero">
+      <div class="wrap">
+        <div class="ct-hero-grid">
+          <div>
+            <p class="ct-eyebrow ct-eyebrow--dark">Primer paso</p>
+            <h1>Diagnóstico de Captación Inmobiliaria</h1>
+          </div>
+          <p class="ct-hero-support">
+            Rellena este formulario y analizamos tu situación actual. Solo trabajamos con agencias con las que podemos generar un impacto real.
+          </p>
         </div>
       </div>
+    </section>
 
-      <!-- Form -->
-      <form
-        id="diag-form"
-        data-sheets-url={SITE.sheetsWebAppUrl}
-        class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
-      >
-        <!-- ── PASO 1: Perfil ── -->
-        <fieldset data-step="1" class="step-panel px-6 py-8 space-y-5">
-          <legend class="text-lg font-bold mb-6" style="color: var(--color-text)">Cuéntanos sobre ti</legend>
+    <!-- ================= 2 · FORMULARIO ================= -->
+    <section class="ct-body">
+      <div class="wrap">
+        <div class="ct-grid">
 
-          <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">Nombre completo *</label>
-            <input type="text" name="nombre" required placeholder="Tu nombre" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors" />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">Correo electrónico *</label>
-            <input type="email" name="email" required placeholder="tu@email.com" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors" />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">Teléfono / WhatsApp *</label>
-            <input type="tel" name="telefono" required placeholder="+34 600 000 000" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors" />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">Instagram o web de tu negocio *</label>
-            <input type="text" name="instagram_web" required placeholder="@tuagencia o https://tuagencia.com" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors" />
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Cuál es tu rol actualmente? *</label>
-            <div class="space-y-2">
-              {['Asesor/a inmobiliario', 'Dueño/a de agencia'].map(opt => (
-                <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="radio" name="rol" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
-                </label>
-              ))}
+          <!-- Progreso.
+               OJO: este bloque TIENE que seguir siendo el hermano anterior
+               del <form>. El script lo oculta al enviar con
+               form.previousElementSibling. No meter nada entre medias. -->
+          <div class="ct-progress">
+            <span id="step-label" class="ct-step-label">Paso 1 de 5</span>
+            <span id="step-pct" class="ct-step-pct">20%</span>
+            <div class="ct-bar" aria-hidden="true">
+              <div id="progress-bar" class="ct-bar-fill" style="width: 20%"></div>
             </div>
           </div>
 
-          <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿En qué zona trabajas principalmente? *</label>
-            <input type="text" name="zona" required placeholder="Ej: Madrid, Barcelona, Miami…" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors" />
-          </div>
-        </fieldset>
-
-        <!-- ── PASO 2: Tu negocio ── -->
-        <fieldset data-step="2" class="step-panel hidden px-6 py-8 space-y-5">
-          <legend class="text-lg font-bold mb-6" style="color: var(--color-text)">Tu negocio</legend>
-
-          <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Qué tipo de propiedades trabajas? *</label>
-            <div class="space-y-2">
-              {['Residencial', 'Lujo', 'Inversión', 'Promociones / obra nueva', 'Variado'].map(opt => (
-                <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="checkbox" name="tipo_propiedades" value={opt} class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Cómo estás consiguiendo clientes actualmente? *</label>
-            <textarea name="captacion_actual" required rows="3" placeholder="Portales, referidos, redes sociales…" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors resize-none"></textarea>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Estás invirtiendo en publicidad ahora mismo? *</label>
-            <div class="space-y-2">
-              {['Sí, de forma constante', 'Sí, pero sin estructura', 'No'].map(opt => (
-                <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="radio" name="publicidad" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-        </fieldset>
-
-        <!-- ── PASO 3: Números ── -->
-        <fieldset data-step="3" class="step-panel hidden px-6 py-8 space-y-5">
-          <legend class="text-lg font-bold mb-6" style="color: var(--color-text)">Tus números</legend>
-
-          <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Cuántos leads generas al mes aproximadamente? *</label>
-            <div class="space-y-2">
-              {['Menos de 10', '10-30', '30-100', '+100'].map(opt => (
-                <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="radio" name="leads_mes" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Qué porcentaje de esos leads se convierten en clientes reales? *</label>
-            <div class="space-y-2">
-              {['Muy bajo', 'Medio', 'Alto', 'No lo tengo medido'].map(opt => (
-                <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="radio" name="conversion" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">Facturación mensual aproximada *</label>
-            <div class="space-y-2">
-              {['Menos de 3.000€', '3.000€ - 10.000€', '10.000€ - 30.000€', '+30.000€'].map(opt => (
-                <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="radio" name="facturacion" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-        </fieldset>
-
-        <!-- ── PASO 4: Situación y objetivos ── -->
-        <fieldset data-step="4" class="step-panel hidden px-6 py-8 space-y-5">
-          <legend class="text-lg font-bold mb-6" style="color: var(--color-text)">Tu situación y objetivos</legend>
-
-          <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Cuál es tu objetivo realista para los próximos 6 meses? *</label>
-            <textarea name="objetivo_6m" required rows="3" placeholder="Duplicar leads, cerrar 5 ventas más al mes…" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors resize-none"></textarea>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Cuál es el mayor bloqueo ahora mismo en tu captación o ventas? *</label>
-            <textarea name="bloqueo" required rows="3" placeholder="Cuéntanos qué es lo que más te frena" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors resize-none"></textarea>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Qué has probado hasta ahora que no ha funcionado? *</label>
-            <textarea name="intentado" required rows="3" placeholder="Agencias, portales, ads por tu cuenta…" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors resize-none"></textarea>
-          </div>
-        </fieldset>
-
-        <!-- ── PASO 5: Decisión + envío ── -->
-        <fieldset data-step="5" class="step-panel hidden px-6 py-8 space-y-5">
-          <legend class="text-lg font-bold mb-6" style="color: var(--color-text)">Antes de terminar</legend>
-
-          <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Qué prioridad tiene para ti resolver esto? *</label>
-            <div class="space-y-2">
-              {['Urgente (lo necesito ya)', 'Alto (quiero resolverlo en breve)', 'Media (estoy explorando opciones)'].map(opt => (
-                <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="radio" name="prioridad" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">¿Podrías tomar una decisión económica hoy solo/a? *</label>
-            <div class="space-y-2">
-              {['Sí', 'No, dependo de socios', 'No, dependo de otra persona'].map(opt => (
-                <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="radio" name="decisor" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-2" style="color: var(--color-text)">Capital líquido disponible hoy para implementar una solución *</label>
-            <div class="space-y-2">
-              {['Menos de 1.000€', 'Menos de 1.000€ pero puedo conseguir más', '1.000€ - 3.000€', '3.000€ - 6.000€', '+6.000€'].map(opt => (
-                <label class="flex items-center gap-2.5 cursor-pointer">
-                  <input type="radio" name="capital" value={opt} required class="accent-amber-500" />
-                  <span class="text-sm" style="color: var(--color-text)">{opt}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm font-medium mb-1.5" style="color: var(--color-text)">¿Por qué quieres escalar ahora tu negocio? *</label>
-            <textarea name="por_que_ahora" required rows="3" placeholder="Cuéntanos qué te ha llevado a buscar una solución ahora" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-gray-400 transition-colors resize-none"></textarea>
-          </div>
-
-          <!-- Consent -->
-          <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
-            <label class="flex items-start gap-3 cursor-pointer">
-              <input type="checkbox" name="consentimiento" value="De acuerdo" required class="mt-0.5 accent-amber-500" />
-              <span class="text-xs leading-relaxed" style="color: var(--color-muted)">
-                Acepto recibir comunicaciones comerciales y promociones de Melero Realty. Entiendo que mis datos serán tratados conforme a la
-                <a href="/politica-de-privacidad" class="underline hover:text-gray-900" style="color: var(--color-accent)" target="_blank">política de privacidad</a>
-                y que puedo darme de baja en cualquier momento.
-              </span>
-            </label>
-          </div>
-        </fieldset>
-
-        <!-- Navigation buttons -->
-        <div class="flex items-center justify-between px-6 py-5 border-t border-gray-100 bg-gray-50">
-          <button
-            type="button"
-            id="btn-prev"
-            class="text-sm font-semibold px-5 py-2.5 rounded-xl border border-gray-300 text-gray-600 hover:bg-gray-100 transition-colors invisible"
+          <form
+            id="diag-form"
+            data-sheets-url={SITE.sheetsWebAppUrl}
+            class="ct-form"
           >
-            ← Anterior
-          </button>
+            <!-- ── PASO 1: Perfil ── -->
+            <fieldset data-step="1" class="step-panel">
+              <legend>Cuéntanos sobre ti</legend>
+              <div class="f-rule" aria-hidden="true"></div>
 
-          <button
-            type="button"
-            id="btn-next"
-            class="btn-gold text-sm"
-          >
-            Siguiente →
-          </button>
+              <div class="f-row">
+                <label class="f-label" for="f-nombre">Nombre completo *</label>
+                <input class="f-input" id="f-nombre" type="text" name="nombre" required placeholder="Tu nombre" />
+              </div>
 
-          <button
-            type="submit"
-            id="btn-submit"
-            class="btn-gold text-sm hidden"
-          >
-            Enviar diagnóstico →
-          </button>
+              <div class="f-row">
+                <label class="f-label" for="f-email">Correo electrónico *</label>
+                <input class="f-input" id="f-email" type="email" name="email" required placeholder="tu@email.com" />
+              </div>
+
+              <div class="f-row">
+                <label class="f-label" for="f-telefono">Teléfono / WhatsApp *</label>
+                <input class="f-input" id="f-telefono" type="tel" name="telefono" required placeholder="+34 600 000 000" />
+              </div>
+
+              <div class="f-row">
+                <label class="f-label" for="f-instagram-web">Instagram o web de tu negocio *</label>
+                <input class="f-input" id="f-instagram-web" type="text" name="instagram_web" required placeholder="@tuagencia o https://tuagencia.com" />
+              </div>
+
+              <div class="f-row" role="group" aria-labelledby="lbl-rol">
+                <p class="f-label" id="lbl-rol">¿Cuál es tu rol actualmente? *</p>
+                <div class="f-options">
+                  {['Asesor/a inmobiliario', 'Dueño/a de agencia'].map(opt => (
+                    <label class="opt">
+                      <input type="radio" name="rol" value={opt} required />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div class="f-row">
+                <label class="f-label" for="f-zona">¿En qué zona trabajas principalmente? *</label>
+                <input class="f-input" id="f-zona" type="text" name="zona" required placeholder="Ej: Madrid, Barcelona, Miami…" />
+              </div>
+            </fieldset>
+
+            <!-- ── PASO 2: Tu negocio ── -->
+            <fieldset data-step="2" class="step-panel hidden">
+              <legend>Tu negocio</legend>
+              <div class="f-rule" aria-hidden="true"></div>
+
+              <div class="f-row" role="group" aria-labelledby="lbl-tipo-propiedades">
+                <p class="f-label" id="lbl-tipo-propiedades">¿Qué tipo de propiedades trabajas? *</p>
+                <div class="f-options">
+                  {['Residencial', 'Lujo', 'Inversión', 'Promociones / obra nueva', 'Variado'].map(opt => (
+                    <label class="opt">
+                      <input type="checkbox" name="tipo_propiedades" value={opt} />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div class="f-row">
+                <label class="f-label" for="f-captacion-actual">¿Cómo estás consiguiendo clientes actualmente? *</label>
+                <textarea class="f-input" id="f-captacion-actual" name="captacion_actual" required rows="3" placeholder="Portales, referidos, redes sociales…"></textarea>
+              </div>
+
+              <div class="f-row" role="group" aria-labelledby="lbl-publicidad">
+                <p class="f-label" id="lbl-publicidad">¿Estás invirtiendo en publicidad ahora mismo? *</p>
+                <div class="f-options">
+                  {['Sí, de forma constante', 'Sí, pero sin estructura', 'No'].map(opt => (
+                    <label class="opt">
+                      <input type="radio" name="publicidad" value={opt} required />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- ── PASO 3: Números ── -->
+            <fieldset data-step="3" class="step-panel hidden">
+              <legend>Tus números</legend>
+              <div class="f-rule" aria-hidden="true"></div>
+
+              <div class="f-row" role="group" aria-labelledby="lbl-leads-mes">
+                <p class="f-label" id="lbl-leads-mes">¿Cuántos leads generas al mes aproximadamente? *</p>
+                <div class="f-options">
+                  {['Menos de 10', '10-30', '30-100', '+100'].map(opt => (
+                    <label class="opt">
+                      <input type="radio" name="leads_mes" value={opt} required />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div class="f-row" role="group" aria-labelledby="lbl-conversion">
+                <p class="f-label" id="lbl-conversion">¿Qué porcentaje de esos leads se convierten en clientes reales? *</p>
+                <div class="f-options">
+                  {['Muy bajo', 'Medio', 'Alto', 'No lo tengo medido'].map(opt => (
+                    <label class="opt">
+                      <input type="radio" name="conversion" value={opt} required />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div class="f-row" role="group" aria-labelledby="lbl-facturacion">
+                <p class="f-label" id="lbl-facturacion">Facturación mensual aproximada *</p>
+                <div class="f-options">
+                  {['Menos de 3.000€', '3.000€ - 10.000€', '10.000€ - 30.000€', '+30.000€'].map(opt => (
+                    <label class="opt">
+                      <input type="radio" name="facturacion" value={opt} required />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- ── PASO 4: Situación y objetivos ── -->
+            <fieldset data-step="4" class="step-panel hidden">
+              <legend>Tu situación y objetivos</legend>
+              <div class="f-rule" aria-hidden="true"></div>
+
+              <div class="f-row">
+                <label class="f-label" for="f-objetivo-6m">¿Cuál es tu objetivo realista para los próximos 6 meses? *</label>
+                <textarea class="f-input" id="f-objetivo-6m" name="objetivo_6m" required rows="3" placeholder="Duplicar leads, cerrar 5 ventas más al mes…"></textarea>
+              </div>
+
+              <div class="f-row">
+                <label class="f-label" for="f-bloqueo">¿Cuál es el mayor bloqueo ahora mismo en tu captación o ventas? *</label>
+                <textarea class="f-input" id="f-bloqueo" name="bloqueo" required rows="3" placeholder="Cuéntanos qué es lo que más te frena"></textarea>
+              </div>
+
+              <div class="f-row">
+                <label class="f-label" for="f-intentado">¿Qué has probado hasta ahora que no ha funcionado? *</label>
+                <textarea class="f-input" id="f-intentado" name="intentado" required rows="3" placeholder="Agencias, portales, ads por tu cuenta…"></textarea>
+              </div>
+            </fieldset>
+
+            <!-- ── PASO 5: Decisión + envío ── -->
+            <fieldset data-step="5" class="step-panel hidden">
+              <legend>Antes de terminar</legend>
+              <div class="f-rule" aria-hidden="true"></div>
+
+              <div class="f-row" role="group" aria-labelledby="lbl-prioridad">
+                <p class="f-label" id="lbl-prioridad">¿Qué prioridad tiene para ti resolver esto? *</p>
+                <div class="f-options">
+                  {['Urgente (lo necesito ya)', 'Alto (quiero resolverlo en breve)', 'Media (estoy explorando opciones)'].map(opt => (
+                    <label class="opt">
+                      <input type="radio" name="prioridad" value={opt} required />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div class="f-row" role="group" aria-labelledby="lbl-decisor">
+                <p class="f-label" id="lbl-decisor">¿Podrías tomar una decisión económica hoy solo/a? *</p>
+                <div class="f-options">
+                  {['Sí', 'No, dependo de socios', 'No, dependo de otra persona'].map(opt => (
+                    <label class="opt">
+                      <input type="radio" name="decisor" value={opt} required />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div class="f-row" role="group" aria-labelledby="lbl-capital">
+                <p class="f-label" id="lbl-capital">Capital líquido disponible hoy para implementar una solución *</p>
+                <div class="f-options">
+                  {['Menos de 1.000€', 'Menos de 1.000€ pero puedo conseguir más', '1.000€ - 3.000€', '3.000€ - 6.000€', '+6.000€'].map(opt => (
+                    <label class="opt">
+                      <input type="radio" name="capital" value={opt} required />
+                      <span>{opt}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+
+              <div class="f-row">
+                <label class="f-label" for="f-por-que-ahora">¿Por qué quieres escalar ahora tu negocio? *</label>
+                <textarea class="f-input" id="f-por-que-ahora" name="por_que_ahora" required rows="3" placeholder="Cuéntanos qué te ha llevado a buscar una solución ahora"></textarea>
+              </div>
+
+              <!-- Consent -->
+              <div class="f-row f-consent">
+                <label>
+                  <input type="checkbox" name="consentimiento" value="De acuerdo" required />
+                  <span>
+                    Acepto recibir comunicaciones comerciales y promociones de Melero Realty. Entiendo que mis datos serán tratados conforme a la
+                    <a href="/politica-de-privacidad" target="_blank">política de privacidad</a>
+                    y que puedo darme de baja en cualquier momento.
+                  </span>
+                </label>
+              </div>
+            </fieldset>
+
+            <!-- Navigation buttons -->
+            <div class="ct-actions">
+              <button
+                type="button"
+                id="btn-prev"
+                class="ct-btn ct-btn--ghost invisible"
+              >
+                ← Anterior
+              </button>
+
+              <button
+                type="button"
+                id="btn-next"
+                class="ct-btn ct-btn--solid"
+              >
+                Siguiente →
+              </button>
+
+              <button
+                type="submit"
+                id="btn-submit"
+                class="ct-btn ct-btn--solid hidden"
+              >
+                Enviar diagnóstico →
+              </button>
+            </div>
+          </form>
+
+          <!-- Success message (hidden) -->
+          <div id="form-success" class="ct-success hidden">
+            <h2>¡Diagnóstico recibido!</h2>
+            <p class="ct-success-body">
+              Revisaremos tu caso y nos pondremos en contacto contigo en las próximas 24-48h.
+            </p>
+            <a href="/" class="ct-btn ct-btn--solid">Volver al inicio</a>
+          </div>
+
         </div>
-      </form>
-
-      <!-- Success message (hidden) -->
-      <div id="form-success" class="hidden text-center py-16">
-        <div class="text-5xl mb-4">🎯</div>
-        <h2 class="text-2xl font-black mb-2" style="color: var(--color-text)">¡Diagnóstico recibido!</h2>
-        <p class="text-base mb-6" style="color: var(--color-muted)">
-          Revisaremos tu caso y nos pondremos en contacto contigo en las próximas 24-48h.
-        </p>
-        <a href="/" class="btn-gold">Volver al inicio</a>
       </div>
+    </section>
 
-    </div>
   </main>
 
   <Footer />
 </Layout>
+
+<style>
+  /* ==========================================================================
+     CONTACTO — sistema visual V4A
+     Mismas reglas que src/styles/home.css, aplicadas a una página de
+     formulario:
+     · RADIO 0 en todo. Aquí no hay tarjeta de hero ni píldora, así que no
+       hay ni una sola excepción.
+     · CERO sombras. La jerarquía la marcan los filetes de 1px (--rule,
+       --rule-dark, --ink) y las planchas de color.
+     · Composición asimétrica anclada a la izquierda: columnas de anchura
+       fija, aire a la derecha, nada centrado.
+     · Poppins 300/400/600/700. El peso 500 NO está cargado y no se usa.
+     · Texto en --text (negro), plancha en --ink, acento en --teal. El teal
+       da 2.66:1 sobre --ink, así que sobre plancha oscura sólo se usan
+       --white y --muted-dark; el teal queda para blanco o para relleno.
+
+     CLASES QUE EL SCRIPT TOCA Y QUE NO SE PUEDEN PERDER: .hidden e
+     .invisible. Las utilidades de Tailwind van en @layer utilities, así que
+     cualquier regla propia sin capa las gana; por eso cada elemento que el
+     script oculta tiene aquí su pareja explícita `.clase.hidden`.
+     ========================================================================== */
+
+  .ct {
+    flex: 1 0 auto;
+    background: var(--white);
+    color: var(--text);
+    line-height: 1.65;
+    font-weight: 400;
+  }
+  .ct h1,
+  .ct h2,
+  .ct legend {
+    margin: 0;
+    font-family: inherit;
+    font-weight: 600;
+    letter-spacing: -.03em;
+    line-height: 1.05;
+    color: var(--text);
+  }
+
+  /* ---------- eyebrow (versalitas + filete, igual que en la home) ---------- */
+  .ct-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    margin: 0;
+    font-size: .7rem;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--teal);
+  }
+  .ct-eyebrow::before {
+    content: "";
+    width: 26px;
+    height: 1px;
+    background: var(--teal);
+    flex: none;
+  }
+  /* sobre plancha oscura el teal cae a 2.66:1 — se sustituye por gris claro */
+  .ct-eyebrow--dark { color: var(--muted-dark); }
+  .ct-eyebrow--dark::before { background: var(--white); opacity: .5; }
+
+  /* ==========================================================================
+     1 · CABECERA
+     ========================================================================== */
+  .ct-hero {
+    background: var(--ink);
+    color: var(--white);
+    padding-block: clamp(52px, 8vw, 116px);
+  }
+  .ct-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, .9fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    align-items: end;
+  }
+  .ct-hero h1 {
+    margin-top: 1.3rem;
+    font-size: clamp(1.85rem, 4.3vw, 3.4rem);
+    line-height: 1.02;
+    color: var(--white);
+    max-width: 17ch;
+    text-wrap: balance;
+  }
+  .ct-hero-support {
+    margin: 0;
+    font-size: clamp(.95rem, 1.15vw, 1.0625rem);
+    line-height: 1.7;
+    font-weight: 300;
+    color: var(--muted-dark);
+    max-width: 42ch;
+  }
+  @media (max-width: 880px) {
+    .ct-hero-grid { grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
+  }
+
+  /* ==========================================================================
+     2 · REJILLA ASIMÉTRICA — progreso a la izquierda, formulario al lado,
+     aire a la derecha. Nada centrado.
+     ========================================================================== */
+  .ct-body { padding-block: clamp(52px, 8vw, 108px); }
+  .ct-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 268px) minmax(0, 660px);
+    justify-content: start;
+    gap: clamp(2rem, 6vw, 6.5rem);
+    align-items: start;
+  }
+  @media (max-width: 1060px) {
+    .ct-grid { grid-template-columns: minmax(0, 660px); gap: 2.4rem; }
+  }
+
+  /* ---------- progreso ---------- */
+  .ct-progress {
+    display: grid;
+    gap: .5rem;
+    position: sticky;
+    top: clamp(84px, 9vw, 104px);
+    align-self: start;
+  }
+  .ct-progress.hidden { display: none; }
+  .ct-step-label {
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .ct-step-pct {
+    font-size: clamp(2.1rem, 4.4vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: -.04em;
+    line-height: .95;
+    color: var(--text);
+  }
+  .ct-bar {
+    height: 2px;
+    background: var(--rule);
+    margin-top: .9rem;
+  }
+  .ct-bar-fill {
+    height: 100%;
+    background: var(--teal);
+    transition: width .35s var(--ease);
+  }
+  @media (max-width: 1060px) {
+    .ct-progress {
+      position: static;
+      grid-template-columns: 1fr auto;
+      align-items: baseline;
+      gap: .3rem 1rem;
+    }
+    .ct-step-pct { font-size: 1.5rem; text-align: right; }
+    .ct-bar { grid-column: 1 / -1; margin-top: .5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ct-bar-fill { transition: none; }
+  }
+
+  /* ==========================================================================
+     3 · FORMULARIO — sin tarjeta, sin sombra, sin radio.
+     Lo que lo delimita es el filete superior en --ink.
+     ========================================================================== */
+  .ct-form {
+    border-top: 1px solid var(--ink);
+    padding-top: clamp(1.8rem, 3.2vw, 2.6rem);
+  }
+  .ct-form.hidden { display: none; }
+
+  .step-panel {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+  .step-panel.hidden { display: none; }
+  .step-panel legend {
+    display: block;
+    width: 100%;
+    padding: 0;
+    font-size: clamp(1.3rem, 2.3vw, 1.8rem);
+  }
+  .f-rule {
+    height: 1px;
+    background: var(--rule);
+    margin: 1.1rem 0 clamp(1.7rem, 3vw, 2.3rem);
+  }
+
+  .f-row { margin-bottom: clamp(1.5rem, 2.6vw, 2rem); }
+  .f-row:last-child { margin-bottom: 0; }
+  .f-label {
+    display: block;
+    margin: 0 0 .6rem;
+    font-size: .85rem;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    line-height: 1.45;
+    color: var(--text);
+  }
+
+  .f-input {
+    display: block;
+    width: 100%;
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: 0;
+    padding: .85rem 1rem;
+    transition: border-color .2s var(--ease);
+  }
+  .f-input::placeholder { color: var(--muted); font-weight: 300; opacity: 1; }
+  .f-input:hover { border-color: var(--muted); }
+  .f-input:focus { border-color: var(--teal); }
+  textarea.f-input { resize: vertical; min-height: 6.4rem; }
+  /* estado de error: lo pinta el script con .border-red-300. Se conserva la
+     clase (no se toca el JS) pero el color sale de la paleta, no de Tailwind. */
+  .f-input.border-red-300 { border-color: var(--ink); border-left-width: 3px; }
+
+  /* ---------- opciones (radio / checkbox) — filas con filete, radio 0 ---------- */
+  .f-options { display: grid; }
+  /* mismo caso: la clase la pone el script, el color sale de la paleta */
+  .f-options.outline-red-300 { outline: 1px solid var(--ink); outline-offset: 10px; }
+  .opt {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    cursor: pointer;
+    padding: .8rem .9rem;
+    border-top: 1px solid var(--rule);
+    border-left: 3px solid transparent;
+    font-size: .9rem;
+    font-weight: 300;
+    line-height: 1.45;
+    color: var(--text);
+    transition: background-color .2s var(--ease), border-color .2s var(--ease);
+  }
+  .opt:last-child { border-bottom: 1px solid var(--rule); }
+  .opt:hover { background: var(--paper); }
+  .opt input {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    margin: 0;
+    accent-color: var(--teal);
+  }
+  .opt:has(input:checked) {
+    border-left-color: var(--teal);
+    background: var(--paper);
+    font-weight: 400;
+  }
+
+  /* ---------- consentimiento ---------- */
+  .f-consent {
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    padding: 1.1rem 1.2rem;
+  }
+  .f-consent label {
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    cursor: pointer;
+  }
+  .f-consent input {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    margin: .25rem 0 0;
+    accent-color: var(--teal);
+  }
+  .f-consent span {
+    font-size: .8rem;
+    line-height: 1.65;
+    font-weight: 300;
+    color: var(--muted);
+  }
+  .f-consent a {
+    color: var(--teal);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .f-consent a:hover { color: var(--ink); }
+  .f-consent.outline-red-300 { outline: 1px solid var(--ink); outline-offset: 6px; }
+
+  /* ==========================================================================
+     4 · ACCIONES — rectángulos, no píldoras: aquí no hay hero ni actionbar.
+     ========================================================================== */
+  .ct-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: clamp(2.2rem, 4vw, 3rem);
+    padding-top: clamp(1.3rem, 2.4vw, 1.8rem);
+    border-top: 1px solid var(--rule);
+  }
+  .ct-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    font-family: inherit;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    padding: 1rem 1.9rem;
+    border: 1px solid transparent;
+    border-radius: 0;
+    cursor: pointer;
+    transition: background-color .25s var(--ease), color .25s var(--ease), border-color .25s var(--ease);
+  }
+  /* parejas explícitas: sin esto, .ct-btn ganaría a .hidden/.invisible */
+  .ct-btn.hidden { display: none; }
+  .ct-btn.invisible { visibility: hidden; }
+  .ct-btn--solid { background: var(--ink); color: var(--white); }
+  .ct-btn--solid:hover { background: var(--ink-hover); color: var(--white); }
+  .ct-btn--solid:disabled { opacity: .5; cursor: not-allowed; }
+  .ct-btn--ghost { background: transparent; color: var(--text); border-color: var(--rule); }
+  .ct-btn--ghost:hover { background: var(--paper); border-color: var(--muted); color: var(--text); }
+  @media (max-width: 520px) {
+    .ct-btn { padding: .95rem 1.15rem; font-size: .66rem; letter-spacing: .1em; }
+  }
+
+  /* ==========================================================================
+     5 · CONFIRMACIÓN — anclada a la izquierda, en la columna del formulario.
+     ========================================================================== */
+  .ct-success {
+    grid-column: 1 / -1;
+    max-width: 660px;
+    border-top: 1px solid var(--ink);
+    padding-top: clamp(1.8rem, 3.2vw, 2.6rem);
+  }
+  .ct-success.hidden { display: none; }
+  .ct-success h2 {
+    margin: 0;
+    font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+    max-width: 18ch;
+  }
+  .ct-success-body {
+    margin: 1.2rem 0 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 48ch;
+  }
+  .ct-success .ct-btn { margin-top: clamp(1.8rem, 3vw, 2.4rem); }
+</style>
 
 <script>
   const TOTAL = 5;

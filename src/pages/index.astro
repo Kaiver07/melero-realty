@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
+import VideoEmbed from '../components/VideoEmbed.astro';
 import '../styles/home.css';
 import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ } from '../config/site';
 
@@ -217,11 +218,34 @@ const SERVICE_MEDIA = [
   </section>
 
   <!-- ================= 7 · PROCESO ================= -->
+  <!-- (04) Vídeo. Va aquí por dos motivos. Narrativo: el problema queda
+       planteado justo antes, y la CEO lo explica antes de contar el método.
+       Y de ritmo: la banda (#122f35) y el proceso (#0d2226) son dos planchas
+       oscuras seguidas; esta sección clara las separa.
+       Fachada de YouTube: solo se carga la miniatura y el iframe se inserta
+       al pulsar. Sin JavaScript de framework y sin peticiones a YouTube en
+       la carga inicial. -->
+  <section class="section section--paper vid" id="video" aria-labelledby="vid-t">
+    <div class="wrap vid-grid reveal">
+      <div class="vid-copy">
+        <p class="eyebrow">(04) En vídeo</p>
+        <h2 id="vid-t">Por qué Melero Realty.</h2>
+        <p class="vid-by">Valeria Melero &mdash; CEO &amp; Founder</p>
+      </div>
+      <div class="vid-media">
+        <VideoEmbed
+          videoId={SITE.youtubeId}
+          title="Por qué Melero Realty — Valeria Melero"
+        />
+      </div>
+    </div>
+  </section>
+
   <section class="section proc" id="proceso" aria-labelledby="proc-t">
     <p class="proc-mark" aria-hidden="true">PROCESO</p>
     <div class="wrap">
       <div class="proc-head reveal">
-        <p class="eyebrow eyebrow--dark">(04) Cómo trabajamos</p>
+        <p class="eyebrow eyebrow--dark">(05) Cómo trabajamos</p>
         <h2 id="proc-t">Cinco fases. Ninguna decorativa.</h2>
       </div>
       <ol class="steps reveal">
@@ -240,7 +264,7 @@ const SERVICE_MEDIA = [
   <section class="section section--white" aria-labelledby="cmp-t">
     <div class="wrap">
       <div class="reveal">
-        <p class="eyebrow">(05) La diferencia</p>
+        <p class="eyebrow">(06) La diferencia</p>
         <h2 id="cmp-t" style="font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;margin-top:1.3rem;max-width:20ch;line-height:1.03">Lo que suele pasar, y lo que hacemos nosotros.</h2>
 
         <div class="cmp-head-row">
@@ -264,7 +288,7 @@ const SERVICE_MEDIA = [
   <!-- ================= 9 · EQUIPO ================= -->
   <section class="section section--paper" id="equipo" style="padding-bottom:0" aria-labelledby="team-t">
     <div class="wrap team-head reveal">
-      <p class="eyebrow">(06) Equipo</p>
+      <p class="eyebrow">(07) Equipo</p>
       <h2 id="team-t">Tres personas, sin capas intermedias.</h2>
     </div>
     <div class="wrap">
@@ -288,7 +312,7 @@ const SERVICE_MEDIA = [
     <div class="wrap">
       <div class="faq-grid">
         <div class="reveal">
-          <p class="eyebrow">(07) Preguntas</p>
+          <p class="eyebrow">(08) Preguntas</p>
           <h2 id="faq-t">Lo que preguntan antes de la primera llamada.</h2>
           <p class="lead">Si falta algo, escríbenos y te lo contestamos por correo antes de agendar nada.</p>
         </div>
@@ -311,7 +335,7 @@ const SERVICE_MEDIA = [
   <section class="section section--paper casting" id="casting" aria-labelledby="casting-t">
     <div class="wrap casting-in reveal">
       <div>
-        <p class="eyebrow">(08) Trabaja con nosotros</p>
+        <p class="eyebrow">(09) Trabaja con nosotros</p>
         <h2 id="casting-t">Buscamos caras para nuestros reels.</h2>
       </div>
       <div class="casting-body">
@@ -337,7 +361,7 @@ const SERVICE_MEDIA = [
       <img src="/images/cta-boardroom.jpg" alt="Sala de juntas en penumbra con vistas a la ciudad al atardecer" width="2000" height="2500" loading="lazy" decoding="async">
     </div>
     <div class="wrap">
-      <p class="eyebrow eyebrow--dark">(09) Siguiente paso</p>
+      <p class="eyebrow eyebrow--dark">(10) Siguiente paso</p>
       <h2 id="cta-t">Reserva el diagnóstico.</h2>
       <p>Media hora para revisar de dónde vienen hoy tus leads, qué te cuesta cada cliente y si tu zona sigue libre. Si no encajamos, te lo decimos en la misma llamada.</p>
       <div class="cta-actions">
