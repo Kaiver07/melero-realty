@@ -1,21 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --color-bg:        #f3f2f2;
-  --color-surface:   #eae9e9;
-  --color-ink:       #131211; /* full-dark section backgrounds (hero, CTA, footer) */
-  --color-text:      #201e1d;
-  --color-muted:     color-mix(in srgb, var(--color-text) 62%, transparent);
-  --color-accent:    #b5893c; /* dorado real de marca, de src/assets: logo M dorada */
+  /* Paleta oficial de marca Melero Realty. Sin dorado en ningún elemento.
+     Confirmada por Valeria; ver PRODUCT.md § Brand Commitments. */
+  --color-bg:        #ffffff; /* blanco: color principal */
+  --color-surface:   #f6f7f7; /* #122f35 al 4% sobre blanco */
+  --color-ink:       #122f35; /* planchas oscuras a sangre: hero, CTA, footer */
+  --color-ink-2:     #0d2226; /* segundo plano oscuro, derivado de --color-ink */
+  --color-text:      #000000; /* regla de marca: el texto va en negro */
+  --color-muted:     #63767a; /* #122f35 al 66% sobre blanco — 4.77:1 */
+  --color-muted-dark:#bdc5c6; /* blanco al 72% sobre #122f35 — 8.06:1 */
+  --color-accent:    #24767b; /* color de identidad. 5.31:1 sobre blanco.
+                                 OJO: 2.66:1 sobre --color-ink — nunca como
+                                 texto sobre plancha oscura, solo fondo o filete. */
   --color-accent-600: color-mix(in oklch, var(--color-accent) 88%, #000);
   --color-accent-700: color-mix(in oklch, var(--color-accent) 72%, #000);
-  --color-divider:   color-mix(in srgb, #201e1d 40%, transparent);
+  --color-divider:   #dee2e3; /* #122f35 al 14% sobre blanco */
 
-  --font-heading: 'Archivo', system-ui, sans-serif;
-  --font-heading-weight: 800;
-  --font-body: 'Archivo', system-ui, sans-serif;
+  --font-heading: 'Poppins', system-ui, sans-serif;
+  --font-heading-weight: 700;
+  --font-body: 'Poppins', system-ui, sans-serif;
 
-  --radius-md: 0px; /* Modernist: no rounded corners anywhere */
+  --radius-md: 0px; /* sin esquinas redondeadas, salvo la tarjeta del hero */
 }
 
 * { box-sizing: border-box; }
@@ -58,7 +64,7 @@ img { display: block; max-width: 100%; }
   transition: background .2s ease, color .2s ease, border-color .2s ease;
 }
 .btn:disabled { opacity: .45; cursor: not-allowed; }
-.btn-primary { background: var(--color-accent); color: var(--color-ink); }
+.btn-primary { background: var(--color-accent); color: #fff; }
 .btn-primary:hover { background: var(--color-accent-600); }
 .btn-primary:active { background: var(--color-accent-700); }
 .btn-secondary { border-color: var(--color-divider); }
@@ -72,7 +78,7 @@ img { display: block; max-width: 100%; }
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   cursor: pointer; text-decoration: none;
   font-family: var(--font-heading); font-weight: var(--font-heading-weight);
-  font-size: 14px; color: var(--color-ink);
+  font-size: 14px; color: #fff;
   background: var(--color-accent); border: 1px solid transparent;
   padding: 14px 22px; border-radius: var(--radius-md);
   transition: background .2s ease;
@@ -110,7 +116,7 @@ details[open] .faq-plus { transform: rotate(45deg); }
 }
 .yt-play span {
   display: flex; align-items: center; gap: 12px;
-  background: var(--color-accent); color: var(--color-ink);
+  background: var(--color-accent); color: #fff;
   padding: 14px 22px; font-family: var(--font-heading); font-weight: 800;
   font-size: 14px; letter-spacing: 0.08em; text-transform: uppercase;
 }

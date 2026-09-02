@@ -1,269 +1,393 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import VideoEmbed from '../components/VideoEmbed.astro';
-import { SITE, STATS_BIG, SERVICES, PROCESO, COMPARISON, TESTIMONIALS, TEAM, FAQ } from '../config/site';
+import '../styles/home.css';
+import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ } from '../config/site';
 
-const ICONS: Record<string, string> = {
-  trend: '<polyline points="3 17 9 11 13 15 21 7"></polyline><polyline points="15 7 21 7 21 13"></polyline>',
-  chat: '<path d="M3 4h18l-6 8v6l-6 3v-9z"></path>',
-  percent: '<circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"></circle><line x1="19" y1="5" x2="5" y2="19"></line>',
-  doc: '<path d="M5 3h9l5 5v13H5z"></path><polyline points="14 3 14 8 19 8"></polyline><line x1="9" y1="13" x2="15" y2="13"></line><line x1="9" y1="17" x2="15" y2="17"></line>',
-  pencil: '<path d="M4 20h4L20 8l-4-4L4 16z"></path><line x1="14" y1="6" x2="18" y2="10"></line>',
-  link: '<path d="M10 14a4 4 0 0 0 6 0l3-3a4 4 0 0 0-6-6l-1 1"></path><path d="M14 10a4 4 0 0 0-6 0l-3 3a4 4 0 0 0 6 6l1-1"></path>',
-};
-
-const TEAM_PHOTOS: Record<string, string> = {
-  'Valeria Melero': '/team/valeria.jpg',
-  'Yerai Jiménez': '/team/yerai.jpg',
-  'Carlos Bernabé': '/team/carlos.jpg',
-};
+/* Fotografía de los servicios, emparejada por índice con SERVICES.
+   El copy vive en site.ts (fuente de verdad); aquí solo la imagen. */
+const SERVICE_MEDIA = [
+  { src: '/images/work-interior.jpg',   alt: 'Salón minimalista con sofás grises y chimenea encendida',      w: 1400, h: 933  },
+  { src: '/images/conference.jpg',      alt: 'Sala de reuniones oscura con sillas de cuero y lámpara lineal', w: 2000, h: 3000 },
+  { src: '/images/work-house.jpg',      alt: 'Casa moderna de hormigón y madera iluminada de noche',          w: 1400, h: 1400 },
+  { src: '/images/work-interior-2.jpg', alt: 'Interior cálido con gran ventanal y una obra de arte',          w: 1400, h: 2100 },
+  { src: '/images/hero-facade.jpg',     alt: 'Fachada blanca moderna con piscina bajo un cielo azul',         w: 2400, h: 1600 },
+  { src: '/images/hero-villa-pool.jpg', alt: 'Villa moderna con piscina a la luz del atardecer',              w: 2400, h: 1350 },
+];
 ---
 
-<Layout
-  title="Melero Realty | Generación de Leads para Agencias Inmobiliarias"
-  description="Creamos sistemas de captación de leads cualificados para agencias y asesores inmobiliarios en España y EEUU. Sin portales. Sin referidos. +300% ROI medio."
-  includeFaqSchema={true}
->
-  <Header />
+<Layout title={SITE.name} includeFaqSchema={true}>
 
-  <main class="flex-1" style="overflow-x: hidden">
 
-    <!-- ═══════════════════════════════
-         HERO
-    ════════════════════════════════ -->
-    <section id="top" style="position: relative; background: var(--color-ink)">
-      <div style="position: absolute; inset: 0" class="grayscale">
-        <img
-          src="/images/hero-villa.webp"
-          alt=""
-          style="width: 100%; height: 100%; object-fit: cover"
-        />
+<!-- ================= 1 · HERO ================= -->
+<header class="hero" id="top">
+  <div class="hero-media">
+    <img src="/images/hero-tower.jpg" alt="Skyline de una gran ciudad visto desde el agua a plena luz del día" width="2400" height="1600" fetchpriority="high" decoding="async">
+  </div>
+  <div class="hero-veil" aria-hidden="true"></div>
+
+  <div class="hero-inner">
+    <nav class="nav" aria-label="Principal">
+      <a class="nav-brand" href="#top">Melero Realty</a>
+      <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+      <a class="nav-mail" href="mailto:hola@valeriamelero.com">hola@valeriamelero.com</a>
+    </nav>
+
+    <div class="hero-spacer"></div>
+
+    <div class="hero-word" aria-hidden="true"><span>M</span><span>E</span><span>L</span><span>E</span><span>R</span><span>O</span></div>
+
+    <div class="hero-copy">
+      <h1>Captación de leads para inmobiliarias<br>que ya están facturando.</h1>
+      <p class="hero-support">Sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Sin portales. Sin referidos. Sin curiosos.</p>
+    </div>
+
+    <!-- píldora de filtros: maquetada, sin lógica -->
+    <div class="actionbar">
+      <div class="ab-field">
+        <span class="ab-label">Tipo de agencia</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
       </div>
-      <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,13,.94) 0%, rgba(15,14,13,.72) 46%, rgba(15,14,13,.28) 100%); pointer-events: none"></div>
+      <div class="ab-field">
+        <span class="ab-label">Zona</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
+      </div>
+      <div class="ab-field">
+        <span class="ab-label">Facturación</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
+      </div>
+      <a class="ab-btn" href="#contacto">Reservar diagnóstico</a>
+    </div>
+  </div>
+</header>
 
-      <div style="position: relative; max-width: 1440px; margin: 0 auto; padding: 120px 16px 0; min-height: 82vh; display: flex; flex-direction: column; justify-content: flex-end" class="sm:px-8">
-        <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 28px">
-          <span style="width: 46px; height: 2px; background: var(--color-accent)"></span>
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #f3f2f2">Captación inmobiliaria · España &amp; EEUU</span>
+<main>
+
+  <!-- ================= 3 · INTRO ================= -->
+  <section class="section section--paper" aria-labelledby="intro-t">
+    <div class="wrap">
+      <div class="intro-grid reveal">
+        <div class="intro-side">
+          <p class="eyebrow">(01) El servicio</p>
+          <p>Trabajamos con inmobiliarias en activo y con exclusividad por zona: una sola marca por área de captación.</p>
         </div>
-        <h1 style="margin: 0; max-width: 20ch; font-size: clamp(38px, 6.4vw, 104px); line-height: 0.96; letter-spacing: -0.03em; text-transform: uppercase; color: #f8f4f4">
-          Si el 80% de tus leads vienen de un portal, tienes un problema.
-        </h1>
-        <p style="margin: 32px 0 0; max-width: 54ch; font-size: 18px; line-height: 1.5; color: rgba(248,244,244,.72)">
-          {SITE.subtitulo}
-        </p>
-        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin: 40px 0 64px">
-          <a class="btn btn-primary" href="/contacto" style="padding: 14px 24px; font-size: 15px">Agendar diagnóstico</a>
-          <a class="btn" href="#comparativa" style="padding: 14px 24px; font-size: 15px; color: #f8f4f4; border-color: rgba(248,244,244,.4)">Ver la comparativa</a>
-        </div>
-      </div>
-
-      <div style="position: relative; border-top: 2px solid rgba(248,244,244,.28); background: rgba(15,14,13,.72)">
-        <div class="grid-3" style="max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr)">
-          {STATS_BIG.map(({ value, label }, i) => (
-            <div style={`padding: 28px 24px; ${i < 2 ? 'border-right: 2px solid rgba(248,244,244,.28)' : ''}`}>
-              <div style={`font-family: var(--font-heading); font-weight: 800; font-size: clamp(38px, 4.6vw, 68px); line-height: 1; letter-spacing: -0.03em; color: ${i === 2 ? 'var(--color-accent)' : '#f8f4f4'}`}>{value}</div>
-              <div style="margin-top: 10px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(248,244,244,.6)">{label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════
-         DECLARACIÓN DE MARCA
-    ════════════════════════════════ -->
-    <section style="border-bottom: 2px solid var(--color-divider)">
-      <div class="grid-2 sm:px-8" style="max-width: 1440px; margin: 0 auto; padding: 64px 16px; display: grid; grid-template-columns: 1.45fr 1fr; gap: 40px; align-items: end" data-reveal>
-        <h2 style="margin: 0; font-size: clamp(28px, 3.4vw, 54px); line-height: 1.06; letter-spacing: -0.025em; max-width: 26ch">Hablamos de números, no de followers.</h2>
-        <p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--color-muted)">Trabajamos con inmobiliarias y asesores que ya facturan y necesitan un canal propio de captación. No vendemos alcance: vendemos coste por lead, coste por cliente y retorno medible.</p>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════
-         SERVICIOS
-    ════════════════════════════════ -->
-    <section id="servicios" style="border-bottom: 2px solid var(--color-divider)">
-      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 0" class="sm:px-8" data-reveal>
-        <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px; flex-wrap: wrap">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">01 / Servicios</span>
-          <h2 style="margin: 0 0 0 auto; font-size: clamp(24px, 2.6vw, 40px); letter-spacing: -0.02em">El sistema, por partes</h2>
+        <div>
+          <h2 id="intro-t" class="intro-big">Creamos sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Diseñamos el recorrido completo, del primer clic a la llamada agendada, y lo ajustamos semana a semana según coste por lead y calidad real. <em>Sin portales. Sin referidos. Sin curiosos.</em></h2>
         </div>
       </div>
-      <div class="grid-3" style="max-width: 1440px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--color-divider); border-left: 2px solid var(--color-divider)" data-reveal>
-        {SERVICES.map(({ icon, title, desc }, i) => (
-          <div style="padding: 36px 24px 40px; border-right: 2px solid var(--color-divider); border-bottom: 2px solid var(--color-divider)">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="square" set:html={ICONS[icon]} />
-              <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.14em; color: color-mix(in srgb, var(--color-text) 40%, transparent)">{String(i + 1).padStart(2, '0')}</span>
-            </div>
-            <h3 style="margin: 0 0 12px; font-size: 21px; letter-spacing: -0.015em">{title}</h3>
-            <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--color-muted)">{desc}</p>
-          </div>
-        ))}
-      </div>
-    </section>
+      <div class="intro-rule" aria-hidden="true"></div>
+    </div>
+  </section>
 
-    <!-- ═══════════════════════════════
-         PROCESO
-    ════════════════════════════════ -->
-    <section id="proceso" style="border-bottom: 2px solid var(--color-divider)">
-      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 88px" class="sm:px-8" data-reveal>
-        <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 48px; flex-wrap: wrap">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">02 / Proceso</span>
-          <h2 style="margin: 0 0 0 auto; font-size: clamp(24px, 2.6vw, 40px); letter-spacing: -0.02em">Cinco pasos, sin humo</h2>
+  <!-- ================= 4 · SERVICIOS ================= -->
+  <section class="section section--white svc" id="servicios" aria-labelledby="svc-t">
+    <div class="wrap">
+      <div class="svc-head reveal">
+        <div>
+          <p class="eyebrow">(02) Servicios</p>
+          <h2 id="svc-t">Seis frentes, un solo objetivo: llamadas agendadas.</h2>
         </div>
-        <div style="border-top: 2px solid var(--color-divider)">
-          {PROCESO.map(({ step, title, desc }, i) => (
-            <div class="grid-2" style="display: grid; grid-template-columns: 90px 1.1fr 1.4fr; gap: 24px; padding: 26px 0; border-bottom: 2px solid var(--color-divider); align-items: start">
-              <div style={`font-family: var(--font-heading); font-weight: 800; font-size: 36px; line-height: 1; letter-spacing: -0.03em; color: ${i === 0 ? 'var(--color-accent)' : 'color-mix(in srgb, var(--color-text) 30%, transparent)'}`}>{step}</div>
-              <h3 style="margin: 0; font-size: 20px; letter-spacing: -0.015em">{title}</h3>
-              <p style="margin: 0; font-size: 15px; line-height: 1.55; color: var(--color-muted)">{desc}</p>
-            </div>
-          ))}
+        <p class="lead" style="max-width:34ch">Cada pieza existe para reducir el coste por cliente, no para llenar un informe.</p>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="svc-scroll" id="svcScroll" tabindex="0" role="region" aria-label="Servicios, desplazamiento horizontal">
+
+        <article class="svc-card">
+          <figure class="svc-fig"><img src="/images/work-interior.jpg" alt="Salón minimalista con sofás grises y chimenea encendida" width="1400" height="933" loading="lazy" decoding="async"></figure>
+          <span class="svc-index">01</span>
+          <h3>Paid Ads Inmobiliario</h3>
+          <p>Campañas en Meta y Google diseñadas para captar propietarios y compradores cualificados. Sin presupuesto tirado.</p>
+        </article>
+
+        <article class="svc-card">
+          <figure class="svc-fig"><img src="/images/conference.jpg" alt="Sala de reuniones oscura con sillas de cuero y lámpara lineal" width="2000" height="3000" loading="lazy" decoding="async"></figure>
+          <span class="svc-index">02</span>
+          <h3>Embudo de Captación</h3>
+          <p>El recorrido completo: desde el primer clic hasta la llamada agendada. Sin fricción.</p>
+        </article>
+
+        <article class="svc-card">
+          <figure class="svc-fig"><img src="/images/work-house.jpg" alt="Casa moderna de hormigón y madera iluminada de noche" width="1400" height="1400" loading="lazy" decoding="async"></figure>
+          <span class="svc-index">03</span>
+          <h3>Generación de Leads</h3>
+          <p>Leads exclusivos para tu agencia. No compartidos, no comprados a terceros. Tuyos.</p>
+        </article>
+
+        <article class="svc-card">
+          <figure class="svc-fig"><img src="/images/work-interior-2.jpg" alt="Interior cálido con gran ventanal y una obra de arte en la pared" width="1400" height="2100" loading="lazy" decoding="async"></figure>
+          <span class="svc-index">04</span>
+          <h3>Posicionamiento de Marca</h3>
+          <p>La presencia digital que hace que los clientes elijan tu agencia antes de llamar a la competencia.</p>
+        </article>
+
+        <article class="svc-card">
+          <figure class="svc-fig"><img src="/images/hero-facade.jpg" alt="Fachada blanca moderna con piscina bajo un cielo azul" width="2400" height="1600" loading="lazy" decoding="async"></figure>
+          <span class="svc-index">05</span>
+          <h3>Contenido Estratégico</h3>
+          <p>Contenido que posiciona, educa y filtra. No publicaciones para rellenar el feed.</p>
+        </article>
+
+        <article class="svc-card">
+          <figure class="svc-fig"><img src="/images/hero-villa-pool.jpg" alt="Villa moderna con piscina a la luz del atardecer" width="2400" height="1350" loading="lazy" decoding="async"></figure>
+          <span class="svc-index">06</span>
+          <h3>Estrategia y Consultoría</h3>
+          <p>Para agencias que quieren entender qué está fallando en su captación y cómo arreglarlo.</p>
+        </article>
+
+      </div>
+    </div>
+
+    <div class="wrap">
+      <div class="svc-bar" aria-hidden="true"><span class="svc-bar-fill" id="svcBar"></span></div>
+      <div class="svc-foot">
+        <a class="btn btn--dark" href="#contacto">Diagnóstico
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 5 · DATOS ================= -->
+  <section class="section section--white" style="padding-top:0" aria-labelledby="facts-t">
+    <div class="wrap">
+      <h2 id="facts-t" class="brandline reveal">Hablamos de números, no de followers.</h2>
+      <div class="facts reveal">
+        <div class="fact">
+          <p class="fact-num">3.200&nbsp;€</p>
+          <p>Presupuesto mínimo para empezar. Por debajo de esa cifra no hay sistema que aguante.</p>
+        </div>
+        <div class="fact">
+          <p class="fact-num">6 meses</p>
+          <p>Duración del contrato. Los primeros resultados llegan hacia los 20 días; antes de 3 meses no garantizamos nada.</p>
+        </div>
+        <div class="fact">
+          <p class="fact-num">1 marca</p>
+          <p>Exclusividad por zona. Si trabajamos contigo, no trabajamos con tu competencia directa.</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ═══════════════════════════════
-         POR QUÉ MELERO REALTY
-    ════════════════════════════════ -->
-    <section id="resultados" style="background: #1a1817; border-bottom: 2px solid var(--color-divider)">
-      <div class="grid-2" style="max-width: 1440px; margin: 0 auto; padding: 64px 16px; display: grid; grid-template-columns: 1fr 1.35fr; gap: 40px; align-items: center" data-reveal>
-          <div>
-            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">03 / Por qué</span>
-            <h2 style="margin: 20px 0 18px; font-size: clamp(26px, 3vw, 46px); line-height: 1.04; letter-spacing: -0.025em; color: #f8f4f4">Por qué Melero Realty</h2>
-            <p style="margin: 0 0 32px; font-size: 16px; line-height: 1.6; color: rgba(248,244,244,.66)">Especialización exclusiva en inmobiliario, acompañamiento 1:1 con la CEO y reporte semanal sobre las cifras que deciden: coste por lead, coste por cliente y ROI.</p>
-            <div style="display: flex; flex-direction: column; gap: 12px">
-              <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 2px solid rgba(248,244,244,.24)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="square"><path d="M12 3l7 3v6c0 4-3 7-7 9-4-2-7-5-7-9V6z"></path><polyline points="9 12 11.5 14.5 16 10"></polyline></svg>
-                <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #f8f4f4">Exclusividad por zona</span>
+  <!-- ================= 6 · BANDA OSCURA ================= -->
+  <section class="section band" aria-labelledby="band-t">
+    <div class="wrap">
+      <div class="band-grid">
+        <div class="band-copy reveal">
+          <p class="eyebrow eyebrow--dark">(03) El problema</p>
+          <h2 id="band-t">Si el 80% de tus leads<br>vienen de un portal,<br>tienes un problema.</h2>
+          <p>Un portal te alquila la demanda: el día que dejas de pagar, desaparece. Nosotros construimos el canal dentro de tu marca, para que el lead llegue a tu nombre y no al del portal, y para que puedas medir qué te cuesta cada cliente de verdad.</p>
+          <p class="band-quote">Sin portales. Sin referidos. Sin curiosos.</p>
+        </div>
+
+        <div class="band-media reveal">
+          <img src="/images/meeting.jpg" alt="Reunión de equipo en una oficina acristalada de tonos oscuros" width="2000" height="1333" loading="lazy" decoding="async">
+          <div class="float-cards">
+            <article class="fcard">
+              <div class="fcard-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
               </div>
-              <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 2px solid rgba(248,244,244,.24)">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2" stroke-linecap="square"><line x1="4" y1="20" x2="4" y2="10"></line><line x1="10" y1="20" x2="10" y2="4"></line><line x1="16" y1="20" x2="16" y2="13"></line><line x1="22" y1="20" x2="22" y2="7"></line></svg>
-                <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #f8f4f4">Reporte semanal de KPIs</span>
+              <h3>Exclusividad por zona</h3>
+              <p>Una sola marca por área de captación. No abrimos una segunda cuenta en tu mercado.</p>
+            </article>
+            <article class="fcard">
+              <div class="fcard-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M6.5 21V12"/><path d="M12 21V4.5"/><path d="M17.5 21v-6.5"/></svg>
               </div>
-            </div>
+              <h3>Reporte semanal</h3>
+              <p>Coste por lead y coste por cliente, cada semana. Nada de impresiones ni alcance.</p>
+            </article>
+            <article class="fcard">
+              <div class="fcard-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.4 2.7-5.6 6-5.6"/><circle cx="17" cy="11.2" r="2.4"/><path d="M13.4 20c0-2.4 1.6-4 3.6-4s3.6 1.6 3.6 4"/></svg>
+              </div>
+              <h3>Acompañamiento 1:1</h3>
+              <p>Comunicación directa con la CEO durante todo el contrato. Sin capas intermedias.</p>
+            </article>
           </div>
-          <div>
-            <VideoEmbed videoId={SITE.youtubeId} title="Por qué Melero Realty" />
-          </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════
-         COMPARATIVA
-    ════════════════════════════════ -->
-    <section id="comparativa" style="border-bottom: 2px solid var(--color-divider)">
-      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 88px" class="sm:px-8" data-reveal>
-        <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 44px; flex-wrap: wrap">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">04 / Comparativa</span>
-          <h2 style="margin: 0 0 0 auto; font-size: clamp(24px, 2.6vw, 40px); letter-spacing: -0.02em">La diferencia, punto por punto</h2>
         </div>
-        <div style="border-top: 2px solid var(--color-text); overflow-x: auto">
-          <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--color-text); min-width: 480px">
-            <div style="padding: 14px 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-muted); border-right: 2px solid var(--color-divider)">Otras agencias</div>
-            <div style="padding: 14px 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent); background: var(--color-ink)">Melero Realty</div>
-          </div>
-          {COMPARISON.map(({ ellos, nosotros }) => (
-            <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--color-divider); min-width: 480px">
-              <div style="padding: 20px; font-size: 15px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 55%, transparent); border-right: 2px solid var(--color-divider); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--color-text) 30%, transparent)">{ellos}</div>
-              <div style="padding: 20px; font-size: 15px; line-height: 1.5; font-weight: 600">{nosotros}</div>
-            </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 7 · PROCESO ================= -->
+  <section class="section proc" id="proceso" aria-labelledby="proc-t">
+    <p class="proc-mark" aria-hidden="true">PROCESO</p>
+    <div class="wrap">
+      <div class="proc-head reveal">
+        <p class="eyebrow eyebrow--dark">(04) Cómo trabajamos</p>
+        <h2 id="proc-t">Cinco fases. Ninguna decorativa.</h2>
+      </div>
+      <ol class="steps reveal">
+        {PROCESO.map((p) => (
+          <li class="step">
+            <span class="step-n">{p.step}</span>
+            <h3>{p.title}</h3>
+            <p>{p.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= 8 · COMPARATIVA ================= -->
+  <section class="section section--white" aria-labelledby="cmp-t">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">(05) La diferencia</p>
+        <h2 id="cmp-t" style="font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;margin-top:1.3rem;max-width:20ch;line-height:1.03">Lo que suele pasar, y lo que hacemos nosotros.</h2>
+
+        <div class="cmp-head-row">
+          <p class="cmp-h cmp-h--them">Otras agencias</p>
+          <p class="cmp-h cmp-h--us">Melero Realty</p>
+        </div>
+
+        <div class="cmp">
+        {COMPARISON.map((c) => (
+          <>
+            <div class="cmp-cell cmp-cell--them"><span class="cmp-tag">Otras agencias</span>{c.ellos}</div>
+            <div class="cmp-cell cmp-cell--us"><span class="cmp-tag">Melero Realty</span>{c.nosotros}</div>
+          </>
+        ))}
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 9 · EQUIPO ================= -->
+  <section class="section section--paper" id="equipo" style="padding-bottom:0" aria-labelledby="team-t">
+    <div class="wrap team-head reveal">
+      <p class="eyebrow">(06) Equipo</p>
+      <h2 id="team-t">Tres personas, sin capas intermedias.</h2>
+    </div>
+    <div class="wrap">
+    <div class="team-grid">
+      {TEAM.map((m) => (
+        <figure class="member">
+          <img src={m.photo} alt={`Retrato de ${m.name}, ${m.role} de Melero Realty`}
+               width="1000" height="1250" loading="lazy" decoding="async" />
+          <figcaption>
+            <span class="member-name">{m.name}</span>
+            <span class="member-role">{m.role}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+    </div>
+  </section>
+
+  <!-- ================= 10 · FAQ ================= -->
+  <section class="section section--white" id="faq" aria-labelledby="faq-t">
+    <div class="wrap">
+      <div class="faq-grid">
+        <div class="reveal">
+          <p class="eyebrow">(07) Preguntas</p>
+          <h2 id="faq-t">Lo que preguntan antes de la primera llamada.</h2>
+          <p class="lead">Si falta algo, escríbenos y te lo contestamos por correo antes de agendar nada.</p>
+        </div>
+        <div class="reveal">
+          {FAQ.map((f) => (
+            <details>
+              <summary>{f.q}<span class="plus" aria-hidden="true"></span></summary>
+              <p>{f.a}</p>
+            </details>
           ))}
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- ═══════════════════════════════
-         TESTIMONIOS
-    ════════════════════════════════ -->
-    <section id="testimonios" style="border-bottom: 2px solid var(--color-divider); background: var(--color-surface)">
-      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 0" class="sm:px-8" data-reveal>
-        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">05 / Clientes</span>
+  <!-- ================= CTA FINAL ================= -->
+  <section class="cta" id="contacto" aria-labelledby="cta-t">
+    <div class="cta-media">
+      <img src="/images/cta-boardroom.jpg" alt="Sala de juntas en penumbra con vistas a la ciudad al atardecer" width="2000" height="2500" loading="lazy" decoding="async">
+    </div>
+    <div class="wrap">
+      <p class="eyebrow eyebrow--dark">(08) Siguiente paso</p>
+      <h2 id="cta-t">Reserva el diagnóstico.</h2>
+      <p>Media hora para revisar de dónde vienen hoy tus leads, qué te cuesta cada cliente y si tu zona sigue libre. Si no encajamos, te lo decimos en la misma llamada.</p>
+      <div class="cta-actions">
+        <a class="btn btn--light" href="mailto:hola@valeriamelero.com?subject=Reservar%20diagn%C3%B3stico">Reservar diagnóstico
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+        </a>
+        <a class="cta-mail" href="mailto:hola@valeriamelero.com">hola@valeriamelero.com</a>
       </div>
-      <div class="grid-3" style="max-width: 1440px; margin: 40px auto 0; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 2px solid var(--color-divider)" data-reveal>
-        {TESTIMONIALS.map(({ quote, name, role }, i) => (
-          <div style={`padding: 36px 24px; ${i < 2 ? 'border-right: 2px solid var(--color-divider);' : ''} display: flex; flex-direction: column; gap: 28px`}>
-            <p style="margin: 0; font-family: var(--font-heading); font-weight: 700; font-size: 19px; line-height: 1.35; letter-spacing: -0.015em">«{quote}»</p>
-            <div style="margin-top: auto">
-              <div style="width: 32px; height: 2px; background: var(--color-accent); margin-bottom: 14px"></div>
-              <div style="font-size: 14px; font-weight: 700">{name}</div>
-              <div style="font-size: 13px; color: var(--color-muted)">{role}</div>
-            </div>
-          </div>
-        ))}
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand">MELERO<span>.</span></p>
+        <p>Captación de leads para negocios inmobiliarios en activo. Exclusividad por zona.</p>
       </div>
-    </section>
-
-    <!-- ═══════════════════════════════
-         EQUIPO
-    ════════════════════════════════ -->
-    <section id="equipo" style="border-bottom: 2px solid var(--color-divider)">
-      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 0" class="sm:px-8" data-reveal>
-        <div style="display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px; flex-wrap: wrap">
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">06 / Equipo</span>
-          <h2 style="margin: 0 0 0 auto; font-size: clamp(24px, 2.6vw, 40px); letter-spacing: -0.02em">Quién trabaja tu cuenta</h2>
-        </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          <li><a href="#servicios">Servicios</a></li>
+          <li><a href="#proceso">Proceso</a></li>
+          <li><a href="#equipo">Equipo</a></li>
+          <li><a href="#faq">Preguntas</a></li>
+        </ul>
       </div>
-      <div class="grid-3 sm:px-8" style="max-width: 1440px; margin: 0 auto; padding: 0 16px 88px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px" data-reveal>
-        {TEAM.map(({ name, role, photo }) => (
-          <figure style="margin: 0">
-            <div class="grayscale" style="position: relative; aspect-ratio: 3/4; background: var(--color-surface); overflow: hidden">
-              <img src={TEAM_PHOTOS[name] ?? photo} alt={name} style="width: 100%; height: 100%; object-fit: cover" loading="lazy" />
-            </div>
-            <figcaption style="margin: 0; padding-top: 16px; border-top: 2px solid var(--color-text)">
-              <div style="font-family: var(--font-heading); font-weight: 800; font-size: 18px; letter-spacing: -0.015em">{name}</div>
-              <div style="margin-top: 4px; font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent)">{role}</div>
-            </figcaption>
-          </figure>
-        ))}
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="mailto:hola@valeriamelero.com">hola@valeriamelero.com</a></li>
+          <li><a href="https://valeriamelero.com">valeriamelero.com</a></li>
+          <li><a href="https://instagram.com/melero.realty" rel="noopener">Instagram @melero.realty</a></li>
+        </ul>
       </div>
-    </section>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Melero Realty. Todos los derechos reservados.</span>
+      <span>Valeria Melero — CEO &amp; Founder</span>
+    </div>
+  </div>
+</footer>
 
-    <!-- ═══════════════════════════════
-         FAQ
-    ════════════════════════════════ -->
-    <section id="faq" style="border-bottom: 2px solid var(--color-divider)">
-      <div class="grid-2 sm:px-8" style="max-width: 1440px; margin: 0 auto; padding: 72px 16px 88px; display: grid; grid-template-columns: 0.6fr 1.4fr; gap: 40px" data-reveal>
-          <div>
-            <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">07 / FAQ</span>
-            <h2 style="margin: 20px 0 0; font-size: clamp(24px, 2.6vw, 40px); line-height: 1.06; letter-spacing: -0.02em">Lo que preguntan antes de firmar</h2>
-          </div>
-          <div style="border-top: 2px solid var(--color-text)">
-            {FAQ.map(({ q, a }) => (
-              <details style="border-bottom: 2px solid var(--color-divider)">
-                <summary style="display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 22px 0; font-family: var(--font-heading); font-weight: 700; font-size: 18px; letter-spacing: -0.01em">
-                  {q}
-                  <span class="faq-plus" style="flex: none; font-weight: 400; font-size: 24px; color: var(--color-accent)">+</span>
-                </summary>
-                <p style="margin: 0; padding: 0 40px 24px 0; font-size: 15px; line-height: 1.6; color: var(--color-muted)">{a}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-    </section>
+<script>
+(function(){
+  var root = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!reduce) root.classList.add('js');
 
-    <!-- ═══════════════════════════════
-         CONTACTO
-    ════════════════════════════════ -->
-    <section id="contacto" style="background: var(--color-ink)">
-      <div style="max-width: 1440px; margin: 0 auto; padding: 72px 16px" class="sm:px-8" data-reveal>
-        <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-accent)">08 / Empezar</div>
-        <h2 style="margin: 24px 0 0; max-width: 24ch; font-size: clamp(34px, 6vw, 96px); line-height: 0.96; letter-spacing: -0.035em; text-transform: uppercase; color: #f8f4f4">Deja de alquilar tus leads.</h2>
-        <div class="grid-2" style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: end">
-          <p style="margin: 0; max-width: 46ch; font-size: 17px; line-height: 1.6; color: rgba(248,244,244,.86)">Diagnóstico gratuito de tu captación actual. Si no vemos margen real de mejora, te lo decimos en la llamada.</p>
-          <div style="display: flex; flex-wrap: wrap; gap: 12px">
-            <a class="btn btn-primary" href="/contacto" style="padding: 16px 26px; font-size: 15px">Agendar diagnóstico</a>
-            <a class="btn" href={`mailto:${SITE.email}`} style="padding: 16px 26px; font-size: 15px; color: #f8f4f4; border-color: rgba(248,244,244,.5)">{SITE.email}</a>
-          </div>
-        </div>
-      </div>
-    </section>
+  /* Revelado por bloque (no por elemento) */
+  if(!reduce && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:0.08});
+    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
 
-  </main>
-
-  <Footer />
+  /* Barra de progreso del carrusel de servicios */
+  var track = document.getElementById('svcScroll');
+  var fill  = document.getElementById('svcBar');
+  if(track && fill){
+    var update = function(){
+      var max = track.scrollWidth - track.clientWidth;
+      var ratio = Math.min(1, Math.max(0.18, track.clientWidth / track.scrollWidth));
+      var progress = max > 0 ? track.scrollLeft / max : 0;
+      fill.style.width = (ratio * 100) + '%';
+      fill.style.transform = 'translateX(' + (progress * ((1 - ratio) / ratio) * 100) + '%)';
+    };
+    track.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+    update();
+  }
+})();
+</script>
 </Layout>

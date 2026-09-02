@@ -1,0 +1,544 @@
+/* ==========================================================================
+   MELERO REALTY — V4 · versión A "Fiel"
+   Misma arquitectura y mismos recursos que v4-contraste.html, repaletizada.
+   --------------------------------------------------------------------------
+   TIPOGRAFÍA — Poppins, y sólo Poppins (300 / 400 / 600 / 700).
+   Se cargan cuatro pesos a propósito: el 500 NO se descarga, así que es
+   imposible que se cuele por descuido y arrastre la página al look de
+   plantilla. Poppins es geométrica y de caja muy ancha, de modo que:
+   · titulares grandes siempre en 600/700 con letter-spacing:-.03em y
+     line-height 0.95–1.05 (sin tracking negativo, a 6rem se ablanda);
+   · el wordmark gigante en 700 con -.02em, que a ese cuerpo es suficiente
+     corrección: más apretado y las contraformas de la O y la E se cierran;
+   · versalitas y eyebrows en 600 a 11–12px con tracking .16–.22em, que es
+     donde la caja ancha de Poppins juega a favor;
+   · texto de lectura en 300/400, line-height 1.65, máximo 62ch.
+
+   PALETA (vinculante) — paleta oficial de marca Melero Realty:
+   blanco #ffffff · #122f35 · #24767b (identidad) · #000000 texto. Sin dorado.
+   Reparto de los dos oscuros, que son vecinos y mal usados hacen barro:
+   · BLANCO es el fondo dominante: intro, servicios, datos, comparativa,
+     equipo y FAQ. La mayor parte del scroll es blanco.
+   · #122f35 es la PLANCHA y el SÓLIDO oscuro: fondo de tarjeta del hero, los
+     botones, la píldora del hero, la tarjeta del hero, el velo sobre foto,
+     la banda oscura de "el problema", el velo del CTA final y la marca de
+     agua PROCESO.
+   · #0d2226 (derivado de #122f35) es el SEGUNDO PLANO oscuro: la sección
+     de proceso, el footer, el velo de las fichas de equipo y el trazo de
+     los iconos de las tarjetas flotantes.
+   · Los dos oscuros sólo se tocan en tres sitios y en los tres hay corte
+     declarado: banda→proceso y CTA→footer llevan filete de 1px en blanco al
+     16%, y la marca de agua PROCESO se apoya en un salto de escala de 17rem
+     contra 1rem, que es corte más que suficiente.
+   · El texto va en NEGRO #000000 (regla de marca), no en la tinta oscura.
+   · #24767b ocupa el papel de acento: eyebrows, filetes de énfasis, foco y
+     el botón de la píldora. Nunca como texto sobre plancha oscura (2.66:1).
+   · Grises: --muted es #122f35 al 66% sobre blanco (4.77:1) y --muted-dark
+     es blanco al 72% sobre #122f35 (8.06:1).
+
+   RADIOS: 0 en toda la página. Dos excepciones deliberadas y heredadas del
+   referente: la tarjeta del hero (4px) y las píldoras (botones y barra de
+   acción). El margen blanco alrededor de la tarjeta oscura del hero es
+   estructural, no decorativo: es lo que hace que el bloque se lea como una
+   pieza colocada sobre papel.
+   ========================================================================== */
+
+:root{
+  /* Paleta oficial de marca Melero Realty. Sin dorado en ningún elemento. */
+  --text:#000000;         /* texto — regla de marca: el texto va en negro */
+  --ink:#122f35;          /* planchas y sólidos oscuros */
+  --ink-2:#0d2226;        /* segundo plano oscuro, derivado de #122f35 */
+  --ink-hover:#28454b;    /* sólo estados hover de sólidos */
+  --teal:#24767b;         /* color de identidad. 5.31:1 sobre blanco.
+                             OJO: 2.66:1 sobre #122f35 — nunca como texto
+                             sobre plancha oscura, solo fondo o filete. */
+  --white:#ffffff;
+  --paper:#f6f7f7;        /* #122f35 al 4% sobre blanco */
+  --paper-2:#eceeef;      /* #122f35 al 8% sobre blanco */
+  --rule:#dee2e3;         /* #122f35 al 14% sobre blanco */
+  --rule-dark:rgba(255,255,255,.16);
+  --muted:#63767a;        /* #122f35 al 66% sobre blanco — 4.77:1 */
+  --muted-dark:#bdc5c6;   /* blanco al 72% sobre #122f35 — 8.06:1 */
+  --r-card:4px;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --photo:grayscale(.28) contrast(1.04) saturate(.86);
+  --pad:clamp(20px,5vw,64px);
+  --maxw:1360px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+html,body{max-width:100%;overflow-x:hidden}
+body{
+  margin:0;
+  background:var(--white);
+  color:var(--text);
+  font-family:"Poppins","Helvetica Neue",Arial,sans-serif;
+  font-weight:400;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img{display:block;max-width:100%;height:auto}
+h1,h2,h3,h4{margin:0;font-family:inherit;font-weight:600;letter-spacing:-.03em;line-height:1.05}
+p{margin:0}
+a{color:inherit}
+ul,ol{margin:0;padding:0;list-style:none}
+:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+.hero :focus-visible,.band :focus-visible,.proc :focus-visible,
+.cta :focus-visible,.footer :focus-visible{outline-color:var(--white)}
+
+/* ---------- utilidades ---------- */
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
+.eyebrow{
+  font-size:.7rem;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--teal);
+  display:flex;align-items:center;gap:.7rem;
+}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--teal);flex:none}
+.eyebrow--dark{color:var(--muted-dark)}
+.eyebrow--dark::before{background:var(--white);opacity:.5}
+.lead{font-size:clamp(1rem,1.4vw,1.0625rem);line-height:1.68;color:var(--muted);max-width:62ch;font-weight:400}
+.section{padding-block:clamp(72px,10vw,150px)}
+.section--white{background:var(--white)}
+.section--paper{background:var(--paper)}
+.section--dark{background:var(--ink);color:var(--white)}
+.section--dark .lead{color:var(--muted-dark)}
+.section--dark .eyebrow{color:var(--muted-dark)}
+
+/* ---------- botones ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.85rem;
+  font-size:.74rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;text-decoration:none;
+  padding:1.05rem 2.1rem;border-radius:999px;border:1px solid transparent;
+  transition:background-color .25s var(--ease),color .25s var(--ease),transform .18s var(--ease);
+}
+.btn--dark{background:var(--ink);color:var(--white)}
+.btn--dark:hover{background:var(--ink-hover)}
+.btn--light{background:var(--white);color:var(--text)}
+.btn--light:hover{background:var(--paper-2)}
+.btn:active{transform:scale(.985)}
+.btn svg{width:15px;height:15px;flex:none}
+
+/* ==========================================================================
+   1 · HERO EN TARJETA — margen blanco + radio 4px
+   ========================================================================== */
+.hero{
+  position:relative;
+  margin:clamp(10px,1.2vw,18px);
+  border-radius:var(--r-card);
+  overflow:hidden;                 /* contiene la palabra gigante */
+  background:var(--ink);
+  min-height:min(90vh,880px);
+  display:flex;flex-direction:column;
+}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media img{width:100%;height:100%;object-fit:cover;filter:var(--photo)}
+.hero-veil{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(180deg,rgba(18,47,53,.78) 0%,rgba(18,47,53,.24) 26%,rgba(18,47,53,.34) 52%,rgba(18,47,53,.76) 78%,rgba(18,47,53,.94) 100%),
+    linear-gradient(90deg,rgba(18,47,53,.56) 0%,rgba(18,47,53,.08) 58%);
+}
+.hero-inner{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;flex:1;
+  padding:clamp(18px,2.6vw,34px) clamp(18px,3.4vw,52px) clamp(24px,3.2vw,44px);
+  color:var(--white);
+}
+
+/* nav */
+.nav{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.nav-brand{
+  font-size:.72rem;font-weight:600;
+  letter-spacing:.28em;text-transform:uppercase;text-decoration:none;color:var(--white);
+}
+.nav-links{display:flex;gap:clamp(1rem,2.4vw,2.4rem)}
+.nav-links a,.nav-mail{
+  font-size:.68rem;font-weight:400;
+  letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--white);
+  opacity:.84;transition:opacity .2s var(--ease);white-space:nowrap;
+}
+.nav-links a:hover,.nav-mail:hover{opacity:1}
+.nav-mail{border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:2px}
+@media (max-width:860px){.nav-links{display:none}}
+@media (max-width:520px){
+  .nav-brand{letter-spacing:.18em;font-size:.66rem}
+  .nav-mail{font-size:.6rem;letter-spacing:.08em}
+}
+
+/* palabra gigante — Poppins 700, -.02em, blanco a baja opacidad */
+.hero-spacer{flex:1;min-height:clamp(40px,12vh,150px)}
+.hero-word{
+  display:flex;justify-content:space-between;width:100%;
+  font-weight:700;
+  font-size:clamp(3rem,15.5vw,11rem);
+  letter-spacing:-.02em;
+  line-height:.86;
+  color:rgba(255,255,255,.22);
+  user-select:none;pointer-events:none;
+  margin-bottom:-.13em;
+}
+.hero-word span{display:block}
+/* el tracking negativo deja aire muerto tras la última letra: se recupera */
+.hero-word span:last-child{margin-right:-.02em}
+
+/* copy */
+.hero-copy{
+  position:relative;
+  display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,.9fr);
+  gap:clamp(1.2rem,3vw,3.2rem);align-items:end;
+}
+.hero-copy h1{
+  font-size:clamp(1.55rem,2.95vw,2.7rem);font-weight:600;letter-spacing:-.03em;
+  line-height:1.1;color:var(--white);
+}
+.hero-support{
+  font-size:clamp(.95rem,1.15vw,1.0625rem);line-height:1.65;font-weight:300;
+  color:rgba(255,255,255,.92);max-width:38ch;
+}
+@media (max-width:820px){
+  .hero-copy{grid-template-columns:1fr;align-items:start;gap:1rem}
+  .hero-support{max-width:46ch}
+}
+
+/* ---------- 2 · PÍLDORA DE FILTROS ----------
+   «Reservar diagnóstico» es ~2,5× más largo que la etiqueta corta anterior:
+   píldora a 980px, se recorta el tracking del botón a .12em y se estrecha el
+   padding lateral de los campos para que siga cabiendo en UNA línea a 1440px.
+   Los tres campos llevan min-width:0 + ellipsis, así que ninguna etiqueta
+   puede empujar el botón fuera de la píldora. */
+.actionbar{
+  margin-top:clamp(1.6rem,3vw,2.6rem);
+  background:var(--white);
+  border-radius:999px;
+  display:flex;align-items:stretch;
+  padding:7px;
+  box-shadow:0 2px 22px rgba(18,47,53,.24);
+  max-width:980px;
+}
+.ab-field{
+  flex:1 1 0;display:flex;align-items:center;justify-content:space-between;gap:.7rem;
+  padding:.85rem clamp(.85rem,1.5vw,1.4rem);
+  border-left:1px solid var(--rule);
+  min-width:0;
+}
+.ab-field:first-child{border-left:0}
+.ab-label{
+  font-size:.75rem;font-weight:600;
+  letter-spacing:.03em;color:var(--text);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;
+}
+.ab-field svg{width:13px;height:13px;flex:none;color:var(--muted)}
+.ab-btn{
+  flex:0 0 auto;border:0;cursor:pointer;white-space:nowrap;
+  background:var(--teal);color:var(--white);
+  font-size:.7rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;text-decoration:none;
+  padding:1rem 1.9rem;border-radius:999px;
+  display:inline-flex;align-items:center;justify-content:center;
+  transition:background-color .25s var(--ease);
+}
+.ab-btn:hover{background:var(--ink-hover)}
+@media (max-width:1000px){
+  .ab-btn{padding:1rem 1.5rem;letter-spacing:.1em}
+  .ab-field{padding-left:.85rem;padding-right:.85rem}
+}
+@media (max-width:880px){
+  .actionbar{flex-direction:column;border-radius:22px;padding:8px;max-width:520px}
+  .ab-field{border-left:0;border-top:1px solid var(--rule);padding:.9rem 1.1rem}
+  .ab-field:first-child{border-top:0}
+  .ab-btn{width:100%;margin-top:8px;padding:1.05rem 1rem;white-space:normal;text-align:center}
+}
+
+/* ==========================================================================
+   3 · INTRO A DOS COLUMNAS
+   ========================================================================== */
+.intro-grid{
+  display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.6fr);
+  gap:clamp(2rem,6vw,7rem);align-items:start;
+}
+.intro-side p:not(.eyebrow){font-size:.9375rem;line-height:1.7;font-weight:300;color:var(--muted);max-width:34ch;margin-top:1.4rem}
+.intro-big{
+  font-weight:400;letter-spacing:-.02em;
+  font-size:clamp(1.25rem,2.5vw,2.05rem);line-height:1.35;color:var(--text);
+  max-width:26ch;
+}
+.intro-big em{font-style:normal;color:var(--muted)}
+.intro-rule{height:1px;background:var(--rule);margin-top:clamp(2.4rem,5vw,4rem)}
+@media (max-width:880px){
+  .intro-grid{grid-template-columns:1fr;gap:2rem}
+  .intro-big{max-width:none}
+}
+
+/* ==========================================================================
+   4 · SERVICIOS — CARRUSEL HORIZONTAL
+   ========================================================================== */
+.svc{overflow-x:hidden}
+.svc-head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.2rem,4vw,3.6rem);
+}
+.svc-head h2{font-size:clamp(1.7rem,3.5vw,2.95rem);font-weight:600;max-width:16ch;line-height:1.03;text-wrap:balance}
+.svc-head .eyebrow{margin-bottom:1.1rem}
+.svc-scroll{
+  display:flex;gap:clamp(14px,1.6vw,26px);
+  overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x proximity;
+  padding-bottom:6px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.svc-scroll::-webkit-scrollbar{display:none}
+.svc-card{flex:0 0 auto;width:clamp(255px,30vw,420px);scroll-snap-align:start}
+.svc-fig{margin:0;overflow:hidden;background:var(--paper-2)}
+.svc-fig img{
+  width:100%;aspect-ratio:4/5;object-fit:cover;filter:var(--photo);
+  transition:transform .7s var(--ease);
+}
+.svc-card:hover .svc-fig img{transform:scale(1.035)}
+.svc-card h3{margin-top:1.35rem;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight:600;letter-spacing:-.025em;line-height:1.15}
+.svc-card p{margin-top:.6rem;font-size:.9rem;line-height:1.6;font-weight:300;color:var(--muted);max-width:34ch}
+.svc-index{
+  font-size:.7rem;font-weight:700;letter-spacing:.2em;
+  color:var(--muted);display:block;margin-bottom:.35rem;
+}
+.svc-bar{
+  position:relative;height:2px;background:var(--rule);
+  margin-top:clamp(2.4rem,4vw,3.4rem);overflow:hidden;
+}
+.svc-bar-fill{
+  position:absolute;left:0;top:0;height:100%;width:34%;background:var(--ink);
+  will-change:transform;
+}
+.svc-foot{display:flex;justify-content:center;margin-top:clamp(2.2rem,4vw,3.2rem)}
+
+/* ==========================================================================
+   5 · FILA DE DATOS (términos duros — no hay métricas inventadas)
+   ========================================================================== */
+.brandline{
+  font-size:.72rem;font-weight:600;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--muted);
+  margin-bottom:clamp(2rem,3.5vw,3rem);
+}
+.facts{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid var(--ink);
+}
+.fact{padding:clamp(1.6rem,3vw,2.6rem) clamp(1rem,2vw,2rem) 0;border-left:1px solid var(--rule)}
+.fact:first-child{border-left:0;padding-left:0}
+.fact-num{
+  font-weight:700;letter-spacing:-.04em;line-height:.95;
+  font-size:clamp(2.2rem,5.6vw,4.3rem);color:var(--text);
+}
+.fact p{margin-top:1rem;font-size:.875rem;line-height:1.6;font-weight:300;color:var(--muted);max-width:26ch}
+@media (max-width:760px){
+  .facts{grid-template-columns:1fr}
+  .fact{border-left:0;border-top:1px solid var(--rule);padding-left:0;padding-right:0;padding-bottom:1.6rem}
+  .fact:first-child{border-top:0}
+}
+
+/* ==========================================================================
+   6 · BANDA #122f35 + TARJETAS BLANCAS FLOTANTES
+   ========================================================================== */
+.band{background:var(--ink);color:var(--white);overflow-x:hidden}
+.band-grid{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);
+  gap:clamp(2.5rem,6vw,6rem);align-items:center;
+}
+.band-copy h2{
+  font-size:clamp(1.75rem,3.8vw,3.1rem);font-weight:600;letter-spacing:-.03em;
+  line-height:1.05;color:var(--white);margin-top:1.4rem;
+}
+.band-copy p{margin-top:1.5rem;color:var(--muted-dark);font-size:1rem;line-height:1.7;font-weight:300;max-width:46ch}
+.band-quote{
+  margin-top:2.2rem;padding-top:1.4rem;border-top:1px solid var(--rule-dark);
+  font-size:.74rem;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--white);
+}
+.band-media{position:relative}
+.band-media img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:var(--photo)}
+.float-cards{display:grid;gap:14px}
+.fcard{
+  background:var(--white);color:var(--text);
+  padding:1.35rem 1.4rem;
+  border:1px solid rgba(18,47,53,.10);
+}
+.fcard-ico{
+  width:38px;height:38px;border:1px solid var(--rule);
+  display:flex;align-items:center;justify-content:center;margin-bottom:1rem;
+}
+.fcard-ico svg{width:19px;height:19px;stroke:var(--ink-2);fill:none;stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round}
+.fcard h3{font-size:.98rem;font-weight:600;letter-spacing:-.02em;line-height:1.2}
+.fcard p{margin-top:.45rem;font-size:.83rem;line-height:1.55;font-weight:300;color:var(--muted)}
+@media (min-width:1040px){
+  .float-cards{
+    position:absolute;top:50%;left:0;transform:translate(-30%,-50%);
+    width:min(330px,44%);
+  }
+}
+@media (max-width:1039px){
+  .band-grid{grid-template-columns:1fr}
+  .band-media img{aspect-ratio:16/10}
+  .float-cards{margin-top:14px;grid-template-columns:1fr}
+}
+
+/* ==========================================================================
+   7 · PROCESO — fondo #0d2226, marca de agua #122f35
+   Único punto donde los dos oscuros conviven en plano: lo sostiene el salto
+   de escala (17rem contra 1rem). Contra la banda anterior, filete de 1px.
+   ========================================================================== */
+.proc{
+  position:relative;background:var(--ink-2);color:var(--white);overflow:hidden;
+  border-top:1px solid var(--rule-dark);
+}
+.proc-mark{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-weight:700;letter-spacing:-.03em;
+  font-size:clamp(3.6rem,19vw,15.5rem);line-height:1;color:var(--ink);
+  white-space:nowrap;user-select:none;pointer-events:none;z-index:0;
+}
+.proc .wrap{position:relative;z-index:1}
+.proc-head{margin-bottom:clamp(2.4rem,5vw,4.2rem);max-width:52ch}
+.proc-head h2{font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;color:var(--white);margin-top:1.3rem;line-height:1.03}
+.steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0}
+.step{padding:1.6rem clamp(.9rem,1.4vw,1.5rem) 0;border-top:1px solid var(--rule-dark);border-left:1px solid var(--rule-dark)}
+.step:first-child{border-left:0;padding-left:0}
+.step-n{font-weight:700;font-size:.9rem;letter-spacing:.08em;color:var(--white);display:block}
+.step h3{margin-top:1.1rem;font-size:1.02rem;font-weight:600;color:var(--white);letter-spacing:-.02em;line-height:1.22}
+.step p{margin-top:.7rem;font-size:.85rem;line-height:1.6;font-weight:300;color:var(--muted-dark)}
+@media (max-width:1100px){
+  .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .step{padding-bottom:1.5rem}
+  .step:nth-child(odd){border-left:0;padding-left:0}
+}
+@media (max-width:620px){
+  .steps{grid-template-columns:1fr}
+  .step{border-left:0;padding-left:0}
+}
+
+/* ==========================================================================
+   8 · COMPARATIVA — la jerarquía la marca el grosor del filete y el peso,
+   no un cuarto color.
+   ========================================================================== */
+.cmp-head-row{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:clamp(2.4rem,4vw,3.4rem)}
+.cmp-h{
+  font-size:.72rem;font-weight:600;
+  letter-spacing:.22em;text-transform:uppercase;padding-bottom:1rem;
+  border-bottom:2px solid rgba(18,47,53,.18);
+}
+.cmp-h--them{color:var(--muted)}
+.cmp-h--us{color:var(--text);padding-left:clamp(1rem,3vw,2.4rem);border-bottom-color:var(--teal)}
+.cmp{display:grid;grid-template-columns:1fr 1fr}
+.cmp-cell{padding:clamp(1.1rem,2vw,1.55rem) 0;border-bottom:1px solid var(--rule);font-size:.95rem;line-height:1.6}
+.cmp-cell--them{color:var(--muted);padding-right:clamp(1rem,3vw,2.4rem);font-weight:300}
+.cmp-cell--us{color:var(--text);padding-left:clamp(1rem,3vw,2.4rem);border-left:1px solid var(--rule);font-weight:600}
+.cmp-tag{display:none}
+@media (max-width:760px){
+  .cmp-head-row{display:none}
+  .cmp{grid-template-columns:1fr}
+  .cmp-cell{padding:0;border-bottom:0}
+  .cmp-cell--them{padding-top:1.4rem;padding-right:0}
+  .cmp-cell--us{padding-left:0;border-left:0;padding-top:.75rem;padding-bottom:1.4rem;border-bottom:1px solid var(--rule)}
+  .cmp-tag{
+    display:block;font-size:.62rem;font-weight:600;
+    letter-spacing:.22em;text-transform:uppercase;margin-bottom:.35rem;
+  }
+  .cmp-cell--them .cmp-tag{color:var(--muted)}
+  .cmp-cell--us .cmp-tag{color:var(--text)}
+}
+
+/* ==========================================================================
+   9 · EQUIPO — rejilla a sangre, A COLOR
+   Las tres fotos vienen de sesiones distintas: se unifican con el mismo
+   aspect-ratio 4/5, el mismo encuadre alto y el mismo ajuste suave. Sin
+   blanco y negro, sin duotono. El velo de las fichas va en #0d2226.
+   ========================================================================== */
+.team-head{padding-bottom:clamp(2rem,4vw,3rem)}
+.team-head h2{font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;margin-top:1.3rem;max-width:20ch;line-height:1.03}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;max-width:min(100%,700px)}
+.member{position:relative;margin:0;background:var(--ink-2)}
+.member img{
+  width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 25%;
+  filter:saturate(.95) contrast(1.03);
+}
+.member figcaption{
+  position:absolute;left:0;bottom:0;right:0;
+  padding:clamp(2.1rem,4vw,2.8rem) clamp(.85rem,1.4vw,1.15rem) clamp(.85rem,1.4vw,1.15rem);
+  background:linear-gradient(180deg,rgba(13,34,38,0) 0%,rgba(13,34,38,.55) 38%,rgba(13,34,38,.94) 78%,rgba(13,34,38,.99) 100%);
+  color:var(--white);
+}
+.member-name{font-size:clamp(.88rem,1.05vw,1rem);font-weight:600;letter-spacing:-.025em;display:block;line-height:1.2}
+.member-role{
+  display:block;margin-top:.35rem;
+  font-size:.58rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+}
+@media (max-width:760px){.team-grid{grid-template-columns:1fr}}
+
+/* ==========================================================================
+   10 · FAQ / CTA / FOOTER
+   ========================================================================== */
+.faq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.7fr);gap:clamp(2rem,6vw,6rem);align-items:start}
+.faq-grid h2{font-size:clamp(1.7rem,3.3vw,2.65rem);font-weight:600;margin-top:1.3rem;line-height:1.05}
+.faq-grid .lead{margin-top:1.3rem}
+details{border-top:1px solid var(--rule)}
+details:last-of-type{border-bottom:1px solid var(--rule)}
+summary{
+  list-style:none;cursor:pointer;padding:1.35rem 3rem 1.35rem 0;position:relative;
+  font-size:clamp(1rem,1.5vw,1.12rem);font-weight:600;
+  letter-spacing:-.02em;line-height:1.35;
+}
+summary::-webkit-details-marker{display:none}
+.plus{position:absolute;right:0;top:1.65rem;width:14px;height:14px}
+.plus::before,.plus::after{content:"";position:absolute;background:var(--ink);transition:transform .3s var(--ease),opacity .3s var(--ease)}
+.plus::before{left:0;top:6px;width:14px;height:1.5px}
+.plus::after{left:6px;top:0;width:1.5px;height:14px}
+details[open] .plus::after{transform:rotate(90deg);opacity:0}
+details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:300;color:var(--muted);max-width:62ch}
+@media (max-width:880px){.faq-grid{grid-template-columns:1fr;gap:2rem}}
+
+.cta{position:relative;overflow:hidden;background:var(--ink)}
+.cta-media{position:absolute;inset:0;z-index:0}
+.cta-media img{width:100%;height:100%;object-fit:cover;filter:var(--photo)}
+.cta::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(90deg,rgba(18,47,53,.95) 0%,rgba(18,47,53,.86) 55%,rgba(18,47,53,.74) 100%);
+}
+.cta .wrap{position:relative;z-index:2;padding-block:clamp(80px,12vw,170px)}
+.cta h2{font-size:clamp(1.9rem,4.4vw,3.7rem);font-weight:600;color:var(--white);margin-top:1.4rem;max-width:16ch;line-height:1;text-wrap:balance}
+.cta p{margin-top:1.5rem;color:rgba(255,255,255,.9);font-size:1rem;line-height:1.7;font-weight:300;max-width:48ch}
+.cta-actions{display:flex;flex-wrap:wrap;gap:1rem 1.6rem;align-items:center;margin-top:clamp(2rem,3.6vw,2.8rem)}
+.cta-mail{
+  font-size:.76rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--white);text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.45);padding-bottom:3px;
+}
+.cta-mail:hover{border-bottom-color:var(--white)}
+
+/* footer en #0d2226 — es la banda contigua al CTA en #122f35, con filete */
+.footer{
+  background:var(--ink-2);color:var(--white);
+  padding-block:clamp(48px,7vw,80px);
+  border-top:1px solid var(--rule-dark);
+}
+.footer-top{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));gap:2.4rem;padding-bottom:2.6rem;border-bottom:1px solid var(--rule-dark)}
+.footer-brand{font-size:clamp(1.3rem,2.4vw,1.9rem);font-weight:700;letter-spacing:-.03em}
+.footer-brand span{color:rgba(255,255,255,.4)}
+.footer-top p{margin-top:.9rem;color:var(--muted-dark);font-size:.9rem;font-weight:300;max-width:32ch}
+.footer h4{font-size:.66rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--white);margin-bottom:1rem}
+.footer li{margin-bottom:.6rem}
+.footer li a{font-size:.9rem;font-weight:300;color:var(--muted-dark);text-decoration:none;transition:color .2s var(--ease)}
+.footer li a:hover{color:var(--white)}
+.footer-bottom{display:flex;flex-wrap:wrap;gap:.8rem 2rem;justify-content:space-between;padding-top:1.8rem;font-size:.78rem;font-weight:300;color:var(--muted-dark)}
+@media (max-width:760px){.footer-top{grid-template-columns:1fr;gap:2rem}}
+
+/* ---------- movimiento contenido: revelado por bloque, no por elemento ---------- */
+.js .reveal{opacity:0;transform:translateY(12px)}
+.js .reveal.in{opacity:1;transform:none;transition:opacity .6s var(--ease),transform .6s var(--ease)}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .js .reveal{opacity:1;transform:none}
+}
