@@ -167,8 +167,10 @@ confidencialidad/RGPD y anexos por proyecto.
   dorado, esa plantilla queda desactualizada. Falta confirmar si se rehace
   con los colores nuevos o si el diseño de Canva es un sistema aparte que se
   mantiene. **Sin resolver.**
-- **Carlos Cortés** figura en el equipo de contenido pero no aparece en la
-  web ni hay foto suya disponible.
+*(Resuelto: **Carlos Cortés no va en la web.** Forma parte del equipo de
+contenido —guiones de reel— pero no del equipo que se muestra en el sitio.
+La web muestra tres personas y el titular «Tres personas, sin capas
+intermedias.» es correcto tal cual.)*
 
 ## Brand Commitments
 
