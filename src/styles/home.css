@@ -552,3 +552,59 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 @media (max-width:860px){
   .vid-grid{grid-template-columns:1fr;align-items:start}
 }
+
+/* ==========================================================================
+   MOVIMIENTO LIGADO AL SCROLL
+   Animaciones nativas con animation-timeline: no hay JavaScript detrás, las
+   calcula el compositor del navegador. Van dentro de @supports porque donde
+   no existan, la página se queda exactamente como está: son un extra, nunca
+   una condición para que algo se vea.
+
+   Tres sitios, elegidos a propósito. La regla del brief sigue vigente: nada
+   de animación de entrada en cada elemento. Eso es lo que delata una web
+   hecha con IA. Aquí solo se mueve lo que gana profundidad al moverse.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+
+    /* 1 · La palabra MELERO del hero sube más despacio que el resto del
+       contenido. Da profundidad sin caer en parallax de fondo. */
+    .hero-word{
+      animation:melero-drift linear both;
+      animation-timeline:view();
+      animation-range:entry 0% exit 100%;
+      will-change:transform;
+    }
+    @keyframes melero-drift{
+      from{transform:translateY(2.5rem)}
+      to{transform:translateY(-2.5rem)}
+    }
+
+    /* 2 · La marca de agua PROCESO se desplaza en horizontal al recorrer su
+       sección. Es un texto gigante recortado por la plancha: el movimiento
+       lo convierte en textura, no en un elemento que compita. */
+    .proc-mark{
+      animation:proc-slide linear both;
+      animation-timeline:view();
+      animation-range:cover 0% cover 100%;
+      will-change:transform;
+    }
+    @keyframes proc-slide{
+      from{transform:translate(-58%,-50%)}
+      to{transform:translate(-42%,-50%)}
+    }
+
+    /* 3 · Las fotos de servicios entran con un desplazamiento corto en lugar
+       de aparecer de golpe. Solo la imagen dentro de su marco, así que la
+       tarjeta no se mueve y el texto no baila. */
+    .svc-fig img{
+      animation:svc-rise linear both;
+      animation-timeline:view();
+      animation-range:entry 5% entry 85%;
+    }
+    @keyframes svc-rise{
+      from{transform:scale(1.06) translateY(1.2rem)}
+      to{transform:scale(1) translateY(0)}
+    }
+  }
+}

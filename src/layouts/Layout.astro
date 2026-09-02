@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 import { SITE, FAQ } from '../config/site';
 
 interface Props {
@@ -77,22 +78,63 @@ const faqSchema = {
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
     />
+
+    <!-- Transiciones entre páginas: la cabecera y el pie son los mismos en
+         todo el sitio, así que al navegar se funden en vez de parpadear. -->
+    <ClientRouter />
   </head>
   <body class="min-h-screen flex flex-col">
     <slot />
     <script>
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add('is-in');
-              io.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-      );
-      document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+      /* Un único observador para todo el sitio. Antes había dos: este y otro
+         dentro de index.astro, observando `.reveal` en paralelo. Acepta las
+         dos convenciones para no tocar el marcado de las páginas.
+         Se re-ejecuta en cada navegación porque con ClientRouter los scripts
+         de página no vuelven a correr solos. */
+      function initReveal() {
+        const root = document.documentElement;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        root.classList.toggle('js', !reduce);
+
+        const items = document.querySelectorAll('[data-reveal], .reveal');
+        if (reduce || !('IntersectionObserver' in window)) {
+          items.forEach((el) => el.classList.add('is-in', 'in'));
+          return;
+        }
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((e) => {
+              if (e.isIntersecting) {
+                e.target.classList.add('is-in', 'in');
+                io.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.08, rootMargin: '0px 0px -8% 0px' }
+        );
+        items.forEach((el) => io.observe(el));
+
+        /* Red de seguridad. El revelado parte de opacity:0, así que si el
+           IntersectionObserver no dispara —navegador raro, pestaña en
+           segundo plano, un entorno donde el observador no corre— la página
+           se quedaría permanentemente invisible. Eso es un fallo mucho peor
+           que perder una animación.
+           Si tras el primer scroll no se ha revelado nada, damos por hecho
+           que el observador no funciona y se muestra todo de golpe. Donde sí
+           funciona, este código no llega a hacer nada. */
+        let rescatado = false;
+        const rescatar = () => {
+          if (rescatado) return;
+          rescatado = true;
+          if (document.querySelectorAll('.reveal.in, [data-reveal].is-in').length === 0) {
+            io.disconnect();
+            items.forEach((el) => el.classList.add('is-in', 'in'));
+          }
+        };
+        addEventListener('scroll', () => setTimeout(rescatar, 1200), { once: true, passive: true });
+        setTimeout(rescatar, 1800);
+      }
+      document.addEventListener('astro:page-load', initReveal);
     </script>
   </body>
 </html>
