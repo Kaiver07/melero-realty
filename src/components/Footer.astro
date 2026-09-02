@@ -1,29 +1,79 @@
 ---
 import { SITE } from '../config/site';
+
+/* Pie compartido por todas las páginas. La home lo usa igual que las
+   interiores: si cambia aquí, cambia en todo el sitio.
+   Los enlaces de navegación apuntan a /#ancla y no a #ancla, para que
+   funcionen también desde contacto, sobre-nosotros y las legales. */
 const year = new Date().getFullYear();
+
+const nav = [
+  { href: '/#servicios', label: 'Servicios' },
+  { href: '/#proceso', label: 'Proceso' },
+  { href: '/#equipo', label: 'Equipo' },
+  { href: '/#faq', label: 'Preguntas' },
+];
 ---
 
-<footer style="background: var(--color-ink)" class="mt-auto">
-  <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-10 grid grid-cols-1 sm:grid-cols-3 gap-6 items-center">
-    <div style="font-family: var(--font-heading); font-weight: 800; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #f8f4f4">
-      Melero Realty
-    </div>
-    <div style="font-size: 13px; color: rgba(248,244,244,.55)">
-      {SITE.domain} · España &amp; EEUU
-    </div>
-    <div class="sm:text-right" style="font-size: 13px">
-      <a href={SITE.social.instagram} target="_blank" rel="noopener noreferrer" style="color: rgba(248,244,244,.55); text-decoration: none">Instagram</a>
-    </div>
-  </div>
-
-  <div style="border-top: 2px solid rgba(248,244,244,.14)">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-2" style="font-size: 12px; color: rgba(248,244,244,.4)">
-      <p>© {year} {SITE.name}. Todos los derechos reservados.</p>
-      <div class="flex gap-4">
-        <a href="/aviso-legal" style="color: rgba(248,244,244,.4); text-decoration: none">Aviso legal</a>
-        <a href="/politica-de-privacidad" style="color: rgba(248,244,244,.4); text-decoration: none">Privacidad</a>
-        <a href="/politica-de-cookies" style="color: rgba(248,244,244,.4); text-decoration: none">Cookies</a>
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand">MELERO<span>.</span></p>
+        <p>
+          Captación de leads para negocios inmobiliarios en activo.
+          Exclusividad por zona.
+        </p>
       </div>
+      <div>
+        <h4>Navegación</h4>
+        <ul>
+          {nav.map((n) => (
+            <li><a href={n.href}>{n.label}</a></li>
+          ))}
+          <li><a href="/contacto">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+          <li><a href={SITE.url}>{SITE.domain}</a></li>
+          <li>
+            <a href={SITE.social.instagram} rel="noopener">Instagram @melero.realty</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; {year} {SITE.name}. Todos los derechos reservados.</span>
+      <span>
+        <a href="/aviso-legal">Aviso legal</a>
+        <a href="/politica-de-privacidad">Privacidad</a>
+        <a href="/politica-de-cookies">Cookies</a>
+      </span>
     </div>
   </div>
 </footer>
+
+<style is:global>
+  /* Los legales viven en la línea inferior: separados y en tono menor. */
+  .footer-bottom a {
+    color: var(--muted-dark);
+    text-decoration: none;
+    margin-left: 1.4rem;
+    transition: color 0.2s var(--ease);
+  }
+  .footer-bottom a:first-child {
+    margin-left: 0;
+  }
+  .footer-bottom a:hover {
+    color: var(--white);
+  }
+  @media (max-width: 560px) {
+    .footer-bottom a {
+      margin-left: 0;
+      margin-right: 1.2rem;
+    }
+  }
+</style>

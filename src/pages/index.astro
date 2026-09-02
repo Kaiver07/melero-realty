@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Footer from '../components/Footer.astro';
 import '../styles/home.css';
 import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ } from '../config/site';
 
@@ -350,37 +351,7 @@ const SERVICE_MEDIA = [
 
 </main>
 
-<footer class="footer">
-  <div class="wrap">
-    <div class="footer-top">
-      <div>
-        <p class="footer-brand">MELERO<span>.</span></p>
-        <p>Captación de leads para negocios inmobiliarios en activo. Exclusividad por zona.</p>
-      </div>
-      <div>
-        <h4>Navegación</h4>
-        <ul>
-          <li><a href="#servicios">Servicios</a></li>
-          <li><a href="#proceso">Proceso</a></li>
-          <li><a href="#equipo">Equipo</a></li>
-          <li><a href="#faq">Preguntas</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contacto</h4>
-        <ul>
-          <li><a href="mailto:hola@valeriamelero.com">hola@valeriamelero.com</a></li>
-          <li><a href="https://valeriamelero.com">valeriamelero.com</a></li>
-          <li><a href="https://instagram.com/melero.realty" rel="noopener">Instagram @melero.realty</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Melero Realty. Todos los derechos reservados.</span>
-      <span>Valeria Melero — CEO &amp; Founder</span>
-    </div>
-  </div>
-</footer>
+<Footer />
 
 <script>
 (function(){
