@@ -122,7 +122,20 @@ const SERVICE_MEDIA = [
           <p class="eyebrow">(03) Servicios</p>
           <h2 id="svc-t">Seis frentes, un solo objetivo: llamadas agendadas.</h2>
         </div>
-        <p class="lead" style="max-width:34ch">Cada pieza existe para reducir el coste por cliente, no para llenar un informe.</p>
+        <div class="svc-head-right">
+          <p class="lead" style="max-width:34ch">Cada pieza existe para reducir el coste por cliente, no para llenar un informe.</p>
+          <!-- Sin flechas, un carrusel horizontal con ratón no se descubre: se
+               ven tres tarjetas y nada indica que hay seis. La barra de
+               progreso sola es demasiado sutil. -->
+          <div class="svc-nav">
+            <button type="button" id="svcPrev" aria-label="Servicios anteriores" aria-controls="svcScroll" disabled>
+              <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 8h-11M6.5 4l-4 4 4 4"/></svg>
+            </button>
+            <button type="button" id="svcNext" aria-label="Servicios siguientes" aria-controls="svcScroll">
+              <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -381,9 +394,34 @@ document.addEventListener('astro:page-load', function () {
     fill.style.width = ratio * 100 + '%';
     fill.style.transform = 'translateX(' + progress * ((1 - ratio) / ratio) * 100 + '%)';
   };
-  track.addEventListener('scroll', update, { passive: true });
-  window.addEventListener('resize', update);
-  update();
+  var prev = document.getElementById('svcPrev');
+  var next = document.getElementById('svcNext');
+  var paso = function () {
+    var card = track.querySelector('.svc-card');
+    return card ? card.getBoundingClientRect().width + 18 : track.clientWidth * 0.8;
+  };
+  var estadoFlechas = function () {
+    if (!prev || !next) return;
+    var max = track.scrollWidth - track.clientWidth;
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft >= max - 2;
+  };
+  /* Pedir 'smooth' desde JS se salta la preferencia del sistema, que el CSS
+     sí respeta. Se consulta antes de decidir. */
+  var suave = function () {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  };
+  if (prev) prev.addEventListener('click', function () {
+    track.scrollBy({ left: -paso(), behavior: suave() });
+  });
+  if (next) next.addEventListener('click', function () {
+    track.scrollBy({ left: paso(), behavior: suave() });
+  });
+
+  var alDesplazar = function () { update(); estadoFlechas(); };
+  track.addEventListener('scroll', alDesplazar, { passive: true });
+  window.addEventListener('resize', alDesplazar);
+  alDesplazar();
 });
 </script>
 </Layout>
