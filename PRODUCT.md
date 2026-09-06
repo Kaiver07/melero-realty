@@ -21,10 +21,15 @@ asesores SÍ suben pisos a los portales** (Idealista, Fotocasa). Ningún copy
 puede partir de que no lo hacen. El problema no es que no usen portales: es
 que *dependen* de ellos.
 
-Perfil de decisión: compra B2B con presupuesto real (mínimo 3.200 €) y
-compromiso de 6 meses. Quien rellena el formulario suele ser el decisor o
-está a un paso — el formulario pregunta explícitamente por rol, capacidad de
-decisión y capital disponible.
+Perfil de decisión: compra B2B con presupuesto real y compromiso de 6 meses.
+El precio **no se publica en la web** (decisión del 6/9/2026): cada sistema se
+dimensiona según zona, tipo de propiedades y objetivo, y el presupuesto sale
+del diagnóstico. La cifra de 3.200 € que figuraba antes como mínimo queda como
+dato interno; no está confirmado si sigue vigente.
+
+Quien rellena el formulario suele ser el decisor o está a un paso: el
+formulario pregunta explícitamente por rol, capacidad de decisión y capital
+disponible.
 
 ## Product Purpose
 
@@ -152,16 +157,15 @@ confidencialidad/RGPD y anexos por proyecto.
 - Páginas: home, contacto, sobre-nosotros, aviso legal, política de
   privacidad, política de cookies.
 - Términos comerciales publicados, que futuros trabajos respetan tal cual:
-  presupuesto mínimo 3.200 €, contrato de 6 meses, exclusividad por zona, se
-  trabaja solo con inmobiliarias en activo.
+  contrato de 6 meses, exclusividad por zona, primeros resultados en torno a
+  20 días, y se trabaja solo con inmobiliarias en activo. Sin precio público.
 
 ### Decisiones abiertas
 
-- **Contradicción sobre la plataforma de la web.** El documento de contexto
-  del negocio dice que `valeriamelero.com` está construida en **Framer sobre
-  la plantilla Upreach**; este repositorio es **Astro** y apunta al mismo
-  dominio, desplegado en Vercel. O existen dos webs, o una de las dos
-  referencias está desactualizada. **Sin resolver.**
+*(Resuelto el 6/9/2026: `valeriamelero.com` lo sirve **Vercel** desde este
+repositorio Astro. Comprobado por cabeceras HTTP y por el HTML servido, sin
+rastro de Framer. La referencia a Framer/Upreach del documento de negocio
+está desactualizada.)*
 - **La plantilla de Canva (`DAHNSVIRk8M`) sigue en dorado** (#cfaa4a,
   #cfaa3a, #cfa421) para portada, remates y CTA. Con la paleta nueva, sin
   dorado, esa plantilla queda desactualizada. Falta confirmar si se rehace
@@ -257,7 +261,11 @@ Reales y utilizables:
   Fotos reales en `public/team/` para los tres primeros.
 - **FAQ:** 6 preguntas con respuestas dadas por el negocio (presupuesto,
   duración de contrato, exclusividad, plazos, requisitos). Verdad de producto.
-- **Vídeo** de YouTube propio. **Logo** real y favicon.
+- **Vídeo** de YouTube propio: el Short «¿Qué es realmente Melero Realty?»
+  (`G-OtqipOUAI`), vertical 9:16. La miniatura que sirve YouTube viene con
+  relleno borroso a los lados para forzarla a 16:9, así que el póster se
+  recorta y se sirve desde `public/images/video-poster.jpg`.
+- **Logo** real y favicon.
 - **Masterclass** «Captación sin portales» y 19 guiones de reel.
 - **Plantillas legales** para colaboradores.
 
@@ -275,7 +283,8 @@ No verificados — no amplificar, no convertir en prueba dura:
   social real al decidir jerarquía.
 
 Ausencias que no se rellenan inventando: no hay casos de estudio, ni prensa,
-ni logos de clientes, ni pricing público más allá del mínimo de 3.200 €, ni
+ni logos de clientes, ni pricing público —el precio es a medida y no se
+publica—, ni
 certificaciones o partnerships (Meta/Google Partner u otros).
 
 ## Product Principles

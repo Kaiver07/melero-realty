@@ -1,12 +1,18 @@
 ---
-interface Props { videoId: string; title?: string; }
-const { videoId, title = 'Ver vídeo' } = Astro.props;
-const thumb = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+interface Props { videoId: string; title?: string; poster?: string; ratio?: string; }
+/* `poster` permite servir la miniatura desde el propio dominio. Hace falta
+   para los Shorts: la miniatura que da YouTube viene con relleno borroso a
+   los lados para forzarla a 16:9, y el contenido real es solo la franja
+   central. Aquí se pasa ya recortada.
+   `ratio` porque un Short es 9:16 y no cabe en el marco horizontal. */
+const { videoId, title = 'Ver vídeo', poster, ratio = '16/9' } = Astro.props;
+const thumb = poster ?? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 ---
 
 <div
   class="yt-facade"
   data-video-id={videoId}
+  style={`aspect-ratio:${ratio}`}
   role="button"
   tabindex="0"
   aria-label={title}

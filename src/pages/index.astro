@@ -45,6 +45,7 @@ const SERVICE_MEDIA = [
     <div class="hero-word" aria-hidden="true"><span>M</span><span>E</span><span>L</span><span>E</span><span>R</span><span>O</span></div>
 
     <div class="hero-copy">
+      <p class="hero-kicker">Marketing inmobiliario</p>
       <h1>Captación de leads para inmobiliarias <br>que ya están facturando.</h1>
       <p class="hero-support">Sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Sin portales. Sin referidos. Sin curiosos.</p>
     </div>
@@ -87,11 +88,34 @@ const SERVICE_MEDIA = [
   </section>
 
   <!-- ================= 4 · SERVICIOS ================= -->
+  <!-- (02) Vídeo. Va inmediatamente después de la declaración de intenciones:
+       la página dice lo que hace y acto seguido lo dice la CEO en su propia
+       voz, antes de entrar a enumerar servicios.
+       Fachada de YouTube: solo se carga la miniatura y el iframe se inserta
+       al pulsar. Sin JavaScript de framework. -->
+  <section class="section section--paper vid" id="video" aria-labelledby="vid-t">
+    <div class="wrap vid-grid reveal">
+      <div class="vid-copy">
+        <p class="eyebrow">(02) En vídeo</p>
+        <h2 id="vid-t">¿Qué es realmente Melero&nbsp;Realty?</h2>
+        <p class="vid-by">Valeria Melero &mdash; CEO &amp; Founder</p>
+      </div>
+      <div class="vid-media">
+        <VideoEmbed
+          videoId={SITE.youtubeId}
+          poster="/images/video-poster.jpg"
+          ratio="9/16"
+          title="¿Qué es realmente Melero Realty?"
+        />
+      </div>
+    </div>
+  </section>
+
   <section class="section section--white svc" id="servicios" aria-labelledby="svc-t">
     <div class="wrap">
       <div class="svc-head reveal">
         <div>
-          <p class="eyebrow">(02) Servicios</p>
+          <p class="eyebrow">(03) Servicios</p>
           <h2 id="svc-t">Seis frentes, un solo objetivo: llamadas agendadas.</h2>
         </div>
         <p class="lead" style="max-width:34ch">Cada pieza existe para reducir el coste por cliente, no para llenar un informe.</p>
@@ -162,8 +186,8 @@ const SERVICE_MEDIA = [
       <h2 id="facts-t" class="brandline reveal">Hablamos de números, no de followers.</h2>
       <div class="facts reveal">
         <div class="fact">
-          <p class="fact-num">3.200&nbsp;€</p>
-          <p>Presupuesto mínimo para empezar. Por debajo de esa cifra no hay sistema que aguante.</p>
+          <p class="fact-num">A medida</p>
+          <p>Cada sistema se dimensiona según la zona, el tipo de propiedades y el objetivo. El presupuesto sale del diagnóstico.</p>
         </div>
         <div class="fact">
           <p class="fact-num">6 meses</p>
@@ -178,29 +202,6 @@ const SERVICE_MEDIA = [
   </section>
 
   <!-- ================= 6 · BANDA OSCURA ================= -->
-  <!-- (03) Vídeo. El cliente lo quiere en tercera posición: la CEO aparece
-       pronto, antes de que la página empiece a argumentar. Contrapartida
-       asumida: al salir de aquí, la banda "El problema" (#122f35) y el
-       proceso (#0d2226) vuelven a quedar pegados, dos planchas oscuras
-       seguidas. Lo resuelve el filete superior del proceso.
-       Fachada de YouTube: solo se carga la miniatura y el iframe se inserta
-       al pulsar. Sin JavaScript de framework. -->
-  <section class="section section--paper vid" id="video" aria-labelledby="vid-t">
-    <div class="wrap vid-grid reveal">
-      <div class="vid-copy">
-        <p class="eyebrow">(03) En vídeo</p>
-        <h2 id="vid-t">Por qué Melero Realty.</h2>
-        <p class="vid-by">Valeria Melero &mdash; CEO &amp; Founder</p>
-      </div>
-      <div class="vid-media">
-        <VideoEmbed
-          videoId={SITE.youtubeId}
-          title="Por qué Melero Realty — Valeria Melero"
-        />
-      </div>
-    </div>
-  </section>
-
   <section class="section band" aria-labelledby="band-t">
     <div class="wrap">
       <div class="band-grid">
