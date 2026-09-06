@@ -64,7 +64,7 @@ const SERVICE_MEDIA = [
         <span class="ab-label">Facturación</span>
         <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
       </div>
-      <a class="ab-btn" href="#contacto">Reservar diagnóstico</a>
+      <a class="ab-btn" href={SITE.calendlyUrl} target="_blank" rel="noopener">Reservar diagnóstico</a>
     </div>
   </div>
 </header>
@@ -99,7 +99,7 @@ const SERVICE_MEDIA = [
         <p class="eyebrow">(02) En vídeo</p>
         <h2 id="vid-t">¿Qué es realmente Melero&nbsp;Realty?</h2>
         <p class="vid-by">Valeria Melero &mdash; CEO &amp; Founder</p>
-        <a class="vid-cta" href="#contacto">
+        <a class="vid-cta" href={SITE.calendlyUrl} target="_blank" rel="noopener">
           Reservar diagnóstico
           <span aria-hidden="true">&#8594;</span>
         </a>
@@ -161,7 +161,7 @@ const SERVICE_MEDIA = [
     <div class="wrap">
       <div class="svc-bar" aria-hidden="true"><span class="svc-bar-fill" id="svcBar"></span></div>
       <div class="svc-foot">
-        <a class="btn btn--dark" href="#contacto">Diagnóstico
+        <a class="btn btn--dark" href={SITE.calendlyUrl} target="_blank" rel="noopener">Diagnóstico
           <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
         </a>
       </div>
@@ -365,7 +365,7 @@ const SERVICE_MEDIA = [
         </p>
       </div>
       <div class="cta-actions">
-        <a class="btn btn--light" href={`mailto:${SITE.email}?subject=${encodeURIComponent("Reservar diagnóstico")}`}>Reservar diagnóstico
+        <a class="btn btn--light" href={SITE.calendlyUrl} target="_blank" rel="noopener">Reservar diagnóstico
           <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
         </a>
         <a class="cta-mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>

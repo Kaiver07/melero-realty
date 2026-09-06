@@ -9,6 +9,8 @@ export const SITE = {
   subtitulo:
     'Creamos sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Sin portales. Sin referidos. Sin curiosos.',
   email: 'melero.realty@gmail.com',
+  // Agenda de la llamada de diagnóstico. Todos los CTA de reserva apuntan aquí.
+  calendlyUrl: 'https://calendly.com/valmelemal/45-60min',
   // URL del Google Apps Script (Implementar > Nueva implementación > Aplicación web) que guarda el formulario en Google Sheets
   sheetsWebAppUrl: 'https://script.google.com/macros/s/AKfycbzKBPCN1TMWJP4iKo40WSYLWb8fIvelYa8m3IzCacegvOI6rY_ptES7Zh5k-SjP-BIx/exec',
   // YouTube video ID for the "Por qué Melero Realty" section
