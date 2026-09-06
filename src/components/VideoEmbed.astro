@@ -31,7 +31,11 @@ const thumb = poster ?? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg
     const activate = () => {
       const id = el.dataset.videoId;
       const iframe = document.createElement('iframe');
-      iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1&rel=0`;
+      /* youtube-nocookie: modo de privacidad mejorada. No instala cookies de
+         seguimiento hasta que el vídeo se reproduce, y combinado con la
+         fachada (el iframe no existe hasta que se pulsa) la web no toca
+         ninguna cookie de terceros mientras nadie decida verlo. */
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
       iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
       iframe.allowFullscreen = true;
       iframe.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';

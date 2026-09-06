@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
+import CookieNotice from '../components/CookieNotice.astro';
 import { SITE, FAQ } from '../config/site';
 
 interface Props {
@@ -87,6 +88,7 @@ const faqSchema = {
   </head>
   <body class="min-h-screen flex flex-col">
     <slot />
+    <CookieNotice />
     <script>
       /* Un único observador para todo el sitio. Antes había dos: este y otro
          dentro de index.astro, observando `.reveal` en paralelo. Acepta las

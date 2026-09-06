@@ -1,0 +1,142 @@
+---
+/* Aviso de cookies.
+
+   Este sitio NO instala cookies al cargar: no hay analítica, ni píxeles, ni
+   document.cookie, ni almacenamiento propio. Verificado sobre producción, sin
+   una sola cabecera Set-Cookie. Lo único que puede instalarlas es el vídeo, y
+   solo si el visitante lo pulsa: el iframe no existe hasta ese momento y va
+   contra youtube-nocookie.com.
+
+   Por eso esto es un AVISO informativo y no un muro de consentimiento con
+   botones de aceptar y rechazar. No habiendo nada que bloquear, esos botones
+   no gobernarían nada: serían decorado, y un consentimiento falso es peor que
+   no pedirlo. Si en el futuro se añade analítica o píxeles, este componente
+   deja de valer y hace falta un gestor de consentimiento de verdad, con
+   bloqueo previo.
+
+   Nota: esto describe lo que la web hace técnicamente. Si el cumplimiento
+   legal debe certificarlo alguien, es cosa de un abogado, no de este archivo.
+
+   El descarte se recuerda en localStorage. Es almacenamiento funcional para
+   una preferencia que el propio visitante ha pedido, no seguimiento. */
+---
+
+<div class="ck" id="cookieNotice" role="region" aria-label="Aviso de cookies" hidden>
+  <div class="ck-in">
+    <p class="ck-text">
+      Esta web no usa cookies de seguimiento ni analítica. El vídeo solo se
+      carga si lo pulsas y, en ese momento, YouTube puede instalar las suyas.
+    </p>
+    <div class="ck-actions">
+      <a class="ck-link" href="/politica-de-cookies">Política de cookies</a>
+      <button class="ck-btn" type="button" id="cookieOk">Entendido</button>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .ck {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 90;
+    background: var(--ink-2);
+    border-top: 1px solid var(--rule-dark);
+    color: var(--white);
+  }
+  .ck-in {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: clamp(0.9rem, 2vw, 1.15rem) var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(1rem, 3vw, 2.5rem);
+  }
+  .ck-text {
+    font-size: 0.8125rem;
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--muted-dark);
+    max-width: 78ch;
+  }
+  .ck-actions {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.9rem, 2vw, 1.6rem);
+    flex: none;
+  }
+  .ck-link {
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    padding-bottom: 2px;
+    white-space: nowrap;
+  }
+  .ck-link:hover {
+    border-bottom-color: var(--white);
+  }
+  .ck-btn {
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    background: var(--teal);
+    color: #fff;
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.5rem;
+    white-space: nowrap;
+    transition: background-color 0.25s var(--ease);
+  }
+  .ck-btn:hover {
+    background: var(--ink);
+  }
+  @media (max-width: 720px) {
+    .ck-in {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.9rem;
+    }
+    .ck-actions {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+</style>
+
+<script>
+  /* Se engancha a astro:page-load porque con las transiciones entre páginas
+     los scripts no se re-ejecutan al navegar. */
+  document.addEventListener('astro:page-load', () => {
+    const el = document.getElementById('cookieNotice');
+    if (!el) return;
+
+    let visto = false;
+    try {
+      visto = localStorage.getItem('mr-cookies') === '1';
+    } catch {
+      /* Navegación privada o almacenamiento bloqueado: se muestra el aviso.
+         Mostrarlo de más es preferible a fallar. */
+    }
+    if (visto) return;
+
+    el.hidden = false;
+    const btn = document.getElementById('cookieOk');
+    btn?.addEventListener('click', () => {
+      el.hidden = true;
+      try {
+        localStorage.setItem('mr-cookies', '1');
+      } catch {
+        /* Si no se puede guardar, el aviso reaparecerá. Es el fallo menos
+           malo: nada se rompe. */
+      }
+    });
+  });
+</script>
