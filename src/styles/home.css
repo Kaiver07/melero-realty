@@ -566,10 +566,20 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
    horizontal) el bloque vertical se estiraba hasta ocupar media pantalla de
    alto. Ahora el texto manda y el vídeo va en una columna estrecha con tope. */
 .vid-grid{
-  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);
   gap:clamp(1.8rem,4vw,4rem);align-items:center;
 }
-.vid-media{max-width:340px;width:100%;margin-left:auto}
+/* El vídeo es el contenido de la sección: si se queda pequeño, el bloque se
+   ve vacío. Con 420px de tope llena la columna y equilibra el texto. */
+.vid-media{max-width:420px;width:100%;margin-left:auto}
+.vid-cta{
+  display:inline-flex;align-items:center;gap:.6rem;margin-top:1.9rem;
+  font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text);text-decoration:none;
+  padding-bottom:.5rem;border-bottom:1px solid var(--teal);
+  transition:gap .25s var(--ease),color .25s var(--ease);
+}
+.vid-cta:hover{gap:1rem;color:var(--teal)}
 .vid-copy h2{
   font-size:clamp(1.5rem,3vw,2.3rem);font-weight:600;line-height:1.05;
   letter-spacing:-.03em;margin-top:1.1rem;max-width:14ch;color:var(--text);
@@ -580,7 +590,7 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 }
 @media (max-width:860px){
   .vid-grid{grid-template-columns:1fr;align-items:start}
-  .vid-media{margin-left:0;max-width:300px}
+  .vid-media{margin-left:0;max-width:330px}
 }
 
 /* ==========================================================================

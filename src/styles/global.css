@@ -34,11 +34,16 @@
                              OJO: 2.66:1 sobre #122f35 — nunca como texto
                              sobre plancha oscura, solo fondo o filete. */
   --white:#ffffff;
-  --paper:#f6f7f7;        /* #122f35 al 4% sobre blanco */
-  --paper-2:#eceeef;      /* #122f35 al 8% sobre blanco */
+  --paper:#eaeced;        /* #122f35 al 9% sobre blanco. Al 4% que tenía
+                             antes era indistinguible del blanco puro y las
+                             secciones se leían como una sola masa. */
+  --paper-2:#e2e6e7;      /* #122f35 al 12%: tiene que quedar por debajo de
+                             --paper, que ha subido a 9%. */
   --rule:#dee2e3;         /* #122f35 al 14% sobre blanco */
   --rule-dark:rgba(255,255,255,.16);
-  --muted:#63767a;        /* #122f35 al 66% sobre blanco — 4.77:1 */
+  --muted:#54696e;        /* #122f35 al 72%. Al 66% daba 4.02:1 sobre el
+                             fondo nuevo, por debajo de AA. Ahora 4.89:1
+                             sobre --paper y 5.80:1 sobre blanco. */
   --muted-dark:#bdc5c6;   /* blanco al 72% sobre #122f35 — 8.06:1 */
   --r-card:4px;
   --ease:cubic-bezier(.16,1,.3,1);
