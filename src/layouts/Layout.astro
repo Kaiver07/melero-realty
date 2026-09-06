@@ -90,6 +90,53 @@ const faqSchema = {
     <slot />
     <CookieNotice />
     <script>
+      /* Scroll suave (Lenis, ~3 KB). Es lo que más cambia la sensación de la
+         página por menos peso. Tres cautelas:
+         - No se activa con prefers-reduced-motion: secuestrar el scroll a
+           quien ha pedido menos movimiento sería justo lo contrario.
+         - No toca los scrollers internos. El carrusel de servicios se arrastra
+           y se desplaza por su cuenta; `prevent` deja pasar la rueda ahí.
+         - Se destruye antes de cada transición de página y el bucle rAF vive
+           una sola vez, para que navegar no acumule instancias. */
+      import Lenis from 'lenis';
+
+      let lenis = null;
+      let bucleArrancado = false;
+
+      function initLenis() {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce) return;
+
+        lenis?.destroy();
+        lenis = new Lenis({
+          duration: 1.05,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+          syncTouch: false, // en móvil se deja el scroll nativo del sistema
+          // Sin esto Lenis se come los enlaces de ancla: la navegación de la
+          // cabecera cambiaba el hash y la página no se movía.
+          anchors: { offset: 0 },
+          prevent: (node) => node.classList?.contains('svc-scroll'),
+        });
+
+        if (!bucleArrancado) {
+          bucleArrancado = true;
+          const raf = (t) => {
+            lenis?.raf(t);
+            requestAnimationFrame(raf);
+          };
+          requestAnimationFrame(raf);
+        }
+      }
+
+      document.addEventListener('astro:page-load', initLenis);
+      document.addEventListener('astro:before-swap', () => {
+        lenis?.destroy();
+        lenis = null;
+      });
+    </script>
+
+    <script>
       /* Un único observador para todo el sitio. Antes había dos: este y otro
          dentro de index.astro, observando `.reveal` en paralelo. Acepta las
          dos convenciones para no tocar el marcado de las páginas.
