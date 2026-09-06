@@ -730,21 +730,12 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   color:var(--muted-dark);
 }
 
-/* Flechas del carrusel de servicios. */
-.svc-head-right{display:flex;flex-direction:column;align-items:flex-start;gap:1.4rem}
-.svc-nav{display:flex;gap:.5rem}
-.svc-nav button{
-  width:44px;height:44px;padding:0;cursor:pointer;
-  display:inline-flex;align-items:center;justify-content:center;
-  background:none;color:var(--text);
-  border:1px solid var(--rule);border-radius:0;
-  transition:background-color .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease);
-}
-.svc-nav button svg{width:16px;height:16px}
-.svc-nav button:hover:not(:disabled){background:var(--ink);border-color:var(--ink);color:var(--white)}
-.svc-nav button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
-.svc-nav button:disabled{opacity:.3;cursor:default}
-@media (max-width:880px){
-  /* En táctil el gesto de arrastrar ya es evidente y las flechas estorban. */
-  .svc-nav{display:none}
+/* Arrastrar para desplazar el carrusel. El cursor es la única señal de que
+   se puede: sin él, en escritorio el carrusel parece estático. */
+.svc-scroll{cursor:grab}
+.svc-scroll.is-dragging{cursor:grabbing;user-select:none;scroll-behavior:auto}
+.svc-scroll.is-dragging img{pointer-events:none}
+@media (hover:none){
+  /* En táctil el gesto ya es nativo: el cursor no pinta nada. */
+  .svc-scroll{cursor:auto}
 }
