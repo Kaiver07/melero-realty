@@ -376,10 +376,23 @@ ul,ol{margin:0;padding:0;list-style:none}
   line-height:1.05;color:var(--white);margin-top:1.4rem;
 }
 .band-copy p{margin-top:1.5rem;color:var(--muted-dark);font-size:1rem;line-height:1.7;font-weight:300;max-width:46ch}
-.band-quote{
+/* Antes aquí había un eslogan corto en versalitas. Ahora sostiene la frase
+   que desarma la objeción real del lector —"no puedo soltar el portal"— y
+   una frase de setenta caracteres no se lee en mayúsculas con .22em de
+   tracking. Cambia el tratamiento, no el sitio: sigue siendo el remate.
+
+   Va como `.band-copy .band-pivot` a propósito. `.band-copy p` es (0,1,1) y
+   le ganaba a la clase suelta (0,1,0) que había antes, así que aquella línea
+   nunca llegó a pintarse con su propio tamaño ni su propio color: heredaba
+   los del párrafo. Con dos clases (0,2,0) el desempate deja de depender de
+   qué propiedad declare cada regla. */
+.band-copy .band-pivot{
   margin-top:2.2rem;padding-top:1.4rem;border-top:1px solid var(--rule-dark);
-  font-size:.74rem;font-weight:600;
-  letter-spacing:.22em;text-transform:uppercase;color:var(--white);
+  font-size:clamp(1.02rem,1.5vw,1.2rem);font-weight:600;line-height:1.5;
+  letter-spacing:-.01em;color:var(--white);max-width:38ch;
+}
+.band-copy .band-pivot span{
+  display:block;font-weight:300;color:var(--muted-dark);
 }
 .band-media{position:relative}
 .band-media img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:var(--photo)}
