@@ -146,17 +146,24 @@ export const TESTIMONIALS = [
  * resuelven cargan scripts con cookies de seguimiento, lo que dejaría en
  * mentira el aviso de cookies de la web.
  *
- * Así que es una selección manual. Se añade una entrada por publicación y su
- * miniatura se descarga a public/images/social/ con:
- *     node scripts/social.mjs
- * que lee las URL de aquí y guarda cada imagen en local. Local y no enlazada:
- * las URL del CDN de Instagram caducan.
+ * Así que es una selección manual, y la miniatura hay que aportarla a mano:
+ * Instagram ya no expone la imagen ni en la página de la publicación ni en su
+ * endpoint de embebido sin sesión iniciada (comprobado en septiembre de 2026;
+ * ambos devuelven muro de login). Se guarda en
+ *     public/images/social/<código>.webp
+ * donde <código> es el identificador de la URL. Por ejemplo, para
+ * .../p/DZ4yt9EgozP/ el archivo es DZ4yt9EgozP.webp
+ *
+ * Si falta la imagen, esa entrada NO se pinta: la web nunca mostrará un hueco
+ * roto por una miniatura que no llegó.
  *
  * `tipo` distingue 'reel' de 'post' para pintar el indicador de vídeo.
  */
 export const SOCIAL = [
-  // { url: 'https://www.instagram.com/p/XXXXXXXXX/', tipo: 'post', alt: 'Descripción de la publicación' },
-  // { url: 'https://www.instagram.com/reel/XXXXXXXXX/', tipo: 'reel', alt: 'Descripción del reel' },
+  { url: 'https://www.instagram.com/p/DZ4yt9EgozP/', tipo: 'post', alt: 'Publicación de Melero Realty en Instagram' },
+  { url: 'https://www.instagram.com/p/Db8SClQghjD/', tipo: 'post', alt: 'Publicación de Melero Realty en Instagram' },
+  { url: 'https://www.instagram.com/p/DakMM5Qtyja/', tipo: 'post', alt: 'Publicación de Melero Realty en Instagram' },
+  { url: 'https://www.instagram.com/p/DaCt5ygglhn/', tipo: 'post', alt: 'Publicación de Melero Realty en Instagram' },
 ] as const;
 
 export const TEAM = [

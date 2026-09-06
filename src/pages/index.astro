@@ -4,6 +4,17 @@ import Footer from '../components/Footer.astro';
 import VideoEmbed from '../components/VideoEmbed.astro';
 import '../styles/home.css';
 import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL } from '../config/site';
+import { existsSync } from 'node:fs';
+
+/* Solo se pintan las publicaciones cuya miniatura existe en disco. Instagram
+   no permite descargarlas automáticamente, así que se aportan a mano y este
+   filtro garantiza que una que falte no deje un hueco roto en la web. */
+const SOCIAL_CON_IMAGEN = SOCIAL
+  .map((item) => {
+    const codigo = item.url.match(/\/(?:p|reel)\/([^/?]+)/)?.[1] ?? '';
+    return { ...item, codigo, img: `/images/social/${codigo}.webp` };
+  })
+  .filter((item) => item.codigo && existsSync(`public${item.img}`));
 
 /* Fotografía de los servicios, emparejada por índice con SERVICES.
    El copy vive en site.ts (fuente de verdad); aquí solo la imagen. */
@@ -293,7 +304,7 @@ const SERVICE_MEDIA = [
        una rejilla vacía sería peor que no tenerla. Las miniaturas son locales
        y cada tarjeta enlaza a Instagram; no hay script de terceros, así que
        no entra ni una cookie de seguimiento. -->
-  {SOCIAL.length > 0 && (
+  {SOCIAL_CON_IMAGEN.length > 0 && (
   <section class="section section--white social" aria-labelledby="social-t">
     <div class="wrap">
       <div class="social-head reveal">
@@ -308,10 +319,10 @@ const SERVICE_MEDIA = [
       </div>
 
       <div class="social-grid reveal">
-        {SOCIAL.map((item) => (
+        {SOCIAL_CON_IMAGEN.map((item) => (
           <a class="social-item" href={item.url} target="_blank" rel="noopener">
             <img
-              src={`/images/social/${item.url.match(/\/(?:p|reel)\/([^/?]+)/)?.[1]}.webp`}
+              src={item.img}
               alt={item.alt}
               width="640" height="800" loading="lazy" decoding="async"
             />
