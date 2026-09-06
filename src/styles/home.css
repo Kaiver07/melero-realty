@@ -554,11 +554,30 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 }
 .cta-mail:hover{border-bottom-color:var(--white)}
 /* En (09) la duración y con quién ya están dichas en el párrafo y en la
-   foto de arriba: aquí sólo falta el precio. */
-.cta-note{
+   foto de arriba: aquí sólo falta el precio, y la salida por escrito.
+
+   Va con dos clases por el mismo motivo que `.band-pivot`: `.cta p` es
+   (0,1,1) y le ganaba a la clase suelta, así que esta línea salía con el
+   tamaño, el color y el ancho del párrafo del bloque en vez de con los
+   suyos. Se veía, pero no como secundaria. */
+.cta .cta-note{
   margin-top:clamp(.9rem,1.6vw,1.15rem);
-  font-size:.8rem;font-weight:300;color:var(--muted-dark);
+  font-size:.8rem;font-weight:300;line-height:1.55;
+  color:var(--muted-dark);max-width:52ch;
 }
+
+/* La salida para quien no quiere una videollamada de 45 minutos. Va en la
+   línea de apoyo y no como segundo botón a propósito: dos botones del
+   mismo peso obligan a elegir, y aquí sólo hace falta que exista la
+   puerta. Antes esa persona se iba sin dejar rastro. */
+.ab-note a,
+.cta .cta-note a{
+  color:var(--white);text-decoration:none;white-space:nowrap;
+  border-bottom:1px solid rgba(255,255,255,.45);padding-bottom:2px;
+  transition:border-color .2s var(--ease);
+}
+.ab-note a:hover,
+.cta .cta-note a:hover{border-bottom-color:var(--white)}
 
 
 
