@@ -118,8 +118,12 @@ const faqSchema = {
 
         lenis?.destroy();
         lenis = new Lenis({
-          duration: 1.05,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          /* lerp en vez de duration: interpola de forma continua hacia el
+             destino, lo que da un scroll blando y sin tirones. Con duration
+             cada gesto de rueda arranca una animación nueva y se nota duro.
+             0.085 es suave sin llegar a sentirse flotante o pesado. */
+          lerp: 0.085,
+          wheelMultiplier: 1,
           smoothWheel: true,
           syncTouch: false,
           anchors: { offset: 0 },
