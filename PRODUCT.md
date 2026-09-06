@@ -181,6 +181,23 @@ intermedias.» es correcto tal cual.)*
   - `#24767B` (verde azulado / teal) — color de identidad.
   - `#122F35` (azul petróleo muy oscuro) — color de identidad.
   - Negro `#000000` — para todo el texto.
+- **Logo: excepción confirmada a la regla del dorado.** El logo es la M
+  dorada sobre disco negro, con «MELERO» en blanco y «.REALTY» en dorado.
+  **Se sigue usando tal cual, de momento** — decisión del usuario el
+  6/9/2026. La regla «sin dorado» sigue vigente para todo lo demás: el
+  dorado existe en el logo y solo ahí.
+  - Isotipo transparente en `public/logo-melero.png` (trazo `#CEB277`).
+    Sobre `#122f35` da 6.91:1 y sobre `#0d2226` 8.05:1, así que funciona en
+    las planchas oscuras. Sobre blanco cae a 2.05:1 — ahí no vale suelto.
+  - El logo completo que circula va sobre **disco negro**, no sobre
+    `#122f35`. Si se coloca sin más sobre una plancha, se ve el disco
+    recortado. Usar el isotipo transparente, o el logo solo sobre negro.
+  - `favicon.png` y `apple-touch-icon.png` se regeneraron el 6/9/2026: el
+    monograma ocupaba el 2% del lienzo y se veía enclenque en la pestaña.
+    Ahora va al 80% del diámetro del disco, que es donde se distingue a
+    16 px sin tocar el borde.
+  - **No hay archivo del logo completo (lockup) en el repositorio**, solo el
+    isotipo. Si se necesita la marca con texto, hay que pedirlo.
 - **Tipografía:** **Poppins**, confirmada directamente por Valeria. Sustituye
   a Cormorant Garamond + DM Sans, que es lo que recogía el documento de
   contexto anterior; ese par ha quedado desactualizado al menos para la web.
