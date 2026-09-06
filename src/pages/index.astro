@@ -83,23 +83,25 @@ const SERVICE_MEDIA = [
           <h2 id="intro-t" class="intro-big">Creamos sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Diseñamos el recorrido completo, del primer clic a la llamada agendada, y lo ajustamos semana a semana según coste por lead y calidad real. <em>Sin portales. Sin referidos. Sin curiosos.</em></h2>
         </div>
       </div>
-      <!-- Tríptico de fotos reales del equipo trabajando. Va aquí porque el
-           apartado 01 era el único bloque de la página sin una sola imagen,
-           justo después del hero, y porque es la prueba que ningún
-           competidor puede copiar: no es stock, son ellos. -->
-      <div class="intro-shots reveal">
-        <figure>
+      <!-- Fotos reales del equipo. Una manda y las otras dos acompañan: tres
+           imágenes del mismo peso justo después de un hero fotográfico
+           saturaban el apartado. Al pulsar, la elegida crece y las demás se
+           recogen. Es flexbox transicionando flex-grow, sin librerías: el
+           mismo efecto que un grid expansible pero sin meter un framework
+           en una página que hoy no carga ninguno. -->
+      <div class="shots reveal" id="shots">
+        <button class="shot is-open" type="button" aria-pressed="true">
           <img src="/images/real-rodaje.jpg" alt="Valeria Melero grabando contenido en vídeo frente a la cámara" width="1100" height="1651" loading="lazy" decoding="async">
-          <figcaption>Grabando contenido</figcaption>
-        </figure>
-        <figure>
+          <span class="shot-cap">Grabando contenido</span>
+        </button>
+        <button class="shot" type="button" aria-pressed="false">
           <img src="/images/real-guiones.jpg" alt="Dos miembros del equipo revisando guiones de reel impresos sobre la mesa" width="1100" height="1467" loading="lazy" decoding="async">
-          <figcaption>Revisando guiones</figcaption>
-        </figure>
-        <figure>
+          <span class="shot-cap">Revisando guiones</span>
+        </button>
+        <button class="shot" type="button" aria-pressed="false">
           <img src="/images/real-set.jpg" alt="Cámara montada en trípode con el set preparado antes de grabar" width="1100" height="1956" loading="lazy" decoding="async">
-          <figcaption>El set, antes de rodar</figcaption>
-        </figure>
+          <span class="shot-cap">El set, antes de rodar</span>
+        </button>
       </div>
       <div class="intro-rule" aria-hidden="true"></div>
     </div>
@@ -417,6 +419,23 @@ const SERVICE_MEDIA = [
    Se engancha a astro:page-load porque con las transiciones entre páginas
    los scripts de página no se re-ejecutan al navegar. */
 document.addEventListener('astro:page-load', function () {
+  /* Fotos del equipo: la pulsada crece y las demás se recogen. Quince líneas
+     en lugar de una librería de animación. El estado vive en una clase, así
+     que si el JS no llega la primera foto sigue abierta y las tres se ven. */
+  var shots = document.getElementById('shots');
+  if (shots) {
+    var botones = shots.querySelectorAll('.shot');
+    botones.forEach(function (b) {
+      b.addEventListener('click', function () {
+        botones.forEach(function (o) {
+          var abierta = o === b;
+          o.classList.toggle('is-open', abierta);
+          o.setAttribute('aria-pressed', String(abierta));
+        });
+      });
+    });
+  }
+
   var track = document.getElementById('svcScroll');
   var fill = document.getElementById('svcBar');
   if (!track || !fill) return;
