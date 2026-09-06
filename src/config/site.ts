@@ -137,6 +137,28 @@ export const TESTIMONIALS = [
   },
 ] as const;
 
+/**
+ * Publicaciones y reels de Instagram que se muestran en la web.
+ *
+ * NO es un feed automático, y es deliberado: Instagram no expone el listado
+ * de publicaciones sin login ni sin un token de aplicación, y este sitio es
+ * estático y no tiene backend donde renovarlo. Los widgets de terceros que lo
+ * resuelven cargan scripts con cookies de seguimiento, lo que dejaría en
+ * mentira el aviso de cookies de la web.
+ *
+ * Así que es una selección manual. Se añade una entrada por publicación y su
+ * miniatura se descarga a public/images/social/ con:
+ *     node scripts/social.mjs
+ * que lee las URL de aquí y guarda cada imagen en local. Local y no enlazada:
+ * las URL del CDN de Instagram caducan.
+ *
+ * `tipo` distingue 'reel' de 'post' para pintar el indicador de vídeo.
+ */
+export const SOCIAL = [
+  // { url: 'https://www.instagram.com/p/XXXXXXXXX/', tipo: 'post', alt: 'Descripción de la publicación' },
+  // { url: 'https://www.instagram.com/reel/XXXXXXXXX/', tipo: 'reel', alt: 'Descripción del reel' },
+] as const;
+
 export const TEAM = [
   { name: 'Valeria Melero', role: 'CEO & Founder', photo: '/team/valeria.webp' },
   { name: 'Yerai Jiménez', role: 'Marketing & Comunicación', photo: '/team/yerai.webp' },

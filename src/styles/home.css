@@ -795,3 +795,46 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 @media (prefers-reduced-motion:reduce){
   .destaca::before{transform:none!important}
 }
+
+/* ==========================================================================
+   PUBLICACIONES
+   Rejilla de posts y reels. Miniaturas locales enlazando a Instagram: sin
+   widget de terceros, así que sin scripts ni cookies de seguimiento, que
+   dejarían en mentira el aviso de cookies.
+   ========================================================================== */
+.social-head{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:2rem;flex-wrap:wrap;
+  padding-bottom:clamp(2rem,4vw,3rem);
+}
+.social-head h2{
+  font-size:clamp(1.6rem,3.4vw,2.6rem);font-weight:600;line-height:1.05;
+  letter-spacing:-.03em;margin-top:1.1rem;max-width:18ch;color:var(--text);
+}
+.social-perfil{
+  display:inline-flex;align-items:center;gap:.6rem;flex:none;
+  font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text);text-decoration:none;
+  padding-bottom:.5rem;border-bottom:1px solid var(--teal);
+  transition:gap .25s var(--ease),color .25s var(--ease);
+}
+.social-perfil:hover{gap:1rem;color:var(--teal)}
+.social-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));
+  gap:clamp(10px,1.2vw,16px);
+}
+.social-item{position:relative;display:block;overflow:hidden;background:var(--paper-2)}
+.social-item img{
+  width:100%;aspect-ratio:4/5;object-fit:cover;
+  filter:saturate(.96) contrast(1.02);
+  transition:transform .6s var(--ease),filter .4s var(--ease);
+}
+.social-item:hover img{transform:scale(1.04);filter:saturate(1) contrast(1.02)}
+.social-item:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+/* Indicador de reel: distingue vídeo de imagen de un vistazo. */
+.social-tipo{
+  position:absolute;top:.7rem;right:.7rem;
+  width:26px;height:26px;display:flex;align-items:center;justify-content:center;
+  background:rgba(13,34,38,.72);color:#fff;
+}
+.social-tipo svg{width:11px;height:11px;margin-left:1px}

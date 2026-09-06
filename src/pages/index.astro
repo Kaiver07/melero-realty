@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import VideoEmbed from '../components/VideoEmbed.astro';
 import '../styles/home.css';
-import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ } from '../config/site';
+import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL } from '../config/site';
 
 /* Fotografía de los servicios, emparejada por índice con SERVICES.
    El copy vive en site.ts (fuente de verdad); aquí solo la imagen. */
@@ -287,6 +287,45 @@ const SERVICE_MEDIA = [
     </div>
     </div>
   </section>
+
+  <!-- ================= SOCIAL ================= -->
+  <!-- (08) Publicaciones. La sección solo existe si hay contenido en SOCIAL:
+       una rejilla vacía sería peor que no tenerla. Las miniaturas son locales
+       y cada tarjeta enlaza a Instagram; no hay script de terceros, así que
+       no entra ni una cookie de seguimiento. -->
+  {SOCIAL.length > 0 && (
+  <section class="section section--white social" aria-labelledby="social-t">
+    <div class="wrap">
+      <div class="social-head reveal">
+        <div>
+          <p class="eyebrow">(08) Lo que publicamos</p>
+          <h2 id="social-t">Contenido que filtra, no que rellena.</h2>
+        </div>
+        <a class="social-perfil" href={SITE.social.instagram} rel="noopener" target="_blank">
+          Ver el perfil
+          <span aria-hidden="true">&#8594;</span>
+        </a>
+      </div>
+
+      <div class="social-grid reveal">
+        {SOCIAL.map((item) => (
+          <a class="social-item" href={item.url} target="_blank" rel="noopener">
+            <img
+              src={`/images/social/${item.url.match(/\/(?:p|reel)\/([^/?]+)/)?.[1]}.webp`}
+              alt={item.alt}
+              width="640" height="800" loading="lazy" decoding="async"
+            />
+            {item.tipo === 'reel' && (
+              <span class="social-tipo" aria-label="Reel">
+                <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><polygon points="5 3 13 8 5 13"/></svg>
+              </span>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  )}
 
   <!-- ================= 10 · FAQ ================= -->
   <section class="section section--white" id="faq" aria-labelledby="faq-t">
