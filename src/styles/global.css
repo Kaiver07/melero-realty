@@ -224,9 +224,3 @@ details[open] .faq-plus { transform: rotate(45deg); }
 .footer li a:hover{color:var(--white)}
 .footer-bottom{display:flex;flex-wrap:wrap;gap:.8rem 2rem;justify-content:space-between;padding-top:1.8rem;font-size:.78rem;font-weight:300;color:var(--muted-dark)}
 @media (max-width:760px){.footer-top{grid-template-columns:1fr;gap:2rem}}
-
-/* Lenis. Sin esto el navegador y la librería se pelean por el scroll. */
-html.lenis, html.lenis body { height: auto; }
-.lenis.lenis-smooth { scroll-behavior: auto !important; }
-.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
-.lenis.lenis-stopped { overflow: hidden; }

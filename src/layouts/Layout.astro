@@ -91,60 +91,30 @@ const faqSchema = {
     <CookieNotice />
     <script>
       /* MOTOR DE ANIMACIÓN
-         Lenis para el scroll suave y GSAP (ScrollTrigger + SplitText) para la
-         coreografía. Van juntos a propósito: si cada uno lee el scroll por su
-         cuenta se desincronizan y los disparadores se van de sitio. Por eso
-         Lenis avisa a ScrollTrigger en cada scroll y GSAP conduce el bucle de
-         fotogramas, en lugar de tener dos bucles compitiendo.
+         GSAP con ScrollTrigger y SplitText sobre el scroll NATIVO. Se probó
+         una librería de scroll suave y se descartó: el cliente prefiere el
+         scroll del navegador. Menos peso y una dependencia menos que pueda
+         pelearse con las anclas o con el táctil.
 
-         Nada de esto se activa con prefers-reduced-motion: ni scroll
-         secuestrado ni animaciones. La página queda quieta y completa.
+         Nada se activa con prefers-reduced-motion.
 
-         Regla que se mantiene del brief: NO se anima todo. Solo los titulares
-         (revelado por línea), la fotografía (profundidad al desplazar) y la
-         palabra del hero. Animar cada elemento es el tell de web hecha con IA. */
-      import Lenis from 'lenis';
+         Regla del brief: NO se anima todo. Solo titulares, fotografía y la
+         palabra del hero. Animar cada elemento delata una web hecha con IA. */
       import { gsap } from 'gsap';
       import { ScrollTrigger } from 'gsap/ScrollTrigger';
       import { SplitText } from 'gsap/SplitText';
 
       gsap.registerPlugin(ScrollTrigger, SplitText);
 
-      let lenis = null;
-
       function initMotor() {
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (reduce) return;
-
-        lenis?.destroy();
-        lenis = new Lenis({
-          /* lerp en vez de duration: interpola de forma continua hacia el
-             destino, lo que da un scroll blando y sin tirones. Con duration
-             cada gesto de rueda arranca una animación nueva y se nota duro.
-             0.085 es suave sin llegar a sentirse flotante o pesado. */
-          lerp: 0.085,
-          wheelMultiplier: 1,
-          smoothWheel: true,
-          syncTouch: false,
-          anchors: { offset: 0 },
-          prevent: (node) => node.classList?.contains('svc-scroll'),
-        });
-
-        /* Un solo reloj: GSAP conduce y Lenis se engancha. Dos bucles rAF
-           independientes producen micro-desfases visibles. */
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add(tiempoGsap);
-        gsap.ticker.lagSmoothing(0);
-
+        pestanas();
         animaciones();
       }
 
-      function tiempoGsap(time) {
-        lenis?.raf(time * 1000);
-      }
-
-      /* Cursor deslizante del menú. Sigue al enlace bajo el ratón y, al salir,
-         vuelve al que corresponde a la sección visible. Sin librería. */
+      /* Cursor deslizante del menú: sigue al enlace bajo el ratón y, al salir,
+         vuelve al de la sección visible. Sin librería. */
       function pestanas() {
         document.querySelectorAll('.nav-links').forEach((lista) => {
           const enlaces = [...lista.querySelectorAll('a')];
@@ -161,13 +131,10 @@ const faqSchema = {
             a.addEventListener('mouseenter', () => mover(a));
             a.addEventListener('focus', () => mover(a));
           });
-          lista.addEventListener('mouseleave', () => mover(activo, activo !== enlaces[0] || false));
+          lista.addEventListener('mouseleave', () => mover(activo, activo !== enlaces[0]));
 
-          /* Cuál está activo lo decide la sección visible, no un clic: así el
-             menú refleja dónde está el visitante mientras baja. */
-          /* Solo anclas de esta misma página. En las páginas interiores los
-             enlaces son '/#servicios', y querySelector('/#servicios') lanza
-             SyntaxError y se llevaría por delante el resto del script. */
+          /* Solo anclas de esta misma página: en las interiores los enlaces
+             son '/#servicios' y querySelector con eso lanza SyntaxError. */
           const secciones = enlaces
             .map((a) => {
               const href = a.getAttribute('href') || '';
@@ -175,6 +142,7 @@ const faqSchema = {
               return { a, sec: document.querySelector(href) };
             })
             .filter((x) => x && x.sec);
+
           if (secciones.length && 'IntersectionObserver' in window) {
             const io = new IntersectionObserver((entradas) => {
               entradas.forEach((e) => {
@@ -189,52 +157,32 @@ const faqSchema = {
       }
 
       function animaciones() {
-        pestanas();
-        /* 1 · Titulares: se revelan línea a línea desde detrás de su propia
-           caja. El estado inicial lo pone GSAP en tiempo de ejecución, nunca
-           el CSS: si el JavaScript fallara, los titulares seguirían visibles. */
         document.querySelectorAll('h1, h2').forEach((titulo) => {
           const split = new SplitText(titulo, {
-            type: 'lines',
-            linesClass: 'linea',
-            mask: 'lines',
+            type: 'lines', linesClass: 'linea', mask: 'lines',
           });
           gsap.from(split.lines, {
-            yPercent: 115,
-            duration: 1.05,
-            ease: 'expo.out',
-            stagger: 0.09,
+            yPercent: 115, duration: 1.05, ease: 'expo.out', stagger: 0.09,
             scrollTrigger: { trigger: titulo, start: 'top 88%', once: true },
           });
         });
 
-        /* 2 · Fotografía: se desplaza más despacio que la página. Da
-           profundidad sin parallax de fondo, que siempre se ve barato. */
         document.querySelectorAll('.band-media img, .vid-media, .cta-media img')
           .forEach((el) => {
             gsap.fromTo(el, { yPercent: -6 }, {
-              yPercent: 6,
-              ease: 'none',
+              yPercent: 6, ease: 'none',
               scrollTrigger: {
                 trigger: el.closest('section') || el,
-                start: 'top bottom',
-                end: 'bottom top',
-                scrub: true,
+                start: 'top bottom', end: 'bottom top', scrub: true,
               },
             });
           });
 
-        /* 3 · La palabra del hero entra letra a letra al cargar. Una sola vez,
-           en el primer pantallazo, y nada más en toda la página. */
         const letras = document.querySelectorAll('.hero-word span');
         if (letras.length) {
           gsap.from(letras, {
-            yPercent: 60,
-            opacity: 0,
-            duration: 1.2,
-            ease: 'expo.out',
-            stagger: 0.055,
-            delay: 0.15,
+            yPercent: 60, opacity: 0, duration: 1.2, ease: 'expo.out',
+            stagger: 0.055, delay: 0.15,
           });
         }
       }
@@ -242,9 +190,6 @@ const faqSchema = {
       document.addEventListener('astro:page-load', initMotor);
       document.addEventListener('astro:before-swap', () => {
         ScrollTrigger.getAll().forEach((st) => st.kill());
-        gsap.ticker.remove(tiempoGsap);
-        lenis?.destroy();
-        lenis = null;
       });
     </script>
 

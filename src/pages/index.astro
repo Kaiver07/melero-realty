@@ -360,25 +360,57 @@ document.addEventListener('astro:page-load', function () {
      esto se limita al ratón: sin ello, un carrusel horizontal en escritorio
      es invisible salvo que alguien pruebe shift+rueda. */
   var arrastrando = false, xInicial = 0, scrollInicial = 0, movido = 0;
+  var velocidad = 0, ultimaX = 0, ultimoT = 0, inercia = null;
+
   track.addEventListener('pointerdown', function (e) {
     if (e.pointerType !== 'mouse') return;
-    arrastrando = true; movido = 0;
-    xInicial = e.clientX;
+    if (inercia) { cancelAnimationFrame(inercia); inercia = null; }
+    arrastrando = true; movido = 0; velocidad = 0;
+    xInicial = ultimaX = e.clientX;
+    ultimoT = performance.now();
     scrollInicial = track.scrollLeft;
     track.setPointerCapture(e.pointerId);
     track.classList.add('is-dragging');
   });
+
   track.addEventListener('pointermove', function (e) {
     if (!arrastrando) return;
     var dx = e.clientX - xInicial;
     movido = Math.max(movido, Math.abs(dx));
     track.scrollLeft = scrollInicial - dx;
+
+    /* Velocidad instantánea, suavizada: sin promediar, un microtemblor del
+       ratón al soltar mandaría el carrusel disparado. */
+    var ahora = performance.now();
+    var dt = ahora - ultimoT;
+    if (dt > 0) {
+      var v = (ultimaX - e.clientX) / dt;      // px por ms
+      velocidad = velocidad * 0.7 + v * 0.3;
+      ultimaX = e.clientX;
+      ultimoT = ahora;
+    }
   });
+
+  /* Inercia al soltar. Sin esto el carrusel se para en seco y se siente duro;
+     con ella continúa y frena solo, que es lo que se espera de un carrusel
+     que se arrastra. */
+  var frenar = function () {
+    velocidad *= 0.94;
+    track.scrollLeft += velocidad * 16;
+    var max = track.scrollWidth - track.clientWidth;
+    if (track.scrollLeft <= 0 || track.scrollLeft >= max || Math.abs(velocidad) < 0.02) {
+      inercia = null;
+      return;
+    }
+    inercia = requestAnimationFrame(frenar);
+  };
+
   var soltar = function (e) {
     if (!arrastrando) return;
     arrastrando = false;
     track.classList.remove('is-dragging');
     try { track.releasePointerCapture(e.pointerId); } catch (err) {}
+    if (Math.abs(velocidad) > 0.05) inercia = requestAnimationFrame(frenar);
   };
   track.addEventListener('pointerup', soltar);
   track.addEventListener('pointercancel', soltar);
