@@ -387,11 +387,6 @@ document.addEventListener('astro:page-load', function () {
     if (movido > 6) { e.preventDefault(); e.stopPropagation(); }
   }, true);
 
-<<<<<<< HEAD
-  /* estadoFlechas() se quedó colgando al retirar los botones y lanzaba
-     ReferenceError en cada scroll. Ya no hay flechas: solo la barra. */
-  var alDesplazar = function () { update(); };
-=======
   /* Desplazamiento de las fotos dentro de su marco según su posición en el
      carrusel: las de un extremo miran hacia dentro y viceversa. Da sensación
      de profundidad al arrastrar, en vez de que las imágenes vayan clavadas.
@@ -414,7 +409,6 @@ document.addEventListener('astro:page-load', function () {
   /* estadoFlechas() quedó colgando al retirar los botones del carrusel y
      lanzaba ReferenceError en cada scroll. */
   var alDesplazar = function () { update(); profundidad(); };
->>>>>>> main
   track.addEventListener('scroll', alDesplazar, { passive: true });
   window.addEventListener('resize', alDesplazar);
   alDesplazar();
