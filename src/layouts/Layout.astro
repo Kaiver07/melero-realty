@@ -90,20 +90,29 @@ const faqSchema = {
     <slot />
     <CookieNotice />
     <script>
-      /* Scroll suave (Lenis, ~3 KB). Es lo que más cambia la sensación de la
-         página por menos peso. Tres cautelas:
-         - No se activa con prefers-reduced-motion: secuestrar el scroll a
-           quien ha pedido menos movimiento sería justo lo contrario.
-         - No toca los scrollers internos. El carrusel de servicios se arrastra
-           y se desplaza por su cuenta; `prevent` deja pasar la rueda ahí.
-         - Se destruye antes de cada transición de página y el bucle rAF vive
-           una sola vez, para que navegar no acumule instancias. */
+      /* MOTOR DE ANIMACIÓN
+         Lenis para el scroll suave y GSAP (ScrollTrigger + SplitText) para la
+         coreografía. Van juntos a propósito: si cada uno lee el scroll por su
+         cuenta se desincronizan y los disparadores se van de sitio. Por eso
+         Lenis avisa a ScrollTrigger en cada scroll y GSAP conduce el bucle de
+         fotogramas, en lugar de tener dos bucles compitiendo.
+
+         Nada de esto se activa con prefers-reduced-motion: ni scroll
+         secuestrado ni animaciones. La página queda quieta y completa.
+
+         Regla que se mantiene del brief: NO se anima todo. Solo los titulares
+         (revelado por línea), la fotografía (profundidad al desplazar) y la
+         palabra del hero. Animar cada elemento es el tell de web hecha con IA. */
       import Lenis from 'lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      import { SplitText } from 'gsap/SplitText';
+
+      gsap.registerPlugin(ScrollTrigger, SplitText);
 
       let lenis = null;
-      let bucleArrancado = false;
 
-      function initLenis() {
+      function initMotor() {
         const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         if (reduce) return;
 
@@ -112,25 +121,78 @@ const faqSchema = {
           duration: 1.05,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           smoothWheel: true,
-          syncTouch: false, // en móvil se deja el scroll nativo del sistema
-          // Sin esto Lenis se come los enlaces de ancla: la navegación de la
-          // cabecera cambiaba el hash y la página no se movía.
+          syncTouch: false,
           anchors: { offset: 0 },
           prevent: (node) => node.classList?.contains('svc-scroll'),
         });
 
-        if (!bucleArrancado) {
-          bucleArrancado = true;
-          const raf = (t) => {
-            lenis?.raf(t);
-            requestAnimationFrame(raf);
-          };
-          requestAnimationFrame(raf);
+        /* Un solo reloj: GSAP conduce y Lenis se engancha. Dos bucles rAF
+           independientes producen micro-desfases visibles. */
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add(tiempoGsap);
+        gsap.ticker.lagSmoothing(0);
+
+        animaciones();
+      }
+
+      function tiempoGsap(time) {
+        lenis?.raf(time * 1000);
+      }
+
+      function animaciones() {
+        /* 1 · Titulares: se revelan línea a línea desde detrás de su propia
+           caja. El estado inicial lo pone GSAP en tiempo de ejecución, nunca
+           el CSS: si el JavaScript fallara, los titulares seguirían visibles. */
+        document.querySelectorAll('h1, h2').forEach((titulo) => {
+          const split = new SplitText(titulo, {
+            type: 'lines',
+            linesClass: 'linea',
+            mask: 'lines',
+          });
+          gsap.from(split.lines, {
+            yPercent: 115,
+            duration: 1.05,
+            ease: 'expo.out',
+            stagger: 0.09,
+            scrollTrigger: { trigger: titulo, start: 'top 88%', once: true },
+          });
+        });
+
+        /* 2 · Fotografía: se desplaza más despacio que la página. Da
+           profundidad sin parallax de fondo, que siempre se ve barato. */
+        document.querySelectorAll('.band-media img, .vid-media, .cta-media img')
+          .forEach((el) => {
+            gsap.fromTo(el, { yPercent: -6 }, {
+              yPercent: 6,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: el.closest('section') || el,
+                start: 'top bottom',
+                end: 'bottom top',
+                scrub: true,
+              },
+            });
+          });
+
+        /* 3 · La palabra del hero entra letra a letra al cargar. Una sola vez,
+           en el primer pantallazo, y nada más en toda la página. */
+        const letras = document.querySelectorAll('.hero-word span');
+        if (letras.length) {
+          gsap.from(letras, {
+            yPercent: 60,
+            opacity: 0,
+            duration: 1.2,
+            ease: 'expo.out',
+            stagger: 0.055,
+            delay: 0.15,
+          });
         }
       }
 
-      document.addEventListener('astro:page-load', initLenis);
+      document.addEventListener('astro:page-load', initMotor);
       document.addEventListener('astro:before-swap', () => {
+        ScrollTrigger.getAll().forEach((st) => st.kill());
+        gsap.ticker.remove(tiempoGsap);
         lenis?.destroy();
         lenis = null;
       });

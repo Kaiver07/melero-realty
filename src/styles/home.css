@@ -548,16 +548,10 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   transition:opacity .85s var(--ease),transform .95s var(--ease);
 }
 
-/* Titulares: máscara. El h2 vive dentro de un recorte y sube desde fuera. */
-.js .reveal h2,
-.js .reveal .intro-big{
-  display:block;
-  clip-path:inset(0 0 100% 0);
-  transform:translateY(.42em);
-  transition:clip-path 1s var(--ease),transform 1s var(--ease);
-}
-.js .reveal.in h2,
-.js .reveal.in .intro-big{clip-path:inset(0 0 -20% 0);transform:none}
+/* Los titulares los revela GSAP línea a línea (SplitText). Aquí solo queda
+   la caja de recorte que necesita la máscara; el estado inicial lo pone
+   GSAP en tiempo de ejecución para que sin JavaScript sigan visibles. */
+.linea{overflow:hidden;display:block}
 
 /* Escalonado: cada hijo entra 90ms después del anterior. Secuencia, no bloque.
    Solo en las rejillas. Aplicarlo a todos los hijos de cualquier bloque
