@@ -57,10 +57,17 @@ import { SITE } from '../config/site';
             </div>
           </div>
 
+          <!-- novalidate a propósito. Con la validación nativa activa, un campo
+               inválido de un paso anterior (ya oculto) bloqueaba el envío y el
+               navegador no podía mostrar el aviso sobre un elemento invisible:
+               el botón no hacía nada y el lead se perdía en silencio. La
+               validación la hace el script, que además puede volver al paso
+               donde está el error. -->
           <form
             id="diag-form"
             data-sheets-url={SITE.sheetsWebAppUrl}
             class="ct-form"
+            novalidate
           >
             <!-- ── PASO 1: Perfil ── -->
             <fieldset data-step="1" class="step-panel">
@@ -703,21 +710,43 @@ import { SITE } from '../config/site';
     btnSub.classList.toggle('hidden', n !== TOTAL);
   }
 
-  function validateCurrentStep(): boolean {
-    const panel = document.querySelector<HTMLElement>(`.step-panel[data-step="${current}"]`)!;
+  /* Valida un paso concreto. Comprueba el FORMATO además de que haya algo
+     escrito: antes solo miraba que el campo no estuviera vacío, así que un
+     correo mal escrito pasaba el paso 1 y reventaba al final. */
+  function validarPaso(n: number, marcar = true): HTMLElement | null {
+    const panel = document.querySelector<HTMLElement>(`.step-panel[data-step="${n}"]`);
+    if (!panel) return null;
     const required = panel.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>('[required]');
-    let valid = true;
+    let primerFallo: HTMLElement | null = null;
+
     required.forEach(el => {
+      let ok = true;
       if (el.type === 'radio' || el.type === 'checkbox') {
-        const name = el.name;
-        const checked = panel.querySelector<HTMLInputElement>(`[name="${name}"]:checked`);
-        if (!checked) { valid = false; el.closest('div')?.classList.add('outline-red-300'); }
-      } else if (!el.value.trim()) {
-        valid = false;
-        el.classList.add('border-red-300');
+        ok = !!panel.querySelector<HTMLInputElement>(`[name="${el.name}"]:checked`);
+        if (!ok && marcar) el.closest('div')?.classList.add('outline-red-300');
+        else if (marcar) el.closest('div')?.classList.remove('outline-red-300');
+      } else {
+        /* checkValidity cubre vacíos, type=email y type=tel de una vez. */
+        ok = el.value.trim() !== '' && el.checkValidity();
+        if (marcar) el.classList.toggle('border-red-300', !ok);
       }
+      if (!ok && !primerFallo) primerFallo = el as HTMLElement;
     });
-    return valid;
+    return primerFallo;
+  }
+
+  function validateCurrentStep(): boolean {
+    return validarPaso(current) === null;
+  }
+
+  /* Recorre TODOS los pasos y devuelve el primero que falle. Necesario porque
+     el visitante puede retroceder y dejar un campo inválido detrás. */
+  function primerPasoInvalido(): { paso: number; campo: HTMLElement } | null {
+    for (let n = 1; n <= TOTAL; n++) {
+      const fallo = validarPaso(n, false);
+      if (fallo) return { paso: n, campo: fallo };
+    }
+    return null;
   }
 
   btnNext.addEventListener('click', () => {
@@ -736,6 +765,20 @@ import { SITE } from '../config/site';
   // Envío a Google Sheets vía Apps Script
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    /* Antes de enviar, revisar todos los pasos. Si hay un error en uno
+       anterior, se vuelve a él, se marca el campo y se enfoca: el visitante
+       ve qué pasa en lugar de pulsar un botón que no responde. */
+    const fallo = primerPasoInvalido();
+    if (fallo) {
+      current = fallo.paso;
+      showStep(current);
+      validarPaso(current);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      (fallo.campo as HTMLInputElement).focus({ preventScroll: true });
+      return;
+    }
+
     btnSub.disabled = true;
     btnSub.textContent = 'Enviando…';
 
