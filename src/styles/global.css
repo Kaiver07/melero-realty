@@ -175,11 +175,38 @@ details[open] .faq-plus { transform: rotate(45deg); }
   font-size:.72rem;font-weight:600;
   letter-spacing:.28em;text-transform:uppercase;text-decoration:none;color:var(--white);
 }
-.nav-links{display:flex;gap:clamp(1rem,2.4vw,2.4rem)}
+/* Pestañas con cursor deslizante. El bloque de fondo persigue al enlace bajo
+   el ratón y vuelve al activo al salir. El efecto es el de slide-tabs de
+   21st.dev, pero sin React ni framer-motion: es un pseudo-elemento al que se
+   le animan left y width. El menú está en todas las páginas, así que hacerlo
+   con librería habría costado ~95 KB comprimidos en cada una.
+   El recuadro es rectangular, no píldora: el sistema es de radio 0. */
+.nav-links{
+  position:relative;display:flex;align-items:center;
+  gap:clamp(.2rem,1vw,.6rem);
+}
+.nav-links::before{
+  content:"";position:absolute;z-index:0;
+  left:var(--tab-x,0);width:var(--tab-w,0);
+  top:0;bottom:0;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.22);
+  opacity:var(--tab-o,0);
+  transition:left .42s var(--ease),width .42s var(--ease),opacity .28s var(--ease);
+  pointer-events:none;
+}
 .nav-links a,.nav-mail{
   font-size:.68rem;font-weight:400;
   letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--white);
   opacity:.84;transition:opacity .2s var(--ease);white-space:nowrap;
+}
+.nav-links a{
+  position:relative;z-index:1;
+  padding:.62rem clamp(.55rem,1.1vw,.95rem);
+}
+.nav-links a:hover{opacity:1}
+@media (prefers-reduced-motion:reduce){
+  .nav-links::before{transition:none}
 }
 /* footer en #0d2226 — es la banda contigua al CTA en #122f35, con filete */
 .footer{

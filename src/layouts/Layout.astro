@@ -139,7 +139,53 @@ const faqSchema = {
         lenis?.raf(time * 1000);
       }
 
+      /* Cursor deslizante del menú. Sigue al enlace bajo el ratón y, al salir,
+         vuelve al que corresponde a la sección visible. Sin librería. */
+      function pestanas() {
+        document.querySelectorAll('.nav-links').forEach((lista) => {
+          const enlaces = [...lista.querySelectorAll('a')];
+          if (!enlaces.length) return;
+          let activo = enlaces[0];
+
+          const mover = (el, visible = true) => {
+            lista.style.setProperty('--tab-x', el.offsetLeft + 'px');
+            lista.style.setProperty('--tab-w', el.offsetWidth + 'px');
+            lista.style.setProperty('--tab-o', visible ? '1' : '0');
+          };
+
+          enlaces.forEach((a) => {
+            a.addEventListener('mouseenter', () => mover(a));
+            a.addEventListener('focus', () => mover(a));
+          });
+          lista.addEventListener('mouseleave', () => mover(activo, activo !== enlaces[0] || false));
+
+          /* Cuál está activo lo decide la sección visible, no un clic: así el
+             menú refleja dónde está el visitante mientras baja. */
+          /* Solo anclas de esta misma página. En las páginas interiores los
+             enlaces son '/#servicios', y querySelector('/#servicios') lanza
+             SyntaxError y se llevaría por delante el resto del script. */
+          const secciones = enlaces
+            .map((a) => {
+              const href = a.getAttribute('href') || '';
+              if (!href.startsWith('#') || href.length < 2) return null;
+              return { a, sec: document.querySelector(href) };
+            })
+            .filter((x) => x && x.sec);
+          if (secciones.length && 'IntersectionObserver' in window) {
+            const io = new IntersectionObserver((entradas) => {
+              entradas.forEach((e) => {
+                if (!e.isIntersecting) return;
+                const par = secciones.find((x) => x.sec === e.target);
+                if (par) { activo = par.a; mover(activo); }
+              });
+            }, { rootMargin: '-45% 0px -45% 0px' });
+            secciones.forEach((x) => io.observe(x.sec));
+          }
+        });
+      }
+
       function animaciones() {
+        pestanas();
         /* 1 · Titulares: se revelan línea a línea desde detrás de su propia
            caja. El estado inicial lo pone GSAP en tiempo de ejecución, nunca
            el CSS: si el JavaScript fallara, los titulares seguirían visibles. */

@@ -8,12 +8,12 @@ import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ } from '../config/site';
 /* Fotografía de los servicios, emparejada por índice con SERVICES.
    El copy vive en site.ts (fuente de verdad); aquí solo la imagen. */
 const SERVICE_MEDIA = [
-  { src: '/images/real-guiones.jpg',    alt: 'El equipo de Melero Realty revisando guiones y campañas sobre la mesa', w: 1100, h: 1467 },
-  { src: '/images/real-set.jpg',        alt: 'Set de grabación montado con la cámara en trípode',            w: 1100, h: 1956 },
-  { src: '/images/real-rodaje.jpg',     alt: 'Valeria Melero grabando contenido en vídeo frente a la cámara', w: 1100, h: 1651 },
-  { src: '/images/work-interior-2.jpg', alt: 'Interior cálido con gran ventanal y una obra de arte',          w: 1400, h: 2100 },
-  { src: '/images/hero-facade.jpg',     alt: 'Fachada blanca moderna con piscina bajo un cielo azul',         w: 2400, h: 1600 },
-  { src: '/images/hero-villa-pool.jpg', alt: 'Villa moderna con piscina a la luz del atardecer',              w: 2400, h: 1350 },
+  { src: '/images/real-guiones.webp',    alt: 'El equipo de Melero Realty revisando guiones y campañas sobre la mesa', w: 900, h: 1200 },
+  { src: '/images/real-set.webp',        alt: 'Set de grabación montado con la cámara en trípode',            w: 900, h: 1600 },
+  { src: '/images/real-rodaje.webp',     alt: 'Valeria Melero grabando contenido en vídeo frente a la cámara', w: 900, h: 1351 },
+  { src: '/images/work-interior-2.webp', alt: 'Interior cálido con gran ventanal y una obra de arte',          w: 900, h: 1350 },
+  { src: '/images/hero-facade.webp',     alt: 'Fachada blanca moderna con piscina bajo un cielo azul',         w: 900, h: 600 },
+  { src: '/images/hero-villa-pool.webp', alt: 'Villa moderna con piscina a la luz del atardecer',              w: 900, h: 506 },
 ];
 ---
 
@@ -23,7 +23,7 @@ const SERVICE_MEDIA = [
 <!-- ================= 1 · HERO ================= -->
 <header class="hero" id="top">
   <div class="hero-media">
-    <img src="/images/hero-piso.jpg" alt="Interior de una vivienda vacía con luz rasante entrando por el ventanal, grabada con un móvil montado en un trípode" width="1672" height="941" fetchpriority="high" decoding="async">
+    <img src="/images/hero-piso.webp" alt="Interior de una vivienda vacía con luz rasante entrando por el ventanal, grabada con un móvil montado en un trípode" width="1672" height="941" fetchpriority="high" decoding="async">
   </div>
   <div class="hero-veil" aria-hidden="true"></div>
   <div class="hero-scrim" aria-hidden="true"></div>
@@ -83,7 +83,7 @@ const SERVICE_MEDIA = [
         </div>
 
         <div class="band-media reveal">
-          <img src="/images/meeting.jpg" alt="Reunión de equipo en una oficina acristalada de tonos oscuros" width="2000" height="1333" loading="lazy" decoding="async">
+          <img src="/images/meeting.webp" alt="Reunión de equipo en una oficina acristalada de tonos oscuros" width="1300" height="866" loading="lazy" decoding="async">
           <div class="float-cards">
             <article class="fcard">
               <div class="fcard-ico" aria-hidden="true">
@@ -132,7 +132,7 @@ const SERVICE_MEDIA = [
       <div class="vid-media">
         <VideoEmbed
           videoId={SITE.youtubeId}
-          poster="/images/video-poster.jpg"
+          poster="/images/video-poster.webp"
           ratio="9/16"
           title="¿Qué es realmente Melero Realty?"
         />
@@ -337,7 +337,7 @@ const SERVICE_MEDIA = [
 
   <section class="cta" id="contacto" aria-labelledby="cta-t">
     <div class="cta-media">
-      <img src="/images/cta-boardroom.jpg" alt="Sala de juntas en penumbra con vistas a la ciudad al atardecer" width="2000" height="2500" loading="lazy" decoding="async">
+      <img src="/images/cta-boardroom.webp" alt="Sala de juntas en penumbra con vistas a la ciudad al atardecer" width="1800" height="2250" loading="lazy" decoding="async">
     </div>
     <div class="wrap">
       <p class="eyebrow eyebrow--dark">(10) Siguiente paso</p>
@@ -347,7 +347,7 @@ const SERVICE_MEDIA = [
            gratuita" sin decir con quién; poner cara y nombre junto al botón
            cambia el registro sin añadir ninguna promesa nueva. -->
       <div class="cta-who">
-        <img src="/team/valeria.jpg" alt="Retrato de Valeria Melero" width="1000" height="1250" loading="lazy" decoding="async">
+        <img src="/team/valeria.webp" alt="Retrato de Valeria Melero" width="640" height="961" loading="lazy" decoding="async">
         <p>
           <strong>Hablas con Valeria Melero</strong>
           <span>CEO &amp; Founder &mdash; no un comercial</span>
@@ -414,7 +414,9 @@ document.addEventListener('astro:page-load', function () {
     if (movido > 6) { e.preventDefault(); e.stopPropagation(); }
   }, true);
 
-  var alDesplazar = function () { update(); estadoFlechas(); };
+  /* estadoFlechas() se quedó colgando al retirar los botones y lanzaba
+     ReferenceError en cada scroll. Ya no hay flechas: solo la barra. */
+  var alDesplazar = function () { update(); };
   track.addEventListener('scroll', alDesplazar, { passive: true });
   window.addEventListener('resize', alDesplazar);
   alDesplazar();

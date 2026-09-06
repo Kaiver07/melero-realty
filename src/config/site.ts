@@ -138,9 +138,9 @@ export const TESTIMONIALS = [
 ] as const;
 
 export const TEAM = [
-  { name: 'Valeria Melero', role: 'CEO & Founder', photo: '/team/valeria.jpg' },
-  { name: 'Yerai Jiménez', role: 'Marketing & Comunicación', photo: '/team/yerai.jpg' },
-  { name: 'Carlos Bernabé', role: 'Director Comercial', photo: '/team/carlos.jpg' },
+  { name: 'Valeria Melero', role: 'CEO & Founder', photo: '/team/valeria.webp' },
+  { name: 'Yerai Jiménez', role: 'Marketing & Comunicación', photo: '/team/yerai.webp' },
+  { name: 'Carlos Bernabé', role: 'Director Comercial', photo: '/team/carlos.webp' },
 ] as const;
 
 export const FAQ = [

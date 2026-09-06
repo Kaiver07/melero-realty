@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "explorations/v4b-claro.html"
+        ],
+        "createdAt": "2026-09-02T11:53:23.194Z",
+        "reason": "Falso positivo: la unica sombra del archivo es la elevacion de la pildora del hero (0 2px 18px rgba(13,54,70,.08)), con desplazamiento vertical, 8% de opacidad y tenida al color de fondo de marca sobre blanco; no es un halo cromatico ni hay fondo oscuro."
+      }
+    ]
+  }
+}
