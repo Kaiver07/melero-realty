@@ -158,11 +158,21 @@ const faqSchema = {
 
       function animaciones() {
         document.querySelectorAll('h1, h2').forEach((titulo) => {
+          /* Sin mask: el envoltorio con overflow oculto recorta a la altura
+             exacta de la caja de línea y, con el line-height apretado de
+             estos titulares, se comía los descendentes de todas las líneas.
+             Desplazamiento y opacidad no pueden cortar nada. */
           const split = new SplitText(titulo, {
-            type: 'lines', linesClass: 'linea', mask: 'lines',
+            type: 'lines',
+            linesClass: 'linea',
+            autoSplit: true,
           });
           gsap.from(split.lines, {
-            yPercent: 115, duration: 1.05, ease: 'expo.out', stagger: 0.09,
+            yPercent: 42,
+            opacity: 0,
+            duration: 0.95,
+            ease: 'expo.out',
+            stagger: 0.08,
             scrollTrigger: { trigger: titulo, start: 'top 88%', once: true },
           });
         });

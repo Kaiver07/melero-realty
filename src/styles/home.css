@@ -554,7 +554,12 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 /* Los titulares los revela GSAP línea a línea (SplitText). Aquí solo queda
    la caja de recorte que necesita la máscara; el estado inicial lo pone
    GSAP en tiempo de ejecución para que sin JavaScript sigan visibles. */
-.linea{overflow:hidden;display:block}
+/* Las líneas de los titulares las genera SplitText. Sin máscara y sin
+   overflow: cualquier recorte a la altura de la caja de línea se come los
+   descendentes (las colas de la g, la j y la p), y con line-height apretado
+   como el de estos titulares se los come TODOS. Se revelan con
+   desplazamiento y opacidad, que no puede cortar nada. */
+.linea{display:block;will-change:transform,opacity}
 
 /* Escalonado: cada hijo entra 90ms después del anterior. Secuencia, no bloque.
    Solo en las rejillas. Aplicarlo a todos los hijos de cualquier bloque
