@@ -5,3 +5,7 @@ dist/
 .DS_Store
 .vercel
 .astro/
+
+# Maquetas de exploración y servidor local de revisión: no forman parte del sitio
+explorations/
+.claude/
