@@ -173,7 +173,15 @@ ul,ol{margin:0;padding:0;list-style:none}
   line-height:.86;
   color:rgba(255,255,255,.22);
   user-select:none;pointer-events:none;
-  margin-bottom:-.13em;
+  /* El margen negativo hace que las letras solapen el titular, que es grande
+     y pesado y lo aguanta. Al -.13em se metían también 12px dentro de la
+     primera línea del párrafo de apoyo, que es texto pequeño y ahí el solape
+     solo genera ruido. Al -.04em sigue montando sobre el titular y libera
+     el párrafo. Se elige separación limpia en vez de solape mínimo: el
+     párrafo está bottom-aligned con el titular y solo 11px por debajo, así
+     que no caben las dos cosas. Entre rozar el titular y meterse en el
+     texto pequeño, mejor un margen positivo que aguante en cualquier ancho. */
+  margin-bottom:.02em;
 }
 .hero-word span{display:block}
 /* el tracking negativo deja aire muerto tras la última letra: se recupera */
