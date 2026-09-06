@@ -71,19 +71,44 @@ const SERVICE_MEDIA = [
 
 <main>
 
-  <!-- ================= 3 · INTRO ================= -->
-  <section class="section section--white" aria-labelledby="intro-t">
+  <!-- ================= 6 · BANDA OSCURA ================= -->
+  <section class="section band" aria-labelledby="band-t">
     <div class="wrap">
-      <div class="intro-grid reveal">
-        <div class="intro-side">
-          <p class="eyebrow">(01) El servicio</p>
-          <p>Trabajamos con inmobiliarias en activo y con exclusividad por zona: una sola marca por área de captación.</p>
+      <div class="band-grid">
+        <div class="band-copy reveal">
+          <p class="eyebrow eyebrow--dark">(01) El problema</p>
+          <h2 id="band-t">Si el 80% de tus leads<br>vienen de un portal,<br>tienes un problema.</h2>
+          <p>Un portal te alquila la demanda: el día que dejas de pagar, desaparece. Nosotros construimos el canal dentro de tu marca, para que el lead llegue a tu nombre y no al del portal, y para que puedas medir qué te cuesta cada cliente de verdad.</p>
+          <p class="band-quote">Sin portales. Sin referidos. Sin curiosos.</p>
         </div>
-        <div>
-          <h2 id="intro-t" class="intro-big">Creamos sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Diseñamos el recorrido completo, del primer clic a la llamada agendada, y lo ajustamos semana a semana según coste por lead y calidad real. <em>Sin portales. Sin referidos. Sin curiosos.</em></h2>
+
+        <div class="band-media reveal">
+          <img src="/images/meeting.jpg" alt="Reunión de equipo en una oficina acristalada de tonos oscuros" width="2000" height="1333" loading="lazy" decoding="async">
+          <div class="float-cards">
+            <article class="fcard">
+              <div class="fcard-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+              </div>
+              <h3>Exclusividad por zona</h3>
+              <p>Una sola marca por área de captación. No abrimos una segunda cuenta en tu mercado.</p>
+            </article>
+            <article class="fcard">
+              <div class="fcard-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M6.5 21V12"/><path d="M12 21V4.5"/><path d="M17.5 21v-6.5"/></svg>
+              </div>
+              <h3>Reporte semanal</h3>
+              <p>Coste por lead y coste por cliente, cada semana. Nada de impresiones ni alcance.</p>
+            </article>
+            <article class="fcard">
+              <div class="fcard-ico" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.4 2.7-5.6 6-5.6"/><circle cx="17" cy="11.2" r="2.4"/><path d="M13.4 20c0-2.4 1.6-4 3.6-4s3.6 1.6 3.6 4"/></svg>
+              </div>
+              <h3>Acompañamiento 1:1</h3>
+              <p>Comunicación directa con la CEO durante todo el contrato. Sin capas intermedias.</p>
+            </article>
+          </div>
         </div>
       </div>
-      <div class="intro-rule" aria-hidden="true"></div>
     </div>
   </section>
 
@@ -115,11 +140,72 @@ const SERVICE_MEDIA = [
     </div>
   </section>
 
+  <!-- ================= 3 · INTRO ================= -->
+  <section class="section section--white" aria-labelledby="intro-t">
+    <div class="wrap">
+      <div class="intro-grid reveal">
+        <div class="intro-side">
+          <p class="eyebrow">(03) El servicio</p>
+          <p>Trabajamos con inmobiliarias en activo y con exclusividad por zona: una sola marca por área de captación.</p>
+        </div>
+        <div>
+          <h2 id="intro-t" class="intro-big">Creamos sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Diseñamos el recorrido completo, del primer clic a la llamada agendada, y lo ajustamos semana a semana según coste por lead y calidad real. <em>Sin portales. Sin referidos. Sin curiosos.</em></h2>
+        </div>
+      </div>
+      <div class="intro-rule" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ================= 8 · COMPARATIVA ================= -->
+  <section class="section section--paper" aria-labelledby="cmp-t">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">(04) La diferencia</p>
+        <h2 id="cmp-t" style="font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;margin-top:1.3rem;max-width:20ch;line-height:1.03">Lo que suele pasar, y lo que hacemos nosotros.</h2>
+
+        <div class="cmp-head-row">
+          <p class="cmp-h cmp-h--them">Otras agencias</p>
+          <p class="cmp-h cmp-h--us">Melero Realty</p>
+        </div>
+
+        <div class="cmp">
+        {COMPARISON.map((c) => (
+          <>
+            <div class="cmp-cell cmp-cell--them"><span class="cmp-tag">Otras agencias</span>{c.ellos}</div>
+            <div class="cmp-cell cmp-cell--us"><span class="cmp-tag">Melero Realty</span>{c.nosotros}</div>
+          </>
+        ))}
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= 7 · PROCESO ================= -->
+  <section class="section proc" id="proceso" aria-labelledby="proc-t">
+    <p class="proc-mark" aria-hidden="true">PROCESO</p>
+    <div class="wrap">
+      <div class="proc-head reveal">
+        <p class="eyebrow eyebrow--dark">(05) Cómo trabajamos</p>
+        <h2 id="proc-t">Cinco fases. Ninguna decorativa.</h2>
+      </div>
+      <ol class="steps reveal">
+        {PROCESO.map((p) => (
+          <li class="step">
+            <span class="step-n">{p.step}</span>
+            <h3>{p.title}</h3>
+            <p>{p.desc}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
   <section class="section section--white svc" id="servicios" aria-labelledby="svc-t">
     <div class="wrap">
       <div class="svc-head reveal">
         <div>
-          <p class="eyebrow">(03) Servicios</p>
+          <p class="eyebrow">(06) Servicios</p>
           <h2 id="svc-t">Seis frentes, un solo objetivo: llamadas agendadas.</h2>
         </div>
         <div class="svc-head-right">
@@ -173,92 +259,6 @@ const SERVICE_MEDIA = [
         <div class="fact">
           <p class="fact-num">1 marca</p>
           <p>Exclusividad por zona. Si trabajamos contigo, no trabajamos con tu competencia directa.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 6 · BANDA OSCURA ================= -->
-  <section class="section band" aria-labelledby="band-t">
-    <div class="wrap">
-      <div class="band-grid">
-        <div class="band-copy reveal">
-          <p class="eyebrow eyebrow--dark">(04) El problema</p>
-          <h2 id="band-t">Si el 80% de tus leads<br>vienen de un portal,<br>tienes un problema.</h2>
-          <p>Un portal te alquila la demanda: el día que dejas de pagar, desaparece. Nosotros construimos el canal dentro de tu marca, para que el lead llegue a tu nombre y no al del portal, y para que puedas medir qué te cuesta cada cliente de verdad.</p>
-          <p class="band-quote">Sin portales. Sin referidos. Sin curiosos.</p>
-        </div>
-
-        <div class="band-media reveal">
-          <img src="/images/meeting.jpg" alt="Reunión de equipo en una oficina acristalada de tonos oscuros" width="2000" height="1333" loading="lazy" decoding="async">
-          <div class="float-cards">
-            <article class="fcard">
-              <div class="fcard-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
-              </div>
-              <h3>Exclusividad por zona</h3>
-              <p>Una sola marca por área de captación. No abrimos una segunda cuenta en tu mercado.</p>
-            </article>
-            <article class="fcard">
-              <div class="fcard-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M6.5 21V12"/><path d="M12 21V4.5"/><path d="M17.5 21v-6.5"/></svg>
-              </div>
-              <h3>Reporte semanal</h3>
-              <p>Coste por lead y coste por cliente, cada semana. Nada de impresiones ni alcance.</p>
-            </article>
-            <article class="fcard">
-              <div class="fcard-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.4 2.7-5.6 6-5.6"/><circle cx="17" cy="11.2" r="2.4"/><path d="M13.4 20c0-2.4 1.6-4 3.6-4s3.6 1.6 3.6 4"/></svg>
-              </div>
-              <h3>Acompañamiento 1:1</h3>
-              <p>Comunicación directa con la CEO durante todo el contrato. Sin capas intermedias.</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= 7 · PROCESO ================= -->
-  <section class="section proc" id="proceso" aria-labelledby="proc-t">
-    <p class="proc-mark" aria-hidden="true">PROCESO</p>
-    <div class="wrap">
-      <div class="proc-head reveal">
-        <p class="eyebrow eyebrow--dark">(05) Cómo trabajamos</p>
-        <h2 id="proc-t">Cinco fases. Ninguna decorativa.</h2>
-      </div>
-      <ol class="steps reveal">
-        {PROCESO.map((p) => (
-          <li class="step">
-            <span class="step-n">{p.step}</span>
-            <h3>{p.title}</h3>
-            <p>{p.desc}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  <!-- ================= 8 · COMPARATIVA ================= -->
-  <section class="section section--white" aria-labelledby="cmp-t">
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">(06) La diferencia</p>
-        <h2 id="cmp-t" style="font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;margin-top:1.3rem;max-width:20ch;line-height:1.03">Lo que suele pasar, y lo que hacemos nosotros.</h2>
-
-        <div class="cmp-head-row">
-          <p class="cmp-h cmp-h--them">Otras agencias</p>
-          <p class="cmp-h cmp-h--us">Melero Realty</p>
-        </div>
-
-        <div class="cmp">
-        {COMPARISON.map((c) => (
-          <>
-            <div class="cmp-cell cmp-cell--them"><span class="cmp-tag">Otras agencias</span>{c.ellos}</div>
-            <div class="cmp-cell cmp-cell--us"><span class="cmp-tag">Melero Realty</span>{c.nosotros}</div>
-          </>
-        ))}
-        </div>
         </div>
       </div>
     </div>
