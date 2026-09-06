@@ -308,39 +308,12 @@ const SERVICE_MEDIA = [
   </section>
 
   <!-- ================= CTA FINAL ================= -->
-  <!-- (08) Casting de modelos para reels. Audiencia distinta a la del resto
-       de la página: aquí no se vende, se recluta. Por eso va en tono menor,
-       sin botón sólido, para no competir con el CTA de diagnóstico. -->
-  <section class="section section--paper casting" id="casting" aria-labelledby="casting-t">
-    <div class="wrap casting-in reveal">
-      <div>
-        <p class="eyebrow">(09) Trabaja con nosotros</p>
-        <h2 id="casting-t">Buscamos caras para nuestros reels.</h2>
-      </div>
-      <div class="casting-body">
-        <p>
-          Grabamos contenido en vídeo para inmobiliarias y para nuestra propia
-          marca. Si te mueves bien delante de una cámara y quieres aparecer en
-          esos reels, escríbenos.
-        </p>
-        <p class="casting-what">
-          Cuéntanos quién eres, de dónde, tu Instagram y si tienes experiencia
-          en cámara. No hace falta más.
-        </p>
-        <a class="casting-link" href="mailto:melero.realty@gmail.com?subject=Candidatura%20modelo%20para%20reels">
-          Enviar candidatura
-          <span aria-hidden="true">&#8594;</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
   <section class="cta" id="contacto" aria-labelledby="cta-t">
     <div class="cta-media">
       <img src="/images/cta-boardroom.jpg" alt="Sala de juntas en penumbra con vistas a la ciudad al atardecer" width="2000" height="2500" loading="lazy" decoding="async">
     </div>
     <div class="wrap">
-      <p class="eyebrow eyebrow--dark">(10) Siguiente paso</p>
+      <p class="eyebrow eyebrow--dark">(09) Siguiente paso</p>
       <h2 id="cta-t">Reserva el diagnóstico.</h2>
       <p>Media hora para revisar de dónde vienen hoy tus leads, qué te cuesta cada cliente y si tu zona sigue libre. Si no encajamos, te lo decimos en la misma videollamada.</p>
       <!-- Quién está al otro lado. La competencia ofrece "consultoría
@@ -414,7 +387,28 @@ document.addEventListener('astro:page-load', function () {
     if (movido > 6) { e.preventDefault(); e.stopPropagation(); }
   }, true);
 
-  var alDesplazar = function () { update(); estadoFlechas(); };
+  /* Desplazamiento de las fotos dentro de su marco según su posición en el
+     carrusel: las de un extremo miran hacia dentro y viceversa. Da sensación
+     de profundidad al arrastrar, en vez de que las imágenes vayan clavadas.
+     Sustituye a la animación anterior, que iba ligada al scroll VERTICAL de
+     la página en un carrusel que se mueve en horizontal: quedaba congelada
+     en un estado arbitrario. */
+  var tarjetas = [].slice.call(track.querySelectorAll('.svc-card'));
+  var profundidad = function () {
+    var r = track.getBoundingClientRect();
+    var centro = r.left + r.width / 2;
+    tarjetas.forEach(function (c) {
+      var img = c.querySelector('.svc-fig img');
+      if (!img) return;
+      var cr = c.getBoundingClientRect();
+      var d = (cr.left + cr.width / 2 - centro) / r.width;   // -1 .. 1
+      img.style.transform = 'translate3d(' + (-d * 6.5).toFixed(2) + '%,0,0)';
+    });
+  };
+
+  /* estadoFlechas() quedó colgando al retirar los botones del carrusel y
+     lanzaba ReferenceError en cada scroll. */
+  var alDesplazar = function () { update(); profundidad(); };
   track.addEventListener('scroll', alDesplazar, { passive: true });
   window.addEventListener('resize', alDesplazar);
   alDesplazar();
