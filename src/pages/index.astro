@@ -83,6 +83,24 @@ const SERVICE_MEDIA = [
           <h2 id="intro-t" class="intro-big">Creamos sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Diseñamos el recorrido completo, del primer clic a la llamada agendada, y lo ajustamos semana a semana según coste por lead y calidad real. <em>Sin portales. Sin referidos. Sin curiosos.</em></h2>
         </div>
       </div>
+      <!-- Tríptico de fotos reales del equipo trabajando. Va aquí porque el
+           apartado 01 era el único bloque de la página sin una sola imagen,
+           justo después del hero, y porque es la prueba que ningún
+           competidor puede copiar: no es stock, son ellos. -->
+      <div class="intro-shots reveal">
+        <figure>
+          <img src="/images/real-rodaje.jpg" alt="Valeria Melero grabando contenido en vídeo frente a la cámara" width="1100" height="1651" loading="lazy" decoding="async">
+          <figcaption>Grabando contenido</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/real-guiones.jpg" alt="Dos miembros del equipo revisando guiones de reel impresos sobre la mesa" width="1100" height="1467" loading="lazy" decoding="async">
+          <figcaption>Revisando guiones</figcaption>
+        </figure>
+        <figure>
+          <img src="/images/real-set.jpg" alt="Cámara montada en trípode con el set preparado antes de grabar" width="1100" height="1956" loading="lazy" decoding="async">
+          <figcaption>El set, antes de rodar</figcaption>
+        </figure>
+      </div>
       <div class="intro-rule" aria-hidden="true"></div>
     </div>
   </section>
@@ -369,7 +387,17 @@ const SERVICE_MEDIA = [
     <div class="wrap">
       <p class="eyebrow eyebrow--dark">(10) Siguiente paso</p>
       <h2 id="cta-t">Reserva el diagnóstico.</h2>
-      <p>Media hora para revisar de dónde vienen hoy tus leads, qué te cuesta cada cliente y si tu zona sigue libre. Si no encajamos, te lo decimos en la misma llamada.</p>
+      <p>Media hora para revisar de dónde vienen hoy tus leads, qué te cuesta cada cliente y si tu zona sigue libre. Si no encajamos, te lo decimos en la misma videollamada.</p>
+      <!-- Quién está al otro lado. La competencia ofrece "consultoría
+           gratuita" sin decir con quién; poner cara y nombre junto al botón
+           cambia el registro sin añadir ninguna promesa nueva. -->
+      <div class="cta-who">
+        <img src="/team/valeria.jpg" alt="Retrato de Valeria Melero" width="1000" height="1250" loading="lazy" decoding="async">
+        <p>
+          <strong>La coge Valeria Melero</strong>
+          <span>CEO &amp; Founder &mdash; no un comercial</span>
+        </p>
+      </div>
       <div class="cta-actions">
         <a class="btn btn--light" href={`mailto:${SITE.email}?subject=${encodeURIComponent("Reservar diagnóstico")}`}>Reservar diagnóstico
           <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>

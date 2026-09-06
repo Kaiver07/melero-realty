@@ -159,6 +159,10 @@ export const FAQ = [
     a: 'Depende del caso: cada sistema de captación se dimensiona según la zona, el tipo de propiedades y el objetivo. Se define en el diagnóstico, que es gratuito y sin compromiso.',
   },
   {
+    q: '¿Trabajáis presencialmente?',
+    a: 'Trabajamos en remoto con agencias de toda España y con clientes en Estados Unidos. El diagnóstico y el seguimiento se hacen por videollamada, así que la zona en la que estés no condiciona nada.',
+  },
+  {
     q: '¿Trabajáis con exclusividad por zona?',
     a: 'Sí.',
   },
