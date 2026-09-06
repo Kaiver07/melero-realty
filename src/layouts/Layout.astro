@@ -178,6 +178,15 @@ const faqSchema = {
             });
           });
 
+        /* 4 · El bloque de color de la palabra destacada se despliega de
+           izquierda a derecha, justo después de que su línea se revele. */
+        document.querySelectorAll('.destaca').forEach((el) => {
+          gsap.fromTo(el, { '--sx': 0 }, {
+            '--sx': 1, duration: 0.75, ease: 'expo.out', delay: 0.35,
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          });
+        });
+
         const letras = document.querySelectorAll('.hero-word span');
         if (letras.length) {
           gsap.from(letras, {

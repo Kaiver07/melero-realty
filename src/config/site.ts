@@ -16,7 +16,7 @@ export const SITE = {
   // YouTube video ID for the "Por qué Melero Realty" section
   youtubeId: 'G-OtqipOUAI',
   social: {
-    instagram: 'https://instagram.com/melerorealty',
+    instagram: 'https://www.instagram.com/melero.realty/',
   },
 } as const;
 

@@ -122,7 +122,7 @@ const SERVICE_MEDIA = [
     <div class="wrap vid-grid reveal">
       <div class="vid-copy">
         <p class="eyebrow">(02) En vídeo</p>
-        <h2 id="vid-t">¿Qué es realmente Melero&nbsp;Realty?</h2>
+        <h2 id="vid-t">¿Qué es <span class="destaca">realmente</span> Melero&nbsp;Realty?</h2>
         <p class="vid-by">Valeria Melero &mdash; CEO &amp; Founder</p>
         <a class="vid-cta" href={SITE.calendlyUrl} target="_blank" rel="noopener">
           Reservar diagnóstico
@@ -215,8 +215,9 @@ const SERVICE_MEDIA = [
     </div>
 
     <div class="wrap">
-      <div class="svc-scroll" id="svcScroll" tabindex="0" role="region" aria-label="Servicios, desplazamiento horizontal">
-
+      <!-- Estructura que pide Embla: ventana > pista > diapositivas. -->
+      <div class="svc-scroll" id="svcScroll" role="region" aria-label="Servicios, desplazamiento horizontal">
+        <div class="svc-track">
         {SERVICES.map((sv, i) => (
           <article class="svc-card">
             <figure class="svc-fig">
@@ -229,6 +230,7 @@ const SERVICE_MEDIA = [
             <p>{sv.desc}</p>
           </article>
         ))}
+        </div>
 
       </div>
     </div>
@@ -340,110 +342,62 @@ const SERVICE_MEDIA = [
 <Footer />
 
 <script>
-/* El revelado por bloque vive ahora en Layout.astro, con un solo observador
-   para todo el sitio. Aquí queda únicamente la barra del carrusel.
-   Se engancha a astro:page-load porque con las transiciones entre páginas
-   los scripts de página no se re-ejecutan al navegar. */
+import EmblaCarousel from 'embla-carousel';
+
+/* Carrusel de servicios con Embla.
+   Antes era arrastre a mano sobre scrollLeft, con la inercia calculada
+   también a mano. Nunca se sintió fluido: mover scrollLeft desde JavaScript
+   pelea con el desplazamiento del propio navegador. Embla mueve la pista con
+   transform y trae el arrastre, la inercia y el táctil resueltos, en 11 KB
+   comprimidos.
+
+   dragFree: sin puntos de anclaje. Estas tarjetas son un escaparate, no un
+   visor de una en una, así que forzar el encaje daría tirones al soltar. */
 document.addEventListener('astro:page-load', function () {
-  var track = document.getElementById('svcScroll');
-  var fill = document.getElementById('svcBar');
-  if (!track || !fill) return;
+  var ventana = document.getElementById('svcScroll');
+  var barra = document.getElementById('svcBar');
+  if (!ventana) return;
 
-  var update = function () {
-    var max = track.scrollWidth - track.clientWidth;
-    var ratio = Math.min(1, Math.max(0.18, track.clientWidth / track.scrollWidth));
-    var progress = max > 0 ? track.scrollLeft / max : 0;
-    fill.style.width = ratio * 100 + '%';
-    fill.style.transform = 'translateX(' + progress * ((1 - ratio) / ratio) * 100 + '%)';
-  };
-  /* Arrastrar para desplazar. En táctil el navegador ya lo hace solo, así que
-     esto se limita al ratón: sin ello, un carrusel horizontal en escritorio
-     es invisible salvo que alguien pruebe shift+rueda. */
-  var arrastrando = false, xInicial = 0, scrollInicial = 0, movido = 0;
-  var velocidad = 0, ultimaX = 0, ultimoT = 0, inercia = null;
-
-  track.addEventListener('pointerdown', function (e) {
-    if (e.pointerType !== 'mouse') return;
-    if (inercia) { cancelAnimationFrame(inercia); inercia = null; }
-    arrastrando = true; movido = 0; velocidad = 0;
-    xInicial = ultimaX = e.clientX;
-    ultimoT = performance.now();
-    scrollInicial = track.scrollLeft;
-    track.setPointerCapture(e.pointerId);
-    track.classList.add('is-dragging');
+  var embla = EmblaCarousel(ventana, {
+    dragFree: true,
+    containScroll: 'trimSnaps',
+    align: 'start',
+    skipSnaps: true,
+    duration: 26,
   });
 
-  track.addEventListener('pointermove', function (e) {
-    if (!arrastrando) return;
-    var dx = e.clientX - xInicial;
-    movido = Math.max(movido, Math.abs(dx));
-    track.scrollLeft = scrollInicial - dx;
+  embla.on('pointerDown', function () { ventana.classList.add('is-dragging'); });
+  embla.on('pointerUp', function () { ventana.classList.remove('is-dragging'); });
 
-    /* Velocidad instantánea, suavizada: sin promediar, un microtemblor del
-       ratón al soltar mandaría el carrusel disparado. */
-    var ahora = performance.now();
-    var dt = ahora - ultimoT;
-    if (dt > 0) {
-      var v = (ultimaX - e.clientX) / dt;      // px por ms
-      velocidad = velocidad * 0.7 + v * 0.3;
-      ultimaX = e.clientX;
-      ultimoT = ahora;
+  var tarjetas = [].slice.call(ventana.querySelectorAll('.svc-card'));
+  var pista = ventana.querySelector('.svc-track');
+
+  var pintar = function () {
+    if (barra && pista) {
+      var ratio = Math.min(1, Math.max(0.18, ventana.clientWidth / pista.scrollWidth));
+      var avance = Math.min(1, Math.max(0, embla.scrollProgress()));
+      barra.style.width = ratio * 100 + '%';
+      barra.style.transform = 'translateX(' + avance * ((1 - ratio) / ratio) * 100 + '%)';
     }
-  });
 
-  /* Inercia al soltar. Sin esto el carrusel se para en seco y se siente duro;
-     con ella continúa y frena solo, que es lo que se espera de un carrusel
-     que se arrastra. */
-  var frenar = function () {
-    velocidad *= 0.94;
-    track.scrollLeft += velocidad * 16;
-    var max = track.scrollWidth - track.clientWidth;
-    if (track.scrollLeft <= 0 || track.scrollLeft >= max || Math.abs(velocidad) < 0.02) {
-      inercia = null;
-      return;
-    }
-    inercia = requestAnimationFrame(frenar);
-  };
-
-  var soltar = function (e) {
-    if (!arrastrando) return;
-    arrastrando = false;
-    track.classList.remove('is-dragging');
-    try { track.releasePointerCapture(e.pointerId); } catch (err) {}
-    if (Math.abs(velocidad) > 0.05) inercia = requestAnimationFrame(frenar);
-  };
-  track.addEventListener('pointerup', soltar);
-  track.addEventListener('pointercancel', soltar);
-  /* Si se ha arrastrado, se anula el clic para no activar nada sin querer. */
-  track.addEventListener('click', function (e) {
-    if (movido > 6) { e.preventDefault(); e.stopPropagation(); }
-  }, true);
-
-  /* Desplazamiento de las fotos dentro de su marco según su posición en el
-     carrusel: las de un extremo miran hacia dentro y viceversa. Da sensación
-     de profundidad al arrastrar, en vez de que las imágenes vayan clavadas.
-     Sustituye a la animación anterior, que iba ligada al scroll VERTICAL de
-     la página en un carrusel que se mueve en horizontal: quedaba congelada
-     en un estado arbitrario. */
-  var tarjetas = [].slice.call(track.querySelectorAll('.svc-card'));
-  var profundidad = function () {
-    var r = track.getBoundingClientRect();
+    /* Profundidad: cada foto se desplaza dentro de su marco según dónde esté
+       su tarjeta respecto al centro de la ventana. */
+    var r = ventana.getBoundingClientRect();
     var centro = r.left + r.width / 2;
     tarjetas.forEach(function (c) {
       var img = c.querySelector('.svc-fig img');
       if (!img) return;
       var cr = c.getBoundingClientRect();
-      var d = (cr.left + cr.width / 2 - centro) / r.width;   // -1 .. 1
+      var d = (cr.left + cr.width / 2 - centro) / r.width;
       img.style.transform = 'translate3d(' + (-d * 6.5).toFixed(2) + '%,0,0)';
     });
   };
 
-  /* estadoFlechas() quedó colgando al retirar los botones del carrusel y
-     lanzaba ReferenceError en cada scroll. */
-  var alDesplazar = function () { update(); profundidad(); };
-  track.addEventListener('scroll', alDesplazar, { passive: true });
-  window.addEventListener('resize', alDesplazar);
-  alDesplazar();
+  embla.on('scroll', pintar);
+  embla.on('reInit', pintar);
+  pintar();
+
+  document.addEventListener('astro:before-swap', function () { embla.destroy(); }, { once: true });
 });
 </script>
 </Layout>
