@@ -42,7 +42,7 @@
   --muted-dark:#bdc5c6;   /* blanco al 72% sobre #122f35 — 8.06:1 */
   --r-card:4px;
   --ease:cubic-bezier(.16,1,.3,1);
-  --photo:grayscale(.28) contrast(1.04) saturate(.86);
+  --photo:grayscale(.10) contrast(1.08) saturate(.94);
   --pad:clamp(20px,5vw,64px);
   --maxw:1360px;
 }
