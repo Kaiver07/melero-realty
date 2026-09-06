@@ -8,9 +8,9 @@ import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ } from '../config/site';
 /* Fotografía de los servicios, emparejada por índice con SERVICES.
    El copy vive en site.ts (fuente de verdad); aquí solo la imagen. */
 const SERVICE_MEDIA = [
-  { src: '/images/work-interior.jpg',   alt: 'Salón minimalista con sofás grises y chimenea encendida',      w: 1400, h: 933  },
-  { src: '/images/conference.jpg',      alt: 'Sala de reuniones oscura con sillas de cuero y lámpara lineal', w: 2000, h: 3000 },
-  { src: '/images/work-house.jpg',      alt: 'Casa moderna de hormigón y madera iluminada de noche',          w: 1400, h: 1400 },
+  { src: '/images/real-guiones.jpg',    alt: 'El equipo de Melero Realty revisando guiones y campañas sobre la mesa', w: 1100, h: 1467 },
+  { src: '/images/real-set.jpg',        alt: 'Set de grabación montado con la cámara en trípode',            w: 1100, h: 1956 },
+  { src: '/images/real-rodaje.jpg',     alt: 'Valeria Melero grabando contenido en vídeo frente a la cámara', w: 1100, h: 1651 },
   { src: '/images/work-interior-2.jpg', alt: 'Interior cálido con gran ventanal y una obra de arte',          w: 1400, h: 2100 },
   { src: '/images/hero-facade.jpg',     alt: 'Fachada blanca moderna con piscina bajo un cielo azul',         w: 2400, h: 1600 },
   { src: '/images/hero-villa-pool.jpg', alt: 'Villa moderna con piscina a la luz del atardecer',              w: 2400, h: 1350 },
@@ -83,26 +83,6 @@ const SERVICE_MEDIA = [
           <h2 id="intro-t" class="intro-big">Creamos sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Diseñamos el recorrido completo, del primer clic a la llamada agendada, y lo ajustamos semana a semana según coste por lead y calidad real. <em>Sin portales. Sin referidos. Sin curiosos.</em></h2>
         </div>
       </div>
-      <!-- Fotos reales del equipo. Una manda y las otras dos acompañan: tres
-           imágenes del mismo peso justo después de un hero fotográfico
-           saturaban el apartado. Al pulsar, la elegida crece y las demás se
-           recogen. Es flexbox transicionando flex-grow, sin librerías: el
-           mismo efecto que un grid expansible pero sin meter un framework
-           en una página que hoy no carga ninguno. -->
-      <div class="shots reveal" id="shots">
-        <button class="shot is-open" type="button" aria-pressed="true">
-          <img src="/images/real-rodaje.jpg" alt="Valeria Melero grabando contenido en vídeo frente a la cámara" width="1100" height="1651" loading="lazy" decoding="async">
-          <span class="shot-cap">Grabando contenido</span>
-        </button>
-        <button class="shot" type="button" aria-pressed="false">
-          <img src="/images/real-guiones.jpg" alt="Dos miembros del equipo revisando guiones de reel impresos sobre la mesa" width="1100" height="1467" loading="lazy" decoding="async">
-          <span class="shot-cap">Revisando guiones</span>
-        </button>
-        <button class="shot" type="button" aria-pressed="false">
-          <img src="/images/real-set.jpg" alt="Cámara montada en trípode con el set preparado antes de grabar" width="1100" height="1956" loading="lazy" decoding="async">
-          <span class="shot-cap">El set, antes de rodar</span>
-        </button>
-      </div>
       <div class="intro-rule" aria-hidden="true"></div>
     </div>
   </section>
@@ -149,47 +129,18 @@ const SERVICE_MEDIA = [
     <div class="wrap">
       <div class="svc-scroll" id="svcScroll" tabindex="0" role="region" aria-label="Servicios, desplazamiento horizontal">
 
-        <article class="svc-card">
-          <figure class="svc-fig"><img src="/images/work-interior.jpg" alt="Salón minimalista con sofás grises y chimenea encendida" width="1400" height="933" loading="lazy" decoding="async"></figure>
-          <span class="svc-index">01</span>
-          <h3>Paid Ads Inmobiliario</h3>
-          <p>Campañas en Meta y Google diseñadas para captar propietarios y compradores cualificados. Sin presupuesto tirado.</p>
-        </article>
-
-        <article class="svc-card">
-          <figure class="svc-fig"><img src="/images/conference.jpg" alt="Sala de reuniones oscura con sillas de cuero y lámpara lineal" width="2000" height="3000" loading="lazy" decoding="async"></figure>
-          <span class="svc-index">02</span>
-          <h3>Embudo de Captación</h3>
-          <p>El recorrido completo: desde el primer clic hasta la llamada agendada. Sin fricción.</p>
-        </article>
-
-        <article class="svc-card">
-          <figure class="svc-fig"><img src="/images/work-house.jpg" alt="Casa moderna de hormigón y madera iluminada de noche" width="1400" height="1400" loading="lazy" decoding="async"></figure>
-          <span class="svc-index">03</span>
-          <h3>Generación de Leads</h3>
-          <p>Leads exclusivos para tu agencia. No compartidos, no comprados a terceros. Tuyos.</p>
-        </article>
-
-        <article class="svc-card">
-          <figure class="svc-fig"><img src="/images/work-interior-2.jpg" alt="Interior cálido con gran ventanal y una obra de arte en la pared" width="1400" height="2100" loading="lazy" decoding="async"></figure>
-          <span class="svc-index">04</span>
-          <h3>Posicionamiento de Marca</h3>
-          <p>La presencia digital que hace que los clientes elijan tu agencia antes de llamar a la competencia.</p>
-        </article>
-
-        <article class="svc-card">
-          <figure class="svc-fig"><img src="/images/hero-facade.jpg" alt="Fachada blanca moderna con piscina bajo un cielo azul" width="2400" height="1600" loading="lazy" decoding="async"></figure>
-          <span class="svc-index">05</span>
-          <h3>Contenido Estratégico</h3>
-          <p>Contenido que posiciona, educa y filtra. No publicaciones para rellenar el feed.</p>
-        </article>
-
-        <article class="svc-card">
-          <figure class="svc-fig"><img src="/images/hero-villa-pool.jpg" alt="Villa moderna con piscina a la luz del atardecer" width="2400" height="1350" loading="lazy" decoding="async"></figure>
-          <span class="svc-index">06</span>
-          <h3>Estrategia y Consultoría</h3>
-          <p>Para agencias que quieren entender qué está fallando en su captación y cómo arreglarlo.</p>
-        </article>
+        {SERVICES.map((sv, i) => (
+          <article class="svc-card">
+            <figure class="svc-fig">
+              <img src={SERVICE_MEDIA[i].src} alt={SERVICE_MEDIA[i].alt}
+                   width={SERVICE_MEDIA[i].w} height={SERVICE_MEDIA[i].h}
+                   loading="lazy" decoding="async" />
+            </figure>
+            <span class="svc-index">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{sv.title}</h3>
+            <p>{sv.desc}</p>
+          </article>
+        ))}
 
       </div>
     </div>
@@ -419,23 +370,6 @@ const SERVICE_MEDIA = [
    Se engancha a astro:page-load porque con las transiciones entre páginas
    los scripts de página no se re-ejecutan al navegar. */
 document.addEventListener('astro:page-load', function () {
-  /* Fotos del equipo: la pulsada crece y las demás se recogen. Quince líneas
-     en lugar de una librería de animación. El estado vive en una clase, así
-     que si el JS no llega la primera foto sigue abierta y las tres se ven. */
-  var shots = document.getElementById('shots');
-  if (shots) {
-    var botones = shots.querySelectorAll('.shot');
-    botones.forEach(function (b) {
-      b.addEventListener('click', function () {
-        botones.forEach(function (o) {
-          var abierta = o === b;
-          o.classList.toggle('is-open', abierta);
-          o.setAttribute('aria-pressed', String(abierta));
-        });
-      });
-    });
-  }
-
   var track = document.getElementById('svcScroll');
   var fill = document.getElementById('svcBar');
   if (!track || !fill) return;
