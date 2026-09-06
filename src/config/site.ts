@@ -8,7 +8,7 @@ export const SITE = {
     'Si el 80% de tus leads vienen de un portal, tienes un problema.',
   subtitulo:
     'Creamos sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Sin portales. Sin referidos. Sin curiosos.',
-  email: 'hola@valeriamelero.com',
+  email: 'melero.realty@gmail.com',
   // URL del Google Apps Script (Implementar > Nueva implementación > Aplicación web) que guarda el formulario en Google Sheets
   sheetsWebAppUrl: 'https://script.google.com/macros/s/AKfycbzKBPCN1TMWJP4iKo40WSYLWb8fIvelYa8m3IzCacegvOI6rY_ptES7Zh5k-SjP-BIx/exec',
   // YouTube video ID for the "Por qué Melero Realty" section

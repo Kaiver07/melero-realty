@@ -175,7 +175,9 @@ intermedias.» es correcto tal cual.)*
 ## Brand Commitments
 
 - **Nombre:** Melero Realty. **Handle:** `@melero.realty`. Dominio:
-  `valeriamelero.com`. Email: `hola@valeriamelero.com`.
+  `valeriamelero.com`. Email: **`melero.realty@gmail.com`** (confirmado el
+  6/9/2026; sustituye a `hola@valeriamelero.com`, que ya no se usa). Vive en
+  `SITE.email` y de ahí lo toman todas las páginas.
 - **Paleta oficial — sin dorado en ningún material:**
   - Blanco `#FFFFFF` — color principal.
   - `#24767B` (verde azulado / teal) — color de identidad.

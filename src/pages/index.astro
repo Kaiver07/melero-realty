@@ -36,7 +36,7 @@ const SERVICE_MEDIA = [
       <li><a href="#equipo">Equipo</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
-    <a class="nav-mail" href="mailto:hola@valeriamelero.com">hola@valeriamelero.com</a>
+    <a class="nav-mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
   </nav>
 
   <div class="hero-inner">
@@ -366,10 +366,10 @@ const SERVICE_MEDIA = [
       <h2 id="cta-t">Reserva el diagnóstico.</h2>
       <p>Media hora para revisar de dónde vienen hoy tus leads, qué te cuesta cada cliente y si tu zona sigue libre. Si no encajamos, te lo decimos en la misma llamada.</p>
       <div class="cta-actions">
-        <a class="btn btn--light" href="mailto:hola@valeriamelero.com?subject=Reservar%20diagn%C3%B3stico">Reservar diagnóstico
+        <a class="btn btn--light" href={`mailto:${SITE.email}?subject=${encodeURIComponent("Reservar diagnóstico")}`}>Reservar diagnóstico
           <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
         </a>
-        <a class="cta-mail" href="mailto:hola@valeriamelero.com">hola@valeriamelero.com</a>
+        <a class="cta-mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
       </div>
     </div>
   </section>
