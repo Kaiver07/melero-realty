@@ -178,11 +178,34 @@ const SERVICE_MEDIA = [
   </section>
 
   <!-- ================= 6 · BANDA OSCURA ================= -->
+  <!-- (03) Vídeo. El cliente lo quiere en tercera posición: la CEO aparece
+       pronto, antes de que la página empiece a argumentar. Contrapartida
+       asumida: al salir de aquí, la banda "El problema" (#122f35) y el
+       proceso (#0d2226) vuelven a quedar pegados, dos planchas oscuras
+       seguidas. Lo resuelve el filete superior del proceso.
+       Fachada de YouTube: solo se carga la miniatura y el iframe se inserta
+       al pulsar. Sin JavaScript de framework. -->
+  <section class="section section--paper vid" id="video" aria-labelledby="vid-t">
+    <div class="wrap vid-grid reveal">
+      <div class="vid-copy">
+        <p class="eyebrow">(03) En vídeo</p>
+        <h2 id="vid-t">Por qué Melero Realty.</h2>
+        <p class="vid-by">Valeria Melero &mdash; CEO &amp; Founder</p>
+      </div>
+      <div class="vid-media">
+        <VideoEmbed
+          videoId={SITE.youtubeId}
+          title="Por qué Melero Realty — Valeria Melero"
+        />
+      </div>
+    </div>
+  </section>
+
   <section class="section band" aria-labelledby="band-t">
     <div class="wrap">
       <div class="band-grid">
         <div class="band-copy reveal">
-          <p class="eyebrow eyebrow--dark">(03) El problema</p>
+          <p class="eyebrow eyebrow--dark">(04) El problema</p>
           <h2 id="band-t">Si el 80% de tus leads<br>vienen de un portal,<br>tienes un problema.</h2>
           <p>Un portal te alquila la demanda: el día que dejas de pagar, desaparece. Nosotros construimos el canal dentro de tu marca, para que el lead llegue a tu nombre y no al del portal, y para que puedas medir qué te cuesta cada cliente de verdad.</p>
           <p class="band-quote">Sin portales. Sin referidos. Sin curiosos.</p>
@@ -219,29 +242,6 @@ const SERVICE_MEDIA = [
   </section>
 
   <!-- ================= 7 · PROCESO ================= -->
-  <!-- (04) Vídeo. Va aquí por dos motivos. Narrativo: el problema queda
-       planteado justo antes, y la CEO lo explica antes de contar el método.
-       Y de ritmo: la banda (#122f35) y el proceso (#0d2226) son dos planchas
-       oscuras seguidas; esta sección clara las separa.
-       Fachada de YouTube: solo se carga la miniatura y el iframe se inserta
-       al pulsar. Sin JavaScript de framework y sin peticiones a YouTube en
-       la carga inicial. -->
-  <section class="section section--paper vid" id="video" aria-labelledby="vid-t">
-    <div class="wrap vid-grid reveal">
-      <div class="vid-copy">
-        <p class="eyebrow">(04) En vídeo</p>
-        <h2 id="vid-t">Por qué Melero Realty.</h2>
-        <p class="vid-by">Valeria Melero &mdash; CEO &amp; Founder</p>
-      </div>
-      <div class="vid-media">
-        <VideoEmbed
-          videoId={SITE.youtubeId}
-          title="Por qué Melero Realty — Valeria Melero"
-        />
-      </div>
-    </div>
-  </section>
-
   <section class="section proc" id="proceso" aria-labelledby="proc-t">
     <p class="proc-mark" aria-hidden="true">PROCESO</p>
     <div class="wrap">
