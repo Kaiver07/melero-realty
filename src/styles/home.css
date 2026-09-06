@@ -664,6 +664,8 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
      9.19:1 ahí sin necesidad de oscurecer la imagen. */
   .hero > .nav{position:absolute;top:0;left:0;right:0;z-index:3;padding-bottom:0}
   .hero-inner{padding-top:clamp(6px,2vw,14px)}
-  /* la palabra gigante ya no cruza una foto, sino la plancha: se contiene */
-  .hero-word{font-size:clamp(2.6rem,13vw,4.4rem);opacity:.16}
+  /* La palabra gigante ya no cruza una foto clara, sino la plancha oscura.
+     Al .16 daba 1.65:1 contra el fondo: invisible, no sutil. Al .30 da 2.6:1,
+     que se lee como marca de agua sin competir con el titular. */
+  .hero-word{font-size:clamp(2.9rem,14vw,5rem);color:rgba(255,255,255,.30)}
 }
