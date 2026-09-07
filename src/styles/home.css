@@ -986,6 +986,20 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   padding:clamp(1.1rem,2.2vw,1.6rem) clamp(1.4rem,2.8vw,2.1rem);
 }
 .caso-logo img{width:clamp(160px,18vw,208px)}
+.caso-logo{transition:border-color .25s var(--ease)}
+.caso-logo:hover{border-color:var(--rule-firm,rgba(18,47,53,.3))}
+
+/* El enlace va visible y no sólo bajo el logotipo: que se pueda comprobar
+   es la mitad del valor de publicar un caso, y nadie da por hecho que un
+   logotipo se pueda pulsar. */
+.caso-web{
+  display:inline-block;margin-top:.85rem;
+  font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--teal);text-decoration:none;
+  border-bottom:1px solid rgba(36,118,123,.4);padding-bottom:2px;
+  transition:border-color .2s var(--ease);
+}
+.caso-web:hover{border-bottom-color:var(--teal)}
 .caso-sector{
   margin-top:1.1rem;font-size:.9rem;font-weight:300;
   color:var(--muted);max-width:34ch;

@@ -231,11 +231,13 @@ const SERVICE_MEDIA = [
 
       <div class="caso-grid reveal">
         <div class="caso-ficha">
-          <div class="caso-logo">
+          <a class="caso-logo" href={CASO.web} target="_blank" rel="noopener"
+             aria-label={`Web de ${CASO.cliente}, se abre en una pestaña nueva`}>
             <img src={CASO.logo} alt={`Logotipo de ${CASO.cliente}`}
                  width="560" height="380" loading="lazy" decoding="async" />
-          </div>
+          </a>
           <p class="caso-sector">{CASO.sector}</p>
+          <a class="caso-web" href={CASO.web} target="_blank" rel="noopener">{CASO.webTexto}</a>
 
           <dl class="caso-fases">
             <div>

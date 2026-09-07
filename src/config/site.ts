@@ -81,6 +81,10 @@ export const CASO = {
   cliente: 'ARC Proyectos Renovables',
   sector: 'Constructora de origen cubano, en activo en Valencia.',
   logo: '/images/caso-arc.webp',
+  // El enlace es parte de la prueba: quien dude puede entrar y comprobar que
+  // la empresa existe, está en Valencia y hace lo que decimos que hace.
+  web: 'https://www.arcproyectosrenovables.com/',
+  webTexto: 'arcproyectosrenovables.com',
   partida:
     'La empresa ya estaba consolidada, pero no tenía sistema de captación. El mensaje no llegaba a su cliente ideal, así que el tiempo se iba en contactos que no cerraban.',
   cambio:
