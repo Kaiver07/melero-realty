@@ -299,7 +299,7 @@ ul,ol{margin:0;padding:0;list-style:none}
     opacity .28s var(--ease),
     margin-top .38s var(--ease);
 }
-.ab-aviso[data-abierto="true"]{grid-template-rows:1fr;opacity:1;margin-top:.75rem}
+.ab-aviso.esta-abierto{grid-template-rows:1fr;opacity:1;margin-top:.75rem}
 /* El recorte va en un envoltorio SIN relleno, y con min-height:0.
    Los elementos de una rejilla tienen min-height:auto, que es su tamaño
    mínimo de contenido: con el relleno puesto aquí, 0fr no podía bajar de

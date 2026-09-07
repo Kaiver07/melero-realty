@@ -123,7 +123,7 @@ const SERVICE_MEDIA = [
     <!-- Avisa, no bloquea. La FAQ dice que el diagnóstico está abierto a
          quien nunca ha invertido; cerrarle la puerta aquí sería desmentirse
          a sí misma nueve secciones más abajo. -->
-    <div class="ab-aviso" id="abAviso" data-abierto="false" aria-live="polite">
+    <div class="ab-aviso" id="abAviso" aria-live="polite">
       <div class="ab-aviso-in">
         <p>
         Con esa facturación lo habitual es que todavía no compense invertir en
@@ -667,7 +667,7 @@ document.addEventListener('astro:page-load', function () {
 
     const pintar = () => {
       const factura = barra.querySelector('#ab-factura');
-      if (aviso) aviso.dataset.abierto = String(!!factura && factura.value === 'menos-100k');
+      if (aviso) aviso.classList.toggle('esta-abierto', !!factura && factura.value === 'menos-100k');
 
       /* El enlace se reconstruye entero desde el original: así, al cambiar
          de opción, no se van acumulando parámetros de elecciones previas. */
