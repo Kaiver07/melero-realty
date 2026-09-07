@@ -131,19 +131,29 @@ const faqSchema = {
         document.querySelectorAll('.nav-links').forEach((lista) => {
           const enlaces = [...lista.querySelectorAll('a')];
           if (!enlaces.length) return;
-          let activo = enlaces[0];
+
+          /* null = ninguna sección con enlace está en pantalla, así que no
+             hay nada que señalar y el cursor se esconde. Antes esto se
+             fingía con "el activo es el primer enlace", y de ahí venía que
+             se quedase encendido sobre una pestaña cualquiera. */
+          let activo = null;
+          let sobre = false;
 
           const mover = (el, visible = true) => {
             lista.style.setProperty('--tab-x', el.offsetLeft + 'px');
             lista.style.setProperty('--tab-w', el.offsetWidth + 'px');
             lista.style.setProperty('--tab-o', visible ? '1' : '0');
           };
+          const restaurar = () => {
+            if (activo) mover(activo, true);
+            else lista.style.setProperty('--tab-o', '0');
+          };
 
           enlaces.forEach((a) => {
-            a.addEventListener('mouseenter', () => mover(a));
+            a.addEventListener('mouseenter', () => { sobre = true; mover(a); });
             a.addEventListener('focus', () => mover(a));
           });
-          lista.addEventListener('mouseleave', () => mover(activo, activo !== enlaces[0]));
+          lista.addEventListener('mouseleave', () => { sobre = false; restaurar(); });
 
           /* Solo anclas de esta misma página: en las interiores los enlaces
              son '/#servicios' y querySelector con eso lanza SyntaxError. */
@@ -156,12 +166,37 @@ const faqSchema = {
             .filter((x) => x && x.sec);
 
           if (secciones.length && 'IntersectionObserver' in window) {
+            /* Se lleva la cuenta de las que están DENTRO de la banda, no
+               solo de las que entran. Sin registrar las salidas, la última
+               que cruzó el centro se quedaba marcada para siempre: bastaba
+               con seguir bajando hasta una sección sin enlace en el menú
+               —el caso, el vídeo, el cierre— para dejar "Proceso"
+               encendido el resto de la página. */
+            const dentro = new Set();
+
+            const decidir = () => {
+              let elegida = null;
+              let masCerca = Infinity;
+              dentro.forEach((sec) => {
+                const caja = sec.getBoundingClientRect();
+                const distancia = Math.abs(
+                  (caja.top + caja.bottom) / 2 - window.innerHeight / 2,
+                );
+                if (distancia < masCerca) { masCerca = distancia; elegida = sec; }
+              });
+              const par = elegida && secciones.find((x) => x.sec === elegida);
+              activo = par ? par.a : null;
+              // Si el ratón está encima, manda el ratón: no se le quita el
+              // cursor de debajo mientras apunta a algo.
+              if (!sobre) restaurar();
+            };
+
             const io = new IntersectionObserver((entradas) => {
               entradas.forEach((e) => {
-                if (!e.isIntersecting) return;
-                const par = secciones.find((x) => x.sec === e.target);
-                if (par) { activo = par.a; mover(activo); }
+                if (e.isIntersecting) dentro.add(e.target);
+                else dentro.delete(e.target);
               });
+              decidir();
             }, { rootMargin: '-45% 0px -45% 0px' });
             secciones.forEach((x) => io.observe(x.sec));
           }
