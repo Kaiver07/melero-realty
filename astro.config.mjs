@@ -5,7 +5,10 @@ import react from '@astrojs/react';
 import { fileURLToPath } from 'node:url';
 
 export default defineConfig({
-  site: 'https://valeriamelero.com',
+  // Con www porque es lo que sirve Vercel: el dominio desnudo devuelve un
+  // 308 hacia aquí. De este valor sale el sitemap, así que con el anterior
+  // le estábamos dando a Google una lista de URLs que redirigen todas.
+  site: 'https://www.valeriamelero.com',
   output: 'static',
   integrations: [sitemap(), react()],
   vite: {

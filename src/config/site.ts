@@ -1,6 +1,8 @@
 export const SITE = {
   name: 'Melero Realty',
-  url: 'https://valeriamelero.com',
+  // url es la canónica y va con www, que es lo que sirve el servidor.
+  // domain es sólo el texto que se enseña en el pie: ahí el www sobra.
+  url: 'https://www.valeriamelero.com',
   domain: 'valeriamelero.com',
   description:
     'Generamos leads cualificados para agencias y asesores inmobiliarios en España y EEUU. Sin portales. Sin referidos. Sin curiosos.',
