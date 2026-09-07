@@ -8,6 +8,7 @@ interface Props {
   title: string;
   description?: string;
   canonical?: string;
+  ogImage?: string;
   includeFaqSchema?: boolean;
 }
 
@@ -15,8 +16,14 @@ const {
   title,
   description = SITE.description,
   canonical = new URL(Astro.url.pathname, SITE.url).href,
+  ogImage = '/images/og-melero.jpg',
   includeFaqSchema = false,
 } = Astro.props;
+
+/* La tarjeta de enlace. Tiene que ser absoluta: los rastreadores de WhatsApp,
+   Instagram y LinkedIn no resuelven rutas relativas, y sin imagen el enlace
+   compartido sale como un rectángulo vacío con el nombre. */
+const ogImageUrl = new URL(ogImage, SITE.url).href;
 
 const fullTitle =
   title === SITE.name ? title : `${title} | ${SITE.name}`;
@@ -61,11 +68,16 @@ const faqSchema = {
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Interior de una vivienda vacía grabada con un móvil en trípode, con el titular: captación de leads para inmobiliarias" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
 
     <!-- Schema.org -->
     <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
