@@ -3,8 +3,15 @@ import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import VideoEmbed from '../components/VideoEmbed.astro';
 import '../styles/home.css';
-import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL } from '../config/site';
+import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL, CASO } from '../config/site';
 import { existsSync } from 'node:fs';
+
+/* Los números de sección se emiten en orden de render en lugar de escribirse
+   a mano. La sección de publicaciones sólo existe si hay miniaturas en disco,
+   así que con números fijos el día que aparezca habría dos (08) seguidos: de
+   hecho ya los había en el código, sin que se notara porque está oculta. */
+let seccion = 0;
+const num = () => String(++seccion).padStart(2, '0');
 
 /* Solo se pintan las publicaciones cuya miniatura existe en disco. Instagram
    no permite descargarlas automáticamente, así que se aportan a mano y este
@@ -99,7 +106,7 @@ const SERVICE_MEDIA = [
     <div class="wrap">
       <div class="band-grid">
         <div class="band-copy reveal">
-          <p class="eyebrow eyebrow--dark">(01) El problema</p>
+          <p class="eyebrow eyebrow--dark">({num()}) El problema</p>
           <h2 id="band-t">Si el 80% de tus leads<br>vienen de un portal,<br>tienes un problema.</h2>
           <p>Un portal te alquila la demanda: el día que dejas de pagar, desaparece, y el contacto nunca llegó a ser tuyo. Nosotros construimos un canal dentro de tu marca que corre en paralelo, para que el lead llegue a tu nombre y sepas exactamente qué te cuesta cada cliente.</p>
           <!-- El remate desarma la objeción de verdad, que no es "el portal es
@@ -150,7 +157,7 @@ const SERVICE_MEDIA = [
   <section class="section section--paper vid" id="video" aria-labelledby="vid-t">
     <div class="wrap vid-grid reveal">
       <div class="vid-copy">
-        <p class="eyebrow">(02) En vídeo</p>
+        <p class="eyebrow">({num()}) En vídeo</p>
         <h2 id="vid-t">¿Qué es <span class="destaca">realmente</span> Melero&nbsp;Realty?</h2>
         <p class="vid-by">Valeria Melero &mdash; CEO &amp; Founder</p>
         <a class="vid-cta" href={SITE.calendlyUrl} target="_blank" rel="noopener">
@@ -174,7 +181,7 @@ const SERVICE_MEDIA = [
     <div class="wrap">
       <div class="intro-grid reveal">
         <div class="intro-side">
-          <p class="eyebrow">(03) El servicio</p>
+          <p class="eyebrow">({num()}) El servicio</p>
           <p>Trabajamos con inmobiliarias en activo y con exclusividad por zona: una sola marca por área de captación.</p>
         </div>
         <div>
@@ -189,7 +196,7 @@ const SERVICE_MEDIA = [
   <section class="section section--paper" aria-labelledby="cmp-t">
     <div class="wrap">
       <div class="reveal">
-        <p class="eyebrow">(04) La diferencia</p>
+        <p class="eyebrow">({num()}) La diferencia</p>
         <h2 id="cmp-t" style="font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;margin-top:1.3rem;max-width:20ch;line-height:1.03">Lo que suele pasar, y lo que hacemos nosotros.</h2>
 
         <div class="cmp-head-row">
@@ -210,12 +217,62 @@ const SERVICE_MEDIA = [
     </div>
   </section>
 
+  <!-- ================= 7 · CASO =================
+       Va entre "La diferencia" y el proceso a propósito: primero se afirma en
+       qué somos distintos y acto seguido se enseña a quién le ha funcionado,
+       antes de explicar cómo se trabaja. Un caso con nombre, zona y cifra
+       comprobables pesa más que cinco testimonios anónimos. -->
+  <section class="section section--white caso" aria-labelledby="caso-t">
+    <div class="wrap">
+      <div class="reveal">
+        <p class="eyebrow">({num()}) Un caso</p>
+        <h2 id="caso-t" class="caso-t">No fue rápido. Funcionó.</h2>
+      </div>
+
+      <div class="caso-grid reveal">
+        <div class="caso-ficha">
+          <img src={CASO.logo} alt={`Logotipo de ${CASO.cliente}`}
+               width="520" height="364" loading="lazy" decoding="async" />
+          <p class="caso-sector">{CASO.sector}</p>
+
+          <dl class="caso-fases">
+            <div>
+              <dt>Punto de partida</dt>
+              <dd>{CASO.partida}</dd>
+            </div>
+            <div>
+              <dt>Qué cambió</dt>
+              <dd>{CASO.cambio}</dd>
+            </div>
+            <div>
+              <dt>Dónde están hoy</dt>
+              <dd>{CASO.hoy}</dd>
+            </div>
+          </dl>
+        </div>
+
+        <aside class="caso-voz">
+          <p class="caso-cifra">
+            <strong>{CASO.cifra}</strong><span>{CASO.cifraPie}</span>
+          </p>
+          <blockquote class="caso-cita">
+            <p>{CASO.cita}</p>
+            <footer>
+              <strong>{CASO.citaAutor}</strong>
+              <span>{CASO.citaCargo}</span>
+            </footer>
+          </blockquote>
+        </aside>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= 7 · PROCESO ================= -->
   <section class="section proc" id="proceso" aria-labelledby="proc-t">
     <p class="proc-mark" aria-hidden="true">PROCESO</p>
     <div class="wrap">
       <div class="proc-head reveal">
-        <p class="eyebrow eyebrow--dark">(05) Cómo trabajamos</p>
+        <p class="eyebrow eyebrow--dark">({num()}) Cómo trabajamos</p>
         <h2 id="proc-t">Cinco fases. Ninguna decorativa.</h2>
       </div>
       <ol class="steps reveal">
@@ -234,7 +291,7 @@ const SERVICE_MEDIA = [
     <div class="wrap">
       <div class="svc-head reveal">
         <div>
-          <p class="eyebrow">(06) Servicios</p>
+          <p class="eyebrow">({num()}) Servicios</p>
           <h2 id="svc-t">Seis frentes, un solo objetivo: llamadas agendadas.</h2>
         </div>
         <div class="svc-head-right">
@@ -298,7 +355,7 @@ const SERVICE_MEDIA = [
   <!-- ================= 9 · EQUIPO ================= -->
   <section class="section section--paper" id="equipo" style="padding-bottom:0" aria-labelledby="team-t">
     <div class="wrap team-head reveal">
-      <p class="eyebrow">(07) Equipo</p>
+      <p class="eyebrow">({num()}) Equipo</p>
       <h2 id="team-t">Tres personas, sin capas intermedias.</h2>
     </div>
     <div class="wrap">
@@ -327,7 +384,7 @@ const SERVICE_MEDIA = [
     <div class="wrap">
       <div class="social-head reveal">
         <div>
-          <p class="eyebrow">(08) Lo que publicamos</p>
+          <p class="eyebrow">({num()}) Lo que publicamos</p>
           <h2 id="social-t">Contenido que filtra, no que rellena.</h2>
         </div>
         <a class="social-perfil" href={SITE.social.instagram} rel="noopener" target="_blank">
@@ -361,7 +418,7 @@ const SERVICE_MEDIA = [
     <div class="wrap">
       <div class="faq-grid">
         <div class="reveal">
-          <p class="eyebrow">(08) Preguntas</p>
+          <p class="eyebrow">({num()}) Preguntas</p>
           <h2 id="faq-t">Lo que preguntan antes de la primera llamada.</h2>
           <p class="lead">Si falta algo, escríbenos y te lo contestamos por correo antes de agendar nada.</p>
         </div>
@@ -383,7 +440,7 @@ const SERVICE_MEDIA = [
       <img src="/images/cta-boardroom.webp" alt="Sala de juntas en penumbra con vistas a la ciudad al atardecer" width="1800" height="2250" loading="lazy" decoding="async">
     </div>
     <div class="wrap">
-      <p class="eyebrow eyebrow--dark">(09) Siguiente paso</p>
+      <p class="eyebrow eyebrow--dark">({num()}) Siguiente paso</p>
       <h2 id="cta-t">Reserva el diagnóstico.</h2>
       <p>Cuarenta y cinco minutos para revisar de dónde vienen hoy tus leads, qué te cuesta cada cliente y si tu zona sigue libre. Si no encajamos, te lo decimos en la misma videollamada.</p>
       <!-- Quién está al otro lado. La competencia ofrece "consultoría

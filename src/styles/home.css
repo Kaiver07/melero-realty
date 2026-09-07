@@ -890,3 +890,67 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   background:rgba(13,34,38,.72);color:#fff;
 }
 .social-tipo svg{width:11px;height:11px;margin-left:1px}
+
+/* ==========================================================================
+   CASO
+   Un solo cliente, con nombre, zona y cifra. La ficha a la izquierda cuenta
+   qué pasó; la columna de la derecha carga el peso: la cifra y la voz de
+   quien la vivió. Se separan con una regla vertical porque son dos tipos de
+   prueba distintos —dato y testimonio— y conviene que no se lean como uno.
+   ========================================================================== */
+.caso-t{
+  font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;
+  margin-top:1.3rem;max-width:18ch;line-height:1.03;
+}
+.caso-grid{
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+  gap:clamp(2rem,5vw,4.5rem);align-items:start;
+  margin-top:clamp(2.2rem,4vw,3.2rem);
+}
+
+/* El logotipo es del cliente y llega sobre blanco: se deja tal cual, sin
+   filtros ni recortes de marca ajena. */
+.caso-ficha img{width:clamp(170px,19vw,224px)}
+.caso-sector{
+  margin-top:1.1rem;font-size:.9rem;font-weight:300;
+  color:var(--muted);max-width:34ch;
+}
+.caso-fases{margin-top:clamp(1.8rem,3vw,2.4rem);display:grid;gap:1.55rem}
+.caso-fases dt{
+  font-size:.63rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--teal);margin-bottom:.5rem;
+}
+.caso-fases dd{
+  margin:0;font-size:1rem;line-height:1.65;font-weight:300;
+  color:var(--text);max-width:52ch;
+}
+
+.caso-voz{border-left:2px solid var(--ink);padding-left:clamp(1.4rem,2.5vw,2.2rem)}
+.caso-cifra{display:flex;align-items:baseline;gap:.65rem;flex-wrap:wrap}
+.caso-cifra strong{
+  font-size:clamp(2.8rem,6vw,4.2rem);font-weight:600;letter-spacing:-.04em;
+  line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;
+}
+.caso-cifra span{font-size:.9rem;font-weight:300;color:var(--muted)}
+
+.caso-cita{margin:clamp(1.8rem,3vw,2.4rem) 0 0}
+.caso-cita p{
+  font-size:clamp(1rem,1.35vw,1.1rem);line-height:1.65;font-weight:300;color:var(--text);
+}
+.caso-cita p::before{content:'\201C'}
+.caso-cita p::after{content:'\201D'}
+.caso-cita footer{margin-top:1.35rem;display:flex;flex-direction:column;gap:.3rem}
+.caso-cita footer strong{font-size:.95rem;font-weight:600;color:var(--ink)}
+.caso-cita footer span{
+  font-size:.66rem;font-weight:600;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+@media (max-width:900px){
+  /* En una columna la regla vertical no separa nada: pasa a horizontal. */
+  .caso-grid{grid-template-columns:1fr;gap:2.4rem}
+  .caso-voz{
+    border-left:0;border-top:2px solid var(--ink);
+    padding-left:0;padding-top:1.8rem;
+  }
+}

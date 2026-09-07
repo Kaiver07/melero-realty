@@ -66,6 +66,30 @@ export const SERVICES = [
   },
 ] as const;
 
+/* Primer caso publicable, y de momento el único. Los datos y la cita los
+   aporta el cliente: aquí no se redondea ni se adorna nada, porque el valor
+   de esto es justo que se pueda comprobar llamando a ARC.
+
+   La cita es un recorte literal de un texto más largo. Dentro del fragmento
+   no se ha tocado una palabra; el original completo está en el historial. */
+export const CASO = {
+  cliente: 'ARC Proyectos Renovables',
+  sector: 'Constructora de origen cubano, en activo en Valencia.',
+  logo: '/images/caso-arc.webp',
+  partida:
+    'La empresa ya estaba consolidada, pero no tenía sistema de captación. El mensaje no llegaba a su cliente ideal, así que el tiempo se iba en contactos que no cerraban.',
+  cambio:
+    'Primero el mensaje, después el sistema completo alrededor. El salto no llegó a la primera: llegó en la séptima sesión.',
+  hoy:
+    'Estructura interna más ordenada y el trabajo continúa: siguen con nosotros.',
+  cifra: '+30%',
+  cifraPie: 'de facturación',
+  cita:
+    'Su conocimiento en marketing digital es brillante, pero lo que realmente la hace extraordinaria es su calidad humana. Valeria va mucho más allá de enseñarte estrategias; se involucra de corazón, te impulsa a romper barreras y celebra tus logros como propios.',
+  citaAutor: 'Lina Marcela',
+  citaCargo: 'ARC Proyectos Renovables · Valencia',
+} as const;
+
 export const PROCESO = [
   {
     step: '01',
