@@ -908,9 +908,16 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   margin-top:clamp(2.2rem,4vw,3.2rem);
 }
 
-/* El logotipo es del cliente y llega sobre blanco: se deja tal cual, sin
-   filtros ni recortes de marca ajena. */
-.caso-ficha img{width:clamp(170px,19vw,224px)}
+/* El logotipo de ARC tiene las letras blancas con filete fino: sobre el
+   blanco de la seccion se lavaba y no se leia. Va sobre un panel de
+   --paper-2, lo justo para que las formas blancas tengan borde sin que el
+   bloque gris cante. Sin filtros: es marca ajena y se respeta. */
+.caso-logo{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--paper-2);border:1px solid var(--rule);
+  padding:clamp(1.1rem,2.2vw,1.6rem) clamp(1.4rem,2.8vw,2.1rem);
+}
+.caso-logo img{width:clamp(160px,18vw,208px)}
 .caso-sector{
   margin-top:1.1rem;font-size:.9rem;font-weight:300;
   color:var(--muted);max-width:34ch;

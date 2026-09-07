@@ -231,8 +231,10 @@ const SERVICE_MEDIA = [
 
       <div class="caso-grid reveal">
         <div class="caso-ficha">
-          <img src={CASO.logo} alt={`Logotipo de ${CASO.cliente}`}
-               width="520" height="364" loading="lazy" decoding="async" />
+          <div class="caso-logo">
+            <img src={CASO.logo} alt={`Logotipo de ${CASO.cliente}`}
+                 width="560" height="380" loading="lazy" decoding="async" />
+          </div>
           <p class="caso-sector">{CASO.sector}</p>
 
           <dl class="caso-fases">
