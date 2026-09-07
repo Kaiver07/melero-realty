@@ -300,10 +300,12 @@ ul,ol{margin:0;padding:0;list-style:none}
     margin-top .38s var(--ease);
 }
 .ab-aviso[data-abierto="true"]{grid-template-rows:1fr;opacity:1;margin-top:.75rem}
-/* El overflow vive en el hijo: con la fila a 0fr el relleno y el filete
-   quedan recortados y no asoma nada mientras está plegado. */
-.ab-aviso > p{
-  overflow:hidden;
+/* El recorte va en un envoltorio SIN relleno, y con min-height:0.
+   Los elementos de una rejilla tienen min-height:auto, que es su tamaño
+   mínimo de contenido: con el relleno puesto aquí, 0fr no podía bajar de
+   los 24px de ese relleno y quedaba un pellizco asomando siempre. */
+.ab-aviso-in{overflow:hidden;min-height:0}
+.ab-aviso p{
   padding:.75rem .95rem;
   background:rgba(255,255,255,.12);border-left:2px solid var(--white);
   font-size:.78rem;font-weight:300;line-height:1.55;
