@@ -111,8 +111,9 @@ ul,ol{margin:0;padding:0;list-style:none}
    ========================================================================== */
 .hero{
   position:relative;
-  margin:clamp(10px,1.2vw,18px);
-  border-radius:var(--r-card);
+  /* A sangre. Antes iba con un margen de 10-18px y esquinas redondeadas, y
+     eso dibujaba un marco blanco alrededor de la portada que la hacía
+     parecer una tarjeta metida en la página en vez de la página misma. */
   overflow:hidden;                 /* contiene la palabra gigante */
   background:var(--ink);
   min-height:min(90vh,880px);
@@ -980,14 +981,22 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
    blanco de la seccion se lavaba y no se leia. Va sobre un panel de
    --paper-2, lo justo para que las formas blancas tengan borde sin que el
    bloque gris cante. Sin filtros: es marca ajena y se respeta. */
+/* Píldora y no círculo: el logotipo de ARC mide 2,2 de ancho por 1 de alto,
+   y dentro de una circunferencia habría que encogerlo hasta la mitad para
+   que cupiera, dejando aire muerto arriba y abajo. La píldora conserva la
+   forma redonda y respeta la proporción del logotipo, y además ya existe en
+   la casa: es la misma que la barra del hero y la de los botones.
+
+   Fondo oscuro porque esta versión del logotipo está dibujada para fondo
+   oscuro: las letras son blancas y sin filete, y sobre claro desaparecen. */
 .caso-logo{
   display:inline-flex;align-items:center;justify-content:center;
-  background:var(--paper-2);border:1px solid var(--rule);
-  padding:clamp(1.1rem,2.2vw,1.6rem) clamp(1.4rem,2.8vw,2.1rem);
+  background:var(--ink);border:0;border-radius:999px;
+  padding:clamp(1.35rem,2.6vw,1.85rem) clamp(1.9rem,3.8vw,2.7rem);
+  transition:background-color .25s var(--ease);
 }
-.caso-logo img{width:clamp(160px,18vw,208px)}
-.caso-logo{transition:border-color .25s var(--ease)}
-.caso-logo:hover{border-color:var(--rule-firm,rgba(18,47,53,.3))}
+.caso-logo:hover{background:var(--ink-hover)}
+.caso-logo img{width:clamp(150px,17vw,194px)}
 
 /* El enlace va visible y no sólo bajo el logotipo: que se pueda comprobar
    es la mitad del valor de publicar un caso, y nadie da por hecho que un
