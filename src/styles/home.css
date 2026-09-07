@@ -237,6 +237,9 @@ ul,ol{margin:0;padding:0;list-style:none}
   min-width:0;
 }
 .ab-field:first-child{border-left:0}
+.ab-field{transition:background-color .2s var(--ease)}
+.ab-field:hover{background:rgba(18,47,53,.045)}
+.ab-field:focus-within{background:rgba(36,118,123,.07)}
 /* Etiqueta accesible sin ocupar sitio: el rótulo visible es la primera
    opción del select, pero un lector de pantalla necesita un <label> real. */
 .solo-lectores{
@@ -289,7 +292,18 @@ ul,ol{margin:0;padding:0;list-style:none}
 /* Aviso honesto para el tramo bajo. No bloquea nada: el botón sigue
    abriendo Calendly. */
 .ab-aviso{
-  margin-top:.7rem;max-width:62ch;
+  display:grid;grid-template-rows:0fr;
+  max-width:62ch;margin-top:0;opacity:0;
+  transition:
+    grid-template-rows .38s var(--ease),
+    opacity .28s var(--ease),
+    margin-top .38s var(--ease);
+}
+.ab-aviso[data-abierto="true"]{grid-template-rows:1fr;opacity:1;margin-top:.75rem}
+/* El overflow vive en el hijo: con la fila a 0fr el relleno y el filete
+   quedan recortados y no asoma nada mientras está plegado. */
+.ab-aviso > p{
+  overflow:hidden;
   padding:.75rem .95rem;
   background:rgba(255,255,255,.12);border-left:2px solid var(--white);
   font-size:.78rem;font-weight:300;line-height:1.55;
@@ -297,16 +311,27 @@ ul,ol{margin:0;padding:0;list-style:none}
 }
 
 @media (max-width:620px){
-  /* Se van en móvil como se iban antes: medidos, se comían 165px de la
-     única pantalla que casi todo el mundo llega a ver, y son contexto
-     opcional. Lo que preguntan se puede preguntar en la llamada. */
-  .ab-field{display:none}
-  .ab-aviso{display:none}
+  /* Apilados de uno en uno se comían 165px de la única pantalla que casi
+     todo el mundo llega a ver. En rejilla ocupan dos filas en vez de tres:
+     "Tipo de agencia" a lo ancho porque su rótulo es el más largo, y los
+     dos cortos compartiendo la de abajo. */
   .actionbar{
-    background:none;box-shadow:none;padding:0;border-radius:0;
-    max-width:none;margin-top:clamp(1.3rem,4vw,1.8rem);
+    display:grid;grid-template-columns:1fr 1fr;gap:6px;
+    border-radius:18px;padding:6px;max-width:none;
+    margin-top:clamp(1.3rem,4vw,1.8rem);
   }
-  .ab-btn{margin-top:0;border-radius:999px;font-size:.78rem;letter-spacing:.11em}
+  .ab-field{
+    border-left:0;border-top:0;
+    background:rgba(18,47,53,.04);border-radius:12px;
+    padding:.72rem .85rem;
+  }
+  .ab-field:first-child{grid-column:1 / -1;padding-left:.85rem}
+  .ab-select{font-size:.78rem}
+  .ab-btn{
+    grid-column:1 / -1;width:100%;margin-top:2px;
+    padding:1.05rem 1rem;white-space:normal;text-align:center;
+    border-radius:999px;font-size:.78rem;letter-spacing:.11em;
+  }
 }
 
 /* La objeción de precio y de tiempo, resuelta donde se decide. Va fuera de
@@ -1141,4 +1166,9 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 }
 @media (prefers-reduced-motion:reduce){
   .cta-fija{transition:none}
+}
+
+/* Con movimiento reducido, el aviso aparece y desaparece sin animarse. */
+@media (prefers-reduced-motion:reduce){
+  .ab-aviso,.ab-field{transition:none}
 }

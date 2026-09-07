@@ -123,11 +123,13 @@ const SERVICE_MEDIA = [
     <!-- Avisa, no bloquea. La FAQ dice que el diagnóstico está abierto a
          quien nunca ha invertido; cerrarle la puerta aquí sería desmentirse
          a sí misma nueve secciones más abajo. -->
-    <p class="ab-aviso" id="abAviso" hidden>
-      Con esa facturación lo habitual es que todavía no compense invertir en
-      captación. Preferimos decírtelo antes de que reserves. Si aun así
-      quieres que lo miremos, la llamada sigue siendo gratis.
-    </p>
+    <div class="ab-aviso" id="abAviso" data-abierto="false" aria-live="polite">
+      <p>
+        Con esa facturación lo habitual es que todavía no compense invertir en
+        captación. Preferimos decírtelo antes de que reserves. Si aun así
+        quieres que lo miremos, la llamada sigue siendo gratis.
+      </p>
+    </div>
   </div>
 </header>
 
@@ -663,7 +665,7 @@ document.addEventListener('astro:page-load', function () {
 
     const pintar = () => {
       const factura = barra.querySelector('#ab-factura');
-      if (aviso) aviso.hidden = !factura || factura.value !== 'menos-100k';
+      if (aviso) aviso.dataset.abierto = String(!!factura && factura.value === 'menos-100k');
 
       /* El enlace se reconstruye entero desde el original: así, al cambiar
          de opción, no se van acumulando parámetros de elecciones previas. */
