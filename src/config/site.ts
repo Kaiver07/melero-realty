@@ -205,18 +205,37 @@ export const TEAM = [
   { name: 'Carlos Bernabé', role: 'Director Comercial', photo: '/team/carlos.webp' },
 ] as const;
 
+/* Ordenadas por intención de compra, no por comodidad: primero lo que
+   decide si esto es para ti, después lo que decide si te fías.
+
+   Las cuatro últimas responden objeciones que antes no estaban en ninguna
+   parte y que se preguntan siempre: zona ocupada, salida anticipada, quién
+   paga los anuncios. Callarlas no las hacía desaparecer, solo las dejaba
+   para la llamada, donde ya cuesta dinero contestarlas. */
 export const FAQ = [
   {
-    q: '¿Trabajáis con cualquier tipo de agencia?',
-    a: 'Trabajamos con inmobiliarias, siempre que estén en activo.',
+    q: '¿Qué necesito para empezar?',
+    a: 'Una inmobiliaria en activo y un presupuesto de marketing ya asignado, aunque sea pequeño. Si nunca has invertido, el diagnóstico te dirá si merece la pena empezar.',
   },
   {
-    q: '¿Qué necesito para empezar?',
-    a: 'Muchas ganas de crecer y una mentalidad abierta para empezar a trabajar desde la identidad de la marca.',
+    q: '¿Qué me llevo de la primera llamada?',
+    a: 'En la llamada buscamos dónde está el cuello de botella: de dónde vienen hoy tus contactos y en qué punto se te caen. En los siete días siguientes recibes un informe escrito con el diagnóstico completo y con nuestra respuesta honesta sobre si podemos ayudarte o no. Si la respuesta es que no, te lo decimos.',
   },
   {
     q: '¿Cuánto tiempo hasta ver resultados?',
-    a: 'Los primeros resultados se empiezan a ver en torno a 20 días. Antes de 3 meses no se puede garantizar nada: el margen de error es nuestro mejor amigo.',
+    a: 'Los primeros resultados se empiezan a ver en torno a 20 días. Antes de 3 meses no se puede garantizar nada: el margen de error es nuestro mejor amigo. Si no se cumplen los objetivos en el plazo acordado, seguimos trabajando hasta conseguirlo.',
+  },
+  {
+    q: 'La inversión publicitaria, ¿va dentro de vuestros honorarios o aparte?',
+    a: 'Los primeros 20 días de campaña los cubrimos nosotros, incluidos en los honorarios, para que veas datos reales antes de poner tu dinero. A partir del día 21 decides tú: te enseñamos los números y te decimos qué haríamos, pero la última palabra es tuya. Si sigues, la inversión la pagas desde tu propia cuenta y ves cada euro gastado. Nunca pasa por nosotros.',
+  },
+  {
+    q: '¿Y si mi zona ya está ocupada?',
+    a: 'Puede pasar: trabajamos con una sola marca por zona. Si es tu caso te lo decimos en la primera llamada, sin rodeos, y te dejamos en lista de espera por si esa colaboración termina. No aceptamos un segundo cliente en la misma zona aunque nos convenga.',
+  },
+  {
+    q: '¿Puedo salir antes de los seis meses?',
+    a: 'Sí, con 15 días de preaviso, y te llevas todo lo montado: campañas, landing, base de datos y accesos. El contrato es de 6 meses porque antes no hay datos suficientes para juzgar el trabajo, no para atarte.',
   },
   {
     q: '¿Qué presupuesto necesito?',
@@ -225,13 +244,5 @@ export const FAQ = [
   {
     q: '¿Trabajáis presencialmente?',
     a: 'Trabajamos en remoto con agencias de toda España y con clientes en Estados Unidos. El diagnóstico y el seguimiento se hacen por videollamada, así que la zona en la que estés no condiciona nada.',
-  },
-  {
-    q: '¿Trabajáis con exclusividad por zona?',
-    a: 'Sí.',
-  },
-  {
-    q: '¿Cuánto dura el contrato?',
-    a: 'El contrato tiene una duración de 6 meses.',
   },
 ] as const;
