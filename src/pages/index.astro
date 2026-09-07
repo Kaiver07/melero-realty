@@ -72,18 +72,41 @@ const SERVICE_MEDIA = [
       <p class="hero-support">Sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Sin portales. Sin referidos. Sin curiosos.</p>
     </div>
 
-    <!-- píldora de filtros: maquetada, sin lógica -->
+    <!-- Los tres campos eran decorado: parecían un formulario y no hacían
+         nada, lo que hace dudar de si hay que rellenar algo antes de pulsar.
+         Ahora son selects de verdad. No son obligatorios y NUNCA bloquean la
+         reserva: lo que se elige viaja a Calendly como UTM, así que Valeria
+         llega a la llamada sabiendo con quién habla. -->
     <div class="actionbar">
       <div class="ab-field">
-        <span class="ab-label">Tipo de agencia</span>
+        <label class="solo-lectores" for="ab-tipo">Tipo de agencia</label>
+        <select class="ab-select" id="ab-tipo" name="tipo">
+          <option value="">Tipo de agencia</option>
+          <option value="agencia">Agencia con oficina</option>
+          <option value="asesor">Asesor independiente</option>
+          <option value="grupo">Grupo con varias oficinas</option>
+        </select>
         <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
       </div>
       <div class="ab-field">
-        <span class="ab-label">Zona</span>
+        <label class="solo-lectores" for="ab-zona">Zona</label>
+        <select class="ab-select" id="ab-zona" name="zona">
+          <option value="">Zona</option>
+          <option value="espana">España</option>
+          <option value="eeuu">Estados Unidos</option>
+          <option value="otro">Otro país</option>
+        </select>
         <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
       </div>
       <div class="ab-field">
-        <span class="ab-label">Facturación</span>
+        <label class="solo-lectores" for="ab-factura">Facturación</label>
+        <select class="ab-select" id="ab-factura" name="factura">
+          <option value="">Facturación</option>
+          <option value="menos-100k">Menos de 100.000 € al año</option>
+          <option value="100k-300k">100.000 – 300.000 €</option>
+          <option value="300k-1m">300.000 € – 1M €</option>
+          <option value="mas-1m">Más de 1M €</option>
+        </select>
         <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
       </div>
       <a class="ab-btn" data-cta="hero" href={SITE.calendlyUrl} target="_blank" rel="noopener">Reservar diagnóstico</a>
@@ -95,6 +118,15 @@ const SERVICE_MEDIA = [
     <p class="ab-note">
       <strong>45 minutos</strong> de videollamada con Valeria. Sin coste y sin compromiso.
       <a data-cta="escrito-hero" href="/contacto">O cuéntanoslo por escrito</a>
+    </p>
+
+    <!-- Avisa, no bloquea. La FAQ dice que el diagnóstico está abierto a
+         quien nunca ha invertido; cerrarle la puerta aquí sería desmentirse
+         a sí misma nueve secciones más abajo. -->
+    <p class="ab-aviso" id="abAviso" hidden>
+      Con esa facturación lo habitual es que todavía no compense invertir en
+      captación. Preferimos decírtelo antes de que reserves. Si aun así
+      quieres que lo miremos, la llamada sigue siendo gratis.
     </p>
   </div>
 </header>
@@ -613,5 +645,40 @@ document.addEventListener('astro:page-load', function () {
     decidir();
   });
 </script>
+<script>
+  /* Los tres desplegables del hero.
+     Dos trabajos, y ninguno bloquea la reserva:
+     1) avisar, no impedir, cuando la facturación es la más baja;
+     2) llevar el contexto a Calendly como UTM, para que Valeria llegue a la
+        llamada sabiendo el tipo de agencia, la zona y el tamaño.
+     Calendly guarda los UTM en la propia reserva sin configurar nada. */
+  document.addEventListener('astro:page-load', () => {
+    const barra = document.querySelector('.actionbar');
+    const boton = document.querySelector('.ab-btn');
+    const aviso = document.getElementById('abAviso');
+    if (!barra || !boton) return;
+
+    const base = boton.getAttribute('href') || '';
+    const selects = [...barra.querySelectorAll('select')];
+
+    const pintar = () => {
+      const factura = barra.querySelector('#ab-factura');
+      if (aviso) aviso.hidden = !factura || factura.value !== 'menos-100k';
+
+      /* El enlace se reconstruye entero desde el original: así, al cambiar
+         de opción, no se van acumulando parámetros de elecciones previas. */
+      const url = new URL(base);
+      selects.forEach((sel) => {
+        if (sel.value) url.searchParams.set('utm_' + sel.name, sel.value);
+      });
+      if (selects.some((sel) => sel.value)) url.searchParams.set('utm_source', 'web');
+      boton.setAttribute('href', url.toString());
+    };
+
+    selects.forEach((sel) => sel.addEventListener('change', pintar));
+    pintar();
+  });
+</script>
+
 
 </Layout>
