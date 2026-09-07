@@ -259,8 +259,19 @@ Reales y utilizables:
 - **Equipo:** Valeria Melero (CEO & Founder), Yerai Jiménez (Marketing y
   guiones), Carlos Bernabé (Comercial y guiones), Carlos Cortés (guiones).
   Fotos reales en `public/team/` para los tres primeros.
-- **FAQ:** 6 preguntas con respuestas dadas por el negocio (presupuesto,
-  duración de contrato, exclusividad, plazos, requisitos). Verdad de producto.
+- **Caso real:** ARC Proyectos Renovables SL (Valencia), constructora de
+  reformas integrales, `arcproyectosrenovables.com`. Punto de partida:
+  empresa consolidada sin sistema de captación. Resultado: +30% de
+  facturación, el salto en la séptima sesión, relación en activo.
+  Testimonio firmado por **Lina Marcela**, y habla de Valeria como mentora
+  —no del sistema de leads—, así que sirve como prueba del acompañamiento
+  1:1, no de la captación. **Permiso concedido por ARC el 7/9/2026** para
+  publicar logotipo, nombre de la persona y cifra de facturación.
+  Salvedad: ARC no es una inmobiliaria, y la web dice trabajar sólo con
+  inmobiliarias. Decisión consciente del negocio, no un descuido.
+- **FAQ:** 8 preguntas con respuestas dadas por el negocio (requisitos,
+  qué se entrega tras la llamada, plazos, quién paga los anuncios, zona
+  ocupada, salida anticipada, presupuesto, remoto). Verdad de producto.
 - **Vídeo** de YouTube propio: el Short «¿Qué es realmente Melero Realty?»
   (`G-OtqipOUAI`), vertical 9:16. La miniatura que sirve YouTube viene con
   relleno borroso a los lados para forzarla a 16:9, así que el póster se
@@ -269,23 +280,22 @@ Reales y utilizables:
 - **Masterclass** «Captación sin portales» y 19 guiones de reel.
 - **Plantillas legales** para colaboradores.
 
-No verificados — no amplificar, no convertir en prueba dura:
+Borrado del código el 7/9/2026, y no se vuelve a meter:
 
-- **Métricas.** Existen dos juegos contradictorios en `site.ts`: `STATS`
-  (+65% ROI, +87 inmobiliarias, 98% retención, +3 años) y `STATS_BIG` (98%
-  retención, +40 agencias, +300% ROI). **Ninguno está auditado: son
-  estimaciones de marketing.** La contradicción entre ambos es un defecto
-  pendiente de resolver. No presentarlos como cifras auditadas, no inventar
-  cifras nuevas, no añadir precisión decorativa.
-- **Testimonios.** Carlos Fuentes, Laura Serrano y Marcos Gil son
-  **placeholder inventados**, pendientes de sustituir. No añadir más, no
-  darles logos, fotos ni resultados numéricos, y no tratarlos como prueba
-  social real al decidir jerarquía.
+- **Métricas inventadas.** `STATS` (+65% ROI, +87 inmobiliarias, 98%
+  retención) y `STATS_BIG` (+40 agencias, +300% ROI) eran estimaciones de
+  marketing sin auditar, además contradictorias entre sí. Fuera de la web
+  primero y del código después.
+- **Testimonios inventados.** Carlos Fuentes, Laura Serrano y Marcos Gil no
+  existen. Estaban en `site.ts` sin ninguna marca de ser falsos, listos
+  para que alguien los publicara por error.
 
-Ausencias que no se rellenan inventando: no hay casos de estudio, ni prensa,
-ni logos de clientes, ni pricing público —el precio es a medida y no se
-publica—, ni
-certificaciones o partnerships (Meta/Google Partner u otros).
+La única cifra publicable es el +30% de ARC, y lo es porque tiene nombre,
+empresa, enlace y permiso. Cualquier cifra nueva necesita las cuatro cosas.
+
+Ausencias que no se rellenan inventando: no hay prensa, ni más logos de
+clientes que el de ARC, ni pricing público —el precio es a medida y no se
+publica—, ni certificaciones o partnerships (Meta/Google Partner u otros).
 
 ## Product Principles
 
