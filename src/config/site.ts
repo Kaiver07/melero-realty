@@ -137,15 +137,17 @@ export const PROCESO = [
 /* Lo que se mantiene con cualquier cliente, salga lo que salga del
    diagnóstico. Antes aquí sólo había tres cifras sueltas —a medida, 6 meses,
    1 marca— que decían las condiciones pero no lo que uno se lleva. Esto sí
-   es la oferta: qué hacemos, qué se enseña, qué se mide y cada cuánto. */
+   es la oferta: qué hacemos, qué se enseña, qué se mide y cada cuánto.
+
+   Van numeradas, y por eso el orden es cronológico de verdad: diagnóstico,
+   métricas pactadas, montaje, enseñar cómo se hace, revisión quincenal y el
+   recorrido de seis meses. Numerar algo que no es una secuencia sería
+   decorar; "Puertas abiertas" se movió al cuarto puesto para que la
+   numeración diga la verdad y no al revés. */
 export const PILARES = [
   {
     t: 'Empezamos por el diagnóstico',
     d: 'Miramos de dónde vienen hoy tus contactos, en qué punto se caen y qué tipo de operación te deja margen. De ahí sale el plan. A veces son anuncios; a veces es tu base de datos dormida, tu web o cómo se hace el seguimiento.',
-  },
-  {
-    t: 'Puertas abiertas',
-    d: 'Si la persona responsable de tu equipo quiere ver cómo se hace, se lo enseñamos: por qué se toma cada decisión, cómo se monta y cómo se lee. Trabajamos sin caja negra. Con el tiempo tu equipo puede sostener buena parte del sistema por su cuenta.',
   },
   {
     t: 'Definimos tus métricas antes de empezar',
@@ -154,6 +156,10 @@ export const PILARES = [
   {
     t: 'Nosotros lo montamos y lo mantenemos',
     d: 'Ejecutamos lo que salga del diagnóstico y lo ajustamos con los datos. No te entregamos un plan para que lo apliques tú.',
+  },
+  {
+    t: 'Puertas abiertas',
+    d: 'Si la persona responsable de tu equipo quiere ver cómo se hace, se lo enseñamos: por qué se toma cada decisión, cómo se monta y cómo se lee. Trabajamos sin caja negra. Con el tiempo tu equipo puede sostener buena parte del sistema por su cuenta.',
   },
   {
     t: 'Revisión cada 15 días',

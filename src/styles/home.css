@@ -376,6 +376,14 @@ ul,ol{margin:0;padding:0;list-style:none}
   margin-top:clamp(2.2rem,4vw,3.2rem);
 }
 .pilar{border-top:2px solid var(--ink);padding-top:1.15rem}
+/* Numeral pequeño y en teal, no la cifra enorme de las fases de (06): son
+   dos listas numeradas a dos secciones de distancia y tienen que leerse
+   como cosas distintas. Aquí el número ordena; allí es el protagonista. */
+.pilar-n{
+  display:block;margin-bottom:.5rem;
+  font-size:.72rem;font-weight:600;letter-spacing:.12em;
+  color:var(--teal);font-variant-numeric:tabular-nums;
+}
 .pilar h3{
   font-size:clamp(1rem,1.3vw,1.12rem);font-weight:600;
   letter-spacing:-.015em;line-height:1.28;color:var(--text);
