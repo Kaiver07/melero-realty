@@ -495,18 +495,59 @@ ul,ol{margin:0;padding:0;list-style:none}
 .cmp-cell--them{color:var(--muted);padding-right:clamp(1rem,3vw,2.4rem);font-weight:300}
 .cmp-cell--us{color:var(--text);padding-left:clamp(1rem,3vw,2.4rem);border-left:1px solid var(--rule);font-weight:600}
 .cmp-tag{display:none}
+/* ---------- La comparativa en movil ----------
+   Antes se apilaban las diez celdas repitiendo "OTRAS AGENCIAS / MELERO
+   REALTY" en cada una, diez veces, con la etiqueta a .62rem: 9,9px reales.
+   El resultado era un muro de diez parrafos casi identicos en el que se
+   perdia lo unico que importa aqui, que cada linea nuestra responde a una
+   suya.
+
+   Ahora los rotulos salen UNA vez, como leyenda, y el par se reconoce por
+   la marca: raya para lo que hacen los demas, check para lo que hacemos
+   nosotros. Las marcas van dibujadas con bordes y no con caracteres, porque
+   Poppins no trae el simbolo de check y caeria a una fuente del sistema. Es
+   el mismo recurso que ya usa .eyebrow::before. */
 @media (max-width:760px){
-  .cmp-head-row{display:none}
-  .cmp{grid-template-columns:1fr}
-  .cmp-cell{padding:0;border-bottom:0}
-  .cmp-cell--them{padding-top:1.4rem;padding-right:0}
-  .cmp-cell--us{padding-left:0;border-left:0;padding-top:.75rem;padding-bottom:1.4rem;border-bottom:1px solid var(--rule)}
-  .cmp-tag{
-    display:block;font-size:.62rem;font-weight:600;
-    letter-spacing:.22em;text-transform:uppercase;margin-bottom:.35rem;
+  .cmp-head-row{
+    display:flex;gap:clamp(1.1rem,4vw,1.8rem);align-items:center;
+    margin-top:clamp(1.8rem,4vw,2.4rem);
+    padding-bottom:.85rem;border-bottom:2px solid rgba(18,47,53,.18);
   }
-  .cmp-cell--them .cmp-tag{color:var(--muted)}
-  .cmp-cell--us .cmp-tag{color:var(--text)}
+  .cmp-h{
+    padding:0;border-bottom:0;font-size:.68rem;letter-spacing:.15em;
+    display:flex;align-items:center;gap:.5rem;
+  }
+  .cmp-h--us{padding-left:0}
+
+  .cmp{grid-template-columns:1fr}
+  .cmp-cell{
+    position:relative;padding:0 0 0 1.65rem;border-bottom:0;
+    font-size:.95rem;line-height:1.6;
+  }
+  .cmp-cell--them{padding-top:1.35rem;padding-right:0;font-size:.9rem}
+  .cmp-cell--us{
+    padding-left:1.65rem;border-left:0;
+    padding-top:.55rem;padding-bottom:1.35rem;
+    border-bottom:1px solid var(--rule);
+  }
+  /* Etiqueta repetida fuera: su trabajo lo hacen ahora la leyenda y la marca. */
+  .cmp-tag{display:none}
+
+  /* Marca de "ellos": una raya, que es lo que hay. */
+  .cmp-h--them::before,
+  .cmp-cell--them::before{
+    content:"";width:11px;height:2px;background:var(--muted);flex:none;
+  }
+  .cmp-cell--them::before{position:absolute;left:0;top:calc(1.35rem + .68em)}
+
+  /* Marca de "nosotros": un check dibujado con dos bordes. */
+  .cmp-h--us::before,
+  .cmp-cell--us::before{
+    content:"";width:10px;height:6px;flex:none;
+    border-left:2px solid var(--teal);border-bottom:2px solid var(--teal);
+    transform:rotate(-45deg);
+  }
+  .cmp-cell--us::before{position:absolute;left:1px;top:calc(.55rem + .42em)}
 }
 
 /* ==========================================================================
