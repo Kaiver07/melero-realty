@@ -1,35 +1,51 @@
 ---
-/* Aviso de cookies.
+import { SITE } from '../config/site';
 
-   Este sitio NO instala cookies al cargar: no hay analítica, ni píxeles, ni
-   document.cookie, ni almacenamiento propio. Verificado sobre producción, sin
-   una sola cabecera Set-Cookie. Lo único que puede instalarlas es el vídeo, y
-   solo si el visitante lo pulsa: el iframe no existe hasta ese momento y va
-   contra youtube-nocookie.com.
+/* Consentimiento de cookies.
 
-   Por eso esto es un AVISO informativo y no un muro de consentimiento con
-   botones de aceptar y rechazar. No habiendo nada que bloquear, esos botones
-   no gobernarían nada: serían decorado, y un consentimiento falso es peor que
-   no pedirlo. Si en el futuro se añade analítica o píxeles, este componente
-   deja de valer y hace falta un gestor de consentimiento de verdad, con
-   bloqueo previo.
+   Hasta septiembre de 2026 esto era un aviso informativo, y podía serlo: la
+   web no instalaba una sola cookie. Con Google Analytics deja de valer. GA
+   escribe _ga y _ga_<id> en el dispositivo, y una cookie de analítica no es
+   técnica ni necesaria, así que necesita consentimiento PREVIO: nada de
+   cargarla y preguntar después.
+
+   De ahí las tres reglas que gobiernan este componente:
+
+   1. Bloqueo previo de verdad. El script de gtag no existe en la página
+      hasta que alguien pulsa Aceptar. No se carga y se desactiva luego:
+      simplemente no está.
+   2. Aceptar y Rechazar con el mismo peso. Mismo tamaño, misma tipografía,
+      la misma distancia del dedo. Un rechazo escondido en un enlace gris
+      invalida el consentimiento.
+   3. Poder cambiar de opinión. El pie lleva un botón que reabre esto, y al
+      rechazar se caducan las cookies que GA hubiera dejado y se recarga,
+      para que no quede nada corriendo en la página.
+
+   Lo que se guarda de la decisión va en localStorage y no en una cookie:
+   es la propia preferencia del visitante, la excepción que no requiere
+   consentimiento. Ver la política de cookies para el detalle.
 
    Nota: esto describe lo que la web hace técnicamente. Si el cumplimiento
-   legal debe certificarlo alguien, es cosa de un abogado, no de este archivo.
-
-   El descarte se recuerda en localStorage. Es almacenamiento funcional para
-   una preferencia que el propio visitante ha pedido, no seguimiento. */
+   legal debe certificarlo alguien, es cosa de un abogado, no de este
+   archivo. */
 ---
 
-<div class="ck" id="cookieNotice" role="region" aria-label="Aviso de cookies" hidden>
+<div class="ck" id="cookieNotice" data-ga={SITE.gaId} role="dialog" aria-labelledby="ckTitulo" aria-describedby="ckTexto" hidden>
   <div class="ck-in">
-    <p class="ck-text">
-      Esta web no usa cookies de seguimiento ni analítica. El vídeo solo se
-      carga si lo pulsas y, en ese momento, YouTube puede instalar las suyas.
-    </p>
+    <div>
+      <p class="ck-titulo" id="ckTitulo">Cookies</p>
+      <p class="ck-text" id="ckTexto">
+        Usamos Google Analytics para saber cómo se usa la web. Instala cookies
+        en tu dispositivo, así que solo se activa si lo aceptas. Si lo
+        rechazas, todo funciona igual y no se mide nada.
+      </p>
+    </div>
     <div class="ck-actions">
-      <a class="ck-link" href="/politica-de-cookies">Política de cookies</a>
-      <button class="ck-btn" type="button" id="cookieOk">Entendido</button>
+      <a class="ck-link" href="/politica-de-cookies">Más detalles</a>
+      <div class="ck-botones">
+        <button class="ck-btn ck-btn--no" type="button" id="ckRechazar">Rechazar</button>
+        <button class="ck-btn ck-btn--si" type="button" id="ckAceptar">Aceptar</button>
+      </div>
     </div>
   </div>
 </div>
@@ -40,7 +56,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    z-index: 90;
+    z-index: 95;
     background: var(--ink-2);
     border-top: 1px solid var(--rule-dark);
     color: var(--white);
@@ -48,29 +64,37 @@
   .ck-in {
     max-width: var(--maxw);
     margin: 0 auto;
-    padding: clamp(0.9rem, 2vw, 1.15rem) var(--pad);
+    padding: clamp(1rem, 2vw, 1.3rem) var(--pad);
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: clamp(1rem, 3vw, 2.5rem);
+  }
+  .ck-titulo {
+    font-size: 0.66rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 0.5rem;
   }
   .ck-text {
     font-size: 0.8125rem;
     font-weight: 300;
     line-height: 1.55;
     color: var(--muted-dark);
-    max-width: 78ch;
+    max-width: 74ch;
   }
   .ck-actions {
     display: flex;
     align-items: center;
-    gap: clamp(0.9rem, 2vw, 1.6rem);
+    gap: clamp(1rem, 2vw, 1.8rem);
     flex: none;
   }
   .ck-link {
-    font-size: 0.66rem;
+    font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--white);
     text-decoration: none;
@@ -81,62 +105,243 @@
   .ck-link:hover {
     border-bottom-color: var(--white);
   }
+  .ck-botones {
+    display: flex;
+    gap: 0.7rem;
+  }
+  /* Los dos botones son la MISMA pieza: mismo tamaño, misma tipografía,
+     mismo tracking. Solo cambia el relleno. Si rechazar costase más que
+     aceptar, el consentimiento no valdría. */
   .ck-btn {
-    border: 0;
     cursor: pointer;
     font-family: inherit;
-    background: var(--teal);
-    color: #fff;
-    font-size: 0.66rem;
+    font-size: 0.7rem;
     font-weight: 600;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     padding: 0.85rem 1.5rem;
     white-space: nowrap;
-    transition: background-color 0.25s var(--ease);
+    border: 1px solid transparent;
+    transition:
+      background-color 0.25s var(--ease),
+      border-color 0.25s var(--ease);
   }
-  .ck-btn:hover {
-    background: var(--ink);
+  .ck-btn--si {
+    background: var(--teal);
+    color: #fff;
   }
-  @media (max-width: 720px) {
+  .ck-btn--si:hover {
+    background: var(--ink-hover);
+  }
+  .ck-btn--no {
+    background: transparent;
+    color: var(--white);
+    border-color: rgba(255, 255, 255, 0.55);
+  }
+  .ck-btn--no:hover {
+    border-color: var(--white);
+  }
+  .ck-btn:focus-visible {
+    outline: 2px solid var(--white);
+    outline-offset: 2px;
+  }
+
+  /* Botón del pie para volver a decidir. */
+  .ck-reabrir {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+    color: var(--muted-dark);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s var(--ease);
+  }
+  .ck-reabrir:hover {
+    color: var(--white);
+  }
+
+  @media (max-width: 860px) {
     .ck-in {
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.9rem;
+      gap: 1rem;
     }
     .ck-actions {
       width: 100%;
       justify-content: space-between;
+      gap: 1rem;
+    }
+    .ck-botones {
+      flex: 1;
+      justify-content: flex-end;
+    }
+  }
+  @media (max-width: 520px) {
+    .ck-actions {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      gap: 0.9rem;
+    }
+    .ck-botones {
+      justify-content: stretch;
+    }
+    /* En móvil los dos ocupan exactamente la mitad. */
+    .ck-btn {
+      flex: 1 1 0;
+      padding-inline: 0.5rem;
+    }
+    .ck-link {
+      text-align: center;
     }
   }
 </style>
 
 <script>
-  /* Se engancha a astro:page-load porque con las transiciones entre páginas
-     los scripts no se re-ejecutan al navegar. */
-  document.addEventListener('astro:page-load', () => {
-    const el = document.getElementById('cookieNotice');
-    if (!el) return;
+  const CLAVE = 'mr-consent';
 
-    let visto = false;
+  /* El id llega por atributo y no por import: importar site.ts aquí
+     arrastraría al paquete del navegador todo el contenido de la web
+     —servicios, proceso, FAQ, equipo— sólo para leer una cadena. */
+  const ID = document.getElementById('cookieNotice')?.dataset.ga || '';
+
+  const leer = () => {
     try {
-      visto = localStorage.getItem('mr-cookies') === '1';
+      return localStorage.getItem(CLAVE);
     } catch {
-      /* Navegación privada o almacenamiento bloqueado: se muestra el aviso.
-         Mostrarlo de más es preferible a fallar. */
+      /* Navegación privada o almacenamiento bloqueado: se vuelve a
+         preguntar. Preguntar de más es preferible a medir sin permiso. */
+      return null;
     }
-    if (visto) return;
+  };
+  const guardar = (valor) => {
+    try {
+      localStorage.setItem(CLAVE, valor);
+    } catch {
+      /* Si no se puede guardar, la decisión vale para esta visita y se
+         volverá a preguntar en la siguiente. */
+    }
+  };
 
-    el.hidden = false;
-    const btn = document.getElementById('cookieOk');
-    btn?.addEventListener('click', () => {
-      el.hidden = true;
-      try {
-        localStorage.setItem('mr-cookies', '1');
-      } catch {
-        /* Si no se puede guardar, el aviso reaparecerá. Es el fallo menos
-           malo: nada se rompe. */
+  let cargado = false;
+
+  function activarGA() {
+    if (cargado || !ID) return;
+    cargado = true;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () {
+      window.dataLayer.push(arguments);
+    };
+    window.gtag('js', new Date());
+    window.gtag('config', ID);
+
+    const etiqueta = document.createElement('script');
+    etiqueta.async = true;
+    etiqueta.src = 'https://www.googletagmanager.com/gtag/js?id=' + ID;
+    document.head.appendChild(etiqueta);
+  }
+
+  /* Al rechazar después de haber aceptado, las cookies ya están puestas.
+     Se caducan una por una: son de nuestro propio dominio, así que sí
+     podemos. Se prueban las variantes de dominio porque GA usa el dominio
+     raíz con punto delante. */
+  function caducarCookiesGA() {
+    const partes = location.hostname.split('.');
+    const dominios = [
+      '',
+      location.hostname,
+      '.' + location.hostname,
+      '.' + partes.slice(-2).join('.'),
+    ];
+    document.cookie.split(';').forEach((trozo) => {
+      const nombre = trozo.split('=')[0].trim();
+      if (!nombre.startsWith('_ga')) return;
+      dominios.forEach((dominio) => {
+        document.cookie =
+          nombre +
+          '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' +
+          (dominio ? '; domain=' + dominio : '');
+      });
+    });
+  }
+
+  function pintar() {
+    const caja = document.getElementById('cookieNotice');
+    if (!caja) return;
+    caja.hidden = leer() !== null;
+  }
+
+  /* Los clics hacia una reserva. Sin esto sólo habría visitas: la conversión
+     ocurre en calendly.com, otro dominio, donde ya no llegamos. Cada CTA
+     lleva data-cta con su origen para poder comparar cuál funciona. */
+  function contacto(enlace) {
+    if (!cargado || typeof window.gtag !== 'function') return;
+    window.gtag('event', 'contacto', {
+      origen: enlace.getAttribute('data-cta') || 'desconocido',
+      via: (enlace.getAttribute('href') || '').includes('calendly.com')
+        ? 'llamada'
+        : 'escrito',
+    });
+  }
+
+  if (!window.__mrConsent) {
+    window.__mrConsent = true;
+
+    if (leer() === 'si') activarGA();
+
+    document.addEventListener('click', (evento) => {
+      const objetivo =
+        evento.target instanceof Element ? evento.target : null;
+      if (!objetivo) return;
+
+      if (objetivo.closest('#ckAceptar')) {
+        guardar('si');
+        pintar();
+        activarGA();
+        return;
+      }
+      if (objetivo.closest('#ckRechazar')) {
+        const teniaGA = cargado;
+        guardar('no');
+        pintar();
+        caducarCookiesGA();
+        // Si GA ya estaba corriendo, sólo una recarga lo saca de la página.
+        if (teniaGA) location.reload();
+        return;
+      }
+      if (objetivo.closest('[data-cookies-reabrir]')) {
+        evento.preventDefault();
+        try {
+          localStorage.removeItem(CLAVE);
+        } catch {
+          /* sin almacenamiento el aviso ya se muestra siempre */
+        }
+        pintar();
+        return;
+      }
+
+      const enlace = objetivo.closest('a[data-cta]');
+      if (enlace) contacto(enlace);
+    });
+
+    /* Con las transiciones de página el documento sobrevive pero el aviso es
+       un nodo nuevo, así que hay que volver a decidir si se enseña. Y GA no
+       se entera de la navegación: se le manda la vista a mano. */
+    let primera = true;
+    document.addEventListener('astro:page-load', () => {
+      pintar();
+      if (primera) {
+        primera = false;
+        return;
+      }
+      if (cargado && typeof window.gtag === 'function') {
+        window.gtag('event', 'page_view', {
+          page_location: location.href,
+          page_title: document.title,
+        });
       }
     });
-  });
+  }
 </script>

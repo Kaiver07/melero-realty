@@ -18,6 +18,7 @@ import { SITE } from '../config/site';
 
       <section>
         <h2 class="text-base font-bold mb-2" style="color: var(--color-text)">¿Qué cookies utilizamos?</h2>
+        <p class="mb-3">Al cargar la web no se instala ninguna cookie. Las de analítica solo aparecen si pulsas «Aceptar» en el aviso; hasta ese momento el script de Google Analytics ni siquiera se descarga. Si rechazas, no se instala nada y la web funciona igual.</p>
         <div class="overflow-x-auto">
           <table class="w-full border-collapse text-xs">
             <thead>
@@ -30,16 +31,28 @@ import { SITE } from '../config/site';
             </thead>
             <tbody>
               <tr class="border-b border-gray-100">
-                <td class="py-2 px-3">_ga, _gid</td>
-                <td class="py-2 px-3">Analítica (Google Analytics)</td>
-                <td class="py-2 px-3">Análisis de tráfico y comportamiento anónimo</td>
-                <td class="py-2 px-3">2 años / 24h</td>
+                <td class="py-2 px-3">_ga</td>
+                <td class="py-2 px-3">Analítica de terceros (Google Analytics)</td>
+                <td class="py-2 px-3">Distinguir visitantes. Solo si aceptas</td>
+                <td class="py-2 px-3">2 años</td>
               </tr>
               <tr class="border-b border-gray-100">
-                <td class="py-2 px-3">cookie_consent</td>
-                <td class="py-2 px-3">Técnica / propia</td>
-                <td class="py-2 px-3">Recordar tu aceptación del banner de cookies</td>
-                <td class="py-2 px-3">1 año</td>
+                <td class="py-2 px-3">_ga_3038QG3XN3</td>
+                <td class="py-2 px-3">Analítica de terceros (Google Analytics)</td>
+                <td class="py-2 px-3">Mantener el estado de la sesión. Solo si aceptas</td>
+                <td class="py-2 px-3">2 años</td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-2 px-3">mr-consent</td>
+                <td class="py-2 px-3">Almacenamiento local propio (no es una cookie)</td>
+                <td class="py-2 px-3">Recordar si aceptaste o rechazaste, para no volver a preguntarte</td>
+                <td class="py-2 px-3">Hasta que borres los datos del navegador</td>
+              </tr>
+              <tr class="border-b border-gray-100">
+                <td class="py-2 px-3">Cookies de YouTube</td>
+                <td class="py-2 px-3">De terceros</td>
+                <td class="py-2 px-3">Reproducción del vídeo. Sólo se instalan si pulsas para verlo: hasta ese momento no se carga nada de YouTube</td>
+                <td class="py-2 px-3">Las que fije YouTube</td>
               </tr>
             </tbody>
           </table>
@@ -47,8 +60,13 @@ import { SITE } from '../config/site';
       </section>
 
       <section>
+        <h2 class="text-base font-bold mb-2" style="color: var(--color-text)">Medición de visitas</h2>
+        <p>Usamos Google Analytics 4 para saber cuántas personas entran, qué páginas leen y desde qué CTA piden una llamada. Solo se activa con tu consentimiento y puedes retirarlo cuando quieras desde «Preferencias», en el pie de página: al rechazar caducamos las cookies que hubiera dejado.</p>
+      </section>
+
+      <section>
         <h2 class="text-base font-bold mb-2" style="color: var(--color-text)">Gestión y retirada del consentimiento</h2>
-        <p>Puedes gestionar o deshabilitar las cookies desde la configuración de tu navegador. Ten en cuenta que deshabilitar ciertas cookies puede afectar al funcionamiento del sitio. Para retirar tu consentimiento puedes contactarnos en <a href={`mailto:${SITE.email}`} class="underline" style="color: var(--color-accent)">{SITE.email}</a>.</p>
+        <p>Puedes cambiar tu decisión en cualquier momento desde el botón «Preferencias» del pie de página. También puedes gestionar o deshabilitar las cookies desde la configuración de tu navegador. Ten en cuenta que deshabilitar ciertas cookies puede afectar al funcionamiento del sitio. Para retirar tu consentimiento puedes contactarnos en <a href={`mailto:${SITE.email}`} class="underline" style="color: var(--color-accent)">{SITE.email}</a>.</p>
       </section>
 
       <section>
