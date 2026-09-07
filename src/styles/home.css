@@ -394,7 +394,11 @@ ul,ol{margin:0;padding:0;list-style:none}
   font-size:clamp(1.75rem,3.8vw,3.1rem);font-weight:600;letter-spacing:-.03em;
   line-height:1.05;color:var(--white);margin-top:1.4rem;
 }
-.band-copy p{margin-top:1.5rem;color:var(--muted-dark);font-size:1rem;line-height:1.7;font-weight:300;max-width:46ch}
+/* :where() no suma especificidad, asi que esto pesa (0,0,1) y no (0,1,1).
+   Antes se tragaba a cualquier <p> con clase que viviera dentro: el
+   antetitulo de (01) salia a 16px en lugar de a los .7rem que le tocan,
+   en movil y tambien en escritorio, desde que se escribio la seccion. */
+:where(.band-copy) p{margin-top:1.5rem;color:var(--muted-dark);font-size:1rem;line-height:1.7;font-weight:300;max-width:46ch}
 /* Antes aquí había un eslogan corto en versalitas. Ahora sostiene la frase
    que desarma la objeción real del lector —"no puedo soltar el portal"— y
    una frase de setenta caracteres no se lee en mayúsculas con .22em de
@@ -564,7 +568,8 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 }
 .cta .wrap{position:relative;z-index:2;padding-block:clamp(80px,12vw,170px)}
 .cta h2{font-size:clamp(1.9rem,4.4vw,3.7rem);font-weight:600;color:var(--white);margin-top:1.4rem;max-width:16ch;line-height:1;text-wrap:balance}
-.cta p{margin-top:1.5rem;color:rgba(255,255,255,.9);font-size:1rem;line-height:1.7;font-weight:300;max-width:48ch}
+/* Mismo motivo que en .band-copy: el antetitulo de (10) salia a 16px. */
+:where(.cta) p{margin-top:1.5rem;color:rgba(255,255,255,.9);font-size:1rem;line-height:1.7;font-weight:300;max-width:48ch}
 .cta-actions{display:flex;flex-wrap:wrap;gap:1rem 1.6rem;align-items:center;margin-top:clamp(2rem,3.6vw,2.8rem)}
 .cta-mail{
   font-size:.76rem;font-weight:600;letter-spacing:.14em;
