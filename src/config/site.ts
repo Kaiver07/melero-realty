@@ -20,8 +20,15 @@ export const SITE = {
   gaId: 'G-3038QG3XN3',
   // YouTube video ID for the "Por qué Melero Realty" section
   youtubeId: 'G-OtqipOUAI',
+  // El WhatsApp de Valeria es el canal humano: para quien no quiere agendar
+  // una videollamada de 45 minutos pero tampoco rellenar un formulario.
+  // El texto va prerrellenado para que no haya que pensar cómo empezar.
+  telefono: '+34 674 82 90 42',
+  whatsapp:
+    'https://wa.me/34674829042?text=Hola%2C%20os%20escribo%20por%20el%20diagn%C3%B3stico.',
   social: {
     instagram: 'https://www.instagram.com/melero.realty/',
+    linkedin: 'https://www.linkedin.com/in/valeria-melero-7a572433a',
   },
 } as const;
 
