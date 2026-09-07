@@ -6,10 +6,6 @@ export const SITE = {
   domain: 'valeriamelero.com',
   description:
     'Generamos leads cualificados para agencias y asesores inmobiliarios en España y EEUU. Sin portales. Sin referidos. Sin curiosos.',
-  tagline:
-    'Si el 80% de tus leads vienen de un portal, tienes un problema.',
-  subtitulo:
-    'Creamos sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Sin portales. Sin referidos. Sin curiosos.',
   email: 'melero.realty@gmail.com',
   // Agenda de la llamada de diagnóstico. Todos los CTA de reserva apuntan aquí.
   calendlyUrl: 'https://calendly.com/valmelemal/45-60min',
@@ -31,19 +27,6 @@ export const SITE = {
     linkedin: 'https://www.linkedin.com/in/valeria-melero-7a572433a',
   },
 } as const;
-
-export const STATS = [
-  { value: '+65%', label: 'ROI medio' },
-  { value: '+87', label: 'Inmobiliarias con éxito' },
-  { value: '98%', label: 'Tasa de retención' },
-  { value: '+3 años', label: 'De experiencia' },
-] as const;
-
-export const STATS_BIG = [
-  { value: '98%', label: 'Tasa de retención de clientes' },
-  { value: '+40', label: 'Agencias y asesores activos' },
-  { value: '+300%', label: 'ROI medio en captación' },
-] as const;
 
 export const SERVICES = [
   {
@@ -191,26 +174,6 @@ export const COMPARISON = [
   {
     ellos: 'Técnicas desactualizadas y dependencia de portales',
     nosotros: 'Sistemas propios de captación sin depender de terceros',
-  },
-] as const;
-
-export const TESTIMONIALS = [
-  {
-    quote:
-      'En 6 semanas teníamos un flujo constante de leads. Nada que ver con lo que habíamos probado antes.',
-    name: 'Carlos Fuentes',
-    role: 'Director de Inmobiliaria Fuentes & Asociados',
-  },
-  {
-    quote:
-      'Dejamos Idealista y al principio daba vértigo. Ahora captamos más barato y con más calidad.',
-    name: 'Laura Serrano',
-    role: 'Asesora independiente, Madrid',
-  },
-  {
-    quote: 'Por fin una agencia que habla de números y no de followers.',
-    name: 'Marcos Gil',
-    role: 'Gerente de Grupo Inmobiliario Gil',
   },
 ] as const;
 
