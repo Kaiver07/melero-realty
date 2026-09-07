@@ -127,6 +127,37 @@ export const PROCESO = [
   },
 ] as const;
 
+/* Lo que se mantiene con cualquier cliente, salga lo que salga del
+   diagnóstico. Antes aquí sólo había tres cifras sueltas —a medida, 6 meses,
+   1 marca— que decían las condiciones pero no lo que uno se lleva. Esto sí
+   es la oferta: qué hacemos, qué se enseña, qué se mide y cada cuánto. */
+export const PILARES = [
+  {
+    t: 'Empezamos por el diagnóstico',
+    d: 'Miramos de dónde vienen hoy tus contactos, en qué punto se caen y qué tipo de operación te deja margen. De ahí sale el plan. A veces son anuncios; a veces es tu base de datos dormida, tu web o cómo se hace el seguimiento.',
+  },
+  {
+    t: 'Puertas abiertas',
+    d: 'Si la persona responsable de tu equipo quiere ver cómo se hace, se lo enseñamos: por qué se toma cada decisión, cómo se monta y cómo se lee. Trabajamos sin caja negra. Con el tiempo tu equipo puede sostener buena parte del sistema por su cuenta.',
+  },
+  {
+    t: 'Definimos tus métricas antes de empezar',
+    d: 'No todos medimos lo mismo. Fijamos contigo dos o tres números que reflejen tu objetivo real —captación, cierres, coste por cita, lo que toque— y esos son los que se miran después.',
+  },
+  {
+    t: 'Nosotros lo montamos y lo mantenemos',
+    d: 'Ejecutamos lo que salga del diagnóstico y lo ajustamos con los datos. No te entregamos un plan para que lo apliques tú.',
+  },
+  {
+    t: 'Revisión cada 15 días',
+    d: 'Un documento con tus números y qué se ha cambiado, más una llamada para decidir qué se mantiene, qué se prueba y qué se corta.',
+  },
+  {
+    t: 'Seis meses de recorrido',
+    d: 'No porque nos guste atar a nadie, sino porque los primeros datos útiles llegan hacia los 20 días y una decisión de compra inmobiliaria rara vez se cierra en cuatro semanas. En menos tiempo no se puede ajustar nada con criterio.',
+  },
+] as const;
+
 export const COMPARISON = [
   {
     ellos: 'Estrategias genéricas sin conocimiento del sector',

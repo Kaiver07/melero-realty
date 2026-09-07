@@ -361,26 +361,36 @@ ul,ol{margin:0;padding:0;list-style:none}
 /* ==========================================================================
    5 · FILA DE DATOS (términos duros — no hay métricas inventadas)
    ========================================================================== */
-.brandline{
-  font-size:.72rem;font-weight:600;
-  letter-spacing:.24em;text-transform:uppercase;color:var(--muted);
-  margin-bottom:clamp(2rem,3.5vw,3rem);
+/* LO QUE NO CAMBIA
+   Seis constantes, no una secuencia: por eso no van numeradas. Cada una se
+   abre con una regla gruesa, que es el mismo recurso de imprenta que usa el
+   resto de la página, y no con una tarjeta: aquí no hay seis objetos, hay
+   seis compromisos de un mismo trato. */
+.pil-t{
+  font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;
+  margin-top:1.3rem;max-width:22ch;line-height:1.03;
 }
-.facts{
+.pilares{
   display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  border-top:1px solid var(--ink);
+  gap:clamp(1.9rem,3.5vw,3rem) clamp(1.8rem,4vw,3.4rem);
+  margin-top:clamp(2.2rem,4vw,3.2rem);
 }
-.fact{padding:clamp(1.6rem,3vw,2.6rem) clamp(1rem,2vw,2rem) 0;border-left:1px solid var(--rule)}
-.fact:first-child{border-left:0;padding-left:0}
-.fact-num{
-  font-weight:700;letter-spacing:-.04em;line-height:.95;
-  font-size:clamp(2.2rem,5.6vw,4.3rem);color:var(--text);
+.pilar{border-top:2px solid var(--ink);padding-top:1.15rem}
+.pilar h3{
+  font-size:clamp(1rem,1.3vw,1.12rem);font-weight:600;
+  letter-spacing:-.015em;line-height:1.28;color:var(--text);
 }
-.fact p{margin-top:1rem;font-size:.875rem;line-height:1.6;font-weight:300;color:var(--muted);max-width:26ch}
-@media (max-width:760px){
-  .facts{grid-template-columns:1fr}
-  .fact{border-left:0;border-top:1px solid var(--rule);padding-left:0;padding-right:0;padding-bottom:1.6rem}
-  .fact:first-child{border-top:0}
+/* Clase propia en el párrafo y no ".pilar p": un selector con elemento pesa
+   (0,1,1) y se come a cualquier clase que se meta luego dentro. */
+.pilar-txt{
+  margin-top:.8rem;font-size:.92rem;line-height:1.65;
+  font-weight:300;color:var(--muted);
+}
+@media (max-width:900px){
+  .pilares{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:620px){
+  .pilares{grid-template-columns:1fr;gap:1.7rem}
 }
 
 /* ==========================================================================

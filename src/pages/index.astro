@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import VideoEmbed from '../components/VideoEmbed.astro';
 import '../styles/home.css';
-import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL, CASO } from '../config/site';
+import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL, CASO, PILARES } from '../config/site';
 import { existsSync } from 'node:fs';
 
 /* Los números de sección se emiten en orden de render en lugar de escribirse
@@ -336,22 +336,24 @@ const SERVICE_MEDIA = [
   </section>
 
   <!-- ================= 5 · DATOS ================= -->
-  <section class="section section--white" style="padding-top:0" aria-labelledby="facts-t">
+  <!-- Lo que no cambia. Antes aquí había tres cifras sueltas —a medida,
+       6 meses, 1 marca— que enunciaban las condiciones pero no decían qué se
+       lleva el cliente. Seis servicios en tarjetas tampoco son un paquete.
+       Esto sí responde a "¿qué recibo exactamente?", que era el agujero más
+       caro de la página: se pedían seis meses sin decirlo. -->
+  <section class="section section--white" style="padding-top:0" aria-labelledby="pil-t">
     <div class="wrap">
-      <h2 id="facts-t" class="brandline reveal">Hablamos de números, no de followers.</h2>
-      <div class="facts reveal">
-        <div class="fact">
-          <p class="fact-num">A medida</p>
-          <p>Cada sistema se dimensiona según la zona, el tipo de propiedades y el objetivo. El presupuesto sale del diagnóstico.</p>
-        </div>
-        <div class="fact">
-          <p class="fact-num">6 meses</p>
-          <p>Duración del contrato. Los primeros resultados llegan hacia los 20 días; antes de 3 meses no garantizamos nada.</p>
-        </div>
-        <div class="fact">
-          <p class="fact-num">1 marca</p>
-          <p>Exclusividad por zona. Si trabajamos contigo, no trabajamos con tu competencia directa.</p>
-        </div>
+      <div class="reveal">
+        <p class="eyebrow">({num()}) El trato</p>
+        <h2 id="pil-t" class="pil-t">Lo que no cambia, trabajemos como trabajemos.</h2>
+      </div>
+      <div class="pilares reveal">
+        {PILARES.map((x) => (
+          <article class="pilar">
+            <h3>{x.t}</h3>
+            <p class="pilar-txt">{x.d}</p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
