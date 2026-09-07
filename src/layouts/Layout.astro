@@ -169,25 +169,65 @@ const faqSchema = {
       }
 
       function animaciones() {
-        document.querySelectorAll('h1, h2').forEach((titulo) => {
-          /* Sin mask: el envoltorio con overflow oculto recorta a la altura
-             exacta de la caja de línea y, con el line-height apretado de
-             estos titulares, se comía los descendentes de todas las líneas.
-             Desplazamiento y opacidad no pueden cortar nada. */
-          const split = new SplitText(titulo, {
-            type: 'lines',
-            linesClass: 'linea',
-            autoSplit: true,
+        /* En movil NO se parten ni se animan los titulares.
+           gsap.from() deja la linea en su estado inicial —desplazada un 42% y
+           a opacidad 0— hasta que el ScrollTrigger dispara. Si no dispara, el
+           titular se queda ahi: medio caido y medio invisible. En el telefono
+           eso pasa de verdad, porque la barra de direcciones cambia la altura
+           del viewport al hacer scroll y las posiciones calculadas quedan
+           obsoletas. Un titular ilegible es un fallo mucho peor que perderse
+           una animacion que en una pantalla de 375px casi no se aprecia. */
+        const enMovil = window.matchMedia('(max-width: 620px)').matches;
+
+        if (!enMovil) {
+          document.querySelectorAll('h1, h2').forEach((titulo) => {
+            /* Sin mask: el envoltorio con overflow oculto recorta a la altura
+               exacta de la caja de línea y, con el line-height apretado de
+               estos titulares, se comía los descendentes de todas las líneas.
+               Desplazamiento y opacidad no pueden cortar nada. */
+            const split = new SplitText(titulo, {
+              type: 'lines',
+              linesClass: 'linea',
+              autoSplit: true,
+            });
+            gsap.from(split.lines, {
+              yPercent: 42,
+              opacity: 0,
+              duration: 0.95,
+              ease: 'expo.out',
+              stagger: 0.08,
+              scrollTrigger: { trigger: titulo, start: 'top 88%', once: true },
+            });
           });
-          gsap.from(split.lines, {
-            yPercent: 42,
-            opacity: 0,
-            duration: 0.95,
-            ease: 'expo.out',
-            stagger: 0.08,
-            scrollTrigger: { trigger: titulo, start: 'top 88%', once: true },
-          });
-        });
+
+          /* Las posiciones se calculan antes de que cargue Poppins. Al llegar
+             la fuente cambian los cortes de linea y las alturas, y los
+             disparadores apuntan a donde ya no hay nada: por eso algunos
+             titulares no llegaban a revelarse nunca. */
+          if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(() => ScrollTrigger.refresh());
+          }
+
+          /* Red de seguridad, la misma idea que en initReveal: si una linea
+             sigue invisible cuando ya esta en pantalla, se le quitan las
+             propiedades y se muestra. Donde todo va bien, esto no hace nada. */
+          const rescatarTitulares = () => {
+            document.querySelectorAll('h1 .linea, h2 .linea').forEach((linea) => {
+              const caja = linea.getBoundingClientRect();
+              const dentro = caja.top < window.innerHeight && caja.bottom > 0;
+              if (dentro && parseFloat(getComputedStyle(linea).opacity) < 0.99) {
+                gsap.set(linea, { clearProps: 'all' });
+              }
+            });
+          };
+          let esperando = false;
+          window.addEventListener('scroll', () => {
+            if (esperando) return;
+            esperando = true;
+            setTimeout(() => { esperando = false; rescatarTitulares(); }, 900);
+          }, { passive: true });
+          setTimeout(rescatarTitulares, 2600);
+        }
 
         document.querySelectorAll('.band-media img, .vid-media, .cta-media img')
           .forEach((el) => {
