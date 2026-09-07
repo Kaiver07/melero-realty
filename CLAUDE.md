@@ -1,69 +1,142 @@
 # melero-realty
 
-Astro + Tailwind v4. Web de captación de leads para agencias inmobiliarias
-(Valeria Melero, CEO). Dominio real: `valeriamelero.com`, ya conectado en
-Vercel (`prj_QaE5SswR7rPo6byGrRAnPho8YLZ9`).
+Web de Melero Realty, agencia de marketing inmobiliario: capta leads para
+inmobiliarias que ya facturan. Valeria Melero es la CEO. Astro 5 estático +
+Tailwind v4, desplegado en Vercel desde `main`.
 
-## Rediseño "Modernist" (26/8/2026)
+- Producción: **https://www.valeriamelero.com** (con `www`; el dominio
+  desnudo devuelve un 308 hacia aquí).
+- Proyecto de Vercel: `prj_QaE5SswR7rPo6byGrRAnPho8YLZ9`.
+- **Push a `main` = despliegue.** No hay staging. Tarda ~1 minuto.
+- El DNS lo gestiona **Hostinger** (`*.dns-parking.com`), no Vercel. Los
+  registros TXT y demás se tocan allí.
 
-La home se rediseñó por completo usando **Claude Design** (claude.ai/design)
-en vez de Figma — el usuario no tiene integración con Figma, pero sí con
-Claude Design vía la herramienta `DesignSync`. El proceso:
+La verdad de negocio —a quién se vende, qué se promete, qué está verificado
+y qué no— vive en `PRODUCT.md`. Este archivo es sólo cómo se trabaja el
+código.
 
-1. Se escribió `DESIGN.md` (brief) con contexto del negocio, qué NO cambiar
-   (contenido/estructura de `site.ts`, ya validado) y dirección creativa
-   (premium B2B inmobiliario, no genérico de agencia de marketing).
-2. El usuario construyó el diseño en claude.ai/design con el sistema
-   **Modernist**: tipografía Archivo, cero border-radius, reglas de 2px,
-   fotografía en blanco y negro, acento dorado `#b5893c` (extraído del
-   logo real — antes el sistema base usaba rojo `#ec3013`).
-3. Se importó con `DesignSync` (`get_project`/`list_files`/`get_file`) desde
-   el proyecto `Melero Realty` (id `6507e085-be12-4d76-923c-80fee5f7477e`,
-   tipo `PROJECT_TYPE_PROJECT` — **no** el proyecto `Modernist`
-   `90d9439e-...`, que es solo el sistema de diseño base/reutilizable).
-4. Se portó `Melero Realty Landing.dc.html` (formato propio de Claude
-   Design, componentes `x-dc`/`image-slot`/`sc-if`) a Astro puro, conectado
-   a los datos reales de `src/config/site.ts` (no se reescribió copy).
+## Compilar en Windows
 
-**Importante para la próxima vez que se use `DesignSync` en este o cualquier
-proyecto:** `get_file` tiene un tope duro de 256 KiB. Para imágenes subidas
-al proyecto de diseño que pesen más que eso, no se pueden traer completas —
-hay que pedirle al usuario que las descargue/envíe directamente.
-
-### Pendiente de esta ronda
-
-- [ ] **Foto del hero** — el diseño final usa un skyline en B/N subido al
-  proyecto de Claude Design (`uploads/assets-1787741421281-tgic.png`), pero
-  pesa más de 256 KiB y no se pudo traer por `DesignSync`. De momento el
-  hero sigue usando `public/images/hero-villa.webp` (la foto de villa
-  antigua, con filtro grayscale aplicado) como placeholder. Pedir al
-  usuario que la descargue de claude.ai/design y la pase directamente.
-- [ ] Verificación visual en navegador — no se pudo levantar Chromium
-  headless en este entorno (faltan librerías del sistema como `libnspr4`,
-  sin acceso `sudo`). La verificación se hizo por build limpio + revisión
-  manual de balance de etiquetas HTML, no por captura de pantalla real.
-  Recomendado: abrir `npm run dev` y revisarlo tú mismo antes de darlo por
-  bueno del todo, sobre todo en móvil.
-- [ ] `contacto.astro` (formulario de 5 pasos) y `sobre-nosotros.astro` se
-  migraron a los tokens de color nuevos (`--color-*`) pero conservan su
-  estructura/clases Tailwind originales (bordes redondeados, tarjetas
-  blancas) — no se les aplicó el tratamiento "sin radius / grid modernista"
-  del nuevo sistema. Si se quiere consistencia total, portarlas también.
-- [ ] `Footer.astro` perdió el formulario de newsletter que tenía antes
-  (usaba `SITE.web3formsKey`, un campo que ni siquiera existía en
-  `site.ts` — probablemente ya estaba roto). El nuevo diseño no incluye
-  newsletter, solo enlaces de contacto directo.
-
-### Tokens de marca
+`npm run build` y `npx astro build` **fallan** con `'astro' is not
+recognized`. Lo que funciona:
 
 ```
---color-bg:     #f3f2f2
---color-surface:#eae9e9
---color-ink:    #131211  (secciones oscuras a sangre completa: hero, CTA, footer)
---color-text:   #201e1d
---color-accent: #b5893c  (dorado real, del logo)
---radius-md:    0px      (Modernist: cero esquinas redondeadas)
+node node_modules/astro/astro.js build
+node node_modules/astro/astro.js preview --port 4321
 ```
 
-Fuente: **Archivo** (pesos 400–900), cargada desde Google Fonts en
-`Layout.astro`. Antes era Satoshi vía Fontshare.
+Si salta `Cannot find module @rollup/rollup-win32-x64-msvc`, es el bug
+conocido de npm con dependencias opcionales:
+
+```
+npm i @rollup/rollup-win32-x64-msvc --no-save
+```
+
+## Dónde está cada cosa
+
+```
+src/config/site.ts     TODO el contenido: copy, servicios, proceso, FAQ,
+                       equipo, el caso de ARC, enlaces y claves.
+src/pages/index.astro  La home entera, sección a sección.
+src/layouts/Layout.astro  <head>, schema, ClientRouter y el motor GSAP.
+src/components/        CookieNotice (consentimiento + GA4), Footer, Header,
+                       VideoEmbed (fachada de YouTube).
+src/styles/global.css  Tokens y cromo compartido (nav, footer, .wrap).
+src/styles/home.css    El sistema visual de la home. ~900 líneas.
+```
+
+**El copy no se escribe en las plantillas.** Si un texto se repite o puede
+cambiar, va en `site.ts` y la plantilla lo pinta. Ya pasó una vez lo
+contrario: había tarjetas de servicios con el texto incrustado mientras
+`SERVICES` decía otra cosa.
+
+## Reglas que no se rompen
+
+**Ninguna cifra sin las cuatro cosas.** Nombre, empresa, enlace y permiso.
+La única publicable hoy es el +30% de ARC. Hubo `STATS`, `STATS_BIG` y tres
+testimonios con nombres inventados; se borraron el 7/9/2026 y no vuelven.
+
+**Nada de analítica fuera del consentimiento.** GA4 (`G-3038QG3XN3`) sólo se
+carga al pulsar Aceptar: el `<script>` de Google no existe en la página
+antes de eso. Aceptar y Rechazar tienen el mismo peso visual a propósito, y
+el pie lleva «Preferencias» para cambiar de opinión. Si se toca algo de
+esto, la política de cookies tiene que seguir describiendo la realidad —ya
+declaró una vez cookies de Google Analytics que no existían.
+
+**No borrar `public/google824e0cd48fd6c0fc.html`.** Es la verificación de
+Search Console. Si desaparece, Google revoca el acceso a la propiedad.
+
+**Los números de sección se calculan solos.** `index.astro` define un
+contador y cada antetítulo llama a `num()`. No escribirlos a mano: cuando lo
+estaban había dos `(08)` a la vez, invisibles sólo porque la sección de
+Instagram está oculta.
+
+**La sección de Instagram aparece sola.** Se pinta si existen las miniaturas
+en `public/images/social/<código>.webp`. Instagram no deja descargarlas por
+programa: se aportan a mano.
+
+## Trampas que ya nos han mordido
+
+**Especificidad CSS.** `.contenedor p` pesa (0,1,1) y le gana a cualquier
+clase suelta (0,1,0). Pasó tres veces: `.band-quote`, `.cta-note` y los
+antetítulos de dos secciones, que llevaban meses pintándose a 16px sin que
+nadie supiera por qué. `.band-copy` y `.cta` ya están envueltos en
+`:where()`, que no aporta especificidad. **Al añadir un párrafo dentro de un
+bloque, dale su propia clase** y no confíes en heredar.
+
+**El panel de vista previa no sirve para verificar.** No pinta este sitio,
+no ejecuta `IntersectionObserver` y **`scrollTo()` mueve la página sin
+emitir el evento `scroll`**, así que todo lo atado al scroll parece roto
+aunque esté bien. Verificar por DOM (`getBoundingClientRect`, estilos
+computados) y contra el CSS ya compilado en `dist/_astro/*.css`. Lo visual
+se lo pide uno al usuario.
+
+**Los titulares no se animan en móvil, a propósito.** `gsap.from()` deja la
+línea desplazada y a opacidad 0 hasta que dispara el ScrollTrigger; en el
+teléfono la barra de direcciones cambia la altura del viewport y las
+posiciones calculadas caducan, dejando el titular medio caído y medio
+invisible. En escritorio se anima, con `ScrollTrigger.refresh()` al cargar
+Poppins y una red de seguridad que limpia lo que siga invisible.
+
+**Todo revelado necesita red de seguridad.** Si algo parte de `opacity: 0`
+esperando a un observador, tiene que haber un plan B que lo muestre. Página
+invisible es peor fallo que animación perdida.
+
+## Sistema visual
+
+Fuente única: **Poppins** (300/400/600/700), desde Google Fonts en el
+Layout. Sin dorado en ningún sitio salvo el logotipo, que es donde vive.
+
+```
+--text   #000000   el texto va en negro, es regla de marca
+--ink    #122f35   planchas oscuras: hero, proceso, cierre, footer
+--ink-2  #0d2226   segundo plano oscuro
+--teal   #24767b   color de identidad, 5.31:1 sobre blanco
+--paper  #eaeced   fondo alterno de sección
+--muted  #54696e   texto secundario sobre claro, 72%
+--muted-dark #bdc5c6  texto secundario sobre --ink, 8.06:1
+--rule   #dee2e3   filetes
+```
+
+Los comentarios de `global.css` llevan el ratio de contraste de cada
+pareja. Si se cambia un color, se recalcula y se anota; no se pone «a ojo».
+
+Las secciones alternan fondo —oscuro, gris, blanco— para que no se lean como
+un bloque. Cero esquinas redondeadas salvo la píldora de la barra del hero,
+sus botones y el panel del logotipo de ARC, que son la misma forma a
+propósito.
+
+## Deudas conocidas
+
+- **React, Tailwind y `--r-card` están instalados pero casi sin usar.**
+  React no tiene ni una isla; `--r-card` no lo referencia nadie. Tailwind
+  sólo lo usan las páginas interiores y las legales, que conservan su
+  maquetación antigua a base de utilidades mientras la home va con CSS
+  propio. Es la costura entre dos rediseños y sigue ahí.
+- **Dos embudos compitiendo.** Los CTA principales van a Calendly; el
+  formulario de 5 pasos de `/contacto`, que es el que guarda el lead en la
+  hoja de cálculo, sólo se alcanza desde el pie y desde el enlace «O
+  cuéntanoslo por escrito». Falta decidir cuál manda.
+- **El envío del formulario no está probado de punta a punta.** Se arregló
+  un fallo que lo dejaba mudo, pero nadie ha comprobado con un envío real
+  que llegue la fila a Google Sheets.
