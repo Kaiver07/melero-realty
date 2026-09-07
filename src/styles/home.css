@@ -159,8 +159,11 @@ ul,ol{margin:0;padding:0;list-style:none}
 .nav-mail{border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:2px}
 @media (max-width:860px){.nav-links{display:none}}
 @media (max-width:520px){
-  .nav-brand{letter-spacing:.18em;font-size:.66rem}
-  .nav-mail{font-size:.6rem;letter-spacing:.08em}
+  /* La marca sube a un tamano legible y el correo se va: a .6rem eran 9,6px
+     reales, ilegibles y con 19px de alto tactil. Sigue estando en el pie, en
+     el cierre y en la cabecera de las paginas interiores. */
+  .nav-brand{letter-spacing:.2em;font-size:.74rem}
+  .nav-mail{display:none}
 }
 
 /* palabra gigante — Poppins 700, -.02em, blanco a baja opacidad */
@@ -258,6 +261,22 @@ ul,ol{margin:0;padding:0;list-style:none}
   .ab-field{border-left:0;border-top:1px solid var(--rule);padding:.9rem 1.1rem}
   .ab-field:first-child{border-top:0}
   .ab-btn{width:100%;margin-top:8px;padding:1.05rem 1rem;white-space:normal;text-align:center}
+}
+
+/* En movil los tres campos desaparecen. Nunca fueron interactivos —son
+   decorado que insinua un filtro— y medidos en un 375x812 se comian 165px
+   de la unica pantalla que casi todo el mundo llega a ver, dejando fuera la
+   microcopia y la salida por escrito. Ademas, un campo que parece campo y no
+   se puede tocar genera la duda de si hay que rellenar algo antes de pulsar.
+   Sin ellos la pildora ya no envuelve nada, asi que se le quita el cromado y
+   el boton se queda solo, a todo el ancho. */
+@media (max-width:620px){
+  .ab-field{display:none}
+  .actionbar{
+    background:none;box-shadow:none;padding:0;border-radius:0;
+    max-width:none;margin-top:clamp(1.3rem,4vw,1.8rem);
+  }
+  .ab-btn{margin-top:0;border-radius:999px;font-size:.78rem;letter-spacing:.11em}
 }
 
 /* La objeción de precio y de tiempo, resuelta donde se decide. Va fuera de
@@ -791,7 +810,7 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 @media (max-width:700px){
   .hero-kicker{
     display:block;margin-bottom:.85rem;
-    font-size:.66rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+    font-size:.74rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
     color:var(--muted-dark);
   }
 }
@@ -960,4 +979,36 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
     border-left:0;border-top:2px solid var(--ink);
     padding-left:0;padding-top:1.8rem;
   }
+}
+
+/* Los antetitulos van en versalitas con .22em de tracking: a 11,2px eso se
+   lee como una linea gris, no como texto. En movil suben un punto y sueltan
+   algo de tracking, que es lo que de verdad los hacia costosos de leer. */
+@media (max-width:620px){
+  .eyebrow{font-size:.75rem;letter-spacing:.17em}
+  .eyebrow::before{width:18px}
+}
+
+/* ---------- BARRA DE RESERVA FIJA (solo movil) ----------
+   z-index 80, por debajo del aviso de cookies (90): si ambos coincidieran
+   manda el aviso, aunque el script ya evita que se solapen. */
+.cta-fija{display:none}
+@media (max-width:620px){
+  .cta-fija{
+    position:fixed;left:0;right:0;bottom:0;z-index:80;
+    display:flex;flex-direction:column;align-items:center;gap:.12rem;
+    background:var(--teal);color:var(--white);text-decoration:none;
+    padding:.8rem 1rem calc(.8rem + env(safe-area-inset-bottom, 0px));
+    box-shadow:0 -2px 18px rgba(18,47,53,.24);
+    transform:translateY(100%);
+    transition:transform .3s var(--ease);
+  }
+  .cta-fija.va{transform:translateY(0)}
+  .cta-fija-t{
+    font-size:.78rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+  }
+  .cta-fija-s{font-size:.68rem;font-weight:300;color:rgba(255,255,255,.85)}
+}
+@media (prefers-reduced-motion:reduce){
+  .cta-fija{transition:none}
 }

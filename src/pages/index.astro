@@ -470,6 +470,16 @@ const SERVICE_MEDIA = [
 
 </main>
 
+<!-- Barra de reserva fija, solo en movil. La home mide 13.000px en un movil
+     y solo tiene boton arriba del todo y al final: en todo el medio, quien se
+     decide no tiene donde pulsar. Aparece pasado el 25% del scroll, se
+     esconde mientras el aviso de cookies ocupa la parte baja y desaparece
+     cuando ya asoma el cierre, donde el boton es mas grande. -->
+<a class="cta-fija" id="ctaFija" href={SITE.calendlyUrl} target="_blank" rel="noopener" hidden>
+  <span class="cta-fija-t">Reservar diagnóstico</span>
+  <span class="cta-fija-s">45 min &middot; sin coste</span>
+</a>
+
 <Footer />
 
 <script>
@@ -531,4 +541,59 @@ document.addEventListener('astro:page-load', function () {
   document.addEventListener('astro:before-swap', function () { embla.destroy(); }, { once: true });
 });
 </script>
+<script>
+  /* Barra de reserva fija en movil.
+     Sin IntersectionObserver a proposito: aqui basta comparar posiciones en
+     el scroll, y asi no depende de que el observer llegue a dispararse.
+     El AbortController limpia los oyentes al navegar, porque con las
+     transiciones de pagina este script se vuelve a ejecutar. */
+  document.addEventListener('astro:page-load', () => {
+    const barra = document.getElementById('ctaFija');
+    const cierre = document.getElementById('contacto');
+    if (!barra || !cierre) return;
+
+    const aviso = document.getElementById('cookieNotice');
+    const control = new AbortController();
+    let puesta = false;
+    let temporizador;
+
+    const decidir = () => {
+      const alcance = document.documentElement.scrollHeight - window.innerHeight;
+      const pasadoElCuarto = alcance > 0 && window.scrollY / alcance > 0.25;
+      const avisoDelante = !!aviso && !aviso.hidden;
+      const cierreALaVista = cierre.getBoundingClientRect().top < window.innerHeight;
+      const debe = pasadoElCuarto && !avisoDelante && !cierreALaVista;
+
+      if (debe === puesta) return;
+      puesta = debe;
+      clearTimeout(temporizador);
+
+      if (debe) {
+        barra.hidden = false;
+        requestAnimationFrame(() => barra.classList.add('va'));
+      } else {
+        barra.classList.remove('va');
+        // Se retira del arbol solo cuando ha terminado de salir.
+        temporizador = window.setTimeout(() => { if (!puesta) barra.hidden = true; }, 320);
+      }
+    };
+
+    let encolado = false;
+    const alMover = () => {
+      if (encolado) return;
+      encolado = true;
+      requestAnimationFrame(() => { encolado = false; decidir(); });
+    };
+
+    window.addEventListener('scroll', alMover, { passive: true, signal: control.signal });
+    window.addEventListener('resize', alMover, { signal: control.signal });
+    // El aviso de cookies se descarta sin que haya scroll: hay que reevaluar.
+    document.getElementById('cookieOk')?.addEventListener(
+      'click', () => setTimeout(decidir, 0), { signal: control.signal });
+
+    document.addEventListener('astro:before-swap', () => control.abort(), { once: true });
+    decidir();
+  });
+</script>
+
 </Layout>
