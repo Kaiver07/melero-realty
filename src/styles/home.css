@@ -440,7 +440,10 @@ ul,ol{margin:0;padding:0;list-style:none}
 }
 @media (max-width:1039px){
   .band-grid{grid-template-columns:1fr}
-  .band-media img{aspect-ratio:16/10}
+  /* El recorte ancho de movil sobre una foto vertical se comia la
+     cabecera del panel. Se sube el encuadre para que el portatil y el
+     cuaderno, que son el asunto, sigan dentro. */
+  .band-media img{aspect-ratio:16/10;object-position:50% 38%}
   .float-cards{margin-top:14px;grid-template-columns:1fr}
 }
 
