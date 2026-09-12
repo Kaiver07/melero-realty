@@ -1,0 +1,42 @@
+---
+import { BLOG } from '../config/site';
+import { fecha, isoDia, minutos, type Articulo } from '../lib/blog';
+
+/* Lista de artículos, en la portada del blog y al pie de cada artículo.
+   En la portada los títulos son h2; bajo «Más artículos», que ya es un h2,
+   bajan a h3 para no romper el esquema de encabezados. */
+interface Props {
+  articulos: Articulo[];
+  nivel?: 'h2' | 'h3';
+}
+const { articulos, nivel = 'h2' } = Astro.props;
+const Titulo = nivel;
+---
+
+<ol class="bl-list">
+  {articulos.map((a) => (
+    <li class="bl-item">
+      <time class="bl-item-date" datetime={isoDia(a.data.publishDate)}>
+        {fecha(a.data.publishDate)}
+      </time>
+      <div>
+        <Titulo class="bl-item-title">
+          <a href={`/blog/${a.id}/`}>{a.data.title}</a>
+        </Titulo>
+        <p class="bl-item-desc">{a.data.description}</p>
+        <p class="bl-item-more">{BLOG.leer} · {minutos(a.body)} min</p>
+      </div>
+      {/* Decorativa: el título ya dice adónde lleva la fila. */}
+      <div class="bl-item-thumb">
+        <img
+          src={a.data.image.src}
+          alt=""
+          width={a.data.image.width}
+          height={a.data.image.height}
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </li>
+  ))}
+</ol>

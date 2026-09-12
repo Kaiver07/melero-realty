@@ -253,3 +253,28 @@ export const FAQ = [
     a: 'Trabajamos en remoto con agencias de toda España y con clientes en Estados Unidos. El diagnóstico y el seguimiento se hacen por videollamada, así que la zona en la que estés no condiciona nada.',
   },
 ] as const;
+
+/* Todo lo que rodea a los artículos del blog. Los artículos en sí viven en
+   src/content/blog/, uno por archivo Markdown.
+   El cierre repite a propósito el de sobre-nosotros, que ya estaba aprobado. */
+export const BLOG = {
+  titulo: 'Blog de captación inmobiliaria',
+  descripcion:
+    'Artículos para agencias y asesores inmobiliarios en activo: de dónde vienen tus contactos, en qué punto se pierden y qué números merece la pena mirar.',
+  antetitulo: 'Blog',
+  h1: 'Notas de captación para inmobiliarias en activo',
+  intro:
+    'De dónde vienen tus contactos, en qué punto se pierden y qué números merece la pena mirar. Sin cifras que no se puedan comprobar.',
+  vacio: 'Todavía no hay artículos publicados.',
+  leer: 'Leer artículo',
+  relacionadosAntetitulo: 'Relacionado',
+  relacionados: 'Servicios relacionados',
+  verServicios: 'Ver todos los servicios',
+  otros: 'Más artículos',
+  cta: {
+    antetitulo: 'Diagnóstico',
+    titulo: '¿Quieres que hablemos de tu caso?',
+    texto: '30 minutos. Sin compromiso. Con análisis real de tu situación.',
+    boton: 'Solicitar diagnóstico gratuito',
+  },
+} as const;

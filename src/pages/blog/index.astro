@@ -1,0 +1,42 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BlogList from '../../components/BlogList.astro';
+import BlogCta from '../../components/BlogCta.astro';
+import { BLOG } from '../../config/site';
+import { articulos } from '../../lib/blog';
+import '../../styles/blog.css';
+
+const lista = await articulos();
+---
+
+<Layout title={BLOG.titulo} description={BLOG.descripcion}>
+  <Header />
+
+  <main class="flex-1">
+
+    <section class="bl-hero" aria-labelledby="bl-h1">
+      <div class="wrap">
+        <p class="bl-eyebrow bl-eyebrow--dark">{BLOG.antetitulo}</p>
+        <div class="bl-hero-grid">
+          <h1 id="bl-h1" class="bl-h1">{BLOG.h1}</h1>
+          <p class="bl-lead">{BLOG.intro}</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="bl-section bl-section--white" aria-label="Artículos">
+      <div class="wrap">
+        {lista.length > 0
+          ? <BlogList articulos={lista} />
+          : <p class="bl-empty">{BLOG.vacio}</p>}
+      </div>
+    </section>
+
+    <BlogCta />
+
+  </main>
+
+  <Footer />
+</Layout>

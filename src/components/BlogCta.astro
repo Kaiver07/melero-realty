@@ -1,0 +1,22 @@
+---
+import { BLOG } from '../config/site';
+
+/* Cierre del blog. Va a /contacto, como el de sobre-nosotros: ver la deuda
+   de los dos embudos en CLAUDE.md. */
+---
+
+<section class="bl-cta" aria-labelledby="bl-cta-t">
+  <div class="wrap">
+    <p class="bl-eyebrow bl-eyebrow--dark">{BLOG.cta.antetitulo}</p>
+    <div class="bl-cta-grid">
+      <h2 id="bl-cta-t" class="bl-cta-title">{BLOG.cta.titulo}</h2>
+      <div>
+        <p class="bl-cta-text">{BLOG.cta.texto}</p>
+        <a class="bl-btn" href="/contacto">
+          {BLOG.cta.boton}
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

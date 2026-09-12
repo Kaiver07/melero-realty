@@ -1,0 +1,344 @@
+/* ==========================================================================
+   BLOG — portada (/blog/) y artículos (/blog/<slug>/)
+   Mismo sistema que sobre-nosotros: radio 0, sin sombras, filetes de 1px y
+   planchas de color; composición anclada a la izquierda. Texto en --text;
+   teal sólo sobre blanco (5.31:1), nunca como texto sobre plancha oscura
+   (2.66:1). Prefijo bl- para no chocar con home.css ni con los sn- de
+   sobre-nosotros.
+   Todo párrafo que no sale del Markdown lleva su propia clase: ver la
+   trampa de especificidad en CLAUDE.md.
+   ========================================================================== */
+
+.bl-section { padding-block: clamp(64px, 9vw, 130px); }
+.bl-section--white { background: var(--white); }
+.bl-section--paper { background: var(--paper); }
+
+/* ---------- antetítulo ---------- */
+.bl-eyebrow {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.bl-eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--teal);
+  flex: none;
+}
+.bl-eyebrow--dark { color: var(--muted-dark); }
+.bl-eyebrow--dark::before { background: var(--white); opacity: .5; }
+.bl-eyebrow a { color: inherit; text-decoration: none; }
+.bl-eyebrow--dark a:hover { color: var(--white); }
+
+/* ---------- hero, plancha --ink ---------- */
+.bl-hero {
+  background: var(--ink);
+  color: var(--white);
+  padding-block: clamp(56px, 8vw, 120px) clamp(64px, 9vw, 128px);
+}
+.bl-hero-grid {
+  margin-top: clamp(1.6rem, 3.2vw, 2.6rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, .92fr);
+  gap: clamp(1.6rem, 5vw, 5rem);
+  align-items: end;
+}
+.bl-h1 {
+  margin: 0;
+  font-size: clamp(2.05rem, 5.6vw, 4.3rem);
+  font-weight: 700;
+  letter-spacing: -.03em;
+  line-height: .98;
+  color: var(--white);
+}
+/* el titular de un artículo es una frase, no un rótulo: más pequeño y con
+   más aire entre líneas */
+.bl-h1--post {
+  font-size: clamp(1.9rem, 4.4vw, 3.5rem);
+  line-height: 1.04;
+  max-width: 22ch;
+}
+.bl-lead {
+  margin: 0;
+  font-size: clamp(.95rem, 1.15vw, 1.0625rem);
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--muted-dark);
+  max-width: 42ch;
+}
+.bl-meta {
+  margin: 1.3rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem .9rem;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted-dark);
+}
+.bl-hero :focus-visible,
+.bl-cta :focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
+@media (max-width: 880px) {
+  .bl-hero-grid { grid-template-columns: 1fr; align-items: start; gap: 1.4rem; }
+  .bl-lead { max-width: 48ch; }
+}
+
+/* ---------- lista de artículos (portada y «Más artículos») ---------- */
+.bl-list { margin: 0; padding: 0; list-style: none; }
+.bl-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr) 8.5rem;
+  gap: clamp(1rem, 3vw, 2.6rem);
+  align-items: start;
+  padding: clamp(1.5rem, 2.8vw, 2.2rem) 0;
+  border-top: 1px solid var(--rule);
+}
+.bl-item:first-child { border-top-color: var(--ink); }
+.bl-item:last-child { border-bottom: 1px solid var(--rule); }
+.bl-item-date {
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  line-height: 1.9;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bl-item-title {
+  margin: 0;
+  font-size: clamp(1.2rem, 2.2vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: -.03em;
+  line-height: 1.14;
+  color: var(--text);
+  max-width: 30ch;
+}
+.bl-item-title a { color: inherit; text-decoration: none; }
+/* toda la fila es el enlace, sin anidar nada dentro del <a> */
+.bl-item-title a::after { content: ""; position: absolute; inset: 0; }
+.bl-item:hover .bl-item-title a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .16em;
+}
+.bl-item-desc {
+  margin: .7rem 0 0;
+  font-size: .9375rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 58ch;
+}
+.bl-item-more {
+  margin: 1rem 0 0;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.bl-item-thumb { background: var(--paper); }
+.bl-item-thumb img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; }
+.bl-empty {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--muted);
+}
+@media (max-width: 760px) {
+  .bl-item { grid-template-columns: minmax(0, 1fr) 5.5rem; }
+  .bl-item-date { grid-column: 1 / -1; line-height: 1.4; }
+}
+
+/* ---------- cuerpo del artículo ---------- */
+.bl-post { background: var(--white); padding-block: clamp(56px, 8vw, 120px); }
+.bl-split {
+  display: grid;
+  grid-template-columns: minmax(0, .74fr) minmax(0, 1.62fr);
+  gap: clamp(2rem, 6vw, 6.5rem);
+  align-items: start;
+}
+.bl-fig { margin: 0; background: var(--paper); }
+.bl-fig img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  filter: saturate(.95) contrast(1.03);
+}
+/* acompaña la lectura en escritorio, por debajo de la cabecera fija */
+@media (min-width: 901px) {
+  .bl-fig { position: sticky; top: 110px; }
+}
+@media (max-width: 900px) {
+  .bl-split { grid-template-columns: 1fr; gap: 2.2rem; }
+  /* en el teléfono una foto 4:5 ocupa la pantalla entera antes del texto */
+  .bl-fig img { aspect-ratio: 4 / 3; object-position: 50% 45%; }
+}
+
+/* El Markdown no lleva clases: aquí sí se estiliza por descendiente, y
+   dentro de .bl-prose no se mete nada que no venga del artículo. */
+.bl-prose { max-width: 68ch; }
+.bl-prose p,
+.bl-prose li {
+  font-size: clamp(1rem, 1.3vw, 1.0625rem);
+  font-weight: 300;
+  line-height: 1.72;
+  color: var(--text);
+}
+.bl-prose p { margin: 1.25rem 0 0; }
+.bl-prose > :first-child { margin-top: 0; }
+.bl-prose > p:first-child {
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  font-weight: 400;
+  letter-spacing: -.02em;
+  line-height: 1.5;
+}
+.bl-prose h2 {
+  margin: clamp(2.6rem, 4.5vw, 3.6rem) 0 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: clamp(1.35rem, 2.3vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: -.03em;
+  line-height: 1.12;
+  color: var(--text);
+}
+.bl-prose h3 {
+  margin: 2rem 0 0;
+  font-size: clamp(1.05rem, 1.6vw, 1.24rem);
+  font-weight: 600;
+  letter-spacing: -.025em;
+  line-height: 1.2;
+  color: var(--text);
+}
+.bl-prose ul,
+.bl-prose ol { margin: 1.25rem 0 0; padding-left: 1.25rem; }
+.bl-prose li + li { margin-top: .7rem; }
+.bl-prose li::marker { color: var(--teal); font-weight: 600; }
+.bl-prose strong { font-weight: 600; }
+.bl-prose a {
+  color: var(--teal);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .2em;
+}
+.bl-prose a:hover { color: var(--ink); }
+.bl-prose hr {
+  margin: clamp(2.6rem, 4.5vw, 3.6rem) 0 0;
+  border: 0;
+  height: 1px;
+  background: var(--rule);
+}
+.bl-prose hr + p { margin-top: 1.6rem; }
+
+/* ---------- servicios relacionados, sobre --paper ----------
+   Aquí el teal cae a 4.51:1: los enlaces van en --text subrayado. */
+.bl-h2 {
+  margin: 1.3rem 0 0;
+  font-size: clamp(1.7rem, 3.4vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -.03em;
+  line-height: 1.03;
+  color: var(--text);
+  max-width: 14ch;
+}
+.bl-svcs { margin: 0; padding: 0; list-style: none; }
+.bl-svc { padding: clamp(1.2rem, 2.2vw, 1.7rem) 0; border-top: 1px solid var(--rule); }
+.bl-svc:first-child { border-top-color: var(--ink); }
+.bl-svc:last-child { border-bottom: 1px solid var(--rule); }
+.bl-svc-title {
+  margin: 0;
+  font-size: clamp(1.02rem, 1.6vw, 1.24rem);
+  font-weight: 600;
+  letter-spacing: -.025em;
+  line-height: 1.2;
+  color: var(--text);
+}
+.bl-svc-desc {
+  margin: .55rem 0 0;
+  font-size: .9375rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 54ch;
+}
+.bl-svc-link {
+  display: inline-block;
+  margin-top: 1.6rem;
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .35em;
+}
+.bl-svc-link:hover { color: var(--ink-hover); }
+@media (max-width: 900px) {
+  .bl-h2 { max-width: none; }
+}
+
+/* ---------- cierre, plancha --ink contigua al pie en --ink-2 ---------- */
+.bl-cta {
+  background: var(--ink);
+  color: var(--white);
+  padding-block: clamp(76px, 11vw, 156px);
+}
+.bl-cta-grid {
+  margin-top: clamp(1.4rem, 3vw, 2.2rem);
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(1.8rem, 5vw, 5rem);
+  align-items: end;
+}
+.bl-cta-title {
+  margin: 0;
+  font-size: clamp(1.85rem, 4.2vw, 3.4rem);
+  font-weight: 600;
+  letter-spacing: -.03em;
+  line-height: 1.02;
+  color: var(--white);
+  max-width: 15ch;
+}
+.bl-cta-text {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--muted-dark);
+  max-width: 40ch;
+}
+.bl-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .85rem;
+  margin-top: 1.8rem;
+  padding: 1.05rem 2.1rem;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: var(--white);
+  color: var(--text);
+  font-size: .74rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color .25s var(--ease), color .25s var(--ease);
+}
+.bl-btn:hover { background: var(--paper-2); color: var(--text); }
+.bl-btn svg { width: 15px; height: 15px; flex: none; }
+@media (max-width: 880px) {
+  .bl-cta-grid { grid-template-columns: 1fr; align-items: start; gap: 1.6rem; }
+  .bl-cta-title { max-width: none; }
+}

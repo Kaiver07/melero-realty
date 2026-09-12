@@ -40,10 +40,19 @@ src/config/site.ts     TODO el contenido: copy, servicios, proceso, FAQ,
 src/pages/index.astro  La home entera, sección a sección.
 src/layouts/Layout.astro  <head>, schema, ClientRouter y el motor GSAP.
 src/components/        CookieNotice (consentimiento + GA4), Footer, Header,
-                       VideoEmbed (fachada de YouTube).
+                       VideoEmbed (fachada de YouTube), BlogList, BlogCta.
 src/styles/global.css  Tokens y cromo compartido (nav, footer, .wrap).
 src/styles/home.css    El sistema visual de la home. ~900 líneas.
+src/content/blog/      Un Markdown por artículo; el nombre es el slug.
+src/content.config.ts  Esquema de los artículos. Valida imagen, longitudes
+                       de título y descripción, y servicios relacionados.
+src/pages/blog/        Portada del blog y plantilla de artículo.
+src/styles/blog.css    Estilos del blog, prefijo bl-.
 ```
+
+Lo pendiente del blog —firma, fecha, destino del cierre— está en
+`NOTAS.md`. `npm run check` (astro check) da 28 errores de tipos anteriores
+al blog, en los scripts de `CookieNotice`, `Layout` e `index`.
 
 **El copy no se escribe en las plantillas.** Si un texto se repite o puede
 cambiar, va en `site.ts` y la plantilla lo pinta. Ya pasó una vez lo
