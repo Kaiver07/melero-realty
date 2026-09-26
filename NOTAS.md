@@ -47,6 +47,40 @@ Pendiente de revisar en un teléfono real: en la vista previa del editor la
 foto del artículo salía como un bloque gris en móvil (en escritorio se veía
 bien, y el navegador la daba por cargada).
 
+## Segundo artículo (26/9/2026)
+
+`/blog/coste-por-lead-y-coste-por-cliente/` — «Los tres números que dicen si
+tu captación funciona». Sale de `PRODUCT.md` y `site.ts` (KPIs de negocio,
+datos útiles hacia los 20 días, decisiones que rara vez se cierran en cuatro
+semanas, «dos o tres números» de `PILARES`). Sin cifras de resultados ni
+ejemplos con números. **Texto pendiente de revisión por Valeria
+[PENDIENTE DE CONFIRMAR]**, igual que el primero.
+
+Foto provisional: `real-guiones.webp` (foto real del equipo, ya en la home).
+La definitiva se genera con ChatGPT y va en
+`public/images/blog/coste-por-lead-y-coste-por-cliente.webp`. Mismos
+requisitos que arriba. Prompt:
+
+> Fotografía realista, formato vertical 4:5 (1080x1350). Vista cenital de
+> una mesa de madera clara en una oficina luminosa. Encima: una libreta
+> abierta con una tabla de tres columnas dibujada a mano y algunas marcas de
+> verificación, sin palabras ni números legibles; una calculadora de
+> sobremesa apagada, con la pantalla en blanco; un bolígrafo negro; un juego
+> de llaves de piso con llavero de cuero; un móvil boca abajo; una taza de
+> café. Una mano sujeta el bolígrafo sobre la libreta, sin que se vea la
+> cara de nadie. Luz natural suave de mañana entrando desde un lateral. Los
+> objetos principales, en el centro del encuadre. Paleta neutra: blancos,
+> beige y madera clara, con algún acento en verde azulado oscuro (#24767B) o
+> azul petróleo (#122F35), por ejemplo en la tapa de la libreta. Sin dorado,
+> sin logotipos, sin marcas, sin texto ni cifras en ningún sitio, sin
+> pantallas encendidas. Aspecto de foto de móvil de buena calidad, nada de
+> estética publicitaria ni de banco de imágenes.
+
+Contradicción vista al escribirlo (fuera del blog, sin tocar): `PILARES`
+dice «Revisión cada 15 días», pero `COMPARISON`, sobre-nosotros y
+`PRODUCT.md` dicen «reporte semanal». El artículo no menciona la
+frecuencia. **[PENDIENTE DE CONFIRMAR]** cuál es la buena.
+
 ## Qué hay
 
 - `/blog/` — portada con la lista de artículos.
