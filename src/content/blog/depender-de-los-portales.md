@@ -4,8 +4,8 @@ seoTitle: 'El riesgo de depender de los portales'
 description: 'Si tienes una agencia en activo, publicas en Idealista o Fotocasa. El problema no es estar ahí: es que sea el único canal que te trae contactos.'
 publishDate: 2026-09-12
 image:
-  src: /images/svc-consultoria.webp
-  alt: 'Videollamada de seguimiento en un portátil, con un cuaderno de notas abierto al lado'
+  src: /images/blog/depender-de-los-portales.webp
+  alt: 'Mesa de cristal vista desde arriba: una libreta abierta con un esquema de casas y flechas dibujado a mano, junto a un café, un móvil con notificaciones y unas llaves'
   width: 900
   height: 1125
 servicios:

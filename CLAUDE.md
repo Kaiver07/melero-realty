@@ -98,7 +98,9 @@ no ejecuta `IntersectionObserver` y **`scrollTo()` mueve la página sin
 emitir el evento `scroll`**, así que todo lo atado al scroll parece roto
 aunque esté bien. Verificar por DOM (`getBoundingClientRect`, estilos
 computados) y contra el CSS ya compilado en `dist/_astro/*.css`. Lo visual
-se lo pide uno al usuario.
+se lo pide uno al usuario. Si se hace una captura en móvil nada más cargar,
+las fotos pueden salir como un bloque gris: esperar un par de segundos
+antes de capturar. Pasó con el blog y no era un fallo de la web.
 
 **Los titulares no se animan en móvil, a propósito.** `gsap.from()` deja la
 línea desplazada y a opacidad 0 hasta que dispara el ScrollTrigger; en el

@@ -5,15 +5,20 @@ Creado y subido a `main` el 12/9/2026, así que **ya está en producción**:
 Valeria revisara el texto, por decisión del usuario; lo de abajo sigue
 pendiente igualmente.
 
-## Dónde lo dejamos (12/9/2026)
+## Fotos de los artículos
 
-Siguiente paso: **la imagen propia del artículo de prueba.** Se va a generar
-con ChatGPT. Cuando esté:
+Los dos artículos tienen foto propia desde el 26/9/2026, generada con
+ChatGPT, en `public/images/blog/<slug>.webp`. Se reducen a 900×1125 con
+`sharp` (ya viene instalado con Astro), como el resto de fotos de la web:
+la original de ChatGPT sale a 1122×1402 y pesa más del doble.
 
-1. Guardarla como `public/images/blog/depender-de-los-portales.webp` (o `.jpg`).
-2. En `src/content/blog/depender-de-los-portales.md`, cambiar `image.src`,
-   `width`, `height` y `alt` (el alt, describiendo lo que se ve de verdad).
-3. `npm run build`, revisar y subir.
+Para un artículo nuevo:
+
+1. Generar la foto con los requisitos de abajo.
+2. Guardarla como `public/images/blog/<slug>.webp`, a 900×1125.
+3. En el Markdown del artículo, poner `image.src`, `width`, `height` y `alt`
+   (el alt, describiendo lo que se ve de verdad).
+4. `npm run build`, revisar y subir.
 
 Requisitos de la imagen:
 
@@ -27,7 +32,7 @@ Requisitos de la imagen:
   `og-melero.jpg`; aceptar una por artículo pide un cambio pequeño en
   `[slug].astro`).
 
-Prompt de partida para ChatGPT:
+Prompt con el que se hizo la del primer artículo:
 
 > Fotografía realista, formato vertical 4:5 (1080x1350). Mesa de trabajo de
 > un asesor inmobiliario en un piso luminoso de estilo mediterráneo, suelo
@@ -43,9 +48,10 @@ Prompt de partida para ChatGPT:
 > sitio. Aspecto de foto de móvil de buena calidad, nada de estética
 > publicitaria ni de banco de imágenes.
 
-Pendiente de revisar en un teléfono real: en la vista previa del editor la
-foto del artículo salía como un bloque gris en móvil (en escritorio se veía
-bien, y el navegador la daba por cargada).
+Resuelto el 26/9/2026: la foto que salía gris en móvil era cosa del panel
+de vista previa, que hacía la captura antes de pintarla. Con el CSS
+original y esperando 2,5 s antes de capturar, sale bien. No es un fallo de
+la web.
 
 ## Segundo artículo (26/9/2026)
 
@@ -84,7 +90,8 @@ frecuencia. **[PENDIENTE DE CONFIRMAR]** cuál es la buena.
 ## Qué hay
 
 - `/blog/` — portada con la lista de artículos.
-- `/blog/depender-de-los-portales/` — artículo de prueba.
+- `/blog/depender-de-los-portales/` — primer artículo (12/9/2026).
+- `/blog/coste-por-lead-y-coste-por-cliente/` — segundo artículo (26/9/2026).
 - Los artículos son Markdown en `src/content/blog/`. El nombre del archivo
   es el slug. El frontmatter se valida al compilar (`src/content.config.ts`):
   el build falla si falta la imagen en `public/`, si la descripción no está
@@ -92,7 +99,7 @@ frecuencia. **[PENDIENTE DE CONFIRMAR]** cuál es la buena.
   Realty» o si un servicio relacionado no existe en `SERVICES`.
 - Los textos fijos del blog (titular, cierre, etiquetas) están en `BLOG`, en
   `src/config/site.ts`.
-- Enlace «Blog» en el pie, en la columna Navegación.
+- Enlace «Blog» en el menú de arriba (también en móvil) y en el pie.
 
 ## Pendiente de confirmar
 
@@ -126,11 +133,11 @@ frecuencia. **[PENDIENTE DE CONFIRMAR]** cuál es la buena.
 - **Imagen al compartir el enlace.** Los artículos usan la tarjeta general
   del sitio (`og-melero.jpg`, 1200×630). No hay imagen 1200×630 propia para
   el artículo; la foto del artículo es vertical y quedaría recortada.
-- **Foto del artículo.** Es `svc-consultoria.webp`, la misma de la tarjeta
-  de consultoría de la home. No hay fotos exclusivas para el blog. Se
-  descartó `band-campanas.webp` porque en la pantalla del portátil se leen
-  cifras (gasto, ROAS) que en un artículo sobre métricas pasarían por
-  resultados reales.
+- **Fotos de los artículos — resuelto el 26/9/2026.** Cada artículo tiene
+  su foto propia (ver «Fotos de los artículos», arriba). Si alguna vez hace
+  falta una provisional, no usar `band-campanas.webp`: en la pantalla del
+  portátil se leen cifras (gasto, ROAS) que en un artículo sobre métricas
+  pasarían por resultados reales.
 
 ## Cambios fuera de las páginas del blog
 
@@ -138,6 +145,8 @@ frecuencia. **[PENDIENTE DE CONFIRMAR]** cuál es la buena.
   `<slot name="head" />` para el schema del artículo. El resto de páginas no
   cambia.
 - `Footer.astro`: enlace «Blog».
+- `index.astro`, `home.css` y `Header.astro`: «Blog» en el menú de arriba.
+  En móvil el menú esconde las anclas pero no el blog (clase `nav-keep`).
 - `package.json`: script `check` y `@astrojs/check` en devDependencies, para
   poder ejecutar `npm run check`.
 
