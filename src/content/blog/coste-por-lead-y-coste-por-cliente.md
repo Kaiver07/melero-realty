@@ -4,10 +4,10 @@ seoTitle: 'Coste por lead, por cliente y retorno'
 description: 'Impresiones y seguidores no dicen si tu captación funciona. Coste por lead, coste por cliente y retorno sí: qué mide cada uno y cómo calcularlo.'
 publishDate: 2026-09-26
 image:
-  src: /images/real-guiones.webp
-  alt: 'Dos personas del equipo de Melero Realty revisan guiones impresos sobre una mesa de cristal, junto a un portátil'
+  src: /images/blog/coste-por-lead-y-coste-por-cliente.webp
+  alt: 'Vista cenital de una mesa de madera: una mano marca casillas en una tabla dibujada en una libreta, junto a una calculadora, unas llaves, un café y un móvil'
   width: 900
-  height: 1200
+  height: 1125
 servicios:
   - Paid Ads Inmobiliario
   - Generación de Leads

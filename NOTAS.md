@@ -56,10 +56,10 @@ semanas, «dos o tres números» de `PILARES`). Sin cifras de resultados ni
 ejemplos con números. **Texto pendiente de revisión por Valeria
 [PENDIENTE DE CONFIRMAR]**, igual que el primero.
 
-Foto provisional: `real-guiones.webp` (foto real del equipo, ya en la home).
-La definitiva se genera con ChatGPT y va en
-`public/images/blog/coste-por-lead-y-coste-por-cliente.webp`. Mismos
-requisitos que arriba. Prompt:
+Foto definitiva puesta el 26/9/2026:
+`public/images/blog/coste-por-lead-y-coste-por-cliente.webp`, generada con
+ChatGPT y reducida a 900×1125 (como el resto de fotos de la web). Sustituye
+a la provisional `real-guiones.webp`. Prompt con el que se hizo:
 
 > Fotografía realista, formato vertical 4:5 (1080x1350). Vista cenital de
 > una mesa de madera clara en una oficina luminosa. Encima: una libreta
