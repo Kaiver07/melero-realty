@@ -12,6 +12,8 @@ const nav = [
   { href: '/#proceso', label: 'Proceso' },
   { href: '/#equipo', label: 'Equipo' },
   { href: '/#faq', label: 'FAQ' },
+  // keep: sigue visible en móvil, donde el resto del menú se esconde.
+  { href: '/blog/', label: 'Blog', keep: true },
 ];
 ---
 
@@ -21,7 +23,7 @@ const nav = [
       <a class="nav-brand" href="/">{SITE.name}</a>
       <ul class="nav-links">
         {nav.map((n) => (
-          <li><a href={n.href}>{n.label}</a></li>
+          <li class:list={[{ 'nav-keep': n.keep }]}><a href={n.href}>{n.label}</a></li>
         ))}
       </ul>
       <a class="nav-mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
@@ -38,11 +40,11 @@ const nav = [
     top: 0;
     z-index: 50;
   }
-  /* La lista de enlaces se oculta en móvil: el correo y la marca bastan
-     para volver, y no vale la pena un menú desplegable en páginas que ya
-     son un único documento. */
+  /* Las anclas se ocultan en móvil: el correo y la marca bastan para
+     volver, y no vale la pena un menú desplegable en páginas que ya son un
+     único documento. El blog se queda: es otra página, no un ancla. */
   @media (max-width: 860px) {
-    .site-hdr .nav-links {
+    .site-hdr .nav-links li:not(.nav-keep) {
       display: none;
     }
   }

@@ -78,9 +78,9 @@ bien, y el navegador la daba por cargada).
   diagnóstico gratuito» va a `/contacto`, igual que en sobre-nosotros. Los
   CTA principales de la home van a Calendly. Es la deuda de los dos embudos
   de `CLAUDE.md`: cuando se decida cuál manda, cambiar `BlogCta.astro`.
-- **Enlace en el menú superior — [PENDIENTE DE CONFIRMAR].** Sólo está en el
-  pie. Meterlo arriba toca la navegación de la home (que va dentro del
-  hero) y la de las interiores, y eso ya es rediseño.
+- **Enlace en el menú superior — resuelto el 26/9/2026.** «Blog» va en el
+  menú de arriba de la home y de las interiores, además del pie. En móvil
+  es el único enlace del menú que queda visible (clase `nav-keep`).
 - **Zonas — [PENDIENTE DE CONFIRMAR].** La web no tiene páginas de zona ni
   publica en qué zonas trabaja (sólo «exclusividad por zona»). Por eso los
   artículos se relacionan con servicios, no con zonas. `PRODUCT.md` menciona

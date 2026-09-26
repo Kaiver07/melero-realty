@@ -158,7 +158,9 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 .nav-links a:hover,.nav-mail:hover{opacity:1}
 .nav-mail{border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:2px}
-@media (max-width:860px){.nav-links{display:none}}
+/* En movil las anclas sobran (la pagina se recorre bajando), pero el blog
+   es otra pagina y sin este enlace solo se llegaba a el desde el pie. */
+@media (max-width:860px){.nav-links li:not(.nav-keep){display:none}}
 @media (max-width:520px){
   /* La marca sube a un tamano legible y el correo se va: a .6rem eran 9,6px
      reales, ilegibles y con 19px de alto tactil. Sigue estando en el pie, en
