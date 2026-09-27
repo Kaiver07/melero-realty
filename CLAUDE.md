@@ -49,6 +49,11 @@ src/content.config.ts  Esquema de los artículos. Valida imagen, longitudes
                        de título y descripción, y servicios relacionados.
 src/pages/blog/        Portada del blog y plantilla de artículo.
 src/styles/blog.css    Estilos del blog, prefijo bl-.
+src/lib/imagenes.ts    srcsetDe(): el srcset con las versiones reducidas
+                       <nombre>-<ancho>.webp que haya en public/. Al cambiar
+                       una foto grande, regenerar sus versiones con sharp.
+src/pages/404.astro    La 404 propia, con noindex y fuera del sitemap.
+public/fonts/          Poppins 300/400/600/700, subconjunto latino.
 docs/                  Estudio comparativo con otras agencias y propuestas
                        pendientes de aprobar. No se publica en la web.
 ```
@@ -76,7 +81,10 @@ esto, la política de cookies tiene que seguir describiendo la realidad —ya
 declaró una vez cookies de Google Analytics que no existían.
 
 **No borrar `public/google824e0cd48fd6c0fc.html`.** Es la verificación de
-Search Console. Si desaparece, Google revoca el acceso a la propiedad.
+Search Console. Si desaparece, Google revoca el acceso a la propiedad. Por
+lo mismo, **no activar `cleanUrls` en `vercel.json`**: redirigiría ese
+archivo. `trailingSlash: true` sí está puesto: manda con un 308 cada página
+sin barra a la que la lleva, y no toca los archivos con extensión.
 
 **Los números de sección se calculan solos.** `index.astro` define un
 contador y cada antetítulo llama a `num()`. No escribirlos a mano: cuando lo
@@ -127,14 +135,17 @@ invisible es peor fallo que animación perdida.
 
 ## Sistema visual
 
-Fuente única: **Poppins** (300/400/600/700), desde Google Fonts en el
-Layout. Sin dorado en ningún sitio salvo el logotipo, que es donde vive.
+Fuente única: **Poppins** (300/400/600/700), servida desde el propio
+dominio (`public/fonts/`, `@font-face` en `global.css`). No volver a Google
+Fonts: era una hoja externa que retrasaba el pintado de todas las páginas.
+Sin dorado en ningún sitio salvo el logotipo, que es donde vive.
 
 ```
 --text   #000000   el texto va en negro, es regla de marca
 --ink    #122f35   planchas oscuras: hero, proceso, cierre, footer
 --ink-2  #0d2226   segundo plano oscuro
 --teal   #24767b   color de identidad, 5.31:1 sobre blanco
+--teal-papel #237479  sólo texto teal sobre --paper, 4.61:1 (el de marca da 4.48)
 --paper  #eaeced   fondo alterno de sección
 --muted  #54696e   texto secundario sobre claro, 72%
 --muted-dark #bdc5c6  texto secundario sobre --ink, 8.06:1

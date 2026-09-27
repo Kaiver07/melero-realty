@@ -15,8 +15,11 @@ const thumb = poster ?? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg
   style={`aspect-ratio:${ratio}`}
   role="button"
   tabindex="0"
-  aria-label={title}
+  aria-label={`Ver el vídeo: ${title}`}
 >
+  {/* El nombre accesible empieza por el texto que se ve en el botón («Ver
+      el vídeo»): si no coincide, quien usa control por voz no puede
+      pulsarlo diciendo lo que lee. */}
   <img src={thumb} alt={title} loading="lazy" decoding="async" />
   <div class="yt-play">
     <span>

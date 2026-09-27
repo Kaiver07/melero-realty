@@ -1,6 +1,6 @@
 ---
 title: 'Los tres números que dicen si tu captación funciona'
-seoTitle: 'Coste por lead, por cliente y retorno'
+seoTitle: 'Coste por lead y por cliente en inmobiliaria'
 description: 'Impresiones y seguidores no dicen si tu captación funciona. Coste por lead, coste por cliente y retorno sí: qué mide cada uno y cómo calcularlo.'
 publishDate: 2026-09-26
 autores:

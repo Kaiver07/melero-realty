@@ -14,7 +14,8 @@ import { SITE } from '../config/site';
       <section>
         <h2 class="text-base font-bold mb-2" style="color: var(--color-text)">1. Responsable del tratamiento</h2>
         <ul class="space-y-1 list-disc list-inside">
-          <li><strong>Identidad:</strong> {SITE.name}</li>
+          <li><strong>Identidad:</strong> {SITE.titular}, con el nombre comercial {SITE.name}</li>
+          {/* NIF: [PENDIENTE DE CONFIRMAR], lo aporta Valeria (NOTAS.md). */}
           <li><strong>Email:</strong> {SITE.email}</li>
           <li><strong>Web:</strong> {SITE.url}</li>
         </ul>
@@ -22,10 +23,13 @@ import { SITE } from '../config/site';
 
       <section>
         <h2 class="text-base font-bold mb-2" style="color: var(--color-text)">2. Datos que recopilamos y finalidad</h2>
-        <p>Recopilamos los datos que nos facilitas voluntariamente a través del formulario de diagnóstico y del formulario de suscripción a la newsletter. La finalidad es:</p>
+        {/* La web no tiene newsletter: la política hablaba de un formulario
+            que no existe. La segunda finalidad es la que acepta la casilla
+            del formulario de /contacto. */}
+        <p>Recopilamos los datos que nos facilitas voluntariamente a través del formulario de diagnóstico. La finalidad es:</p>
         <ul class="mt-2 space-y-1 list-disc list-inside">
           <li>Gestionar tu solicitud de diagnóstico y ponernos en contacto contigo.</li>
-          <li>Enviarte comunicaciones comerciales y recursos si te has suscrito a la newsletter (con tu consentimiento explícito).</li>
+          <li>Enviarte comunicaciones comerciales y promociones, con el consentimiento que das en ese mismo formulario.</li>
         </ul>
       </section>
 

@@ -1,7 +1,8 @@
-# Propuesta para Valeria: la prueba, justo debajo del botón de la portada
+# Propuesta: la prueba, justo debajo del botón de la portada
 
 Mejora 1 del estudio comparativo (`docs/benchmark-webs-marketing-inmobiliario.md`).
-Es una propuesta: no se toca la web hasta que Valeria elija texto.
+Es una propuesta: no se toca la web hasta elegir texto. Decide Yerai, que
+lleva la web; a Valeria sólo hay que preguntarle el dato de la pregunta 3.
 Redactada el 27/9/2026.
 
 ## Qué hay hoy
@@ -77,17 +78,20 @@ Opciones para la franja:
   cifra va con la empresa y enlaza al caso, donde están el nombre de Lina
   Marcela y la web de ARC. ARC dio permiso el 7/9/2026.
 
-## Preguntas para Valeria
+## Qué hay que decidir
 
 1. ¿Poner el caso de ARC arriba? ¿Con qué texto: A, B o C?
 2. ¿Poner la condición de los 20 días? ¿Con «los pagamos nosotros» o con
    «incluidos en los honorarios»? Si es la segunda, ¿cambiamos también «El
    trato» para que las dos digan lo mismo?
+
+## Qué preguntar a Valeria
+
 3. ¿A qué atribuye el +30 % de ARC: al acompañamiento, al sistema de
    captación o a las dos cosas? No hace falta para esta franja, pero sí para
    contar el caso en el blog o en otros sitios.
 
-## Después de aprobar
+## Después de decidir
 
 Unas 2-3 horas: la franja en la portada, sus estilos y la comprobación en
 móvil y escritorio. El texto irá en `src/config/site.ts`, como pide

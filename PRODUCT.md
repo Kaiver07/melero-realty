@@ -156,7 +156,9 @@ confidencialidad/RGPD y anexos por proyecto.
   desplegado en Vercel sobre `valeriamelero.com`.
 - **`src/config/site.ts` es la fuente de verdad del contenido.** El copy y el
   orden de secciones están aprobados; el trabajo visual no reescribe copy sin
-  permiso explícito.
+  permiso explícito. **El permiso lo da Yerai Jiménez, que lleva la web**
+  (27/9/2026): Valeria no aprueba textos; a ella sólo se le piden datos e
+  información.
 - Sin backend, sin base de datos, sin autenticación. La única integración
   dinámica es el POST del formulario a Google Apps Script.
 - Idioma: **castellano únicamente**. No hay i18n planificada; los clientes de
@@ -329,7 +331,9 @@ publica—, ni certificaciones o partnerships (Meta/Google Partner u otros).
 5. **Especialista, no generalista.** Todo lo que haga que el sitio se parezca
    a una agencia de marketing cualquiera destruye la posición.
 6. **El contenido de `site.ts` está validado.** El trabajo se hace sobre el
-   tratamiento, no sobre el mensaje, salvo permiso explícito.
+   tratamiento, no sobre el mensaje, salvo permiso explícito de Yerai
+   Jiménez, que es quien decide sobre la web. A Valeria sólo se le piden
+   datos e información.
 
 ## Accessibility & Inclusion
 

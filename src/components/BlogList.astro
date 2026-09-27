@@ -1,6 +1,7 @@
 ---
 import { BLOG } from '../config/site';
 import { fecha, isoDia, minutos, type Articulo } from '../lib/blog';
+import { srcsetDe } from '../lib/imagenes';
 
 /* Lista de artículos, en la portada del blog y al pie de cada artículo.
    En la portada los títulos son h2; bajo «Más artículos», que ya es un h2,
@@ -30,6 +31,8 @@ const Titulo = nivel;
       <div class="bl-item-thumb">
         <img
           src={a.data.image.src}
+          srcset={srcsetDe(a.data.image.src, a.data.image.width, [300, 600])}
+          sizes="(max-width: 760px) 88px, 136px"
           alt=""
           width={a.data.image.width}
           height={a.data.image.height}

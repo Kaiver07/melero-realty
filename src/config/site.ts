@@ -1,5 +1,9 @@
 export const SITE = {
   name: 'Melero Realty',
+  // Quién responde legalmente de la web: Melero Realty es el nombre
+  // comercial de una persona física, no una sociedad (PRODUCT.md). Va en el
+  // aviso legal y en la política de privacidad. Su NIF está pendiente.
+  titular: 'Valeria Melero Maldonado',
   // url es la canónica y va con www, que es lo que sirve el servidor.
   // domain es sólo el texto que se enseña en el pie: ahí el www sobra.
   url: 'https://www.valeriamelero.com',
@@ -25,6 +29,10 @@ export const SITE = {
   social: {
     instagram: 'https://www.instagram.com/melero.realty/',
     linkedin: 'https://www.linkedin.com/in/valeria-melero-7a572433a',
+    // Canal personal de Valeria, el del vídeo de la home (sacado del propio
+    // vídeo). Como el LinkedIn, es suyo y no de la empresa: va en su ficha,
+    // no en la de Melero Realty.
+    youtube: 'https://www.youtube.com/@valeriiamelero',
   },
 } as const;
 
@@ -206,10 +214,35 @@ export const SOCIAL = [
   { url: 'https://www.instagram.com/p/DaCt5ygglhn/', tipo: 'post', alt: 'Publicación de Melero Realty en Instagram' },
 ] as const;
 
+/* `id` es el ancla de cada persona en sobre-nosotros: la firma de los
+   artículos enlaza ahí. `bio` sólo dice lo confirmado en PRODUCT.md (qué
+   hace cada uno en Melero); la trayectoria de cada uno está pendiente de
+   que la aporten (NOTAS.md). `perfiles`, sus perfiles públicos propios. */
 export const TEAM = [
-  { name: 'Valeria Melero', role: 'CEO & Founder', photo: '/team/valeria.webp' },
-  { name: 'Yerai Jiménez', role: 'Marketing & Comunicación', photo: '/team/yerai.webp' },
-  { name: 'Carlos Bernabé', role: 'Director Comercial', photo: '/team/carlos.webp' },
+  {
+    name: 'Valeria Melero',
+    role: 'CEO & Founder',
+    photo: '/team/valeria.webp',
+    id: 'valeria-melero',
+    bio: 'Fundó Melero Realty y la dirige. Hace la llamada de diagnóstico con cada agencia y acompaña 1:1 a cada cliente durante todo el trabajo.',
+    perfiles: [SITE.social.linkedin, SITE.social.youtube],
+  },
+  {
+    name: 'Yerai Jiménez',
+    role: 'Marketing & Comunicación',
+    photo: '/team/yerai.webp',
+    id: 'yerai-jimenez',
+    bio: 'Lleva el marketing y la comunicación: escribe los guiones y el contenido de Melero Realty, también los artículos del blog.',
+    perfiles: [],
+  },
+  {
+    name: 'Carlos Bernabé',
+    role: 'Director Comercial',
+    photo: '/team/carlos.webp',
+    id: 'carlos-bernabe',
+    bio: 'Dirige el área comercial y participa en los guiones del contenido de Melero Realty.',
+    perfiles: [],
+  },
 ] as const;
 
 /* Ordenadas por intención de compra, no por comodidad: primero lo que
@@ -273,12 +306,30 @@ export const BLOG = {
   otros: 'Más artículos',
   // Delante de los nombres de quien firma el artículo.
   por: 'Por',
+  // Delante de la fecha visible: Google pide que la fecha diga qué es.
+  publicado: 'Publicado el',
   cta: {
     antetitulo: 'Diagnóstico',
     titulo: '¿Quieres que hablemos de tu caso?',
     texto: '45 minutos. Sin compromiso. Con análisis real de tu situación.',
     boton: 'Solicitar diagnóstico gratuito',
     // La alternativa al botón, como en la home: el formulario de /contacto.
-    escrito: 'O cuéntanoslo por escrito',
+    // El texto dice adónde lleva, también leído fuera de contexto.
+    escrito: 'O pide el diagnóstico por escrito',
   },
+} as const;
+
+/* La página 404. Vercel la sirve con código 404 para cualquier dirección que
+   no exista; lo que importa es no dejar a nadie sin salida. */
+export const NO_ENCONTRADA = {
+  titulo: 'Página no encontrada',
+  antetitulo: 'Error 404',
+  h1: 'Esta página no existe',
+  texto: 'Puede que el enlace esté mal escrito o que la página ya no esté. Desde aquí puedes seguir por donde quieras.',
+  boton: 'Reservar diagnóstico',
+  enlaces: [
+    { href: '/', texto: 'Ir al inicio' },
+    { href: '/blog/', texto: 'Leer el blog' },
+    { href: '/contacto/', texto: 'Pedir el diagnóstico por escrito' },
+  ],
 } as const;

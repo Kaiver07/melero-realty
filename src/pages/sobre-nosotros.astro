@@ -28,7 +28,7 @@ const VALORES = [
 ---
 
 <Layout
-  title="Sobre Nosotros"
+  title="Quiénes somos: Valeria Melero y el equipo"
   includeOrgSchema={true}
   description="Conoce el equipo de Melero Realty. Especialistas en marketing inmobiliario B2B con un único objetivo: que tu agencia capte sin depender de portales."
 >
@@ -122,6 +122,17 @@ const VALORES = [
             </figure>
           ))}
         </div>
+        {/* Una biografía por persona, con su ancla: la firma de cada
+            artículo del blog enlaza aquí (TEAM, en site.ts). */}
+        <ul class="sn-bios">
+          {TEAM.map((m) => (
+            <li class="sn-bio" id={m.id}>
+              <h3 class="sn-bio-name">{m.name}</h3>
+              <p class="sn-bio-role">{m.role}</p>
+              <p class="sn-bio-text">{m.bio}</p>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
 
@@ -138,7 +149,7 @@ const VALORES = [
               <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
             </a>
             <p class="sn-cta-alt">
-              <a data-cta="escrito-sobre-nosotros" href="/contacto/">O cuéntanoslo por escrito</a>
+              <a data-cta="escrito-sobre-nosotros" href="/contacto/">O pide el diagnóstico por escrito</a>
             </p>
           </div>
         </div>
@@ -436,9 +447,57 @@ const VALORES = [
     text-underline-offset: .25em;
   }
   .sn-cta-alt a:hover { color: var(--white); }
-  /* La firma de los artículos del blog enlaza aquí: sin este margen, la
-     cabecera fija taparía el titular al llegar. */
+  /* Sin este margen, la cabecera fija taparía el titular al llegar por un
+     enlace con ancla. */
   #sn-team { scroll-margin-top: 110px; }
+
+  /* Sobre --paper el teal de marca da 4.48:1: el texto usa --teal-papel. */
+  .sn-section--paper .sn-eyebrow { color: var(--teal-papel); }
+
+  /* ---------- biografías ----------
+     Alineadas con las fotos (misma rejilla de 3 columnas y 700px), con un
+     filete en --ink encima, como la lista de «Cómo trabajamos». Cada una es
+     el destino de la firma de los artículos. */
+  .sn-bios {
+    list-style: none;
+    margin: clamp(1.8rem, 3.5vw, 2.6rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: min(100%, 700px);
+  }
+  .sn-bio {
+    padding: 1.1rem 1.2rem 0 0;
+    border-top: 1px solid var(--ink);
+    scroll-margin-top: 110px;
+  }
+  .sn-bio-name {
+    margin: 0;
+    font-size: clamp(1rem, 1.4vw, 1.1rem);
+    font-weight: 600;
+    letter-spacing: -.02em;
+    line-height: 1.25;
+    color: var(--text);
+  }
+  .sn-bio-role {
+    margin: .35rem 0 0;
+    font-size: .62rem;
+    font-weight: 600;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .sn-bio-text {
+    margin: .8rem 0 0;
+    font-size: .9375rem;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--muted);
+  }
+  @media (max-width: 760px) {
+    .sn-bios { grid-template-columns: 1fr; max-width: 420px; gap: 1.6rem; }
+    .sn-bio { padding-right: 0; }
+  }
   .sn-cta :focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
   @media (max-width: 880px) {
     .sn-cta-grid { grid-template-columns: 1fr; align-items: start; gap: 1.6rem; }

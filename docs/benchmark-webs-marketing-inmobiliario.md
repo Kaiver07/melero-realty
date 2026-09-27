@@ -22,8 +22,11 @@ repositorio.
 >   `ProfessionalService` en todas) y 15 (notas internas fuera del HTML).
 >   El marcado de preguntas frecuentes se mantiene: Google ya no lo usa,
 >   pero no penaliza y otros buscadores pueden leerlo.
-> - Propuesta de texto de la mejora 1, pendiente de Valeria:
+> - Propuesta de texto de la mejora 1, pendiente de decidir:
 >   `docs/propuesta-franja-portada.md`.
+> - Desde el 27/9/2026 los textos los decide Yerai Jiménez, que lleva la
+>   web; a Valeria sólo se le piden datos. Donde este documento dice
+>   «requiere aprobación de Valeria», ya no aplica.
 
 ## 1. Resumen
 

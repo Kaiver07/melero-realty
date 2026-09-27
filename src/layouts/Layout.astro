@@ -12,6 +12,8 @@ interface Props {
   ogType?: 'website' | 'article';
   includeFaqSchema?: boolean;
   includeOrgSchema?: boolean;
+  // Para la 404: fuera del índice y sin canónica.
+  noindex?: boolean;
 }
 
 const {
@@ -22,6 +24,7 @@ const {
   ogType = 'website',
   includeFaqSchema = false,
   includeOrgSchema = false,
+  noindex = false,
 } = Astro.props;
 
 /* La tarjeta de enlace. Tiene que ser absoluta: los rastreadores de WhatsApp,
@@ -38,8 +41,9 @@ const fullTitle =
    PRODUCT.md). Google lo quiere en la home o en la página «sobre nosotros»,
    no en todas: por eso va detrás de includeOrgSchema. El logo es el favicon
    de 512 px, porque el isotipo suelto, dorado sobre transparente, no se lee
-   sobre blanco. El LinkedIn es el de Valeria, no uno de la empresa: va con
-   ella, no con la organización. */
+   sobre blanco. El LinkedIn y el canal de YouTube son de Valeria, no de la
+   empresa: van con ella, no con la organización, y su url lleva a su
+   biografía en sobre-nosotros. */
 const fundadora = TEAM.find((m) => m.role.includes('Founder'));
 const orgSchema = {
   '@context': 'https://schema.org',
@@ -55,7 +59,8 @@ const orgSchema = {
       '@type': 'Person',
       name: fundadora.name,
       jobTitle: fundadora.role,
-      sameAs: [SITE.social.linkedin],
+      url: `${SITE.url}/sobre-nosotros/#${fundadora.id}`,
+      sameAs: [...fundadora.perfiles],
     },
   }),
 };
@@ -78,11 +83,13 @@ const faqSchema = {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#122f35" />
-    <meta name="robots" content="index, follow" />
+    {/* max-image-preview:large deja a Google usar las fotos grandes en
+        Discover y en los resultados. */}
+    <meta name="robots" content={noindex ? 'noindex' : 'index, follow, max-image-preview:large'} />
 
     {/* Open Graph */}
     <meta property="og:title" content={fullTitle} />
@@ -111,14 +118,10 @@ const faqSchema = {
     {/* Lo que cada página añade a su <head>: el schema del artículo, p. ej. */}
     <slot name="head" />
 
-    {/* Preconnect */}
-    <link rel="preconnect" href="https://img.youtube.com" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
-    />
+    {/* Poppins se sirve desde /fonts (global.css). Antes venía de Google
+        Fonts: una hoja externa que retrasaba el pintado de todas las
+        páginas, más dos conexiones previas a Google y una a YouTube que
+        nadie usaba (el póster del vídeo es local). */}
 
     {/* Transiciones entre páginas: la cabecera y el pie son los mismos en
          todo el sitio, así que al navegar se funden en vez de parpadear. */}

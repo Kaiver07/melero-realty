@@ -1,6 +1,6 @@
 ---
 title: 'Subir pisos a los portales no es el problema. Depender de ellos, sí'
-seoTitle: 'El riesgo de depender de los portales'
+seoTitle: 'Dependencia de los portales inmobiliarios'
 description: 'Si tienes una agencia en activo, publicas en Idealista o Fotocasa. El problema no es estar ahí: es que sea el único canal que te trae contactos.'
 publishDate: 2026-09-12
 autores:

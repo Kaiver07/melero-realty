@@ -26,17 +26,21 @@ const nav = [
         </p>
       </div>
       <div>
-        <h4>Navegación</h4>
+        {/* h3 y no h4: el último titular de cada página es un h2, y saltar
+            de nivel rompe el orden de encabezados. No h2, porque el motor
+            de Layout anima todos los h1 y h2. */}
+        <h3>Navegación</h3>
         <ul>
           {nav.map((n) => (
             <li><a href={n.href}>{n.label}</a></li>
           ))}
+          <li><a href="/sobre-nosotros/">Sobre nosotros</a></li>
           <li><a href="/blog/">Blog</a></li>
           <li><a href="/contacto/">Contacto</a></li>
         </ul>
       </div>
       <div>
-        <h4>Contacto</h4>
+        <h3>Contacto</h3>
         <ul>
           <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
           <li><a href={SITE.url}>{SITE.domain}</a></li>

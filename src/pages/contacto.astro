@@ -16,7 +16,7 @@ import { SITE } from '../config/site';
 
 <Layout
   title="Diagnóstico de Captación Inmobiliaria"
-  description="Agenda tu diagnóstico estratégico gratuito con Melero Realty. Analizamos tu captación actual y te decimos exactamente qué cambiaría con nuestro sistema."
+  description="Pide el diagnóstico por escrito: un formulario de cinco pasos sobre tu agencia, tu zona, tu captación actual y tu objetivo. Para inmobiliarias en activo."
 >
   <Header />
 
@@ -605,7 +605,8 @@ import { SITE } from '../config/site';
     color: var(--muted);
   }
   .f-consent a {
-    color: var(--teal);
+    /* la casilla va sobre --paper: el teal de marca daría 4.48:1 */
+    color: var(--teal-papel);
     text-decoration: underline;
     text-underline-offset: 2px;
   }

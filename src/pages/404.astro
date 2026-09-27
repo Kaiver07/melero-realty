@@ -1,0 +1,60 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { SITE, NO_ENCONTRADA } from '../config/site';
+import '../styles/blog.css';
+
+/* Vercel sirve esta página, con código 404, para cualquier dirección que no
+   exista. Reutiliza la cabecera oscura del blog: misma plancha, mismo
+   antetítulo, mismo botón. Fuera del índice (noindex) y del sitemap. */
+---
+
+<Layout title={NO_ENCONTRADA.titulo} description={NO_ENCONTRADA.texto} noindex>
+  <Header />
+
+  <main class="flex-1">
+    <section class="bl-hero" aria-labelledby="nf-h1">
+      <div class="wrap">
+        <p class="bl-eyebrow bl-eyebrow--dark">{NO_ENCONTRADA.antetitulo}</p>
+        <div class="bl-hero-grid">
+          <h1 id="nf-h1" class="bl-h1">{NO_ENCONTRADA.h1}</h1>
+          <div>
+            <p class="bl-lead">{NO_ENCONTRADA.texto}</p>
+            <a class="bl-btn" data-cta="404" href={SITE.calendlyUrl} target="_blank" rel="noopener">
+              {NO_ENCONTRADA.boton}
+              <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+            </a>
+            <ul class="nf-enlaces">
+              {NO_ENCONTRADA.enlaces.map((e) => (
+                <li><a href={e.href}>{e.texto}</a></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .nf-enlaces {
+    list-style: none;
+    margin: 1.6rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .6rem 1.6rem;
+  }
+  .nf-enlaces a {
+    font-size: .875rem;
+    font-weight: 300;
+    color: var(--muted-dark);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .25em;
+  }
+  .nf-enlaces a:hover { color: var(--white); }
+</style>

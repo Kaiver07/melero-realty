@@ -90,6 +90,8 @@ ul,ol{margin:0;padding:0;list-style:none}
 .section--dark{background:var(--ink);color:var(--white)}
 .section--dark .lead{color:var(--muted-dark)}
 .section--dark .eyebrow{color:var(--muted-dark)}
+/* Sobre --paper el teal de marca da 4.48:1: el texto usa --teal-papel. */
+.section--paper .eyebrow{color:var(--teal-papel)}
 
 /* ---------- botones ---------- */
 .btn{
@@ -649,6 +651,16 @@ ul,ol{margin:0;padding:0;list-style:none}
    ========================================================================== */
 .team-head{padding-bottom:clamp(2rem,4vw,3rem)}
 .team-head h2{font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;margin-top:1.3rem;max-width:20ch;line-height:1.03}
+/* Enlace a sobre-nosotros bajo el titular del equipo, con el mismo trazo
+   que el del bloque del vídeo. Sobre --paper el hover va en --teal-papel. */
+.team-more{
+  display:inline-flex;align-items:center;gap:.6rem;margin-top:1.4rem;
+  font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text);text-decoration:none;
+  padding-block:.6rem .5rem;border-bottom:1px solid var(--teal);
+  transition:gap .25s var(--ease),color .25s var(--ease);
+}
+.team-more:hover{gap:1rem;color:var(--teal-papel)}
 .team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;max-width:min(100%,700px)}
 .member{position:relative;margin:0;background:var(--ink-2)}
 .member img{
@@ -832,7 +844,8 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   display:inline-flex;align-items:center;gap:.6rem;margin-top:1.9rem;
   font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
   color:var(--text);text-decoration:none;
-  padding-bottom:.5rem;border-bottom:1px solid var(--teal);
+  /* el relleno de arriba no se ve y lleva el área táctil de 21 a 34px */
+  padding-block:.6rem .5rem;border-bottom:1px solid var(--teal);
   transition:gap .25s var(--ease),color .25s var(--ease);
 }
 .vid-cta:hover{gap:1rem;color:var(--teal)}

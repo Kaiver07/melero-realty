@@ -5,6 +5,7 @@ import VideoEmbed from '../components/VideoEmbed.astro';
 import '../styles/home.css';
 import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL, CASO, PILARES } from '../config/site';
 import { existsSync } from 'node:fs';
+import { srcsetDe } from '../lib/imagenes';
 
 /* Los números de sección se emiten en orden de render en lugar de escribirse
    a mano. La sección de publicaciones sólo existe si hay miniaturas en disco,
@@ -33,19 +34,32 @@ const SERVICE_MEDIA = [
   { src: '/images/svc-contenido.webp',   alt: 'Portátil con una línea de tiempo de edición de vídeo, auriculares y un calendario de contenidos a mano',  w: 900, h: 1125 },
   { src: '/images/svc-consultoria.webp', alt: 'Videollamada de seguimiento con un cuaderno de notas abierto al lado del portátil',                       w: 900, h: 1125 },
 ];
+
+/* El nombre del sitio para Google. WebSite en la home es lo que más pesa:
+   el dominio es valeriamelero.com, pero la marca es Melero Realty. */
+const sitio = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.name,
+  url: `${SITE.url}/`,
+};
 ---
 
-{/* El título era solo "Melero Realty": una marca que nadie busca todavía.
-    Ahora nombra las dos intenciones por las que sí se busca esto, y la
-    marca queda detrás. 59 caracteres, dentro de lo que Google muestra
-    sin recortar. */}
-<Layout title="Marketing inmobiliario y captación de leads" includeFaqSchema={true} includeOrgSchema={true}>
+{/* El título nombra cómo se define el negocio («agencia de marketing
+    inmobiliario», PRODUCT.md) y la otra búsqueda por la que se llega
+    («captación de leads»); la marca va detrás. Con la marca pasa de 60
+    caracteres: Google no fija un máximo, y si recorta se pierde la marca,
+    que ya sale como nombre del sitio (auditoría SEO del 27/9/2026). */}
+<Layout title="Agencia de marketing inmobiliario y captación de leads" includeFaqSchema={true} includeOrgSchema={true}>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(sitio)} />
+  </Fragment>
 
 
 {/* ================= 1 · HERO ================= */}
 <header class="hero" id="top">
   <div class="hero-media">
-    <img src="/images/hero-piso.webp" alt="Interior de una vivienda vacía con luz rasante entrando por el ventanal, grabada con un móvil montado en un trípode" width="1672" height="941" fetchpriority="high" decoding="async">
+    <img src="/images/hero-piso.webp" srcset={srcsetDe('/images/hero-piso.webp', 1672, [800, 1200])} sizes="100vw" alt="Interior de una vivienda vacía con luz rasante entrando por el ventanal, grabada con un móvil montado en un trípode" width="1672" height="941" fetchpriority="high" decoding="async">
   </div>
   <div class="hero-veil" aria-hidden="true"></div>
   <div class="hero-scrim" aria-hidden="true"></div>
@@ -68,7 +82,7 @@ const SERVICE_MEDIA = [
     <div class="hero-word" aria-hidden="true"><span>M</span><span>E</span><span>L</span><span>E</span><span>R</span><span>O</span></div>
 
     <div class="hero-copy">
-      <p class="hero-kicker">Marketing inmobiliario</p>
+      <p class="hero-kicker">Agencia de marketing inmobiliario</p>
       <h1>Captación de leads para inmobiliarias <br>que ya están facturando.</h1>
       <p class="hero-support">Sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Sin portales. Sin referidos. Sin curiosos.</p>
     </div>
@@ -118,7 +132,7 @@ const SERVICE_MEDIA = [
          dudaba se iba sin llegar a leerlo. */}
     <p class="ab-note">
       <strong>45 minutos</strong> de videollamada con Valeria. Sin coste y sin compromiso.
-      <a data-cta="escrito-hero" href="/contacto/">O cuéntanoslo por escrito</a>
+      <a data-cta="escrito-hero" href="/contacto/">O pide el diagnóstico por escrito</a>
     </p>
 
     {/* Avisa, no bloquea. La FAQ dice que el diagnóstico está abierto a
@@ -156,7 +170,7 @@ const SERVICE_MEDIA = [
         </div>
 
         <div class="band-media reveal">
-          <img src="/images/band-campanas.webp" alt="Mesa de trabajo vista desde arriba: un portátil con un panel de campañas publicitarias, un cuaderno con el plan de la semana escrito a mano y notas adhesivas con los tests pendientes" width="1100" height="1375" loading="lazy" decoding="async">
+          <img src="/images/band-campanas.webp" srcset={srcsetDe('/images/band-campanas.webp', 1100, [700])} sizes="(max-width: 1039px) 100vw, 50vw" alt="Mesa de trabajo vista desde arriba: un portátil con un panel de campañas publicitarias, un cuaderno con el plan de la semana escrito a mano y notas adhesivas con los tests pendientes" width="1100" height="1375" loading="lazy" decoding="async">
           <div class="float-cards">
             <article class="fcard">
               <div class="fcard-ico" aria-hidden="true">
@@ -349,6 +363,8 @@ const SERVICE_MEDIA = [
           <article class="svc-card">
             <figure class="svc-fig">
               <img src={SERVICE_MEDIA[i].src} alt={SERVICE_MEDIA[i].alt}
+                   srcset={srcsetDe(SERVICE_MEDIA[i].src, SERVICE_MEDIA[i].w, [600])}
+                   sizes="(max-width: 850px) 255px, (max-width: 1400px) 30vw, 420px"
                    width={SERVICE_MEDIA[i].w} height={SERVICE_MEDIA[i].h}
                    loading="lazy" decoding="async" />
             </figure>
@@ -411,6 +427,9 @@ const SERVICE_MEDIA = [
     <div class="wrap team-head reveal">
       <p class="eyebrow">({num()}) Equipo</p>
       <h2 id="team-t">Tres personas, sin capas intermedias.</h2>
+      {/* La única entrada a sobre-nosotros desde la home: es la página que
+          dice quién está detrás y donde están las biografías. */}
+      <a class="team-more" href="/sobre-nosotros/">Conoce al equipo y cómo trabajamos <span aria-hidden="true">&#8594;</span></a>
     </div>
     <div class="wrap">
     <div class="team-grid">
@@ -491,7 +510,7 @@ const SERVICE_MEDIA = [
   {/* ================= CTA FINAL ================= */}
   <section class="cta" id="contacto" aria-labelledby="cta-t">
     <div class="cta-media">
-      <img src="/images/cta-boardroom.webp" alt="Sala de juntas en penumbra con vistas a la ciudad al atardecer" width="1800" height="2250" loading="lazy" decoding="async">
+      <img src="/images/cta-boardroom.webp" srcset={srcsetDe('/images/cta-boardroom.webp', 1800, [800, 1200])} sizes="100vw" alt="Sala de juntas en penumbra con vistas a la ciudad al atardecer" width="1800" height="2250" loading="lazy" decoding="async">
     </div>
     <div class="wrap">
       <p class="eyebrow eyebrow--dark">({num()}) Siguiente paso</p>
@@ -518,7 +537,7 @@ const SERVICE_MEDIA = [
       </div>
       <p class="cta-note">
         Sin coste y sin compromiso.
-        <a data-cta="escrito-cierre" href="/contacto/">O cuéntanoslo por escrito</a>
+        <a data-cta="escrito-cierre" href="/contacto/">O pide el diagnóstico por escrito</a>
       </p>
     </div>
   </section>

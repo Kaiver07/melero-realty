@@ -6,7 +6,8 @@ import Footer from '../../components/Footer.astro';
 import BlogList from '../../components/BlogList.astro';
 import BlogCta from '../../components/BlogCta.astro';
 import { SITE, SERVICES, BLOG, TEAM } from '../../config/site';
-import { articulos, fecha, isoDia, minutos, type Articulo } from '../../lib/blog';
+import { articulos, fecha, isoDia, isoMadrid, minutos, type Articulo } from '../../lib/blog';
+import { srcsetDe } from '../../lib/imagenes';
 import '../../styles/blog.css';
 
 export async function getStaticPaths() {
@@ -26,8 +27,9 @@ const { Content } = await render(post);
 const d = post.data;
 
 const url = new URL(`/blog/${post.id}/`, SITE.url).href;
-const publicado = isoDia(d.publishDate);
-const modificado = isoDia(d.updatedDate ?? d.publishDate);
+// Con hora y zona para Google; la fecha visible lleva sólo el día.
+const publicado = isoMadrid(d.publishDate);
+const modificado = isoMadrid(d.updatedDate ?? d.publishDate);
 
 // En el orden de SERVICES, que es el de la home.
 const servicios = SERVICES.filter((s) => d.servicios.includes(s.title));
@@ -53,7 +55,10 @@ const schema = [
       '@type': 'Person',
       name: m.name,
       jobTitle: m.role,
-      url: `${SITE.url}/sobre-nosotros/`,
+      // Su biografía, no la página en general: Google pide que la url
+      // identifique a esa persona en concreto.
+      url: `${SITE.url}/sobre-nosotros/#${m.id}`,
+      ...(m.perfiles.length > 0 ? { sameAs: [...m.perfiles] } : {}),
       worksFor: { '@type': 'Organization', name: SITE.name, url: SITE.url },
     })),
     publisher: {
@@ -102,12 +107,12 @@ const schema = [
                 {autores.map((m, i) => (
                   <Fragment>
                     {i > 0 && (i === autores.length - 1 ? ' y ' : ', ')}
-                    <a href="/sobre-nosotros/#sn-team">{m.name}</a>
+                    <a href={`/sobre-nosotros/#${m.id}`}>{m.name}</a>
                   </Fragment>
                 ))}
               </p>
               <p class="bl-meta">
-                <time datetime={publicado}>{fecha(d.publishDate)}</time>
+                <span>{BLOG.publicado} <time datetime={isoDia(d.publishDate)}>{fecha(d.publishDate)}</time></span>
                 <span>{minutos(post.body)} min de lectura</span>
               </p>
             </div>
@@ -118,11 +123,15 @@ const schema = [
       <div class="bl-post">
         <div class="wrap bl-split">
           <figure class="bl-fig">
+            {/* Es el LCP en móvil: prioridad alta y el tamaño que toca. */}
             <img
               src={d.image.src}
+              srcset={srcsetDe(d.image.src, d.image.width, [600])}
+              sizes="(max-width: 900px) calc(100vw - 40px), 400px"
               alt={d.image.alt}
               width={d.image.width}
               height={d.image.height}
+              fetchpriority="high"
               decoding="async"
             />
           </figure>

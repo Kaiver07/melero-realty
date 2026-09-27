@@ -1,9 +1,10 @@
 # Notas del blog
 
 Creado y subido a `main` el 12/9/2026, así que **ya está en producción**:
-`/blog/` y `/blog/depender-de-los-portales/`. Se publicó antes de que
-Valeria revisara el texto, por decisión del usuario; lo de abajo sigue
-pendiente igualmente.
+`/blog/` y `/blog/depender-de-los-portales/`.
+
+**Quién decide:** Yerai Jiménez, que lleva la web, aprueba los textos y lo
+que se publica (27/9/2026). A Valeria sólo se le piden datos e información.
 
 ## Fotos de los artículos
 
@@ -59,8 +60,8 @@ la web.
 tu captación funciona». Sale de `PRODUCT.md` y `site.ts` (KPIs de negocio,
 datos útiles hacia los 20 días, decisiones que rara vez se cierran en cuatro
 semanas, «dos o tres números» de `PILARES`). Sin cifras de resultados ni
-ejemplos con números. **Texto pendiente de revisión por Valeria
-[PENDIENTE DE CONFIRMAR]**, igual que el primero.
+ejemplos con números. Texto aprobado por Yerai (27/9/2026), igual que el
+primero.
 
 Foto definitiva puesta el 26/9/2026:
 `public/images/blog/coste-por-lead-y-coste-por-cliente.webp`, generada con
@@ -105,23 +106,25 @@ la home), que es otra cosa.
 
 ## Pendiente de confirmar
 
-- **Texto del artículo de prueba — [PENDIENTE DE CONFIRMAR].** Todo sale de
+- **Texto de los artículos — aprobado por Yerai (27/9/2026).** Todo sale de
   `PRODUCT.md` y de `site.ts` (dependencia de portales, los tres síntomas,
-  nutrición de leads, KPIs de negocio, lo que se mira en el diagnóstico).
-  No hay cifras, ni nombres, ni promesas de «más clientes». Aun así es copy
-  nuevo con la marca, y `PRODUCT.md` pide permiso explícito para eso: que lo
-  lea Valeria antes de publicarlo.
+  nutrición de leads, KPIs de negocio, lo que se mira en el diagnóstico),
+  sin cifras, nombres ni promesas de «más clientes». Lo que les falta es
+  experiencia de primera mano: eso sí hay que pedírselo a Valeria (ver
+  «Auditoría SEO: lo que queda»).
 - **Fecha de publicación — [PENDIENTE DE CONFIRMAR].** Pone 12/9/2026, que es
   el día en que se escribió. Cambiar `publishDate` al día real de salida.
 - **Autoría — resuelto el 26/9/2026.** Los artículos los firman Valeria
-  Melero y Yerai Jiménez. Firma visible en la cabecera de cada artículo,
-  con enlace al equipo de sobre-nosotros, y `author` de tipo `Person` en el
-  schema. El campo `autores` del frontmatter es obligatorio y sólo acepta
-  nombres de `TEAM`.
+  Melero y Yerai Jiménez. Firma visible en la cabecera de cada artículo y
+  `author` de tipo `Person` en el schema; desde el 27/9/2026 cada nombre
+  enlaza a su biografía en sobre-nosotros (`#valeria-melero`,
+  `#yerai-jimenez`). El campo `autores` del frontmatter es obligatorio y
+  sólo acepta nombres de `TEAM`.
 - **Destino del cierre — resuelto el 26/9/2026: manda Calendly.** El botón
   del cierre del blog y el de sobre-nosotros van a Calendly, como los de la
-  home, y debajo queda «O cuéntanoslo por escrito» hacia `/contacto/`. La
-  llamada dura 45 minutos (antes el blog y sobre-nosotros decían 30).
+  home, y debajo queda «O pide el diagnóstico por escrito» hacia
+  `/contacto/`. La llamada dura 45 minutos (antes el blog y sobre-nosotros
+  decían 30).
 - **Oferta de los 20 días** — confirmada vigente el 26/9/2026.
 - **Masterclass «Captación sin portales» — [PENDIENTE DE CONFIRMAR]** si
   sigue vigente.
@@ -147,6 +150,43 @@ la home), que es otra cosa.
   falta una provisional, no usar `band-campanas.webp`: en la pantalla del
   portátil se leen cifras (gasto, ROAS) que en un artículo sobre métricas
   pasarían por resultados reales.
+
+## Auditoría SEO: lo que queda (27/9/2026)
+
+La auditoría está en `docs/auditoria-seo.md`, con el estado de cada
+problema. Lo técnico está arreglado. Los textos nuevos (títulos de la home,
+de sobre-nosotros y de los artículos, antetítulo del hero, descripción de
+contacto, «O pide el diagnóstico por escrito», «Publicado el», la 404 y las
+biografías) los aprobó Yerai el 27/9/2026. Lo que queda depende de datos que
+hay que pedir a Valeria o que todavía no existen:
+
+- **Biografías — [PENDIENTE DE CONFIRMAR].** Sólo dicen lo confirmado en
+  `PRODUCT.md`: qué hace cada uno en Melero. Falta la trayectoria real de
+  cada persona y los perfiles públicos de Yerai y de Carlos (LinkedIn u
+  otros), que irían en `perfiles` de `TEAM`.
+- **Aviso legal y privacidad — [PENDIENTE DE CONFIRMAR].** Ya identifican a
+  la titular (Valeria Melero Maldonado, nombre comercial Melero Realty).
+  Falta su NIF, que se lo pide el usuario, y revisar con quien lleve lo
+  legal si hay que publicar domicilio (LSSI-CE, art. 10) y la casilla de
+  consentimiento de `/contacto`, que obliga a aceptar comunicaciones
+  comerciales. La política ya no habla de la newsletter, que no existe.
+- **Artículos con experiencia propia** (problema 2 de la auditoría):
+  pedirle a Valeria lo que sólo sabe quien hace diagnósticos (qué aparece al
+  auditar la captación de una agencia, qué errores se repiten, cómo se
+  eligen las métricas) y añadirlo.
+- **Caso ARC como artículo y páginas de servicios** (problemas 8 y 9):
+  necesitan datos de Valeria (qué se hizo con ARC; qué incluye cada
+  servicio) y, para lo nuevo del caso, permiso de ARC.
+- **Google Business Profile** (problema 6): comprobar si Melero cumple las
+  normas de Google (atención presencial o visitas a clientes) antes de
+  pedir que la restituyan.
+- **Fotos de al menos 1200 px de ancho** (problema 20), en 16:9, 4:3 y 1:1,
+  para Discover y para compartir. Las de ChatGPT salen a 1122 px.
+- **Datos que faltan para Google:** si Valeria quiere que su teléfono conste
+  como teléfono (`telephone`) y no sólo como WhatsApp; URLs de TikTok o de
+  una página de empresa en LinkedIn, si existen; y el estudio de palabras
+  clave de Sevilla y Marbella o, en su defecto, las consultas de Search
+  Console.
 
 ## Cambios fuera de las páginas del blog
 
