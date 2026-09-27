@@ -17,6 +17,13 @@ repositorio.
 >   retirado por ahora**. Lo que depende de ella queda en espera.
 > - Sigue sin confirmar si la masterclass está vigente.
 > - La revisión con el cliente es **cada 15 días**; ya corregido en la web.
+> - **27/9/2026:** aplicadas las mejoras 12 (enlaces internos con barra
+>   final), 13 (`Organization` en la home y en sobre-nosotros, en lugar de
+>   `ProfessionalService` en todas) y 15 (notas internas fuera del HTML).
+>   El marcado de preguntas frecuentes se mantiene: Google ya no lo usa,
+>   pero no penaliza y otros buscadores pueden leerlo.
+> - Propuesta de texto de la mejora 1, pendiente de Valeria:
+>   `docs/propuesta-franja-portada.md`.
 
 ## 1. Resumen
 
