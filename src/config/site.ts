@@ -165,7 +165,7 @@ export const COMPARISON = [
   },
   {
     ellos: 'Tiempos de respuesta lentos y comunicación opaca',
-    nosotros: 'Comunicación directa y reporte semanal',
+    nosotros: 'Comunicación directa y revisión cada 15 días',
   },
   {
     ellos: 'Soporte mínimo tras el lanzamiento',
@@ -271,10 +271,14 @@ export const BLOG = {
   relacionados: 'Servicios relacionados',
   verServicios: 'Ver todos los servicios',
   otros: 'Más artículos',
+  // Delante de los nombres de quien firma el artículo.
+  por: 'Por',
   cta: {
     antetitulo: 'Diagnóstico',
     titulo: '¿Quieres que hablemos de tu caso?',
-    texto: '30 minutos. Sin compromiso. Con análisis real de tu situación.',
+    texto: '45 minutos. Sin compromiso. Con análisis real de tu situación.',
     boton: 'Solicitar diagnóstico gratuito',
+    // La alternativa al botón, como en la home: el formulario de /contacto.
+    escrito: 'O cuéntanoslo por escrito',
   },
 } as const;

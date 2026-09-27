@@ -84,6 +84,22 @@
   text-transform: uppercase;
   color: var(--muted-dark);
 }
+/* firma: los nombres en blanco (más de 12:1 sobre --ink) y subrayados,
+   porque llevan al equipo de sobre-nosotros */
+.bl-byline {
+  margin: 1.1rem 0 0;
+  font-size: .9375rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--muted-dark);
+}
+.bl-byline a {
+  color: var(--white);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .22em;
+}
+.bl-byline a:hover { color: var(--muted-dark); }
 .bl-hero :focus-visible,
 .bl-cta :focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
 @media (max-width: 880px) {
@@ -338,6 +354,15 @@
 }
 .bl-btn:hover { background: var(--paper-2); color: var(--text); }
 .bl-btn svg { width: 15px; height: 15px; flex: none; }
+/* la alternativa por escrito, en tono menor bajo el botón (8.06:1) */
+.bl-cta-alt { margin: 1.1rem 0 0; font-size: .875rem; font-weight: 300; }
+.bl-cta-alt a {
+  color: var(--muted-dark);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .25em;
+}
+.bl-cta-alt a:hover { color: var(--white); }
 @media (max-width: 880px) {
   .bl-cta-grid { grid-template-columns: 1fr; align-items: start; gap: 1.6rem; }
   .bl-cta-title { max-width: none; }

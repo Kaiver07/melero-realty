@@ -99,8 +99,10 @@ Exclusividad por zona: una sola marca por zona.
 - Proceso comercial de 5 pasos, publicado y validado: Diagnóstico inicial →
   Estrategia a medida → Lanzamiento y captación → Optimización continua →
   Resultados y escalado.
-- Reporte semanal al cliente; optimización semana a semana según coste por
-  lead y calidad real.
+- Revisión con el cliente cada 15 días: un documento con sus números y lo
+  que se ha cambiado, más una llamada (confirmado el 26/9/2026; antes aquí
+  ponía «reporte semanal», y la web decía las dos cosas). Optimización
+  semana a semana según coste por lead y calidad real.
 - Ventana de resultados que se comunica: primeros resultados en torno a 20
   días, sin garantías antes de 3 meses.
 
@@ -108,7 +110,13 @@ Exclusividad por zona: una sola marca por zona.
 
 - **Lead magnet:** masterclass grabada **«Captación sin portales»**,
   gestionada con **Systeme.io**.
-- **Cierre habitual:** primera llamada gratuita, 30 minutos, sin compromiso.
+- **Cierre habitual:** primera llamada gratuita con Valeria, 45 minutos por
+  videollamada, sin compromiso, reservada en Calendly. **Calendly es el
+  embudo principal**; el formulario de `/contacto` es la alternativa por
+  escrito (las dos cosas, confirmadas el 26/9/2026; antes aquí ponía 30
+  minutos).
+- **Oferta de arranque:** los primeros 20 días de campaña van incluidos en
+  los honorarios (FAQ de la web). Confirmada vigente el 26/9/2026.
 - **Captación entrante** por un formulario de diagnóstico de 5 pasos en
   `/contacto` que recoge, entre otros: rol, zona, tipo de propiedades,
   captación actual, inversión publicitaria, leads/mes, conversión,
@@ -277,7 +285,13 @@ Reales y utilizables:
   relleno borroso a los lados para forzarla a 16:9, así que el póster se
   recorta y se sirve desde `public/images/video-poster.jpg`.
 - **Logo** real y favicon.
-- **Masterclass** «Captación sin portales» y 19 guiones de reel.
+- **Masterclass** «Captación sin portales» y 19 guiones de reel. Si la
+  masterclass sigue vigente está sin confirmar.
+- **Blog de la web:** los artículos los firman Valeria Melero y Yerai
+  Jiménez (26/9/2026).
+- **Google Business Profile:** Melero tiene ficha, pero Google la ha
+  retirado por ahora (26/9/2026). Sin ficha activa no hay presencia en
+  Maps ni en el paquete local.
 - **Plantillas legales** para colaboradores.
 
 Borrado del código el 7/9/2026, y no se vuelve a meter:

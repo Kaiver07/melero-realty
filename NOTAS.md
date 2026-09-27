@@ -82,10 +82,12 @@ a la provisional `real-guiones.webp`. Prompt con el que se hizo:
 > pantallas encendidas. Aspecto de foto de móvil de buena calidad, nada de
 > estética publicitaria ni de banco de imágenes.
 
-Contradicción vista al escribirlo (fuera del blog, sin tocar): `PILARES`
-dice «Revisión cada 15 días», pero `COMPARISON`, sobre-nosotros y
-`PRODUCT.md` dicen «reporte semanal». El artículo no menciona la
-frecuencia. **[PENDIENTE DE CONFIRMAR]** cuál es la buena.
+Contradicción vista al escribirlo, resuelta el 26/9/2026: la revisión con
+el cliente es **cada 15 días**, como decía `PILARES`. Se corrigió «reporte
+semanal» en `COMPARISON`, en la tarjeta flotante de la home, en
+sobre-nosotros y en `PRODUCT.md`. Se dejó «semana a semana» donde habla de
+ajustar las campañas (paso 04 del proceso y el párrafo de introducción de
+la home), que es otra cosa.
 
 ## Qué hay
 
@@ -111,14 +113,21 @@ frecuencia. **[PENDIENTE DE CONFIRMAR]** cuál es la buena.
   lea Valeria antes de publicarlo.
 - **Fecha de publicación — [PENDIENTE DE CONFIRMAR].** Pone 12/9/2026, que es
   el día en que se escribió. Cambiar `publishDate` al día real de salida.
-- **Autoría — [PENDIENTE DE CONFIRMAR].** El artículo no lleva firma
-  visible y el schema lo atribuye a «Melero Realty» como organización.
-  Falta decidir si los artículos los firma Valeria (u otra persona del
-  equipo) y con qué nombre.
-- **Destino del cierre — [PENDIENTE DE CONFIRMAR].** El botón «Solicitar
-  diagnóstico gratuito» va a `/contacto`, igual que en sobre-nosotros. Los
-  CTA principales de la home van a Calendly. Es la deuda de los dos embudos
-  de `CLAUDE.md`: cuando se decida cuál manda, cambiar `BlogCta.astro`.
+- **Autoría — resuelto el 26/9/2026.** Los artículos los firman Valeria
+  Melero y Yerai Jiménez. Firma visible en la cabecera de cada artículo,
+  con enlace al equipo de sobre-nosotros, y `author` de tipo `Person` en el
+  schema. El campo `autores` del frontmatter es obligatorio y sólo acepta
+  nombres de `TEAM`.
+- **Destino del cierre — resuelto el 26/9/2026: manda Calendly.** El botón
+  del cierre del blog y el de sobre-nosotros van a Calendly, como los de la
+  home, y debajo queda «O cuéntanoslo por escrito» hacia `/contacto/`. La
+  llamada dura 45 minutos (antes el blog y sobre-nosotros decían 30).
+- **Oferta de los 20 días** — confirmada vigente el 26/9/2026.
+- **Masterclass «Captación sin portales» — [PENDIENTE DE CONFIRMAR]** si
+  sigue vigente.
+- **Google Business Profile.** Melero tiene ficha, pero Google la ha
+  retirado por ahora (26/9/2026). Las mejoras de SEO local del estudio de
+  `docs/` quedan en espera hasta recuperarla.
 - **Enlace en el menú superior — resuelto el 26/9/2026.** «Blog» va en el
   menú de arriba de la home y de las interiores, además del pie. En móvil
   es el único enlace del menú que queda visible (clase `nav-keep`).

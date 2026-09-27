@@ -1,12 +1,16 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { existsSync } from 'node:fs';
-import { SERVICES } from './config/site';
+import { SERVICES, TEAM } from './config/site';
 
 /* Los artículos sólo pueden relacionarse con servicios que existen en
    SERVICES, escritos igual que allí. Si alguien renombra un servicio en
    site.ts, el build falla aquí en vez de dejar un enlace a nada. */
 const SERVICIOS = SERVICES.map((s) => s.title) as [string, ...string[]];
+
+/* Quién firma. Sólo personas de TEAM, escritas igual que allí: la firma
+   enlaza al equipo de sobre-nosotros y tiene que llevar a alguien que está. */
+const AUTORES = TEAM.map((m) => m.name) as [string, ...string[]];
 
 /* « | Melero Realty» son 16 caracteres. Con 44 de título, la pestaña y el
    resultado de Google se quedan en 60 y no se cortan. */
@@ -36,6 +40,8 @@ const blog = defineCollection({
         height: z.number().int().positive(),
       }),
       servicios: z.array(z.enum(SERVICIOS)).default([]),
+      // Obligatorio: los artículos los firman personas, no la marca.
+      autores: z.array(z.enum(AUTORES)).min(1),
     })
     .refine((d) => (d.seoTitle ?? d.title).length <= MAX_TITULO_SEO, {
       message: `El título pasa de ${MAX_TITULO_SEO} caracteres y se cortará en Google: añade un seoTitle más corto`,

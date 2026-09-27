@@ -1,8 +1,10 @@
 ---
-import { BLOG } from '../config/site';
+import { SITE, BLOG } from '../config/site';
 
-/* Cierre del blog. Va a /contacto, como el de sobre-nosotros: ver la deuda
-   de los dos embudos en CLAUDE.md. */
+/* Cierre del blog. Manda Calendly, como en la home (decidido el 26/9/2026);
+   el formulario de /contacto queda como alternativa por escrito, igual que
+   allí. data-cta es el origen que registra CookieNotice, sólo si se acepta
+   la analítica. */
 ---
 
 <section class="bl-cta" aria-labelledby="bl-cta-t">
@@ -12,10 +14,13 @@ import { BLOG } from '../config/site';
       <h2 id="bl-cta-t" class="bl-cta-title">{BLOG.cta.titulo}</h2>
       <div>
         <p class="bl-cta-text">{BLOG.cta.texto}</p>
-        <a class="bl-btn" href="/contacto">
+        <a class="bl-btn" data-cta="blog" href={SITE.calendlyUrl} target="_blank" rel="noopener">
           {BLOG.cta.boton}
           <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
         </a>
+        <p class="bl-cta-alt">
+          <a data-cta="escrito-blog" href="/contacto/">{BLOG.cta.escrito}</a>
+        </p>
       </div>
     </div>
   </div>

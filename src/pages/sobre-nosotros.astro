@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { TEAM } from '../config/site';
+import { SITE, TEAM } from '../config/site';
 
 /* Cómo trabajamos — mismo contenido que ya estaba aprobado en la página,
    solo movido al frontmatter para poder numerarlo en la maqueta. No se
@@ -22,7 +22,7 @@ const VALORES = [
   },
   {
     title: 'Acompañamiento continuo',
-    desc: 'No lanzamos y desaparecemos. Reporte semanal y acceso directo a la CEO durante todo el proceso.',
+    desc: 'No lanzamos y desaparecemos. Revisión cada 15 días y acceso directo a la CEO durante todo el proceso.',
   },
 ];
 ---
@@ -131,11 +131,14 @@ const VALORES = [
         <div class="sn-cta-grid">
           <h2 id="sn-cta-t">¿Quieres que hablemos de tu caso?</h2>
           <div class="sn-cta-body">
-            <p>30 minutos. Sin compromiso. Con análisis real de tu situación.</p>
-            <a class="sn-btn" href="/contacto">
+            <p>45 minutos. Sin compromiso. Con análisis real de tu situación.</p>
+            <a class="sn-btn" data-cta="sobre-nosotros" href={SITE.calendlyUrl} target="_blank" rel="noopener">
               Solicitar diagnóstico gratuito
               <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
             </a>
+            <p class="sn-cta-alt">
+              <a data-cta="escrito-sobre-nosotros" href="/contacto/">O cuéntanoslo por escrito</a>
+            </p>
           </div>
         </div>
       </div>
@@ -422,6 +425,19 @@ const VALORES = [
   }
   .sn-btn:hover { background: var(--paper-2); color: var(--text); }
   .sn-btn svg { width: 15px; height: 15px; flex: none; }
+  /* La alternativa por escrito vive dentro de .sn-cta-body, cuyo `p` pesa
+     (0,1,1): con una clase suelta heredaría tamaño y márgenes del texto. */
+  .sn-cta-body .sn-cta-alt { margin-top: 1.1rem; font-size: .875rem; }
+  .sn-cta-alt a {
+    color: var(--muted-dark);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: .25em;
+  }
+  .sn-cta-alt a:hover { color: var(--white); }
+  /* La firma de los artículos del blog enlaza aquí: sin este margen, la
+     cabecera fija taparía el titular al llegar. */
+  #sn-team { scroll-margin-top: 110px; }
   .sn-cta :focus-visible { outline: 2px solid var(--white); outline-offset: 3px; }
   @media (max-width: 880px) {
     .sn-cta-grid { grid-template-columns: 1fr; align-items: start; gap: 1.6rem; }

@@ -50,8 +50,8 @@ src/pages/blog/        Portada del blog y plantilla de artículo.
 src/styles/blog.css    Estilos del blog, prefijo bl-.
 ```
 
-Lo pendiente del blog —firma, fecha, destino del cierre— está en
-`NOTAS.md`. `npm run check` (astro check) da 28 errores de tipos anteriores
+Lo pendiente del blog está en `NOTAS.md`. Cada artículo lleva firma
+obligatoria (`autores`, sólo nombres de `TEAM`). `npm run check` (astro check) da 28 errores de tipos anteriores
 al blog, en los scripts de `CookieNotice`, `Layout` e `index`.
 
 **El copy no se escribe en las plantillas.** Si un texto se repite o puede
@@ -144,10 +144,11 @@ propósito.
   sólo lo usan las páginas interiores y las legales, que conservan su
   maquetación antigua a base de utilidades mientras la home va con CSS
   propio. Es la costura entre dos rediseños y sigue ahí.
-- **Dos embudos compitiendo.** Los CTA principales van a Calendly; el
+- **Embudos: manda Calendly** (decidido el 26/9/2026). Todos los botones
+  principales, también los del blog y sobre-nosotros, van a Calendly. El
   formulario de 5 pasos de `/contacto`, que es el que guarda el lead en la
-  hoja de cálculo, sólo se alcanza desde el pie y desde el enlace «O
-  cuéntanoslo por escrito». Falta decidir cuál manda.
+  hoja de cálculo, queda como alternativa: enlaces «O cuéntanoslo por
+  escrito» y el pie. La llamada dura 45 minutos en todas partes.
 - **El envío del formulario no está probado de punta a punta.** Se arregló
   un fallo que lo dejaba mudo, pero nadie ha comprobado con un envío real
   que llegue la fila a Google Sheets.

@@ -3,6 +3,9 @@ title: 'Los tres números que dicen si tu captación funciona'
 seoTitle: 'Coste por lead, por cliente y retorno'
 description: 'Impresiones y seguidores no dicen si tu captación funciona. Coste por lead, coste por cliente y retorno sí: qué mide cada uno y cómo calcularlo.'
 publishDate: 2026-09-26
+autores:
+  - Valeria Melero
+  - Yerai Jiménez
 image:
   src: /images/blog/coste-por-lead-y-coste-por-cliente.webp
   alt: 'Vista cenital de una mesa de madera: una mano marca casillas en una tabla dibujada en una libreta, junto a una calculadora, unas llaves, un café y un móvil'

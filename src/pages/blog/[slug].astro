@@ -5,7 +5,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import BlogList from '../../components/BlogList.astro';
 import BlogCta from '../../components/BlogCta.astro';
-import { SITE, SERVICES, BLOG } from '../../config/site';
+import { SITE, SERVICES, BLOG, TEAM } from '../../config/site';
 import { articulos, fecha, isoDia, minutos, type Articulo } from '../../lib/blog';
 import '../../styles/blog.css';
 
@@ -33,6 +33,12 @@ const modificado = isoDia(d.updatedDate ?? d.publishDate);
 const servicios = SERVICES.filter((s) => d.servicios.includes(s.title));
 const otros = todos.filter((p) => p.id !== post.id).slice(0, 3);
 
+// Quién firma, en el orden del frontmatter. El esquema ya garantiza que
+// cada nombre está en TEAM.
+const autores = d.autores
+  .map((nombre) => TEAM.find((m) => m.name === nombre))
+  .filter((m): m is (typeof TEAM)[number] => m !== undefined);
+
 const schema = [
   {
     '@context': 'https://schema.org',
@@ -43,7 +49,13 @@ const schema = [
     datePublished: publicado,
     dateModified: modificado,
     inLanguage: 'es',
-    author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+    author: autores.map((m) => ({
+      '@type': 'Person',
+      name: m.name,
+      jobTitle: m.role,
+      url: `${SITE.url}/sobre-nosotros/`,
+      worksFor: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+    })),
     publisher: {
       '@type': 'Organization',
       name: SITE.name,
@@ -83,6 +95,15 @@ const schema = [
             <h1 class="bl-h1 bl-h1--post">{d.title}</h1>
             <div>
               <p class="bl-lead">{d.description}</p>
+              <p class="bl-byline">
+                {BLOG.por}{' '}
+                {autores.map((m, i) => (
+                  <Fragment>
+                    {i > 0 && (i === autores.length - 1 ? ' y ' : ', ')}
+                    <a href="/sobre-nosotros/#sn-team">{m.name}</a>
+                  </Fragment>
+                ))}
+              </p>
               <p class="bl-meta">
                 <time datetime={publicado}>{fecha(d.publishDate)}</time>
                 <span>{minutos(post.body)} min de lectura</span>
