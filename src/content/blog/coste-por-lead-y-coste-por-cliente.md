@@ -59,4 +59,4 @@ Lo que sí conviene decidir antes es cuáles mirar. No todos los negocios miden 
 
 ---
 
-Saber cuánto te cuesta hoy cada cliente, y de qué canal llega, es parte de lo que se mira en el [diagnóstico](/contacto). Si todavía no lo has leído, en [este artículo sobre la dependencia de los portales](/blog/depender-de-los-portales/) está el otro lado del problema. Y aquí puedes ver [cómo trabajamos, paso a paso](/#proceso).
+Saber cuánto te cuesta hoy cada cliente, y de qué canal llega, es parte de lo que se mira en el [diagnóstico](/contacto/). Si todavía no lo has leído, en [este artículo sobre la dependencia de los portales](/blog/depender-de-los-portales/) está el otro lado del problema. Y aquí puedes ver [cómo trabajamos, paso a paso](/#proceso).

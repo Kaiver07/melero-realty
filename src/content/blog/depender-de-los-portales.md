@@ -65,4 +65,4 @@ Lo que cambia no es necesariamente cuántos contactos te llegan, sino quién con
 
 ---
 
-Saber dónde se te están cayendo los contactos es justo lo que se mira en el [diagnóstico](/contacto): de dónde vienen hoy, en qué punto se pierden y si tiene sentido trabajar juntos. Antes de pedirlo puedes ver [cómo trabajamos, paso a paso](/#proceso), o las [preguntas que nos hacen siempre](/#faq).
+Saber dónde se te están cayendo los contactos es justo lo que se mira en el [diagnóstico](/contacto/): de dónde vienen hoy, en qué punto se pierden y si tiene sentido trabajar juntos. Antes de pedirlo puedes ver [cómo trabajamos, paso a paso](/#proceso), o las [preguntas que nos hacen siempre](/#faq).

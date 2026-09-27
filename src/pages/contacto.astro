@@ -22,10 +22,10 @@ import { SITE } from '../config/site';
 
   <main class="ct">
 
-    <!-- ================= 1 · CABECERA — plancha #122f35 =================
+    {/* ================= 1 · CABECERA — plancha #122f35 =================
          Continúa la banda oscura de la cabecera compartida: una sola plancha
          desde el borde superior. Composición asimétrica, titular a la
-         izquierda y texto de apoyo en columna aparte, como en la home. -->
+         izquierda y texto de apoyo en columna aparte, como en la home. */}
     <section class="ct-hero">
       <div class="wrap">
         <div class="ct-hero-grid">
@@ -40,15 +40,15 @@ import { SITE } from '../config/site';
       </div>
     </section>
 
-    <!-- ================= 2 · FORMULARIO ================= -->
+    {/* ================= 2 · FORMULARIO ================= */}
     <section class="ct-body">
       <div class="wrap">
         <div class="ct-grid">
 
-          <!-- Progreso.
+          {/* Progreso.
                OJO: este bloque TIENE que seguir siendo el hermano anterior
                del <form>. El script lo oculta al enviar con
-               form.previousElementSibling. No meter nada entre medias. -->
+               form.previousElementSibling. No meter nada entre medias. */}
           <div class="ct-progress">
             <span id="step-label" class="ct-step-label">Paso 1 de 5</span>
             <span id="step-pct" class="ct-step-pct">20%</span>
@@ -57,19 +57,19 @@ import { SITE } from '../config/site';
             </div>
           </div>
 
-          <!-- novalidate a propósito. Con la validación nativa activa, un campo
+          {/* novalidate a propósito. Con la validación nativa activa, un campo
                inválido de un paso anterior (ya oculto) bloqueaba el envío y el
                navegador no podía mostrar el aviso sobre un elemento invisible:
                el botón no hacía nada y el lead se perdía en silencio. La
                validación la hace el script, que además puede volver al paso
-               donde está el error. -->
+               donde está el error. */}
           <form
             id="diag-form"
             data-sheets-url={SITE.sheetsWebAppUrl}
             class="ct-form"
             novalidate
           >
-            <!-- ── PASO 1: Perfil ── -->
+            {/* ── PASO 1: Perfil ── */}
             <fieldset data-step="1" class="step-panel">
               <legend>Cuéntanos sobre ti</legend>
               <div class="f-rule" aria-hidden="true"></div>
@@ -112,7 +112,7 @@ import { SITE } from '../config/site';
               </div>
             </fieldset>
 
-            <!-- ── PASO 2: Tu negocio ── -->
+            {/* ── PASO 2: Tu negocio ── */}
             <fieldset data-step="2" class="step-panel hidden">
               <legend>Tu negocio</legend>
               <div class="f-rule" aria-hidden="true"></div>
@@ -147,7 +147,7 @@ import { SITE } from '../config/site';
               </div>
             </fieldset>
 
-            <!-- ── PASO 3: Números ── -->
+            {/* ── PASO 3: Números ── */}
             <fieldset data-step="3" class="step-panel hidden">
               <legend>Tus números</legend>
               <div class="f-rule" aria-hidden="true"></div>
@@ -189,7 +189,7 @@ import { SITE } from '../config/site';
               </div>
             </fieldset>
 
-            <!-- ── PASO 4: Situación y objetivos ── -->
+            {/* ── PASO 4: Situación y objetivos ── */}
             <fieldset data-step="4" class="step-panel hidden">
               <legend>Tu situación y objetivos</legend>
               <div class="f-rule" aria-hidden="true"></div>
@@ -210,7 +210,7 @@ import { SITE } from '../config/site';
               </div>
             </fieldset>
 
-            <!-- ── PASO 5: Decisión + envío ── -->
+            {/* ── PASO 5: Decisión + envío ── */}
             <fieldset data-step="5" class="step-panel hidden">
               <legend>Antes de terminar</legend>
               <div class="f-rule" aria-hidden="true"></div>
@@ -256,20 +256,20 @@ import { SITE } from '../config/site';
                 <textarea class="f-input" id="f-por-que-ahora" name="por_que_ahora" required rows="3" placeholder="Cuéntanos qué te ha llevado a buscar una solución ahora"></textarea>
               </div>
 
-              <!-- Consent -->
+              {/* Consent */}
               <div class="f-row f-consent">
                 <label>
                   <input type="checkbox" name="consentimiento" value="De acuerdo" required />
                   <span>
                     Acepto recibir comunicaciones comerciales y promociones de Melero Realty. Entiendo que mis datos serán tratados conforme a la
-                    <a href="/politica-de-privacidad" target="_blank">política de privacidad</a>
+                    <a href="/politica-de-privacidad/" target="_blank">política de privacidad</a>
                     y que puedo darme de baja en cualquier momento.
                   </span>
                 </label>
               </div>
             </fieldset>
 
-            <!-- Navigation buttons -->
+            {/* Navigation buttons */}
             <div class="ct-actions">
               <button
                 type="button"
@@ -297,7 +297,7 @@ import { SITE } from '../config/site';
             </div>
           </form>
 
-          <!-- Success message (hidden) -->
+          {/* Success message (hidden) */}
           <div id="form-success" class="ct-success hidden">
             <h2>¡Diagnóstico recibido!</h2>
             <p class="ct-success-body">

@@ -60,7 +60,9 @@ const schema = [
       '@type': 'Organization',
       name: SITE.name,
       url: SITE.url,
-      logo: { '@type': 'ImageObject', url: new URL('/logo-melero.png', SITE.url).href },
+      // El favicon de 512 px: el isotipo dorado sobre transparente no se lee
+      // sobre blanco, que es como Google muestra los logos.
+      logo: { '@type': 'ImageObject', url: new URL('/favicon.png', SITE.url).href },
     },
     mainEntityOfPage: url,
   },

@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
 import CookieNotice from '../components/CookieNotice.astro';
-import { SITE, FAQ } from '../config/site';
+import { SITE, FAQ, TEAM } from '../config/site';
 
 interface Props {
   title: string;
@@ -11,6 +11,7 @@ interface Props {
   ogImage?: string;
   ogType?: 'website' | 'article';
   includeFaqSchema?: boolean;
+  includeOrgSchema?: boolean;
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   ogImage = '/images/og-melero.jpg',
   ogType = 'website',
   includeFaqSchema = false,
+  includeOrgSchema = false,
 } = Astro.props;
 
 /* La tarjeta de enlace. Tiene que ser absoluta: los rastreadores de WhatsApp,
@@ -30,14 +32,32 @@ const ogImageUrl = new URL(ogImage, SITE.url).href;
 const fullTitle =
   title === SITE.name ? title : `${title} | ${SITE.name}`;
 
+/* Quién es Melero Realty, para Google. Organization y no
+   ProfessionalService: ése es un tipo de negocio local, que exige dirección
+   física, y Melero no tiene (persona física sin domicilio social, ver
+   PRODUCT.md). Google lo quiere en la home o en la página «sobre nosotros»,
+   no en todas: por eso va detrás de includeOrgSchema. El logo es el favicon
+   de 512 px, porque el isotipo suelto, dorado sobre transparente, no se lee
+   sobre blanco. El LinkedIn es el de Valeria, no uno de la empresa: va con
+   ella, no con la organización. */
+const fundadora = TEAM.find((m) => m.role.includes('Founder'));
 const orgSchema = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
+  '@type': 'Organization',
   name: SITE.name,
   url: SITE.url,
+  logo: new URL('/favicon.png', SITE.url).href,
   description: SITE.description,
   email: SITE.email,
   sameAs: [SITE.social.instagram],
+  ...(fundadora && {
+    founder: {
+      '@type': 'Person',
+      name: fundadora.name,
+      jobTitle: fundadora.role,
+      sameAs: [SITE.social.linkedin],
+    },
+  }),
 };
 
 const faqSchema = {
@@ -64,7 +84,7 @@ const faqSchema = {
     <meta name="theme-color" content="#122f35" />
     <meta name="robots" content="index, follow" />
 
-    <!-- Open Graph -->
+    {/* Open Graph */}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
@@ -75,21 +95,23 @@ const faqSchema = {
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Interior de una vivienda vacía grabada con un móvil en trípode, con el titular: captación de leads para inmobiliarias" />
 
-    <!-- Twitter Card -->
+    {/* Twitter Card */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
-    <!-- Schema.org -->
-    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    {/* Schema.org */}
+    {includeOrgSchema && (
+      <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    )}
     {includeFaqSchema && faqSchema.mainEntity.length > 0 && (
       <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
     )}
-    <!-- Lo que cada página añade a su <head>: el schema del artículo, p. ej. -->
+    {/* Lo que cada página añade a su <head>: el schema del artículo, p. ej. */}
     <slot name="head" />
 
-    <!-- Preconnect -->
+    {/* Preconnect */}
     <link rel="preconnect" href="https://img.youtube.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -98,8 +120,8 @@ const faqSchema = {
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
     />
 
-    <!-- Transiciones entre páginas: la cabecera y el pie son los mismos en
-         todo el sitio, así que al navegar se funden en vez de parpadear. -->
+    {/* Transiciones entre páginas: la cabecera y el pie son los mismos en
+         todo el sitio, así que al navegar se funden en vez de parpadear. */}
     <ClientRouter />
   </head>
   <body class="min-h-screen flex flex-col">

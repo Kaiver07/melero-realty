@@ -38,7 +38,8 @@ npm i @rollup/rollup-win32-x64-msvc --no-save
 src/config/site.ts     TODO el contenido: copy, servicios, proceso, FAQ,
                        equipo, el caso de ARC, enlaces y claves.
 src/pages/index.astro  La home entera, sección a sección.
-src/layouts/Layout.astro  <head>, schema, ClientRouter y el motor GSAP.
+src/layouts/Layout.astro  <head>, schema (Organization sólo con
+                       includeOrgSchema), ClientRouter y el motor GSAP.
 src/components/        CookieNotice (consentimiento + GA4), Footer, Header,
                        VideoEmbed (fachada de YouTube), BlogList, BlogCta.
 src/styles/global.css  Tokens y cromo compartido (nav, footer, .wrap).
@@ -48,6 +49,8 @@ src/content.config.ts  Esquema de los artículos. Valida imagen, longitudes
                        de título y descripción, y servicios relacionados.
 src/pages/blog/        Portada del blog y plantilla de artículo.
 src/styles/blog.css    Estilos del blog, prefijo bl-.
+docs/                  Estudio comparativo con otras agencias y propuestas
+                       pendientes de aprobar. No se publica en la web.
 ```
 
 Lo pendiente del blog está en `NOTAS.md`. Cada artículo lleva firma
@@ -83,6 +86,15 @@ Instagram está oculta.
 **La sección de Instagram aparece sola.** Se pinta si existen las miniaturas
 en `public/images/social/<código>.webp`. Instagram no deja descargarlas por
 programa: se aportan a mano.
+
+**Comentarios en las plantillas, con `{/* */}`.** Los `<!-- -->` se publican
+en el HTML y cualquiera los lee con «ver código fuente»: la home llegó a
+enseñar 19 notas internas sobre conversión y sobre la competencia. Se
+pasaron todos a `{/* */}` el 27/9/2026, y así se quedan.
+
+**Enlaces internos con barra final**: `/contacto/`, no `/contacto`. La URL
+canónica lleva la barra; sin ella, Vercel sirve la misma página en otra
+dirección y Google la ve duplicada.
 
 ## Trampas que ya nos han mordido
 
