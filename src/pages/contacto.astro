@@ -791,6 +791,14 @@ import { SITE } from '../config/site';
       });
 
       if (!res.ok) throw new Error('request failed');
+      /* El script (google-apps-script/Codigo.gs) contesta {"result":"ok"}
+         sólo si ha apuntado el lead en la hoja. Si contesta otra cosa, no
+         se ha guardado y hay que pedir que se reintente. Si la respuesta no
+         es JSON (un script antiguo), basta con res.ok. */
+      if ((res.headers.get('content-type') || '').includes('application/json')) {
+        const respuesta = await res.json();
+        if (respuesta.result !== 'ok') throw new Error('not saved');
+      }
 
       form.classList.add('hidden');
       success.classList.remove('hidden');

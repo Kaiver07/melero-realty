@@ -14,8 +14,11 @@ export const SITE = {
   email: 'melero.realty@gmail.com',
   // Agenda de la llamada de diagnóstico. Todos los CTA de reserva apuntan aquí.
   calendlyUrl: 'https://calendly.com/valmelemal/45-60min',
-  // URL del Google Apps Script (Implementar > Nueva implementación > Aplicación web) que guarda el formulario en Google Sheets
-  sheetsWebAppUrl: 'https://script.google.com/macros/s/AKfycbzKBPCN1TMWJP4iKo40WSYLWb8fIvelYa8m3IzCacegvOI6rY_ptES7Zh5k-SjP-BIx/exec',
+  // Aplicación web del Apps Script que recibe el formulario de /contacto:
+  // apunta cada lead en la hoja de Yerai y avisa por correo a
+  // melero.realty@gmail.com. Código y puesta en marcha en google-apps-script/.
+  // Desde el 28/9/2026; la anterior quedó en la cuenta con la que se creó.
+  sheetsWebAppUrl: 'https://script.google.com/macros/s/AKfycby1gMJMU9KTkNWnvr3QantYLpS2wGpuaIey1k_CpslapXk0luBOhWF4-LnhgQpvQ_-8/exec',
   // Google Analytics 4. Sólo se carga si el visitante acepta: GA instala
   // cookies y sin consentimiento previo no puede correr.
   gaId: 'G-3038QG3XN3',

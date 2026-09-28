@@ -122,8 +122,10 @@ Exclusividad por zona: una sola marca por zona.
   captación actual, inversión publicitaria, leads/mes, conversión,
   facturación, objetivo a 6 meses, bloqueo principal, qué han intentado ya,
   prioridad, si es decisor, capital disponible y por qué ahora.
-- Los envíos se guardan en Google Sheets vía Google Apps Script
-  (`SITE.sheetsWebAppUrl`). No hay CRM ni backend propio.
+- Los envíos se guardan en una hoja de Google Sheets de Yerai vía Google
+  Apps Script (`SITE.sheetsWebAppUrl`; el código, en `google-apps-script/`),
+  y cada lead avisa por correo a `melero.realty@gmail.com` (desde el
+  28/9/2026). No hay CRM ni backend propio.
 
 ### Sistema de contenido
 

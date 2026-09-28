@@ -56,6 +56,8 @@ src/pages/404.astro    La 404 propia, con noindex y fuera del sitemap.
 public/fonts/          Poppins 300/400/600/700, subconjunto latino.
 docs/                  Estudio comparativo con otras agencias y propuestas
                        pendientes de aprobar. No se publica en la web.
+google-apps-script/    El script que recibe el formulario de /contacto. Se
+                       publica en Google, no con la web (LEEME.md).
 ```
 
 Lo pendiente del blog está en `NOTAS.md`. Cada artículo lleva firma
@@ -103,6 +105,17 @@ pasaron todos a `{/* */}` el 27/9/2026, y así se quedan.
 **Enlaces internos con barra final**: `/contacto/`, no `/contacto`. La URL
 canónica lleva la barra; sin ella, Vercel sirve la misma página en otra
 dirección y Google la ve duplicada.
+
+**El formulario escribe en la hoja de Yerai y avisa por correo.** Cada
+envío de `/contacto` es una fila en la pestaña «Leads» de su hoja de
+cálculo y un correo a `melero.realty@gmail.com` (desde el 28/9/2026,
+probado de punta a punta). El script es `google-apps-script/Codigo.gs` y
+se publica en Google, no con la web: si se cambia, se pega en su editor de
+Apps Script y se publica una versión nueva; si se hace una publicación
+nueva, cambia la URL y hay que ponerla en `SITE.sheetsWebAppUrl`. Si se
+añade o se renombra un campo del formulario, hay que añadirlo también en
+`COLUMNAS`, al principio del script. La web sólo da el envío por bueno si
+el script contesta `{"result":"ok"}`.
 
 ## Trampas que ya nos han mordido
 
@@ -170,8 +183,5 @@ propósito.
 - **Embudos: manda Calendly** (decidido el 26/9/2026). Todos los botones
   principales, también los del blog y sobre-nosotros, van a Calendly. El
   formulario de 5 pasos de `/contacto`, que es el que guarda el lead en la
-  hoja de cálculo, queda como alternativa: enlaces «O cuéntanoslo por
-  escrito» y el pie. La llamada dura 45 minutos en todas partes.
-- **El envío del formulario no está probado de punta a punta.** Se arregló
-  un fallo que lo dejaba mudo, pero nadie ha comprobado con un envío real
-  que llegue la fila a Google Sheets.
+  hoja de cálculo, queda como alternativa: enlaces «O pide el diagnóstico
+  por escrito» y el pie. La llamada dura 45 minutos en todas partes.
