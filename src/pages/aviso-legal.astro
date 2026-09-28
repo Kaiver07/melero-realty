@@ -17,9 +17,10 @@ import { SITE } from '../config/site';
         <ul class="mt-2 space-y-1 list-disc list-inside">
           <li><strong>Titular:</strong> {SITE.titular}</li>
           <li><strong>Nombre comercial:</strong> {SITE.name}</li>
-          {/* NIF y domicilio: [PENDIENTE DE CONFIRMAR]. El NIF lo aporta
-              Valeria; qué exige la LSSI-CE (art. 10), revisarlo con quien
-              lleve lo legal. Ver NOTAS.md. */}
+          <li><strong>NIF:</strong> {SITE.nif}</li>
+          {/* Domicilio: [PENDIENTE DE CONFIRMAR]. Si la LSSI-CE (art. 10)
+              obliga a publicarlo, lo decide quien lleve lo legal. Ver
+              NOTAS.md. */}
           <li><strong>Sitio web:</strong> {SITE.url}</li>
           <li><strong>Email de contacto:</strong> {SITE.email}</li>
         </ul>

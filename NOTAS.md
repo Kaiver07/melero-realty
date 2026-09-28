@@ -164,12 +164,13 @@ hay que pedir a Valeria o que todavía no existen:
   `PRODUCT.md`: qué hace cada uno en Melero. Falta la trayectoria real de
   cada persona y los perfiles públicos de Yerai y de Carlos (LinkedIn u
   otros), que irían en `perfiles` de `TEAM`.
-- **Aviso legal y privacidad — [PENDIENTE DE CONFIRMAR].** Ya identifican a
-  la titular (Valeria Melero Maldonado, nombre comercial Melero Realty).
-  Falta su NIF, que se lo pide el usuario, y revisar con quien lleve lo
-  legal si hay que publicar domicilio (LSSI-CE, art. 10) y la casilla de
-  consentimiento de `/contacto`, que obliga a aceptar comunicaciones
-  comerciales. La política ya no habla de la newsletter, que no existe.
+- **Aviso legal y privacidad.** Identifican a la titular (Valeria Melero
+  Maldonado, nombre comercial Melero Realty) con su NIF, añadido el
+  28/9/2026 (`SITE.nif`). Queda **[PENDIENTE DE CONFIRMAR]** revisar con
+  quien lleve lo legal si hay que publicar domicilio (LSSI-CE, art. 10) y la
+  casilla de consentimiento de `/contacto`, que obliga a aceptar
+  comunicaciones comerciales. La política ya no habla de la newsletter, que
+  no existe.
 - **Artículos con experiencia propia** (problema 2 de la auditoría):
   pedirle a Valeria lo que sólo sabe quien hace diagnósticos (qué aparece al
   auditar la captación de una agencia, qué errores se repiten, cómo se

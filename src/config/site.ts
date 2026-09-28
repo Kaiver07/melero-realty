@@ -2,8 +2,9 @@ export const SITE = {
   name: 'Melero Realty',
   // Quién responde legalmente de la web: Melero Realty es el nombre
   // comercial de una persona física, no una sociedad (PRODUCT.md). Va en el
-  // aviso legal y en la política de privacidad. Su NIF está pendiente.
+  // aviso legal y en la política de privacidad, con su NIF (LSSI-CE, art. 10).
   titular: 'Valeria Melero Maldonado',
+  nif: '49279356Q',
   // url es la canónica y va con www, que es lo que sirve el servidor.
   // domain es sólo el texto que se enseña en el pie: ahí el www sobra.
   url: 'https://www.valeriamelero.com',
