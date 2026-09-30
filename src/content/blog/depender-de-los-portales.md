@@ -3,6 +3,7 @@ title: 'Subir pisos a los portales no es el problema. Depender de ellos, sí'
 seoTitle: 'Dependencia de los portales inmobiliarios'
 description: 'Si tienes una agencia en activo, publicas en Idealista o Fotocasa. El problema no es estar ahí: es que sea el único canal que te trae contactos.'
 publishDate: 2026-09-12
+updatedDate: 2026-09-30
 autores:
   - Valeria Melero
   - Yerai Jiménez
@@ -37,11 +38,17 @@ Cuando la captación descansa en un canal que no es tuyo, suelen aparecer tres c
 
 Ninguno de los tres se arregla trabajando más horas. Son consecuencia de dónde se apoya el sistema.
 
+## Lo que más se repite en los diagnósticos
+
+Cuando revisamos la captación de una agencia, el problema que más se repite está en el mensaje. La mayoría no ha trabajado uno pensado para su cliente ideal y acaba hablando para todo el mundo.
+
+El efecto es el segundo síntoma de la lista: llegan curiosos, en lugar de personas que saben de antemano qué hace la agencia.
+
 ## El contacto que ya llegaba y se perdió
 
 Hay un punto que se suele pasar por alto: muchos contactos no se pierden por falta de volumen. Se pierden porque no estaban listos el día que escribieron.
 
-La mayoría de las personas no toma una decisión inmobiliaria el primer día. Si después de ese primer contacto no hay un proceso que las acompañe —información útil, seguimiento, un motivo para seguir hablando contigo—, se enfrían y acaban cerrando con otro.
+El otro error que más vemos es no nutrir esos contactos. La mayoría de las personas no toma una decisión inmobiliaria el primer día. Si después de ese primer contacto no hay un proceso que las acompañe —información útil, seguimiento, un motivo para seguir hablando contigo—, se enfrían y acaban cerrando con otro.
 
 Por eso, antes de buscar más contactos, tiene sentido mirar qué pasa con los que ya tienes. Alguien que llega conociendo tu forma de trabajar se parece poco a alguien que llega desde un anuncio entre muchos.
 

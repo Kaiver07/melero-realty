@@ -3,6 +3,7 @@ title: 'Los tres números que dicen si tu captación funciona'
 seoTitle: 'Coste por lead y por cliente en inmobiliaria'
 description: 'Impresiones y seguidores no dicen si tu captación funciona. Coste por lead, coste por cliente y retorno sí: qué mide cada uno y cómo calcularlo.'
 publishDate: 2026-09-26
+updatedDate: 2026-09-30
 autores:
   - Valeria Melero
   - Yerai Jiménez
@@ -31,7 +32,7 @@ Sirve para comparar canales y para ver si una campaña se encarece. Pero tiene u
 
 Es la inversión de un periodo dividida entre los clientes que salieron de ella: propietarios que firman contigo para vender, o compradores que cierran una operación.
 
-Este es el número que dice si un canal se paga. Dos canales con el mismo coste por lead pueden tener costes por cliente muy distintos, porque uno trae gente con intención real y el otro trae curiosos.
+Este es el número que dice si un canal se paga. Dos canales con el mismo coste por lead pueden tener costes por cliente muy distintos, porque uno trae gente con intención real y el otro trae curiosos. Cuando revisamos la captación de una agencia, esos curiosos suelen venir de un mensaje que no está pensado para su cliente ideal y acaba hablando para todo el mundo.
 
 Para calcularlo hay que saber de dónde vino cada cliente. Si hoy no se anota, no hay forma de sacarlo: es lo primero que hace falta.
 
@@ -55,7 +56,7 @@ No hace falta un CRM para empezar. Basta con registrar tres cosas de cada contac
 
 Con eso, los tres números salen solos.
 
-Lo que sí conviene decidir antes es cuáles mirar. No todos los negocios miden lo mismo: a una agencia puede importarle sobre todo el coste por captación de propietarios, y a un asesor, el coste por visita. Dos o tres números bien elegidos dicen más que un panel lleno.
+Lo que sí conviene decidir antes es cuáles mirar. No todos los negocios miden lo mismo: a una agencia puede importarle sobre todo el coste por captación de propietarios, y a un asesor, el coste por visita. Con nuestros clientes pasa igual: las cifras que se miden dependen del objetivo de cada uno, así que no son las mismas para todos. Dos o tres números bien elegidos dicen más que un panel lleno.
 
 ---
 

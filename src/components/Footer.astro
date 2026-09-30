@@ -44,8 +44,13 @@ const nav = [
         <ul>
           <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
           <li><a href={SITE.url}>{SITE.domain}</a></li>
+          {/* El mismo número, dos caminos: llamar o escribir. Antes sólo
+              salía como WhatsApp. El horario va bajo el teléfono, que es
+              a lo que afecta. */}
+          <li><a href={`tel:${SITE.telefono.replace(/\s/g, '')}`}>Teléfono {SITE.telefono}</a></li>
+          <li><span class="footer-horario">{SITE.horario}</span></li>
           <li>
-            <a href={SITE.whatsapp} target="_blank" rel="noopener">WhatsApp {SITE.telefono}</a>
+            <a href={SITE.whatsapp} target="_blank" rel="noopener">WhatsApp</a>
           </li>
           <li>
             <a href={SITE.social.instagram} target="_blank" rel="noopener">Instagram @melero.realty</a>

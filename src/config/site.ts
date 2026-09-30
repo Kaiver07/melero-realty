@@ -27,7 +27,11 @@ export const SITE = {
   // El WhatsApp de Valeria es el canal humano: para quien no quiere agendar
   // una videollamada de 45 minutos pero tampoco rellenar un formulario.
   // El texto va prerrellenado para que no haya que pensar cómo empezar.
+  // Desde el 30/9/2026 el número consta también como teléfono, no sólo como
+  // WhatsApp (lo pidió Valeria): enlace tel: en el pie y `telephone` en el
+  // schema de la organización. El horario es el de atención que dio ella.
   telefono: '+34 674 82 90 42',
+  horario: 'Lunes a viernes, de 9 a 14 h y de 16 a 18 h',
   whatsapp:
     'https://wa.me/34674829042?text=Hola%2C%20os%20escribo%20por%20el%20diagn%C3%B3stico.',
   social: {
@@ -73,32 +77,53 @@ export const SERVICES = [
   },
 ] as const;
 
-/* Primer caso publicable, y de momento el único. Los datos y la cita los
-   aporta el cliente: aquí no se redondea ni se adorna nada, porque el valor
-   de esto es justo que se pueda comprobar llamando a ARC.
+/* El caso de la home. Desde el 30/9/2026 es MundialRooms; sustituye al de
+   ARC Proyectos Renovables, que sale de la web por indicación de Valeria.
+   Los datos y la reseña los aporta ella: aquí no se redondea ni se adorna
+   nada. Va todo junto —titular incluido— para que quien cambie de caso lo
+   cambie entero.
 
-   La cita es un recorte literal de un texto más largo. Dentro del fragmento
-   no se ha tocado una palabra; el original completo está en el historial. */
+   No lleva cifra: llevan un mes y no hay resultado que enseñar. El día que
+   lo haya, necesita nombre, empresa, enlace y permiso (CLAUDE.md).
+
+   «Un mes» caduca: por eso `sector` dice de cuándo es el dato. Conviene
+   cambiarlo por la fecha de inicio cuando Valeria la dé.
+
+   La cita son las cuatro primeras frases de la reseña que dejó su CEO en
+   Google, sin tocar una palabra; la reseña entera está en PRODUCT.md.
+   MundialRooms sabe que sale aquí: se le pidió permiso (lo confirmó Yerai
+   el 30/9/2026). */
 export const CASO = {
-  cliente: 'ARC Proyectos Renovables',
-  sector: 'Constructora de origen cubano, en activo en Valencia.',
-  logo: '/images/caso-arc.webp',
+  titulo: 'Una agencia de Madrid. Tres frentes en marcha.',
+  cliente: 'MundialRooms',
+  // El logotipo lo pasó Yerai el 30/9/2026; es el mismo de su web. Sólo se
+  // ha recortado al dibujo y se ha dejado el fondo en blanco puro: es marca
+  // ajena y el dibujo no se retoca.
+  logo: { src: '/images/caso-mundialrooms.webp', width: 640, height: 226 },
+  sector:
+    'Agencia inmobiliaria de Madrid, con presencia en Miami y República Dominicana. Llevan un mes trabajando con nosotros, a fecha de septiembre de 2026.',
   // El enlace es parte de la prueba: quien dude puede entrar y comprobar que
-  // la empresa existe, está en Valencia y hace lo que decimos que hace.
-  web: 'https://www.arcproyectosrenovables.com/',
-  webTexto: 'arcproyectosrenovables.com',
-  partida:
-    'La empresa ya estaba consolidada, pero no tenía sistema de captación. El mensaje no llegaba a su cliente ideal, así que el tiempo se iba en contactos que no cerraban.',
-  cambio:
-    'Primero el mensaje, después el sistema completo alrededor. El salto no llegó a la primera: llegó en la séptima sesión.',
-  hoy:
-    'Estructura interna más ordenada y el trabajo continúa: siguen con nosotros.',
-  cifra: '+30%',
-  cifraPie: 'de facturación',
+  // la empresa existe, está en Madrid y hace lo que decimos que hace.
+  web: 'https://mundialrooms.com/',
+  webTexto: 'mundialrooms.com',
+  frentes: [
+    {
+      t: 'Perfiles ante cámara',
+      d: 'Seleccionamos, contratamos y coordinamos a los perfiles que aparecen ante cámara en sus Reels.',
+    },
+    {
+      t: 'Contenido semanal',
+      d: 'Planificamos cada semana el contenido con su equipo de redes.',
+    },
+    {
+      t: 'Formación comercial',
+      d: 'Damos formación individual de captación a su equipo comercial.',
+    },
+  ],
   cita:
-    'Su conocimiento en marketing digital es brillante, pero lo que realmente la hace extraordinaria es su calidad humana. Valeria va mucho más allá de enseñarte estrategias; se involucra de corazón, te impulsa a romper barreras y celebra tus logros como propios.',
-  citaAutor: 'Lina Marcela',
-  citaCargo: 'ARC Proyectos Renovables · Valencia',
+    'Como CEO de MundialRooms, quiero agradecer y destacar públicamente el excelente trabajo que está realizando Valeria en nuestra compañía. Desde el primer minuto ha demostrado una gran profesionalidad, implicación y atención a cada detalle. Siempre está pendiente de nuestras necesidades y, sobre todo, buscando la mejor estrategia y nuevas oportunidades que nos ayuden a mejorar y potenciar nuestras ventas. Da gusto trabajar con profesionales que se implican de esta manera y sienten los objetivos de la empresa como propios.',
+  citaAutor: 'Damián',
+  citaCargo: 'CEO de MundialRooms · Madrid',
 } as const;
 
 export const PROCESO = [
@@ -219,16 +244,17 @@ export const SOCIAL = [
 ] as const;
 
 /* `id` es el ancla de cada persona en sobre-nosotros: la firma de los
-   artículos enlaza ahí. `bio` sólo dice lo confirmado en PRODUCT.md (qué
-   hace cada uno en Melero); la trayectoria de cada uno está pendiente de
-   que la aporten (NOTAS.md). `perfiles`, sus perfiles públicos propios. */
+   artículos enlaza ahí. `bio` sólo dice lo confirmado en PRODUCT.md. La de
+   Valeria lleva su trayectoria, que aportó ella el 30/9/2026. Las de Yerai
+   y Carlos sólo dicen qué hacen en Melero: su trayectoria está pendiente
+   (NOTAS.md). `perfiles`, sus perfiles públicos propios. */
 export const TEAM = [
   {
     name: 'Valeria Melero',
     role: 'CEO & Founder',
     photo: '/team/valeria.webp',
     id: 'valeria-melero',
-    bio: 'Fundó Melero Realty y la dirige. Hace la llamada de diagnóstico con cada agencia y acompaña 1:1 a cada cliente durante todo el trabajo.',
+    bio: 'Fundó Melero Realty y la dirige. Lleva más de 8 años en marketing digital y ha trabajado en venta consultiva B2B en OVB, en NUR y en la propia Melero Realty. Impartió el programa «Generación Digital PYMES» en ESCP Business School, junto a Anova CTI. Desde 2025 trabaja en captación inmobiliaria, ayudando a agencias y asesores independientes a depender menos de los portales. Hace la llamada de diagnóstico con cada agencia y acompaña 1:1 a cada cliente durante todo el trabajo.',
     perfiles: [SITE.social.linkedin, SITE.social.youtube],
   },
   {
@@ -287,7 +313,11 @@ export const FAQ = [
   },
   {
     q: '¿Trabajáis presencialmente?',
-    a: 'Trabajamos en remoto con agencias de toda España y con clientes en Estados Unidos. El diagnóstico y el seguimiento se hacen por videollamada, así que la zona en la que estés no condiciona nada.',
+    // Desde el 30/9/2026 cuenta también lo presencial, con los datos de
+    // Valeria: va ella a la agencia del cliente, de forma puntual, y ese
+    // diagnóstico en persona cuesta 120 €. Es el único precio de la web;
+    // Yerai decidió enseñarlo (30/9/2026).
+    a: 'Trabajamos sobre todo en remoto, con agencias de toda España y con clientes en Estados Unidos: el diagnóstico y el seguimiento se hacen por videollamada, así que la zona en la que estés no condiciona nada. De forma puntual, Valeria se desplaza a la agencia del cliente. El diagnóstico por videollamada es gratuito; en persona tiene un coste de 120 €.',
   },
 ] as const;
 
@@ -312,6 +342,8 @@ export const BLOG = {
   por: 'Por',
   // Delante de la fecha visible: Google pide que la fecha diga qué es.
   publicado: 'Publicado el',
+  // Sólo en los artículos con `updatedDate` en el frontmatter.
+  actualizado: 'Actualizado el',
   cta: {
     antetitulo: 'Diagnóstico',
     titulo: '¿Quieres que hablemos de tu caso?',

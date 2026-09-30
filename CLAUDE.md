@@ -36,7 +36,7 @@ npm i @rollup/rollup-win32-x64-msvc --no-save
 
 ```
 src/config/site.ts     TODO el contenido: copy, servicios, proceso, FAQ,
-                       equipo, el caso de ARC, enlaces y claves.
+                       equipo, el caso de la home, enlaces y claves.
 src/pages/index.astro  La home entera, sección a sección.
 src/layouts/Layout.astro  <head>, schema (Organization sólo con
                        includeOrgSchema), ClientRouter y el motor GSAP.
@@ -72,8 +72,13 @@ contrario: había tarjetas de servicios con el texto incrustado mientras
 ## Reglas que no se rompen
 
 **Ninguna cifra sin las cuatro cosas.** Nombre, empresa, enlace y permiso.
-La única publicable hoy es el +30% de ARC. Hubo `STATS`, `STATS_BIG` y tres
-testimonios con nombres inventados; se borraron el 7/9/2026 y no vuelven.
+Hoy la web no publica ninguna cifra de resultados: la única que las tenía,
+el +30% de ARC, salió el 30/9/2026 con su caso, cuando el de MundialRooms
+pasó a ser el de la home (`CASO`, en `site.ts`). Hubo `STATS`, `STATS_BIG` y
+tres testimonios con nombres inventados; se borraron el 7/9/2026 y no
+vuelven. La regla va de resultados: los 120 € del diagnóstico en persona y
+los años de trayectoria de Valeria son datos del negocio, dados por ella
+(`PRODUCT.md`).
 
 **Nada de analítica fuera del consentimiento.** GA4 (`G-3038QG3XN3`) sólo se
 carga al pulsar Aceptar: el `<script>` de Google no existe en la página
@@ -135,6 +140,15 @@ se lo pide uno al usuario. Si se hace una captura en móvil nada más cargar,
 las fotos pueden salir como un bloque gris: esperar un par de segundos
 antes de capturar. Pasó con el blog y no era un fallo de la web.
 
+**`astro dev` no ejecuta ningún script.** Todas las peticiones de módulos
+devuelven 500 («Missing field `moduleType`», del plugin de React, que está
+instalado en una versión que no es la de Astro 5). Los estilos se ven porque
+van incrustados en el HTML, pero no corren ni el motor GSAP ni los
+revelados ni el aviso de cookies. Para ver la web como es: compilar y servir
+el resultado con `node node_modules/astro/astro.js preview`. Para una
+captura fiable, Chrome sin ventana por el protocolo de depuración contra
+ese servidor: ahí sí hay scroll de verdad y observadores (30/9/2026).
+
 **Los titulares no se animan en móvil, a propósito.** `gsap.from()` deja la
 línea desplazada y a opacidad 0 hasta que dispara el ScrollTrigger; en el
 teléfono la barra de direcciones cambia la altura del viewport y las
@@ -169,9 +183,8 @@ Los comentarios de `global.css` llevan el ratio de contraste de cada
 pareja. Si se cambia un color, se recalcula y se anota; no se pone «a ojo».
 
 Las secciones alternan fondo —oscuro, gris, blanco— para que no se lean como
-un bloque. Cero esquinas redondeadas salvo la píldora de la barra del hero,
-sus botones y el panel del logotipo de ARC, que son la misma forma a
-propósito.
+un bloque. Cero esquinas redondeadas salvo la píldora de la barra del hero y
+sus botones, que son la misma forma a propósito.
 
 ## Deudas conocidas
 

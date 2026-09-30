@@ -270,46 +270,39 @@ const sitio = {
 
   {/* ================= 7 · CASO =================
        Va entre "La diferencia" y el proceso a propósito: primero se afirma en
-       qué somos distintos y acto seguido se enseña a quién le ha funcionado,
-       antes de explicar cómo se trabaja. Un caso con nombre, zona y cifra
-       comprobables pesa más que cinco testimonios anónimos. */}
+       qué somos distintos y acto seguido se enseña con quién se está
+       trabajando y en qué, antes de explicar cómo. Un cliente con nombre,
+       ciudad y web comprobables pesa más que cinco testimonios anónimos.
+       No lleva cifra: todavía no hay ninguna que se pueda publicar. Todo el
+       texto, titular incluido, sale de CASO. */}
   <section class="section section--white caso" aria-labelledby="caso-t">
     <div class="wrap">
       <div class="reveal">
         <p class="eyebrow">({num()}) Un caso</p>
-        <h2 id="caso-t" class="caso-t">No fue rápido. Funcionó.</h2>
+        <h2 id="caso-t" class="caso-t">{CASO.titulo}</h2>
       </div>
 
       <div class="caso-grid reveal">
         <div class="caso-ficha">
           <a class="caso-logo" href={CASO.web} target="_blank" rel="noopener"
              aria-label={`Web de ${CASO.cliente}, se abre en una pestaña nueva`}>
-            <img src={CASO.logo} alt={`Logotipo de ${CASO.cliente}`}
-                 width="640" height="285" loading="lazy" decoding="async" />
+            <img src={CASO.logo.src} alt={`Logotipo de ${CASO.cliente}`}
+                 width={CASO.logo.width} height={CASO.logo.height} loading="lazy" decoding="async" />
           </a>
           <p class="caso-sector">{CASO.sector}</p>
           <a class="caso-web" href={CASO.web} target="_blank" rel="noopener">{CASO.webTexto}</a>
 
           <dl class="caso-fases">
-            <div>
-              <dt>Punto de partida</dt>
-              <dd>{CASO.partida}</dd>
-            </div>
-            <div>
-              <dt>Qué cambió</dt>
-              <dd>{CASO.cambio}</dd>
-            </div>
-            <div>
-              <dt>Dónde están hoy</dt>
-              <dd>{CASO.hoy}</dd>
-            </div>
+            {CASO.frentes.map((f) => (
+              <div>
+                <dt>{f.t}</dt>
+                <dd>{f.d}</dd>
+              </div>
+            ))}
           </dl>
         </div>
 
         <aside class="caso-voz">
-          <p class="caso-cifra">
-            <strong>{CASO.cifra}</strong><span>{CASO.cifraPie}</span>
-          </p>
           <blockquote class="caso-cita">
             <p>{CASO.cita}</p>
             <footer>

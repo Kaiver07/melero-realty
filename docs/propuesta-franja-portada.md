@@ -1,5 +1,12 @@
 # Propuesta: la prueba, justo debajo del botón de la portada
 
+> **Desfasada desde el 30/9/2026.** El caso de ARC y su +30 % han salido de
+> la web: el caso de la home es ahora MundialRooms, que lleva un mes y no
+> tiene cifras (`PRODUCT.md`). La parte del caso de esta propuesta ya no
+> vale tal cual; habría que replantearla con MundialRooms y sin cifra. La
+> parte de los 20 días sigue en pie. Además, el texto bajo el botón es hoy
+> «O pide el diagnóstico por escrito», no «O cuéntanoslo por escrito».
+
 Mejora 1 del estudio comparativo (`docs/benchmark-webs-marketing-inmobiliario.md`).
 Es una propuesta: no se toca la web hasta elegir texto. Decide Yerai, que
 lleva la web; a Valeria sólo hay que preguntarle el dato de la pregunta 3.

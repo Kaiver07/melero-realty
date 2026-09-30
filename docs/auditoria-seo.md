@@ -12,7 +12,7 @@ producción y código coinciden (comprobado página a página a las 12:24). Lo
 que ese despliegue arregló está en «Lo que ya está bien»; la tabla de
 problemas sólo recoge lo que sigue abierto.
 
-## Estado después de los arreglos (27/9/2026, tarde)
+## Estado después de los arreglos (27/9/2026, tarde; al día el 30/9/2026)
 
 Lo que se ha arreglado en el código a partir de esta auditoría. Las
 filas de la tabla del apartado 2 se dejan como estaban, para que se vea de
@@ -21,19 +21,19 @@ dónde se partió; esto dice en qué quedó cada una.
 | # | Estado | Qué se hizo |
 |---|---|---|
 | 1 | Arreglado | Enlace «Sobre nosotros» en el pie de todas las páginas y «Conoce al equipo y cómo trabajamos» en la sección de equipo de la home. |
-| 2 | **Pendiente de datos de Valeria** | Los textos los aprueba Yerai, que lleva la web; lo que les falta es experiencia de primera mano de los diagnósticos, y eso hay que pedírselo a Valeria (`NOTAS.md`). |
-| 3 | Arreglado, con textos provisionales | Biografía corta por persona en sobre-nosotros, con ancla (`#valeria-melero`, `#yerai-jimenez`, `#carlos-bernabe`). La firma y `author.url` llevan a cada una; `sameAs` de Valeria con su LinkedIn y su canal de YouTube. Las biografías sólo dicen lo confirmado en `PRODUCT.md`: falta la trayectoria de cada uno. |
+| 2 | Arreglado el 30/9/2026 | Los dos artículos cuentan lo que se repite en los diagnósticos (el mensaje que habla para todo el mundo, los leads sin nutrir, las cifras que dependen del objetivo), con los datos que mandó Valeria. Llevan `updatedDate` y la fecha de revisión a la vista («Actualizado el»). |
+| 3 | Arreglado, con textos provisionales | Biografía corta por persona en sobre-nosotros, con ancla (`#valeria-melero`, `#yerai-jimenez`, `#carlos-bernabe`). La firma y `author.url` llevan a cada una; `sameAs` de Valeria con su LinkedIn y su canal de YouTube. La biografía de Valeria lleva su trayectoria desde el 30/9/2026; las de Yerai y Carlos siguen sin ella. |
 | 4 | Arreglado | Aviso legal y privacidad identifican a la titular, Valeria Melero Maldonado (nombre comercial Melero Realty), con su NIF, añadido el 28/9/2026. La privacidad ya no habla de una newsletter que no existe. El domicilio y el consentimiento del formulario quedan para la revisión legal. |
 | 5 | Arreglado | «Agencia de marketing inmobiliario» en el título de la home y en el antetítulo del hero. |
-| 6 | **Pendiente, no es de código** | Comprobar si Melero cumple las normas de Google Business Profile antes de pedir que restituyan la ficha. |
+| 6 | **Pendiente, no es de código** | Comprobado el 30/9/2026: Valeria visita a los clientes en su agencia, de forma puntual, así que Melero encaja como empresa de servicios locales (dirección oculta y zona de servicio). La FAQ ya lo dice. Falta pedir a Google que restituya la ficha (`NOTAS.md`). |
 | 7 | Arreglado | Poppins servida desde el propio dominio; fuera la hoja de Google Fonts, sus dos conexiones previas y la de `img.youtube.com`; imágenes con `srcset` (fila 21). Medición en local, mediana de 3 pasadas de Lighthouse 13.5.0 en móvil, antes y después con el mismo método: home, rendimiento 93 → 98, FCP 2,36 → 1,66 s, LCP 2,75 → 2,16 s; artículo, 94 → 98, FCP 2,36 → 1,66 s, LCP 2,57 → 2,11 s. Incrustar las hojas propias (`inlineStylesheets: 'always'`) se probó y no mejora (LCP de la home, 2,25 s): descartado. |
-| 8 | **Pendiente de datos de Valeria y permiso de ARC** | El caso ARC como artículo necesita los detalles del trabajo, que tiene Valeria, y, para lo nuevo, permiso de ARC. |
-| 9 | **Pendiente de contenido** | Páginas de servicios: necesitan contenido propio (para quién es cada servicio, qué incluye, cómo se mide), con datos de Valeria, para no ser páginas vacías. |
+| 8 | Descartado el 30/9/2026 | El caso de ARC sale de la web por indicación de Valeria; el caso de la home es ahora MundialRooms, que lleva un mes y no tiene cifras. Un artículo de caso tendrá sentido cuando haya más que contar. |
+| 9 | Descartado el 30/9/2026 | Páginas de servicios: Valeria prefiere no tener una página por servicio y contar los servicios en general. |
 | 10 | Arreglado, a comprobar tras publicar | `"trailingSlash": true` en `vercel.json`, sin `cleanUrls`. |
 | 11 | Arreglado | `fetchpriority="high"` en la foto de los artículos. |
 | 12 | Arreglado | `WebSite` con el nombre del sitio en la home. |
 | 13 | Arreglado | Fechas ISO con hora y zona de Madrid (`2026-09-12T00:00:00+02:00`) en el schema y en `article:published_time`; la fecha visible dice «Publicado el». La fecha real del primer artículo sigue pendiente. |
-| 14 | Arreglado en parte | `founder` con `url` a su biografía y `sameAs` (LinkedIn y YouTube, que son de Valeria y no de la empresa). `Organization.sameAs` sigue con Instagram. `telephone` y otros perfiles, pendientes de confirmar. |
+| 14 | Arreglado en parte | `founder` con `url` a su biografía y `sameAs` (LinkedIn y YouTube, que son de Valeria y no de la empresa). `Organization.sameAs` sigue con Instagram. `telephone`, añadido el 30/9/2026, con el mismo número a la vista en el pie. Otros perfiles (TikTok, página de empresa en LinkedIn), pendientes de confirmar. |
 | 15 | Arreglado | Título de sobre-nosotros: «Quiénes somos: Valeria Melero y el equipo». Descripción de contacto que describe el formulario por escrito. |
 | 16 | Arreglado | Títulos para Google: «Dependencia de los portales inmobiliarios» y «Coste por lead y por cliente en inmobiliaria». |
 | 17 | Arreglado | «O pide el diagnóstico por escrito» (home, blog, sobre-nosotros) y «Política de cookies» en el aviso. |

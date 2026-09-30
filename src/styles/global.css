@@ -234,5 +234,8 @@ details[open] .faq-plus { transform: rotate(45deg); }
 .footer li{margin-bottom:.6rem}
 .footer li a{font-size:.9rem;font-weight:300;color:var(--muted-dark);text-decoration:none;transition:color .2s var(--ease)}
 .footer li a:hover{color:var(--white)}
+/* El horario es el único renglón de la lista que no es un enlace: mismo
+   cuerpo y color que los demás (--muted-dark sobre --ink-2, 9.39:1). */
+.footer-horario{font-size:.9rem;font-weight:300;color:var(--muted-dark)}
 .footer-bottom{display:flex;flex-wrap:wrap;gap:.8rem 2rem;justify-content:space-between;padding-top:1.8rem;font-size:.78rem;font-weight:300;color:var(--muted-dark)}
 @media (max-width:760px){.footer-top{grid-template-columns:1fr;gap:2rem}}

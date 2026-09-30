@@ -43,7 +43,9 @@ const fullTitle =
    de 512 px, porque el isotipo suelto, dorado sobre transparente, no se lee
    sobre blanco. El LinkedIn y el canal de YouTube son de Valeria, no de la
    empresa: van con ella, no con la organización, y su url lleva a su
-   biografía en sobre-nosotros. */
+   biografía en sobre-nosotros. El teléfono es el mismo que se ve en el pie
+   de todas las páginas (Valeria pidió el 30/9/2026 que constara como
+   teléfono y no sólo como WhatsApp). */
 const fundadora = TEAM.find((m) => m.role.includes('Founder'));
 const orgSchema = {
   '@context': 'https://schema.org',
@@ -53,6 +55,7 @@ const orgSchema = {
   logo: new URL('/favicon.png', SITE.url).href,
   description: SITE.description,
   email: SITE.email,
+  telephone: SITE.telefono.replace(/\s/g, ''),
   sameAs: [SITE.social.instagram],
   ...(fundadora && {
     founder: {

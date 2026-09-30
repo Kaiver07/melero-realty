@@ -25,7 +25,10 @@ Perfil de decisión: compra B2B con presupuesto real y compromiso de 6 meses.
 El precio **no se publica en la web** (decisión del 6/9/2026): cada sistema se
 dimensiona según zona, tipo de propiedades y objetivo, y el presupuesto sale
 del diagnóstico. La cifra de 3.200 € que figuraba antes como mínimo queda como
-dato interno; no está confirmado si sigue vigente.
+dato interno; no está confirmado si sigue vigente. Única excepción, desde el
+30/9/2026: el diagnóstico en persona cuesta 120 € y la FAQ lo dice (dato de
+Valeria; enseñarlo lo decidió Yerai). El de videollamada sigue siendo
+gratuito.
 
 Quien rellena el formulario suele ser el decisor o está a un paso: el
 formulario pregunta explícitamente por rol, capacidad de decisión y capital
@@ -86,6 +89,12 @@ Exclusividad por zona: una sola marca por zona.
   contratos y documentos legales figura con su DNI/NIF; no hay NIF de empresa
   ni domicilio social propio.
 - **Sede:** Nerva (Huelva).
+- **Atención en persona** (dato de Valeria, 30/9/2026): sí, de forma puntual
+  y siempre desplazándose ella a la agencia del cliente. El diagnóstico por
+  videollamada es gratuito; en persona cuesta 120 €. Horario de atención:
+  lunes a viernes, de 9:00 a 14:00 y de 16:00 a 18:00 (`SITE.horario`).
+- **Teléfono:** +34 674 82 90 42. Consta como teléfono de contacto además
+  de como WhatsApp (lo pidió Valeria el 30/9/2026).
 - La marca personal y la marca de empresa van juntas: el dominio es
   `valeriamelero.com` y el "acompañamiento 1:1 con la CEO" es parte del
   producto vendido.
@@ -105,11 +114,29 @@ Exclusividad por zona: una sola marca por zona.
   semana a semana según coste por lead y calidad real.
 - Ventana de resultados que se comunica: primeros resultados en torno a 20
   días, sin garantías antes de 3 meses.
+- **Lo que aparece en los diagnósticos** (Valeria, 30/9/2026). El problema
+  que más se repite está en la captación: la mayoría de las agencias no ha
+  trabajado un mensaje pensado para su cliente ideal y acaba hablando para
+  todo el mundo, así que atrae curiosos en lugar de clientes que llegan
+  sabiendo qué hace la agencia. El otro error habitual es no nutrir los
+  leads: casi nadie decide el primer día, se enfrían y se pierden. Las
+  cifras que se miden dependen del objetivo de cada cliente, así que no son
+  las mismas para todos. Es la experiencia de primera mano que llevan los
+  artículos del blog.
+- **Trabajo a medida** (Valeria, 30/9/2026): no todos los clientes
+  necesitan anuncios, y a cada uno se le miden métricas distintas según su
+  objetivo. Los contratos suelen ser de 6 meses, con revisión quincenal y
+  un proceso transparente: si el cliente quiere, se le enseña cada paso
+  para que no dependa al 100 % de ella. No hace falta una página por
+  servicio: los servicios se cuentan en general.
 
 ### Embudo
 
 - **Lead magnet:** masterclass grabada **«Captación sin portales»**,
-  gestionada con **Systeme.io**.
+  gestionada con **Systeme.io**. Todavía no está disponible (Valeria,
+  30/9/2026): se anunciará por Instagram y LinkedIn, y ella pasará el
+  enlace cuando esté publicada para añadirla a la web. La web no la
+  menciona.
 - **Cierre habitual:** primera llamada gratuita con Valeria, 45 minutos por
   videollamada, sin compromiso, reservada en Calendly. **Calendly es el
   embudo principal**; el formulario de `/contacto` es la alternativa por
@@ -170,7 +197,8 @@ confidencialidad/RGPD y anexos por proyecto.
   privacidad, política de cookies.
 - Términos comerciales publicados, que futuros trabajos respetan tal cual:
   contrato de 6 meses, exclusividad por zona, primeros resultados en torno a
-  20 días, y se trabaja solo con inmobiliarias en activo. Sin precio público.
+  20 días, y se trabaja solo con inmobiliarias en activo. Sin precio público,
+  salvo los 120 € del diagnóstico en persona (FAQ, 30/9/2026).
 
 ### Decisiones abiertas
 
@@ -271,31 +299,67 @@ Reales y utilizables:
 - **Equipo:** Valeria Melero (CEO & Founder), Yerai Jiménez (Marketing y
   guiones), Carlos Bernabé (Comercial y guiones), Carlos Cortés (guiones).
   Fotos reales en `public/team/` para los tres primeros.
-- **Caso real:** ARC Proyectos Renovables SL (Valencia), constructora de
-  reformas integrales, `arcproyectosrenovables.com`. Punto de partida:
-  empresa consolidada sin sistema de captación. Resultado: +30% de
-  facturación, el salto en la séptima sesión, relación en activo.
-  Testimonio firmado por **Lina Marcela**, y habla de Valeria como mentora
-  —no del sistema de leads—, así que sirve como prueba del acompañamiento
-  1:1, no de la captación. **Permiso concedido por ARC el 7/9/2026** para
-  publicar logotipo, nombre de la persona y cifra de facturación.
-  Salvedad: ARC no es una inmobiliaria, y la web dice trabajar sólo con
-  inmobiliarias. Decisión consciente del negocio, no un descuido.
+- **Trayectoria de Valeria** (la aportó ella el 30/9/2026; va en su
+  biografía de sobre-nosotros): más de 8 años en marketing digital; venta
+  consultiva B2B en OVB, NUR y Melero Realty; impartió el programa
+  «Generación Digital PYMES» en ESCP Business School junto a Anova CTI;
+  trabaja en captación inmobiliaria desde 2025 (el año lo dio Yerai el
+  30/9/2026: en el texto de ella venía como «[año]»). La de Yerai y la de
+  Carlos siguen sin aportar.
+- **Caso de la web: MundialRooms** (`mundialrooms.com`; así escriben ellos
+  su nombre). Sustituye al de ARC desde el 30/9/2026, por indicación de
+  Valeria. Agencia inmobiliaria de Madrid con presencia en Miami y
+  República Dominicana; a 30/9/2026 lleva un mes trabajando con Melero. Qué
+  se hace: seleccionar, contratar y coordinar a los perfiles que aparecen
+  ante cámara en sus Reels; planificar cada semana el contenido con su
+  equipo de redes; formación individual de captación a su equipo
+  comercial. **No hay cifras:** es pronto, y la web no enseña ninguna.
+  Reseña de su CEO en Google, entera:
+
+  > Como CEO de MundialRooms, quiero agradecer y destacar públicamente el
+  > excelente trabajo que está realizando Valeria en nuestra compañía.
+  > Desde el primer minuto ha demostrado una gran profesionalidad,
+  > implicación y atención a cada detalle. Siempre está pendiente de
+  > nuestras necesidades y, sobre todo, buscando la mejor estrategia y
+  > nuevas oportunidades que nos ayuden a mejorar y potenciar nuestras
+  > ventas. Da gusto trabajar con profesionales que se implican de esta
+  > manera y sienten los objetivos de la empresa como propios. Gran
+  > profesional y 100% recomendable. Gracias, Valeria, por tu dedicación y
+  > excelente trabajo.
+
+  La web cita las cuatro primeras frases, sin tocar una palabra, firmadas
+  por **Damián, CEO de MundialRooms** (el nombre lo dio Yerai el
+  30/9/2026, sin apellido; si se quiere poner, hay que preguntarlo).
+  **Permiso:** se le pidió a MundialRooms para salir como caso (lo
+  confirmó Yerai el 30/9/2026). **Logotipo:** lo pasó Yerai el mismo día;
+  es el de su web y está en `public/images/caso-mundialrooms.webp`.
+  **[PENDIENTE DE CONFIRMAR]:** el enlace a la reseña (el 30/9/2026 la
+  ficha de Melero no aparecía en Google Maps, así que no se puede enlazar
+  ni comprobar desde fuera) y la fecha en que empezó el trabajo, para no
+  depender de «un mes».
+- **ARC Proyectos Renovables, fuera de la web** desde el 30/9/2026
+  (indicación de Valeria): ni el caso, ni el +30 % de facturación, ni el
+  logotipo, ni la cita de Lina Marcela. El permiso que dio ARC el 7/9/2026
+  era para esa publicación; si algún día vuelve, hay que pedirlo otra vez.
 - **FAQ:** 8 preguntas con respuestas dadas por el negocio (requisitos,
   qué se entrega tras la llamada, plazos, quién paga los anuncios, zona
-  ocupada, salida anticipada, presupuesto, remoto). Verdad de producto.
+  ocupada, salida anticipada, presupuesto, remoto y presencial). Verdad de
+  producto.
 - **Vídeo** de YouTube propio: el Short «¿Qué es realmente Melero Realty?»
   (`G-OtqipOUAI`), vertical 9:16. La miniatura que sirve YouTube viene con
   relleno borroso a los lados para forzarla a 16:9, así que el póster se
   recorta y se sirve desde `public/images/video-poster.jpg`.
 - **Logo** real y favicon.
-- **Masterclass** «Captación sin portales» y 19 guiones de reel. Si la
-  masterclass sigue vigente está sin confirmar.
+- **Masterclass** «Captación sin portales» y 19 guiones de reel. La
+  masterclass todavía no está publicada (30/9/2026; ver «Embudo»).
 - **Blog de la web:** los artículos los firman Valeria Melero y Yerai
   Jiménez (26/9/2026).
 - **Google Business Profile:** Melero tiene ficha, pero Google la ha
-  retirado por ahora (26/9/2026). Sin ficha activa no hay presencia en
-  Maps ni en el paquete local.
+  retirado por ahora (26/9/2026; el 30/9/2026 seguía sin aparecer en
+  Maps). Sin ficha activa no hay presencia en Maps ni en el paquete local.
+  Como Valeria visita a los clientes en su agencia, encaja en lo que Google
+  llama empresa de servicios locales: dirección oculta y zona de servicio.
+  Falta pedir que la restituyan (`NOTAS.md`).
 - **Plantillas legales** para colaboradores.
 
 Borrado del código el 7/9/2026, y no se vuelve a meter:
@@ -308,12 +372,14 @@ Borrado del código el 7/9/2026, y no se vuelve a meter:
   existen. Estaban en `site.ts` sin ninguna marca de ser falsos, listos
   para que alguien los publicara por error.
 
-La única cifra publicable es el +30% de ARC, y lo es porque tiene nombre,
-empresa, enlace y permiso. Cualquier cifra nueva necesita las cuatro cosas.
+Hoy la web no publica ninguna cifra de resultados. La única que lo estuvo,
+el +30% de ARC, tenía nombre, empresa, enlace y permiso, y salió con su caso
+el 30/9/2026. Cualquier cifra nueva necesita las cuatro cosas.
 
 Ausencias que no se rellenan inventando: no hay prensa, ni más logos de
-clientes que el de ARC, ni pricing público —el precio es a medida y no se
-publica—, ni certificaciones o partnerships (Meta/Google Partner u otros).
+clientes que el de MundialRooms, ni pricing público —el precio es a medida
+y no se publica, salvo los 120 € del diagnóstico en persona—, ni
+certificaciones o partnerships (Meta/Google Partner u otros).
 
 ## Product Principles
 

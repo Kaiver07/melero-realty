@@ -109,9 +109,10 @@ la home), que es otra cosa.
 - **Texto de los artículos — aprobado por Yerai (27/9/2026).** Todo sale de
   `PRODUCT.md` y de `site.ts` (dependencia de portales, los tres síntomas,
   nutrición de leads, KPIs de negocio, lo que se mira en el diagnóstico),
-  sin cifras, nombres ni promesas de «más clientes». Lo que les falta es
-  experiencia de primera mano: eso sí hay que pedírselo a Valeria (ver
-  «Auditoría SEO: lo que queda»).
+  sin cifras, nombres ni promesas de «más clientes». La experiencia de
+  primera mano se añadió el 30/9/2026 con lo que contó Valeria de los
+  diagnósticos: una sección nueva y una frase en el primer artículo, y dos
+  frases en el segundo (ver «Datos de Valeria»).
 - **Fecha de publicación — [PENDIENTE DE CONFIRMAR].** Pone 12/9/2026, que es
   el día en que se escribió. Cambiar `publishDate` al día real de salida.
 - **Autoría — resuelto el 26/9/2026.** Los artículos los firman Valeria
@@ -126,11 +127,13 @@ la home), que es otra cosa.
   `/contacto/`. La llamada dura 45 minutos (antes el blog y sobre-nosotros
   decían 30).
 - **Oferta de los 20 días** — confirmada vigente el 26/9/2026.
-- **Masterclass «Captación sin portales» — [PENDIENTE DE CONFIRMAR]** si
-  sigue vigente.
+- **Masterclass «Captación sin portales».** Todavía no está disponible
+  (Valeria, 30/9/2026): se anunciará por Instagram y LinkedIn. El enlace,
+  **[PENDIENTE DE CONFIRMAR]**: lo pasará ella cuando esté publicada. Hasta
+  entonces la web no la menciona.
 - **Google Business Profile.** Melero tiene ficha, pero Google la ha
   retirado por ahora (26/9/2026). Las mejoras de SEO local del estudio de
-  `docs/` quedan en espera hasta recuperarla.
+  `docs/` quedan en espera hasta recuperarla (ver «Datos de Valeria»).
 - **Enlace en el menú superior — resuelto el 26/9/2026.** «Blog» va en el
   menú de arriba de la home y de las interiores, además del pie. En móvil
   es el único enlace del menú que queda visible (clase `nav-keep`).
@@ -141,7 +144,8 @@ la home), que es otra cosa.
   en el repositorio; si se quiere escribir sobre zonas, hace falta.
 - **Servicios sin página propia.** Los servicios sólo existen como sección de
   la home, así que «Ver todos los servicios» lleva a `/#servicios` y no a una
-  página por servicio.
+  página por servicio. Así se queda: Valeria dijo el 30/9/2026 que no hace
+  falta una página por servicio y que se deja general.
 - **Imagen al compartir el enlace.** Los artículos usan la tarjeta general
   del sitio (`og-melero.jpg`, 1200×630). No hay imagen 1200×630 propia para
   el artículo; la foto del artículo es vertical y quedaría recortada.
@@ -157,13 +161,13 @@ La auditoría está en `docs/auditoria-seo.md`, con el estado de cada
 problema. Lo técnico está arreglado. Los textos nuevos (títulos de la home,
 de sobre-nosotros y de los artículos, antetítulo del hero, descripción de
 contacto, «O pide el diagnóstico por escrito», «Publicado el», la 404 y las
-biografías) los aprobó Yerai el 27/9/2026. Lo que queda depende de datos que
-hay que pedir a Valeria o que todavía no existen:
+biografías) los aprobó Yerai el 27/9/2026. Valeria mandó sus datos el
+30/9/2026 (ver «Datos de Valeria», abajo). Lo que queda:
 
-- **Biografías — [PENDIENTE DE CONFIRMAR].** Sólo dicen lo confirmado en
-  `PRODUCT.md`: qué hace cada uno en Melero. Falta la trayectoria real de
-  cada persona y los perfiles públicos de Yerai y de Carlos (LinkedIn u
-  otros), que irían en `perfiles` de `TEAM`.
+- **Biografías — [PENDIENTE DE CONFIRMAR].** La de Valeria ya lleva su
+  trayectoria. Las de Yerai y Carlos sólo dicen qué hacen en Melero: falta
+  su trayectoria y sus perfiles públicos (LinkedIn u otros), que irían en
+  `perfiles` de `TEAM`.
 - **Aviso legal y privacidad.** Identifican a la titular (Valeria Melero
   Maldonado, nombre comercial Melero Realty) con su NIF, añadido el
   28/9/2026 (`SITE.nif`). Queda **[PENDIENTE DE CONFIRMAR]** revisar con
@@ -171,23 +175,76 @@ hay que pedir a Valeria o que todavía no existen:
   casilla de consentimiento de `/contacto`, que obliga a aceptar
   comunicaciones comerciales. La política ya no habla de la newsletter, que
   no existe.
-- **Artículos con experiencia propia** (problema 2 de la auditoría):
-  pedirle a Valeria lo que sólo sabe quien hace diagnósticos (qué aparece al
-  auditar la captación de una agencia, qué errores se repiten, cómo se
-  eligen las métricas) y añadirlo.
-- **Caso ARC como artículo y páginas de servicios** (problemas 8 y 9):
-  necesitan datos de Valeria (qué se hizo con ARC; qué incluye cada
-  servicio) y, para lo nuevo del caso, permiso de ARC.
-- **Google Business Profile** (problema 6): comprobar si Melero cumple las
-  normas de Google (atención presencial o visitas a clientes) antes de
-  pedir que la restituyan.
+- **Artículos con experiencia propia** (problema 2 de la auditoría) —
+  hecho el 30/9/2026 con lo que contó Valeria: los dos artículos dicen qué
+  se repite en los diagnósticos y llevan `updatedDate`.
+- **Caso ARC como artículo** (problema 8) — descartado el 30/9/2026: ARC
+  sale de la web. El caso es ahora MundialRooms, que lleva un mes; un
+  artículo sobre él tendrá sentido cuando haya más que contar.
+- **Páginas de servicios** (problema 9) — descartadas el 30/9/2026: Valeria
+  prefiere dejar los servicios en general.
+- **Google Business Profile** (problema 6): Melero encaja en las normas por
+  la vía de las visitas a clientes. Falta pedir a Google que restituya la
+  ficha, y la decisión es suya (ver «Datos de Valeria»).
 - **Fotos de al menos 1200 px de ancho** (problema 20), en 16:9, 4:3 y 1:1,
   para Discover y para compartir. Las de ChatGPT salen a 1122 px.
-- **Datos que faltan para Google:** si Valeria quiere que su teléfono conste
-  como teléfono (`telephone`) y no sólo como WhatsApp; URLs de TikTok o de
-  una página de empresa en LinkedIn, si existen; y el estudio de palabras
-  clave de Sevilla y Marbella o, en su defecto, las consultas de Search
-  Console.
+- **Datos que faltan para Google:** el teléfono ya consta como teléfono
+  (30/9/2026). Siguen faltando las URLs oficiales de TikTok o de una página
+  de empresa en LinkedIn, **[PENDIENTE DE CONFIRMAR]** (Google enseña un
+  perfil de TikTok `@melero.realty`; si es el oficial, va en
+  `SITE.social` y en `sameAs`), y el estudio de palabras clave de Sevilla y
+  Marbella o, en su defecto, las consultas de Search Console.
+
+## Datos de Valeria (30/9/2026)
+
+Respuestas a la lista que se le pidió (la del PDF del 28/9/2026). Qué se
+hizo con cada una y qué sigue abierto:
+
+- **Atención en persona.** Sí, de forma puntual, y siempre yendo ella a la
+  agencia del cliente. El diagnóstico por videollamada es gratuito; en
+  persona cuesta 120 €. Horario: lunes a viernes, de 9:00 a 14:00 y de
+  16:00 a 18:00. En la web: la pregunta «¿Trabajáis presencialmente?» de la
+  FAQ lo cuenta, con el precio (Yerai decidió enseñarlo: es el único de la
+  web), y el horario sale en el pie (`SITE.horario`).
+- **Ficha de Google.** Las normas de Google admiten a las empresas que
+  visitan a sus clientes «estén donde estén»; las llama empresas de
+  servicios locales y les pide ocultar la dirección e indicar la zona de
+  servicio ([normas][gbp]). Melero encaja ahí, no como local abierto al
+  público. Para pedir la restitución: dirección oculta, zona de servicio,
+  el horario de arriba y el teléfono. Es un trámite en la cuenta de Google
+  de la ficha: no es de código. El 30/9/2026 la ficha no aparecía en Maps.
+  Mientras no vuelva, nada de `LocalBusiness` en la web.
+- **Trayectoria.** En su biografía de sobre-nosotros (`TEAM`, en
+  `site.ts`). El año desde el que trabaja en captación inmobiliaria venía
+  en su texto como «[año]»; Yerai dijo el 30/9/2026 que es desde el año
+  pasado, así que la biografía dice «desde 2025».
+- **Lo que ve en los diagnósticos.** En los dos artículos, con sus
+  palabras y sin nombres de clientes.
+- **El caso: MundialRooms en lugar de ARC.** La sección «Un caso» de la
+  home enseña ahora a MundialRooms (`CASO`, en `site.ts`): quiénes son, los
+  tres frentes en los que se trabaja y la reseña de su CEO, Damián. ARC
+  sale entero: caso, +30 %, logotipo (`public/images/caso-arc.webp`,
+  borrado) y cita. Sin cifras. El nombre del CEO, el permiso de
+  MundialRooms y su logotipo los dio Yerai el 30/9/2026. El logotipo es
+  `public/images/caso-mundialrooms.webp`: la imagen que pasó él, recortada
+  al dibujo; va sobre el blanco de la sección, sin la píldora oscura que
+  llevaba el de ARC (está en el historial, commit `d525b19` y anteriores).
+  **[PENDIENTE DE CONFIRMAR]**, todo en `PRODUCT.md`:
+  - el enlace a la reseña: el 30/9/2026 la ficha de Melero no aparecía en
+    Google Maps, así que la web no dice que la reseña esté en Google;
+  - la fecha de inicio. La web dice «llevan un mes […] a fecha de
+    septiembre de 2026»: hay que actualizarlo cuando pase el tiempo.
+  La propuesta de la franja de la portada (`docs/`) partía del caso de ARC
+  y ha quedado desfasada.
+- **Teléfono.** El +34 674 82 90 42 consta como teléfono: enlace `tel:` en
+  el pie de todas las páginas y `telephone` en el schema de la
+  organización. WhatsApp sigue aparte.
+- **Masterclass.** Todavía no está disponible; falta el enlace.
+- **Servicios.** Sin página por servicio. Lo demás que contó (trabajo a
+  medida, contratos de 6 meses, revisión quincenal, proceso transparente)
+  ya lo decía la web en «El trato».
+
+[gbp]: https://support.google.com/business/answer/3038177?hl=es
 
 ## Cambios fuera de las páginas del blog
 

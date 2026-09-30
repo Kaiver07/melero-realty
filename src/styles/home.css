@@ -1062,14 +1062,18 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 
 /* ==========================================================================
    CASO
-   Un solo cliente, con nombre, zona y cifra. La ficha a la izquierda cuenta
-   qué pasó; la columna de la derecha carga el peso: la cifra y la voz de
-   quien la vivió. Se separan con una regla vertical porque son dos tipos de
-   prueba distintos —dato y testimonio— y conviene que no se lean como uno.
+   Un solo cliente, con nombre, ciudad y web. La ficha a la izquierda cuenta
+   qué se hace; la columna de la derecha lleva la voz del cliente. Se separan
+   con una regla vertical porque son dos tipos de prueba distintos —hechos y
+   testimonio— y conviene que no se lean como uno. No hay cifra: el día que
+   haya una publicable, va en la columna de la derecha, encima de la cita.
    ========================================================================== */
+/* El ancho va en em para que corte igual a cualquier tamaño: el titular son
+   dos frases, la primera mide unos 11,5em y con la palabra siguiente, 13,7em.
+   Con 12,5em cada frase ocupa su línea. */
 .caso-t{
   font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;
-  margin-top:1.3rem;max-width:18ch;line-height:1.03;
+  margin-top:1.3rem;max-width:12.5em;line-height:1.03;
 }
 .caso-grid{
   display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
@@ -1077,26 +1081,13 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   margin-top:clamp(2.2rem,4vw,3.2rem);
 }
 
-/* El logotipo de ARC tiene las letras blancas con filete fino: sobre el
-   blanco de la seccion se lavaba y no se leia. Va sobre un panel de
-   --paper-2, lo justo para que las formas blancas tengan borde sin que el
-   bloque gris cante. Sin filtros: es marca ajena y se respeta. */
-/* Píldora y no círculo: el logotipo de ARC mide 2,2 de ancho por 1 de alto,
-   y dentro de una circunferencia habría que encogerlo hasta la mitad para
-   que cupiera, dejando aire muerto arriba y abajo. La píldora conserva la
-   forma redonda y respeta la proporción del logotipo, y además ya existe en
-   la casa: es la misma que la barra del hero y la de los botones.
-
-   Fondo oscuro porque esta versión del logotipo está dibujada para fondo
-   oscuro: las letras son blancas y sin filete, y sobre claro desaparecen. */
-.caso-logo{
-  display:inline-flex;align-items:center;justify-content:center;
-  background:var(--ink);border:0;border-radius:999px;
-  padding:clamp(1.35rem,2.6vw,1.85rem) clamp(1.9rem,3.8vw,2.7rem);
-  transition:background-color .25s var(--ease);
-}
-.caso-logo:hover{background:var(--ink-hover)}
-.caso-logo img{width:clamp(150px,17vw,194px)}
+/* El logotipo de MundialRooms es oscuro sobre blanco, así que va tal cual
+   sobre el blanco de la sección: sin panel y sin filtros, que es marca
+   ajena. (El de ARC era de letras blancas e iba en una píldora oscura; está
+   en el historial por si un logotipo futuro la necesita.) */
+.caso-logo{display:inline-block;transition:opacity .2s var(--ease)}
+.caso-logo:hover{opacity:.72}
+.caso-logo img{width:clamp(180px,20vw,240px);height:auto}
 
 /* El enlace va visible y no sólo bajo el logotipo: que se pueda comprobar
    es la mitad del valor de publicar un caso, y nadie da por hecho que un
@@ -1111,7 +1102,7 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 .caso-web:hover{border-bottom-color:var(--teal)}
 .caso-sector{
   margin-top:1.1rem;font-size:.9rem;font-weight:300;
-  color:var(--muted);max-width:34ch;
+  color:var(--muted);max-width:46ch;
 }
 .caso-fases{margin-top:clamp(1.8rem,3vw,2.4rem);display:grid;gap:1.55rem}
 .caso-fases dt{
@@ -1124,14 +1115,7 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 }
 
 .caso-voz{border-left:2px solid var(--ink);padding-left:clamp(1.4rem,2.5vw,2.2rem)}
-.caso-cifra{display:flex;align-items:baseline;gap:.65rem;flex-wrap:wrap}
-.caso-cifra strong{
-  font-size:clamp(2.8rem,6vw,4.2rem);font-weight:600;letter-spacing:-.04em;
-  line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;
-}
-.caso-cifra span{font-size:.9rem;font-weight:300;color:var(--muted)}
-
-.caso-cita{margin:clamp(1.8rem,3vw,2.4rem) 0 0}
+.caso-cita{margin:0}
 .caso-cita p{
   font-size:clamp(1rem,1.35vw,1.1rem);line-height:1.65;font-weight:300;color:var(--text);
 }
