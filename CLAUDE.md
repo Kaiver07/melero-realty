@@ -160,6 +160,18 @@ Poppins y una red de seguridad que limpia lo que siga invisible.
 esperando a un observador, tiene que haber un plan B que lo muestre. Página
 invisible es peor fallo que animación perdida.
 
+**Tailwind sólo lee `src/`.** Lo fija `source("../")` en el `@import` de
+`global.css`. Sin él lee el repositorio entero como texto: `rounded-lg`
+llegó a producción desde `DESIGN.md`, y cada utilidad nombrada en un
+documento le cambiaba el nombre a la hoja que cargan las diez páginas (hoy
+`dist/_astro/aviso-legal.*.css`), con lo que editar `NOTAS.md` podía obligar
+a todos los visitantes a descargarla otra vez sin haber tocado la web
+(30/9/2026). Dentro de `src/` sigue leyendo texto, no plantillas: una
+palabra que coincida con una utilidad genera su regla aunque esté en un
+comentario, un `<style>` o un Markdown. Los documentos que citen utilidades
+van fuera de `src/`, y una plantilla con clases de Tailwind que viva fuera
+necesita su `@source` en `global.css` o sale sin estilos.
+
 ## Sistema visual
 
 Fuente única: **Poppins** (300/400/600/700), servida desde el propio

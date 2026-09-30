@@ -1,4 +1,8 @@
-@import "tailwindcss";
+/* source("../") limita a src/ lo que Tailwind lee en busca de clases; la
+   ruta es relativa a esta hoja. Sin él lee el repositorio entero, y una
+   utilidad citada en un documento (DESIGN.md, PRODUCT.md…) acababa en el CSS
+   publicado y le cambiaba el nombre al archivo (30/9/2026). */
+@import "tailwindcss" source("../");
 
 /* Poppins desde el propio dominio (public/fonts): sólo el subconjunto
    latino, que cubre el castellano, con los mismos archivos y rangos que
