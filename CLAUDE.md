@@ -126,14 +126,39 @@ nadie supiera por qué. `.band-copy` y `.cta` ya están envueltos en
 `:where()`, que no aporta especificidad. **Al añadir un párrafo dentro de un
 bloque, dale su propia clase** y no confíes en heredar.
 
-**El panel de vista previa no sirve para verificar.** No pinta este sitio,
-no ejecuta `IntersectionObserver` y **`scrollTo()` mueve la página sin
-emitir el evento `scroll`**, así que todo lo atado al scroll parece roto
-aunque esté bien. Verificar por DOM (`getBoundingClientRect`, estilos
-computados) y contra el CSS ya compilado en `dist/_astro/*.css`. Lo visual
-se lo pide uno al usuario. Si se hace una captura en móvil nada más cargar,
-las fotos pueden salir como un bloque gris: esperar un par de segundos
-antes de capturar. Pasó con el blog y no era un fallo de la web.
+**El panel de vista previa, oculto, no genera fotogramas.** Si nadie lo
+tiene a la vista —una sesión en segundo plano, por ejemplo— no corren
+`requestAnimationFrame`, `IntersectionObserver` ni el evento `scroll`
+(medido el 30/9/2026: cero llamadas en un segundo; con el panel a la vista
+no está medido). GSAP se queda en el fotograma 0, así que nada animado
+avanza —la palabra del hero sigue a opacidad 0— y los revelados los enseña
+la red de seguridad, no el observador. La web está bien: faltan los
+fotogramas. Ahí se verifica por DOM (`getBoundingClientRect`, estilos
+computados), red, consola y capturas, que pintan la página quieta, y contra
+el CSS ya compilado en `dist/_astro/*.css`; las animaciones y lo visual se
+le piden al usuario. Fijar el tamaño con `resize_window` **antes** de
+cargar: sin eso el viewport puede medir 0×0 y el motor se cree en un móvil
+(`.linea` da 0). Moverse con `scrollTo({ top, behavior: 'instant' })`: con
+el `scroll-behavior: smooth` del sitio y sin fotogramas, un `scrollTo()` a
+secas puede no mover la página. Si se hace una captura en móvil nada más
+cargar, las fotos pueden salir como un bloque gris: esperar un par de
+segundos antes de capturar. Pasó con el blog y no era un fallo de la web.
+
+**Las integraciones, de la línea de Astro 5.** `npx astro add <algo>` y
+`npm i @astrojs/<algo>` traen la última versión, que hoy es la de Astro 7
+(Vite 8); aquí hay Astro 5 (Vite 6). Pasó con React: `@astrojs/react` 6.0.5
+entró el 6/9/2026 sin que npm avisara —no declara qué Astro necesita— y
+hasta el 30/9 `astro dev` devolvió 500 en todos los módulos (`Missing field
+moduleType`): ningún script corría en desarrollo, mientras `build`,
+`preview` y producción iban bien. El mecanismo: en `node_modules` hay dos
+Vite, el 6 de Astro (anidado en `node_modules/astro`) y un 8 en la raíz que
+npm instala como dependencia entre pares de `@tailwindcss/vite`, y un
+plugin que importa `vite` recibe el 8. Antes de instalar una integración,
+mirar qué Vite pide (`npm view <paquete>@<versión> dependencies.vite`) y
+elegir la que pida el 6; después, arrancar `astro dev` y comprobar que
+`/@vite/client` responde 200. React se quitó entero el 30/9/2026 porque no
+tenía ni una isla. Si hace falta una, es `@astrojs/react@^4`, y el montaje
+que había (alias `@`, `cn()`) está en el commit `3948b26`.
 
 **Los titulares no se animan en móvil, a propósito.** `gsap.from()` deja la
 línea desplazada y a opacidad 0 hasta que dispara el ScrollTrigger; en el
@@ -175,11 +200,11 @@ propósito.
 
 ## Deudas conocidas
 
-- **React, Tailwind y `--r-card` están instalados pero casi sin usar.**
-  React no tiene ni una isla; `--r-card` no lo referencia nadie. Tailwind
-  sólo lo usan las páginas interiores y las legales, que conservan su
-  maquetación antigua a base de utilidades mientras la home va con CSS
-  propio. Es la costura entre dos rediseños y sigue ahí.
+- **Tailwind y `--r-card` están ahí pero casi sin usar.** `--r-card` no lo
+  referencia nadie. Tailwind sólo lo usan las páginas interiores y las
+  legales, que conservan su maquetación antigua a base de utilidades
+  mientras la home va con CSS propio. Es la costura entre dos rediseños y
+  sigue ahí.
 - **Embudos: manda Calendly** (decidido el 26/9/2026). Todos los botones
   principales, también los del blog y sobre-nosotros, van a Calendly. El
   formulario de 5 pasos de `/contacto`, que es el que guarda el lead en la
