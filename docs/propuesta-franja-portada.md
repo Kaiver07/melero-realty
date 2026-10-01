@@ -1,8 +1,8 @@
 # Propuesta: la prueba, justo debajo del botón de la portada
 
 > **Desfasada desde el 30/9/2026.** El caso de ARC y su +30 % han salido de
-> la web: el caso de la home es ahora MundialRooms, que lleva un mes y no
-> tiene cifras (`PRODUCT.md`). La parte del caso de esta propuesta ya no
+> la web: el caso de la home es ahora MundialRooms, que empezó en
+> septiembre de 2026 y no tiene cifras (`PRODUCT.md`). La parte del caso de esta propuesta ya no
 > vale tal cual; habría que replantearla con MundialRooms y sin cifra. La
 > parte de los 20 días sigue en pie. Además, el texto bajo el botón es hoy
 > «O pide el diagnóstico por escrito», no «O cuéntanoslo por escrito».

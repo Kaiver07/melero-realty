@@ -309,7 +309,8 @@ Reales y utilizables:
 - **Caso de la web: MundialRooms** (`mundialrooms.com`; así escriben ellos
   su nombre). Sustituye al de ARC desde el 30/9/2026, por indicación de
   Valeria. Agencia inmobiliaria de Madrid con presencia en Miami y
-  República Dominicana; a 30/9/2026 lleva un mes trabajando con Melero. Qué
+  República Dominicana; trabaja con Melero desde principios de septiembre
+  de 2026 (la fecha la dio Yerai el 1/10/2026). Qué
   se hace: seleccionar, contratar y coordinar a los perfiles que aparecen
   ante cámara en sus Reels; planificar cada semana el contenido con su
   equipo de redes; formación individual de captación a su equipo
@@ -335,8 +336,7 @@ Reales y utilizables:
   es el de su web y está en `public/images/caso-mundialrooms.webp`.
   **[PENDIENTE DE CONFIRMAR]:** el enlace a la reseña (el 30/9/2026 la
   ficha de Melero no aparecía en Google Maps, así que no se puede enlazar
-  ni comprobar desde fuera) y la fecha en que empezó el trabajo, para no
-  depender de «un mes».
+  ni comprobar desde fuera).
 - **ARC Proyectos Renovables, fuera de la web** desde el 30/9/2026
   (indicación de Valeria): ni el caso, ni el +30 % de facturación, ni el
   logotipo, ni la cita de Lina Marcela. El permiso que dio ARC el 7/9/2026

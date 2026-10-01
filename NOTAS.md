@@ -164,10 +164,11 @@ contacto, «O pide el diagnóstico por escrito», «Publicado el», la 404 y las
 biografías) los aprobó Yerai el 27/9/2026. Valeria mandó sus datos el
 30/9/2026 (ver «Datos de Valeria», abajo). Lo que queda:
 
-- **Biografías — [PENDIENTE DE CONFIRMAR].** La de Valeria ya lleva su
-  trayectoria. Las de Yerai y Carlos sólo dicen qué hacen en Melero: falta
-  su trayectoria y sus perfiles públicos (LinkedIn u otros), que irían en
-  `perfiles` de `TEAM`.
+- **Biografías.** La de Valeria ya lleva su trayectoria. Las de Yerai y
+  Carlos sólo dicen qué hacen en Melero, y así se quedan de momento: Yerai
+  no quiere tocarlas por ahora (1/10/2026). Si algún día se amplían, su
+  trayectoria y sus perfiles públicos (LinkedIn u otros) irían en `bio` y
+  en `perfiles` de `TEAM`.
 - **Aviso legal y privacidad.** Identifican a la titular (Valeria Melero
   Maldonado, nombre comercial Melero Realty) con su NIF, añadido el
   28/9/2026 (`SITE.nif`). Queda **[PENDIENTE DE CONFIRMAR]** revisar con
@@ -179,8 +180,8 @@ biografías) los aprobó Yerai el 27/9/2026. Valeria mandó sus datos el
   hecho el 30/9/2026 con lo que contó Valeria: los dos artículos dicen qué
   se repite en los diagnósticos y llevan `updatedDate`.
 - **Caso ARC como artículo** (problema 8) — descartado el 30/9/2026: ARC
-  sale de la web. El caso es ahora MundialRooms, que lleva un mes; un
-  artículo sobre él tendrá sentido cuando haya más que contar.
+  sale de la web. El caso es ahora MundialRooms, que empezó en septiembre
+  de 2026; un artículo sobre él tendrá sentido cuando haya más que contar.
 - **Páginas de servicios** (problema 9) — descartadas el 30/9/2026: Valeria
   prefiere dejar los servicios en general.
 - **Google Business Profile** (problema 6): Melero encaja en las normas por
@@ -229,11 +230,12 @@ hizo con cada una y qué sigue abierto:
   `public/images/caso-mundialrooms.webp`: la imagen que pasó él, recortada
   al dibujo; va sobre el blanco de la sección, sin la píldora oscura que
   llevaba el de ARC (está en el historial, commit `d525b19` y anteriores).
-  **[PENDIENTE DE CONFIRMAR]**, todo en `PRODUCT.md`:
-  - el enlace a la reseña: el 30/9/2026 la ficha de Melero no aparecía en
-    Google Maps, así que la web no dice que la reseña esté en Google;
-  - la fecha de inicio. La web dice «llevan un mes […] a fecha de
-    septiembre de 2026»: hay que actualizarlo cuando pase el tiempo.
+  El trabajo empezó a principios de septiembre de 2026 (lo dijo Yerai el
+  1/10/2026): la web pone «Trabajan con nosotros desde septiembre de 2026»
+  en lugar del «llevan un mes» que daba Valeria, que caducaba.
+  **[PENDIENTE DE CONFIRMAR]** (en `PRODUCT.md`): el enlace a la reseña. El
+  30/9/2026 la ficha de Melero no aparecía en Google Maps, así que la web
+  no dice que la reseña esté en Google.
   La propuesta de la franja de la portada (`docs/`) partía del caso de ARC
   y ha quedado desfasada.
 - **Teléfono.** El +34 674 82 90 42 consta como teléfono: enlace `tel:` en

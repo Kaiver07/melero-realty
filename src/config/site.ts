@@ -83,11 +83,12 @@ export const SERVICES = [
    nada. Va todo junto —titular incluido— para que quien cambie de caso lo
    cambie entero.
 
-   No lleva cifra: llevan un mes y no hay resultado que enseñar. El día que
-   lo haya, necesita nombre, empresa, enlace y permiso (CLAUDE.md).
+   No lleva cifra: el trabajo empezó a principios de septiembre de 2026 y
+   todavía no hay resultado que enseñar. El día que lo haya, necesita
+   nombre, empresa, enlace y permiso (CLAUDE.md).
 
-   «Un mes» caduca: por eso `sector` dice de cuándo es el dato. Conviene
-   cambiarlo por la fecha de inicio cuando Valeria la dé.
+   `sector` da la fecha de inicio (la dio Yerai el 1/10/2026) y no cuánto
+   tiempo llevan: así no caduca.
 
    La cita son las cuatro primeras frases de la reseña que dejó su CEO en
    Google, sin tocar una palabra; la reseña entera está en PRODUCT.md.
@@ -101,7 +102,7 @@ export const CASO = {
   // ajena y el dibujo no se retoca.
   logo: { src: '/images/caso-mundialrooms.webp', width: 640, height: 226 },
   sector:
-    'Agencia inmobiliaria de Madrid, con presencia en Miami y República Dominicana. Llevan un mes trabajando con nosotros, a fecha de septiembre de 2026.',
+    'Agencia inmobiliaria de Madrid, con presencia en Miami y República Dominicana. Trabajan con nosotros desde septiembre de 2026.',
   // El enlace es parte de la prueba: quien dude puede entrar y comprobar que
   // la empresa existe, está en Madrid y hace lo que decimos que hace.
   web: 'https://mundialrooms.com/',
