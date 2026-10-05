@@ -19,9 +19,6 @@ export const SITE = {
   // melero.realty@gmail.com. Código y puesta en marcha en google-apps-script/.
   // Desde el 28/9/2026; la anterior quedó en la cuenta con la que se creó.
   sheetsWebAppUrl: 'https://script.google.com/macros/s/AKfycby1gMJMU9KTkNWnvr3QantYLpS2wGpuaIey1k_CpslapXk0luBOhWF4-LnhgQpvQ_-8/exec',
-  // Google Analytics 4. Sólo se carga si el visitante acepta: GA instala
-  // cookies y sin consentimiento previo no puede correr.
-  gaId: 'G-3038QG3XN3',
   // YouTube video ID for the "Por qué Melero Realty" section
   youtubeId: 'G-OtqipOUAI',
   // El WhatsApp de Valeria es el canal humano: para quien no quiere agendar
@@ -222,7 +219,7 @@ export const COMPARISON = [
  * de publicaciones sin login ni sin un token de aplicación, y este sitio es
  * estático y no tiene backend donde renovarlo. Los widgets de terceros que lo
  * resuelven cargan scripts con cookies de seguimiento, lo que dejaría en
- * mentira el aviso de cookies de la web.
+ * mentira la política de cookies, que dice que la web no instala ninguna.
  *
  * Así que es una selección manual, y la miniatura hay que aportarla a mano:
  * Instagram ya no expone la imagen ni en la página de la publicación ni en su
