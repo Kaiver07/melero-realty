@@ -41,9 +41,8 @@ src/pages/index.astro  La home entera, sección a sección.
 src/layouts/Layout.astro  <head>, schema (Organization sólo con
                        includeOrgSchema), ClientRouter, Vercel Web
                        Analytics (y su evento «contacto») y el motor GSAP.
-src/components/        Footer, Header, VideoEmbed (fachada de YouTube),
-                       BlogList, BlogCta. CookieNotice se borró el
-                       5/10/2026 con GA4: ya no hay aviso de cookies.
+src/components/        CookieNotice (consentimiento + GA4), Footer, Header,
+                       VideoEmbed (fachada de YouTube), BlogList, BlogCta.
 src/styles/global.css  Tokens y cromo compartido (nav, footer, .wrap).
 src/styles/home.css    El sistema visual de la home. ~900 líneas.
 src/content/blog/      Un Markdown por artículo; el nombre es el slug.
@@ -63,9 +62,8 @@ google-apps-script/    El script que recibe el formulario de /contacto. Se
 ```
 
 Lo pendiente del blog está en `NOTAS.md`. Cada artículo lleva firma
-obligatoria (`autores`, sólo nombres de `TEAM`). `npm run check` (astro check) da 16 errores de tipos anteriores
-al blog, en los scripts de `Layout` (10) e `index` (6). Eran 28 hasta que
-se borró `CookieNotice` el 5/10/2026.
+obligatoria (`autores`, sólo nombres de `TEAM`). `npm run check` (astro check) da 28 errores de tipos anteriores
+al blog, en los scripts de `CookieNotice`, `Layout` e `index`.
 
 **El copy no se escribe en las plantillas.** Si un texto se repite o puede
 cambiar, va en `site.ts` y la plantilla lo pinta. Ya pasó una vez lo
@@ -83,22 +81,20 @@ vuelven. La regla va de resultados: los 120 € del diagnóstico en persona y
 los años de trayectoria de Valeria son datos del negocio, dados por ella
 (`PRODUCT.md`).
 
-**Analítica sin cookies, y sin aviso porque no hace falta.** Google
-Analytics 4 se quitó entero el 5/10/2026, por decisión de la dueña, y con
-él el aviso de consentimiento y el botón «Preferencias» del pie. Las visitas
-las mide **Vercel Web Analytics**, con el método para webs estáticas (dos
-`<script>` en el `<head>` de `Layout.astro`, sin paquete de npm): agregado y
-anónimo, sin cookies y sin guardar nada en el dispositivo. Los clics en
-cualquier enlace con `data-cta` se mandan como evento «contacto» con su
-origen y la vía (llamada o escrito); Vercel sólo guarda eventos
-personalizados en el plan Pro. Web Analytics tiene que estar activado en el
-panel del proyecto de Vercel, o el script da 404 y no se mide nada.
-**Si algún día vuelve una herramienta que instale cookies o guarde algo en
-el dispositivo** (GA, un píxel, un widget, un chat), vuelven con ella el
-aviso con bloqueo previo —Aceptar y Rechazar con el mismo peso, y
-«Preferencias» en el pie para cambiar de opinión— y su fila en la política
-de cookies. La política tiene que describir siempre la realidad: ya declaró
-una vez cookies de Google Analytics que no existían.
+**Nada de analítica fuera del consentimiento.** GA4 (`G-3038QG3XN3`) sólo se
+carga al pulsar Aceptar: el `<script>` de Google no existe en la página
+antes de eso. Aceptar y Rechazar tienen el mismo peso visual a propósito, y
+el pie lleva «Preferencias» para cambiar de opinión. Si se toca algo de
+esto, la política de cookies tiene que seguir describiendo la realidad —ya
+declaró una vez cookies de Google Analytics que no existían.
+
+**Melero mide con GA4 y con Vercel Web Analytics a la vez** (5/10/2026). Es
+la excepción: en el resto de webs GA4 se quitó, pero aquí la dueña lo
+necesita. Vercel Web Analytics va siempre, con dos `<script>` en el `<head>`
+de `Layout.astro` (sin paquete de npm), porque no usa cookies ni guarda nada
+en el dispositivo: no pasa por el aviso. Los clics en enlaces con `data-cta`
+van a los dos como evento «contacto». Web Analytics tiene que estar activado
+en el panel de Vercel, o el script da 404.
 
 **No borrar `public/google824e0cd48fd6c0fc.html`.** Es la verificación de
 Search Console. Si desaparece, Google revoca el acceso a la propiedad. Por
@@ -157,7 +153,7 @@ antes de capturar. Pasó con el blog y no era un fallo de la web.
 devuelven 500 («Missing field `moduleType`», del plugin de React, que está
 instalado en una versión que no es la de Astro 5). Los estilos se ven porque
 van incrustados en el HTML, pero no corren ni el motor GSAP ni los
-revelados. Para ver la web como es: compilar y servir
+revelados ni el aviso de cookies. Para ver la web como es: compilar y servir
 el resultado con `node node_modules/astro/astro.js preview`. Para una
 captura fiable, Chrome sin ventana por el protocolo de depuración contra
 ese servidor: ahí sí hay scroll de verdad y observadores (30/9/2026).

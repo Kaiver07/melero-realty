@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
+import CookieNotice from '../components/CookieNotice.astro';
 import { SITE, FAQ, TEAM } from '../config/site';
 
 interface Props {
@@ -130,10 +131,11 @@ const faqSchema = {
     <ClientRouter />
 
     {/* Vercel Web Analytics, con el método para webs estáticas: sin paquete
-        de npm. Desde el 5/10/2026 sustituye a Google Analytics 4. No usa
-        cookies ni guarda nada en el dispositivo, así que no hace falta aviso
-        de consentimiento (ver CLAUDE.md). La primera línea crea una cola para
-        los eventos que lleguen antes de que cargue el script.
+        de npm. Desde el 5/10/2026 convive con Google Analytics 4. No usa
+        cookies ni guarda nada en el dispositivo, así que se carga siempre;
+        el aviso de cookies (CookieNotice) sólo gobierna GA4 (ver CLAUDE.md).
+        La primera línea crea una cola para los eventos que lleguen antes de
+        que cargue el script.
         transition:persist: con ClientRouter, el <head> se sustituye en cada
         navegación; así estas dos etiquetas se conservan tal cual y el script
         se ejecuta una sola vez. Las visitas de las navegaciones internas las
@@ -145,6 +147,7 @@ const faqSchema = {
   </head>
   <body class="min-h-screen flex flex-col">
     <slot />
+    <CookieNotice />
     <script>
       /* Los clics hacia una reserva, como evento «contacto» de Vercel Web
          Analytics. Sin esto sólo habría visitas: la conversión ocurre en

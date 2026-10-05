@@ -261,9 +261,8 @@ hizo con cada una y qué sigue abierto:
 
 ## Lo que avisa `npm run check`
 
-16 errores de tipos, **todos anteriores al blog**: el script del menú y del
-motor en `Layout.astro` (10) e `index.astro` (6). Eran 28 hasta el
-5/10/2026, cuando se borró `CookieNotice.astro` (12) al quitar GA4.
+28 errores de tipos, **todos anteriores al blog**: `CookieNotice.astro` (12),
+el script del menú y del motor en `Layout.astro` (10) e `index.astro` (6).
 Son scripts de navegador sin tipar (`Element` en vez de `HTMLElement`,
 posibles `null`). El build no los mira y compila bien, pero `npm run check`
 saldrá en rojo hasta que alguien los arregle. En los archivos del blog no hay
