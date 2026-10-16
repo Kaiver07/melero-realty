@@ -299,7 +299,7 @@ import { SITE } from '../config/site';
 
           {/* Success message (hidden) */}
           <div id="form-success" class="ct-success hidden">
-            <h2>¡Diagnóstico recibido!</h2>
+            <p class="ct-success-title">¡Diagnóstico recibido!</p>
             <p class="ct-success-body">
               Revisaremos tu caso y nos pondremos en contacto contigo en las próximas 24-48h.
             </p>
@@ -665,8 +665,12 @@ import { SITE } from '../config/site';
     padding-top: clamp(1.8rem, 3.2vw, 2.6rem);
   }
   .ct-success.hidden { display: none; }
-  .ct-success h2 {
+  .ct-success-title {
     margin: 0;
+    font-family: var(--font-heading);
+    font-weight: var(--font-heading-weight);
+    letter-spacing: -0.015em;
+    line-height: 1.05;
     font-size: clamp(1.6rem, 3.2vw, 2.4rem);
     max-width: 18ch;
   }
