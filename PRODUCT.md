@@ -21,14 +21,42 @@ asesores SÍ suben pisos a los portales** (Idealista, Fotocasa). Ningún copy
 puede partir de que no lo hacen. El problema no es que no usen portales: es
 que *dependen* de ellos.
 
-Perfil de decisión: compra B2B con presupuesto real y compromiso de 6 meses.
-El precio **no se publica en la web** (decisión del 6/9/2026): cada sistema se
-dimensiona según zona, tipo de propiedades y objetivo, y el presupuesto sale
-del diagnóstico. La cifra de 3.200 € que figuraba antes como mínimo queda como
-dato interno; no está confirmado si sigue vigente. Única excepción, desde el
-30/9/2026: el diagnóstico en persona cuesta 120 € y la FAQ lo dice (dato de
-Valeria; enseñarlo lo decidió Yerai). El de videollamada sigue siendo
-gratuito.
+**Nueva dirección (19/10/2026, documentos de Valeria «Melero Realty — Nueva
+dirección 2026» y «Cambios web valeriamelero.com — para Yerai»).** Melero
+deja de vender proyectos a medida y vende un **catálogo cerrado con precio
+publicado**: Diagnóstico de Captación de pago (197 €, por videollamada),
+planes Contenido
+(590 €/mes), Captación (790 €/mes) y Completo (1.290 €/mes), SEO, SEM y GEO
+(desde 490 €/mes, auditoría 290 €), un plan recomendado que junta Completo y
+SEO con un 20 % menos los 3 primeros meses, y extras. Todo + IVA. El catálogo
+entero, con sus condiciones, vive en `PLANES` (`src/config/site.ts`).
+Cliente ideal: inmobiliarias independientes y asesores de 1 a 6 personas; no
+promotoras ni redes grandes. Permanencia según plan: 3 meses en Contenido y
+Captación, 6 en el resto. Zona de exclusividad: un municipio; en ciudades
+grandes, un distrito o un grupo de códigos postales, fijado en el contrato.
+
+*Sustituye a la decisión del 6/9/2026 de no publicar precios, al diagnóstico
+gratuito por videollamada y a los 120 € del presencial.*
+
+**Ajustes de Valeria del 21/10/2026** (mensajes a Yerai), que mandan sobre
+lo anterior:
+
+1. Enlace de pago del Diagnóstico: `SITE.pagoDiagnosticoUrl`. Cada pack
+   tiene el suyo (`PLANES`), y cada pack se puede contratar directo.
+2. **El diagnóstico va incluido en cada pack.** Sólo se paga aparte si la
+   agencia no sabe qué contratar, y entonces **descuenta 50 € del primer
+   mes** del pack que contrate después. (Antes: se descontaba entero en 30
+   días.)
+3. **No hay diagnóstico en persona suelto.** Lo presencial sólo existe
+   dentro de un pack contratado. Se quitó de la web todo lo que hablaba del
+   diagnóstico presencial y sus precios por ciudad.
+4. El enlace de SEO, SEM y GEO cobra **350,90 € (290 € + IVA) y es sólo la
+   auditoría inicial**. El presupuesto del servicio se presenta después.
+5. **Los anuncios sólo se hacen si el cliente lo decide, y la inversión la
+   paga el cliente.** Melero los gestiona y optimiza. Desaparece el
+   «compromiso de los 20 días» (ver Embudo).
+6. **Validación de los packs:** en persona, y Carlos con la prospección que
+   sigue haciendo por los canales de Melero.
 
 Quien rellena el formulario suele ser el decisor o está a un paso: el
 formulario pregunta explícitamente por rol, capacidad de decisión y capital
@@ -89,9 +117,10 @@ Exclusividad por zona: una sola marca por zona.
   contratos y documentos legales figura con su DNI/NIF; no hay NIF de empresa
   ni domicilio social propio.
 - **Sede:** Nerva (Huelva).
-- **Atención en persona** (dato de Valeria, 30/9/2026): sí, de forma puntual
-  y siempre desplazándose ella a la agencia del cliente. El diagnóstico por
-  videollamada es gratuito; en persona cuesta 120 €. Horario de atención:
+- **Atención en persona** (dato de Valeria, 30/9/2026; corregido el
+  21/10/2026): sólo dentro de un pack contratado, desplazándose ella a la
+  agencia del cliente. El diagnóstico suelto es siempre por videollamada.
+  Horario de atención:
   lunes a viernes, de 9:00 a 14:00 y de 16:00 a 18:00 (`SITE.horario`).
 - **Teléfono:** +34 674 82 90 42. Consta como teléfono de contacto además
   de como WhatsApp (lo pidió Valeria el 30/9/2026).
@@ -123,7 +152,8 @@ Exclusividad por zona: una sola marca por zona.
   cifras que se miden dependen del objetivo de cada cliente, así que no son
   las mismas para todos. Es la experiencia de primera mano que llevan los
   artículos del blog.
-- **Trabajo a medida** (Valeria, 30/9/2026): no todos los clientes
+- **Trabajo a medida** (Valeria, 30/9/2026; sustituido el 19/10/2026 por
+  el catálogo cerrado, ver arriba): no todos los clientes
   necesitan anuncios, y a cada uno se le miden métricas distintas según su
   objetivo. Los contratos suelen ser de 6 meses, con revisión quincenal y
   un proceso transparente: si el cliente quiere, se le enseña cada paso
@@ -137,13 +167,21 @@ Exclusividad por zona: una sola marca por zona.
   30/9/2026): se anunciará por Instagram y LinkedIn, y ella pasará el
   enlace cuando esté publicada para añadirla a la web. La web no la
   menciona.
-- **Cierre habitual:** primera llamada gratuita con Valeria, 45 minutos por
-  videollamada, sin compromiso, reservada en Calendly. **Calendly es el
-  embudo principal**; el formulario de `/contacto` es la alternativa por
-  escrito (las dos cosas, confirmadas el 26/9/2026; antes aquí ponía 30
-  minutos).
-- **Oferta de arranque:** los primeros 20 días de campaña van incluidos en
-  los honorarios (FAQ de la web). Confirmada vigente el 26/9/2026.
+- **Cierre habitual (desde el 19/10/2026):** el Diagnóstico de pago, 90
+  minutos con Valeria e informe escrito en 7 días. Desde el 21/10/2026 cada
+  pack lo incluye y se puede contratar directo; pagado aparte, descuenta
+  50 € del primer mes del pack que se contrate después. Todos los botones van al enlace de
+  pago de Stripe (`SITE.pagoDiagnosticoUrl`), que tras cobrar redirige a
+  Calendly: la agenda sólo se abre después de pagar. El formulario de
+  `/contacto` sigue como alternativa por escrito y también se paga, al
+  enviarlo. Antes era una llamada gratuita de 45 minutos reservada
+  directamente en Calendly.
+- **Anuncios** (Valeria, 21/10/2026): sólo si el cliente lo decide, y la
+  inversión la paga él desde su propia cuenta; Melero los gestiona y
+  optimiza. No se exige inversión mínima. *Sustituye al «compromiso de los
+  20 días» del 19/10/2026, en el que Melero pagaba los primeros 20 días.*
+- **WhatsApp:** el de la web se mantiene porque lo inicia el cliente. Melero
+  no escribe primero por WhatsApp a quien no lo ha pedido (LSSI).
 - **Captación entrante** por un formulario de diagnóstico de 5 pasos en
   `/contacto` que recoge, entre otros: rol, zona, tipo de propiedades,
   captación actual, inversión publicitaria, leads/mes, conversión,
@@ -196,9 +234,10 @@ confidencialidad/RGPD y anexos por proyecto.
 - Páginas: home, contacto, sobre-nosotros, aviso legal, política de
   privacidad, política de cookies.
 - Términos comerciales publicados, que futuros trabajos respetan tal cual:
-  contrato de 6 meses, exclusividad por zona, primeros resultados en torno a
-  20 días, y se trabaja solo con inmobiliarias en activo. Sin precio público,
-  salvo los 120 € del diagnóstico en persona (FAQ, 30/9/2026).
+  catálogo con precio publicado + IVA (`PLANES`), Diagnóstico de pago,
+  permanencia según plan (3 o 6 meses), exclusividad por zona en Captación
+  y Completo, primeros resultados en torno a 20 días, y se trabaja solo con
+  inmobiliarias en activo (19/10/2026).
 
 ### Decisiones abiertas
 
@@ -378,7 +417,7 @@ el 30/9/2026. Cualquier cifra nueva necesita las cuatro cosas.
 
 Ausencias que no se rellenan inventando: no hay prensa, ni más logos de
 clientes que el de MundialRooms, ni pricing público —el precio es a medida
-y no se publica, salvo los 120 € del diagnóstico en persona—, ni
+y no se publica, salvo el precio del catálogo—, ni
 certificaciones o partnerships (Meta/Google Partner u otros).
 
 ## Product Principles

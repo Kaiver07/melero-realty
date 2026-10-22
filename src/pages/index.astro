@@ -2,8 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import VideoEmbed from '../components/VideoEmbed.astro';
+import Portada from '../components/Portada.astro';
 import '../styles/home.css';
-import { SITE, SERVICES, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL, CASO, PILARES } from '../config/site';
+import { SITE, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL, CASO, PILARES, PLANES, IVA, COLABORADORES } from '../config/site';
 import { existsSync } from 'node:fs';
 import { srcsetDe } from '../lib/imagenes';
 
@@ -24,16 +25,9 @@ const SOCIAL_CON_IMAGEN = SOCIAL
   })
   .filter((item) => item.codigo && existsSync(`public${item.img}`));
 
-/* Fotografía de los servicios, emparejada por índice con SERVICES.
-   El copy vive en site.ts (fuente de verdad); aquí solo la imagen. */
-const SERVICE_MEDIA = [
-  { src: '/images/real-guiones.webp',    alt: 'El equipo de Melero Realty revisando guiones y campañas sobre la mesa', w: 900, h: 1200 },
-  { src: '/images/real-set.webp',        alt: 'Set de grabación montado con la cámara en trípode',            w: 900, h: 1600 },
-  { src: '/images/real-rodaje.webp',     alt: 'Valeria Melero grabando contenido en vídeo frente a la cámara', w: 900, h: 1351 },
-  { src: '/images/svc-marca.webp',       alt: 'Un móvil muestra la cuadrícula de un perfil inmobiliario junto a fotografías impresas sobre la mesa', w: 900, h: 1125 },
-  { src: '/images/svc-contenido.webp',   alt: 'Portátil con una línea de tiempo de edición de vídeo, auriculares y un calendario de contenidos a mano',  w: 900, h: 1125 },
-  { src: '/images/svc-consultoria.webp', alt: 'Videollamada de seguimiento con un cuaderno de notas abierto al lado del portátil',                       w: 900, h: 1125 },
-];
+/* Todos los botones de reserva van al pago del Diagnóstico (Stripe), que
+   al cobrar redirige a Calendly. Ver SITE.pagoDiagnosticoUrl. */
+const pago = SITE.pagoDiagnosticoUrl;
 
 /* El nombre del sitio para Google. WebSite en la home es lo que más pesa:
    el dominio es valeriamelero.com, pero la marca es Melero Realty. */
@@ -56,99 +50,7 @@ const sitio = {
   </Fragment>
 
 
-{/* ================= 1 · HERO ================= */}
-<header class="hero" id="top">
-  <div class="hero-media">
-    <img src="/images/hero-piso.webp" srcset={srcsetDe('/images/hero-piso.webp', 1672, [800, 1200])} sizes="100vw" alt="Interior de una vivienda vacía con luz rasante entrando por el ventanal, grabada con un móvil montado en un trípode" width="1672" height="941" fetchpriority="high" decoding="async">
-  </div>
-  <div class="hero-veil" aria-hidden="true"></div>
-  <div class="hero-scrim" aria-hidden="true"></div>
-
-  <nav class="nav" aria-label="Principal">
-    <a class="nav-brand" href="#top">Melero Realty</a>
-    <ul class="nav-links">
-      <li><a href="#servicios">Servicios</a></li>
-      <li><a href="#proceso">Proceso</a></li>
-      <li><a href="#equipo">Equipo</a></li>
-      <li><a href="#faq">FAQ</a></li>
-      <li class="nav-keep"><a href="/blog/">Blog</a></li>
-    </ul>
-    <a class="nav-mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
-  </nav>
-
-  <div class="hero-inner">
-    <div class="hero-spacer"></div>
-
-    <div class="hero-word" aria-hidden="true"><span>M</span><span>E</span><span>L</span><span>E</span><span>R</span><span>O</span></div>
-
-    <div class="hero-copy">
-      <p class="hero-kicker">Agencia de marketing inmobiliario</p>
-      <h1>Captación de leads para inmobiliarias <br>que ya están facturando.</h1>
-      <p class="hero-support">Sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Sin portales. Sin referidos. Sin curiosos.</p>
-    </div>
-
-    {/* Los tres campos eran decorado: parecían un formulario y no hacían
-         nada, lo que hace dudar de si hay que rellenar algo antes de pulsar.
-         Ahora son selects de verdad. No son obligatorios y NUNCA bloquean la
-         reserva: lo que se elige viaja a Calendly como UTM, así que Valeria
-         llega a la llamada sabiendo con quién habla. */}
-    <div class="actionbar">
-      <div class="ab-field">
-        <label class="solo-lectores" for="ab-tipo">Tipo de agencia</label>
-        <select class="ab-select" id="ab-tipo" name="tipo">
-          <option value="">Tipo de agencia</option>
-          <option value="agencia">Agencia con oficina</option>
-          <option value="asesor">Asesor independiente</option>
-          <option value="grupo">Grupo con varias oficinas</option>
-        </select>
-        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
-      </div>
-      <div class="ab-field">
-        <label class="solo-lectores" for="ab-zona">Zona</label>
-        <select class="ab-select" id="ab-zona" name="zona">
-          <option value="">Zona</option>
-          <option value="espana">España</option>
-          <option value="eeuu">Estados Unidos</option>
-          <option value="otro">Otro país</option>
-        </select>
-        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
-      </div>
-      <div class="ab-field">
-        <label class="solo-lectores" for="ab-factura">Facturación</label>
-        <select class="ab-select" id="ab-factura" name="factura">
-          <option value="">Facturación</option>
-          <option value="menos-100k">Menos de 100.000 € al año</option>
-          <option value="100k-300k">100.000 – 300.000 €</option>
-          <option value="300k-1m">300.000 € – 1M €</option>
-          <option value="mas-1m">Más de 1M €</option>
-        </select>
-        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
-      </div>
-      <a class="ab-btn" data-cta="hero" href={SITE.calendlyUrl} target="_blank" rel="noopener">Reservar diagnóstico</a>
-    </div>
-
-    {/* Lo que cuesta pulsar el botón, dicho en el botón. Antes esto vivía
-         en la cuarta pregunta de la FAQ, nueve secciones más abajo: quien
-         dudaba se iba sin llegar a leerlo. */}
-    <p class="ab-note">
-      <strong>45 minutos</strong> de videollamada con Valeria. Sin coste y sin compromiso.
-      <a data-cta="escrito-hero" href="/contacto/">O pide el diagnóstico por escrito</a>
-    </p>
-
-    {/* Avisa, no bloquea. La FAQ dice que el diagnóstico está abierto a
-         quien nunca ha invertido; cerrarle la puerta aquí sería desmentirse
-         a sí misma nueve secciones más abajo. */}
-    <div class="ab-aviso" id="abAviso" aria-live="polite">
-      <div class="ab-aviso-in">
-        <p>
-        Con esa facturación lo habitual es que todavía no compense invertir en
-        captación. Preferimos decírtelo antes de que reserves. Si aun así
-        quieres que lo miremos, la llamada sigue siendo gratis.
-        </p>
-      </div>
-    </div>
-  </div>
-</header>
+<Portada />
 
 <main>
 
@@ -211,7 +113,7 @@ const sitio = {
         <p class="eyebrow">({num()}) En vídeo</p>
         <h2 id="vid-t">¿Qué es <span class="destaca">realmente</span> Melero&nbsp;Realty?</h2>
         <p class="vid-by">Valeria Melero &mdash; CEO &amp; Founder</p>
-        <a class="vid-cta" data-cta="video" href={SITE.calendlyUrl} target="_blank" rel="noopener">
+        <a class="vid-cta" data-cta="video" href={pago} target="_blank" rel="noopener">
           Reservar diagnóstico
           <span aria-hidden="true">&#8594;</span>
         </a>
@@ -234,9 +136,12 @@ const sitio = {
         <div class="intro-side">
           <p class="eyebrow">({num()}) El servicio</p>
           <p>Trabajamos con inmobiliarias en activo y con exclusividad por zona: una sola marca por área de captación.</p>
+          <a class="intro-planes" data-cta="ver-planes-servicio" href="#planes">Ver planes <span aria-hidden="true">&#8594;</span></a>
         </div>
         <div>
-          <h2 id="intro-t" class="intro-big">Creamos sistemas de captación de leads cualificados para negocios inmobiliarios en activo. Diseñamos el recorrido completo, del primer clic a la llamada agendada, y lo ajustamos semana a semana según coste por lead y calidad real. <em>Sin portales. Sin referidos. Sin curiosos.</em></h2>
+          {/* Acortado el 19/10/2026: el detalle de qué se hace ya está en
+               los planes, con su precio. */}
+          <h2 id="intro-t" class="intro-big">Creamos sistemas de captación para inmobiliarias en activo, del primer clic a la llamada agendada. <em>Sin portales. Sin referidos. Sin curiosos.</em></h2>
         </div>
       </div>
       <div class="intro-rule" aria-hidden="true"></div>
@@ -268,18 +173,107 @@ const sitio = {
     </div>
   </section>
 
-  {/* ================= 7 · CASO =================
-       Va entre "La diferencia" y el proceso a propósito: primero se afirma en
-       qué somos distintos y acto seguido se enseña con quién se está
-       trabajando y en qué, antes de explicar cómo. Un cliente con nombre,
-       ciudad y web comprobables pesa más que cinco testimonios anónimos.
-       No lleva cifra: todavía no hay ninguna que se pueda publicar. Todo el
-       texto, titular incluido, sale de CASO. */}
+  {/* ================= PLANES =================
+       Sustituye a Servicios desde el 19/10/2026 y va justo después de "La
+       diferencia" (documento de Valeria): tras decir en qué somos
+       distintos, el precio de cada cosa. Plancha oscura porque cae entre
+       "La diferencia" (--paper) y el caso, que tiene que ser blanco: el
+       logotipo de MundialRooms va sobre blanco puro.
+       Todo el texto sale de PLANES y cada precio lleva IVA al lado desde la
+       plantilla. Desde el 21/10/2026 el botón de cada plan va a su pago de
+       Stripe (PLANES.*.pago); el del Diagnóstico, al suyo. */}
+  <section class="section section--dark planes" id="planes" aria-labelledby="planes-t">
+    <div class="wrap">
+      <div class="planes-head reveal">
+        <p class="eyebrow eyebrow--dark">({num()}) {PLANES.antetitulo}</p>
+        <h2 id="planes-t">{PLANES.titulo}</h2>
+        <p class="lead">{PLANES.intro}</p>
+      </div>
+
+      <article class="pl-dest reveal" aria-labelledby="pl-dest-t">
+        <div class="pl-dest-main">
+          <p class="pl-etiqueta">{PLANES.destacado.etiqueta}</p>
+          <h3 id="pl-dest-t">{PLANES.destacado.nombre}</h3>
+          <p class="pl-para">{PLANES.destacado.para}</p>
+          <p class="pl-precio">
+            {PLANES.destacado.desde && <span class="pl-desde">desde</span>}
+            <strong>{PLANES.destacado.precio}</strong>
+            <span class="pl-iva">{IVA}</span>
+          </p>
+          <p class="pl-nota">{PLANES.destacado.nota}</p>
+          <p class="pl-linea">{PLANES.destacado.despues}</p>
+          <p class="pl-linea">{PLANES.destacado.anuncios}</p>
+          <p class="pl-cond">{PLANES.destacado.condiciones}</p>
+          <a class="btn btn--dark pl-dest-btn" data-cta="plan-recomendado" href={PLANES.destacado.pago} target="_blank" rel="noopener">{PLANES.boton}
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+          </a>
+        </div>
+        <ul class="pl-incluye pl-incluye--dest">
+          {PLANES.destacado.incluye.map((x) => <li>{x}</li>)}
+        </ul>
+      </article>
+
+      <div class="pl-grid reveal">
+        {PLANES.planes.map((p) => (
+          <article class="pl-card" aria-labelledby={`pl-${p.id}-t`}>
+            <h3 id={`pl-${p.id}-t`}>{p.nombre}</h3>
+            <p class="pl-para">{p.para}</p>
+            <p class="pl-precio">
+              {p.desde && <span class="pl-desde">desde</span>}
+              <strong>{p.precio}</strong>
+              <span class="pl-iva">{IVA}</span>
+            </p>
+            {p.anuncios && <p class="pl-linea">{p.anuncios}</p>}
+            <ul class="pl-incluye">
+              {p.incluye.map((x) => <li>{x}</li>)}
+            </ul>
+            <p class="pl-cond">{p.condiciones}</p>
+            <a class="pl-btn" data-cta={`plan-${p.id}`} href={p.pago} target="_blank" rel="noopener">{'boton' in p ? p.boton : PLANES.boton} <span aria-hidden="true">&#8594;</span></a>
+          </article>
+        ))}
+      </div>
+
+      <div class="pl-pie reveal">
+        <article class="pl-diag" aria-labelledby="pl-diag-t">
+          <p class="pl-para">{PLANES.diagnostico.para}</p>
+          <h3 id="pl-diag-t">{PLANES.diagnostico.nombre}</h3>
+          <p class="pl-precio">
+            <strong>{PLANES.diagnostico.precio}</strong>
+            <span class="pl-iva">{IVA}</span>
+          </p>
+          <p class="pl-nota">{PLANES.diagnostico.nota}</p>
+          <p class="pl-linea">{PLANES.diagnostico.incluye}</p>
+          <p class="pl-cond">{PLANES.diagnostico.condiciones}</p>
+          <a class="btn btn--light" data-cta="plan-diagnostico" href={pago} target="_blank" rel="noopener">{PLANES.diagnostico.boton}
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+          </a>
+        </article>
+        <div class="pl-extras">
+          <h3>{PLANES.extrasTitulo}</h3>
+          <ul>
+            {PLANES.extras.map((x) => (
+              <li><span>{x.t}</span><span class="pl-extra-precio">{x.precio} {IVA}</span></li>
+            ))}
+          </ul>
+          <p class="pl-cond">{PLANES.extrasNota}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ================= CASO =================
+       Desde el 19/10/2026, sólo el logotipo y la reseña de Damián: el caso
+       detallado va únicamente en el dossier comercial (documento de
+       Valeria). El titular se queda para lectores de pantalla, porque la
+       sección necesita nombre. No lleva cifra: todavía no hay ninguna que
+       se pueda publicar.
+       Debajo, la franja de colaboradores: MBMA como respaldo, no como
+       servicio. */}
   <section class="section section--white caso" aria-labelledby="caso-t">
     <div class="wrap">
       <div class="reveal">
         <p class="eyebrow">({num()}) Un caso</p>
-        <h2 id="caso-t" class="caso-t">{CASO.titulo}</h2>
+        <h2 id="caso-t" class="solo-lectores">Lo que dice {CASO.cliente} de nuestro trabajo</h2>
       </div>
 
       <div class="caso-grid reveal">
@@ -289,17 +283,6 @@ const sitio = {
             <img src={CASO.logo.src} alt={`Logotipo de ${CASO.cliente}`}
                  width={CASO.logo.width} height={CASO.logo.height} loading="lazy" decoding="async" />
           </a>
-          <p class="caso-sector">{CASO.sector}</p>
-          <a class="caso-web" href={CASO.web} target="_blank" rel="noopener">{CASO.webTexto}</a>
-
-          <dl class="caso-fases">
-            {CASO.frentes.map((f) => (
-              <div>
-                <dt>{f.t}</dt>
-                <dd>{f.d}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
 
         <aside class="caso-voz">
@@ -311,6 +294,15 @@ const sitio = {
             </footer>
           </blockquote>
         </aside>
+      </div>
+
+      <div class="colab reveal">
+        <p class="colab-t">{COLABORADORES.antetitulo}</p>
+        <ul>
+          {COLABORADORES.lista.map((c) => (
+            <li><strong>{c.nombre}</strong><span>{c.papel}</span></li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
@@ -335,59 +327,13 @@ const sitio = {
     </div>
   </section>
 
-  <section class="section section--white svc" id="servicios" aria-labelledby="svc-t">
-    <div class="wrap">
-      <div class="svc-head reveal">
-        <div>
-          <p class="eyebrow">({num()}) Servicios</p>
-          <h2 id="svc-t">Seis frentes, un solo objetivo: llamadas agendadas.</h2>
-        </div>
-        <div class="svc-head-right">
-          <p class="lead" style="max-width:34ch">Cada pieza existe para reducir el coste por cliente, no para llenar un informe.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="wrap">
-      {/* Estructura que pide Embla: ventana > pista > diapositivas. */}
-      <div class="svc-scroll" id="svcScroll" role="region" aria-label="Servicios, desplazamiento horizontal">
-        <div class="svc-track">
-        {SERVICES.map((sv, i) => (
-          <article class="svc-card">
-            <figure class="svc-fig">
-              <img src={SERVICE_MEDIA[i].src} alt={SERVICE_MEDIA[i].alt}
-                   srcset={srcsetDe(SERVICE_MEDIA[i].src, SERVICE_MEDIA[i].w, [600])}
-                   sizes="(max-width: 850px) 255px, (max-width: 1400px) 30vw, 420px"
-                   width={SERVICE_MEDIA[i].w} height={SERVICE_MEDIA[i].h}
-                   loading="lazy" decoding="async" />
-            </figure>
-            <span class="svc-index">{String(i + 1).padStart(2, '0')}</span>
-            <h3>{sv.title}</h3>
-            <p>{sv.desc}</p>
-          </article>
-        ))}
-        </div>
-
-      </div>
-    </div>
-
-    <div class="wrap">
-      <div class="svc-bar" aria-hidden="true"><span class="svc-bar-fill" id="svcBar"></span></div>
-      <div class="svc-foot">
-        <a class="btn btn--dark" data-cta="servicios" href={SITE.calendlyUrl} target="_blank" rel="noopener">Diagnóstico
-          <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
   {/* ================= 5 · DATOS ================= */}
   {/* Lo que no cambia. Antes aquí había tres cifras sueltas —a medida,
        6 meses, 1 marca— que enunciaban las condiciones pero no decían qué se
        lleva el cliente. Seis servicios en tarjetas tampoco son un paquete.
        Esto sí responde a "¿qué recibo exactamente?", que era el agujero más
        caro de la página: se pedían seis meses sin decirlo. */}
-  <section class="section section--white" style="padding-top:0" aria-labelledby="pil-t">
+  <section class="section section--white" aria-labelledby="pil-t">
     <div class="wrap">
       <div class="reveal">
         <p class="eyebrow">({num()}) El trato</p>
@@ -403,14 +349,14 @@ const sitio = {
         ))}
       </div>
 
-      {/* La condición más fuerte de toda la oferta, y estaba enterrada en la
-           cuarta pregunta del acordeón. Quien duda en poner dinero por primera
-           vez decide aquí, no allí. */}
+      {/* Quién paga los anuncios, dicho donde se decide. Datos de Valeria
+           (21/10/2026), los mismos que la FAQ de la inversión publicitaria:
+           si cambia una, cambian las dos. Hasta ese día aquí ponía que
+           Melero pagaba los primeros 20 días. */}
       <p class="pil-nota reveal">
-        <strong>Los primeros 20 días de campaña los pagamos nosotros.</strong>
-        Vas a ver datos reales de tu mercado antes de poner un euro tuyo. Del
-        día 21 en adelante decides tú, y si sigues, la inversión sale de tu
-        cuenta: nunca pasa por la nuestra.
+        <strong>Los anuncios, sólo si tú quieres, y los pagas tú.</strong>
+        La inversión sale de tu propia cuenta y nunca pasa por nosotros:
+        nosotros los gestionamos y optimizamos.
       </p>
     </div>
   </section>
@@ -507,8 +453,8 @@ const sitio = {
     </div>
     <div class="wrap">
       <p class="eyebrow eyebrow--dark">({num()}) Siguiente paso</p>
-      <h2 id="cta-t">Reserva el diagnóstico.</h2>
-      <p>Cuarenta y cinco minutos para revisar de dónde vienen hoy tus leads, qué te cuesta cada cliente y si tu zona sigue libre. En los siete días siguientes recibes un informe escrito con el diagnóstico completo. Si la respuesta es que no podemos ayudarte, también te la damos por escrito.</p>
+      <h2 id="cta-t">Reserva el diagnóstico · 197&nbsp;€</h2>
+      <p>Noventa minutos para revisar de dónde vienen hoy tus leads, qué te cuesta cada cliente y si tu zona sigue libre. En los siete días siguientes recibes un informe escrito con tu cuello de botella y un plan de 90 días. Si la respuesta es que no podemos ayudarte, también te la damos por escrito.</p>
       {/* Quién está al otro lado. La competencia ofrece "consultoría
            gratuita" sin decir con quién; poner cara y nombre junto al botón
            cambia el registro sin añadir ninguna promesa nueva.
@@ -522,14 +468,14 @@ const sitio = {
         </p>
       </div>
       <div class="cta-actions">
-        <a class="btn btn--light" data-cta="cierre" href={SITE.calendlyUrl} target="_blank" rel="noopener">Reservar diagnóstico
+        <a class="btn btn--light" data-cta="cierre" href={pago} target="_blank" rel="noopener">Reservar diagnóstico
           <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
         </a>
         <a class="cta-mail" href={SITE.whatsapp} target="_blank" rel="noopener" data-cta="whatsapp-cierre">WhatsApp</a>
         <a class="cta-mail" href={`mailto:${SITE.email}`}>{SITE.email}</a>
       </div>
       <p class="cta-note">
-        Sin coste y sin compromiso.
+        197&nbsp;€&nbsp;{IVA}; si después contratas un plan, te descontamos 50&nbsp;€ del primer mes.
         <a data-cta="escrito-cierre" href="/contacto/">O pide el diagnóstico por escrito</a>
       </p>
     </div>
@@ -542,72 +488,13 @@ const sitio = {
      decide no tiene donde pulsar. Aparece pasado el 25% del scroll, se
      esconde mientras el aviso de cookies ocupa la parte baja y desaparece
      cuando ya asoma el cierre, donde el boton es mas grande. */}
-<a class="cta-fija" id="ctaFija" data-cta="barra-movil" href={SITE.calendlyUrl} target="_blank" rel="noopener" hidden>
+<a class="cta-fija" id="ctaFija" data-cta="barra-movil" href={pago} target="_blank" rel="noopener" hidden>
   <span class="cta-fija-t">Reservar diagnóstico</span>
-  <span class="cta-fija-s">45 min &middot; sin coste</span>
+  <span class="cta-fija-s">90 min &middot; 197&nbsp;€&nbsp;{IVA}</span>
 </a>
 
 <Footer />
 
-<script>
-import EmblaCarousel from 'embla-carousel';
-
-/* Carrusel de servicios con Embla.
-   Antes era arrastre a mano sobre scrollLeft, con la inercia calculada
-   también a mano. Nunca se sintió fluido: mover scrollLeft desde JavaScript
-   pelea con el desplazamiento del propio navegador. Embla mueve la pista con
-   transform y trae el arrastre, la inercia y el táctil resueltos, en 11 KB
-   comprimidos.
-
-   dragFree: sin puntos de anclaje. Estas tarjetas son un escaparate, no un
-   visor de una en una, así que forzar el encaje daría tirones al soltar. */
-document.addEventListener('astro:page-load', function () {
-  var ventana = document.getElementById('svcScroll');
-  var barra = document.getElementById('svcBar');
-  if (!ventana) return;
-
-  var embla = EmblaCarousel(ventana, {
-    dragFree: true,
-    containScroll: 'trimSnaps',
-    align: 'start',
-    skipSnaps: true,
-    duration: 26,
-  });
-
-  embla.on('pointerDown', function () { ventana.classList.add('is-dragging'); });
-  embla.on('pointerUp', function () { ventana.classList.remove('is-dragging'); });
-
-  var tarjetas = [].slice.call(ventana.querySelectorAll('.svc-card'));
-  var pista = ventana.querySelector('.svc-track');
-
-  var pintar = function () {
-    if (barra && pista) {
-      var ratio = Math.min(1, Math.max(0.18, ventana.clientWidth / pista.scrollWidth));
-      var avance = Math.min(1, Math.max(0, embla.scrollProgress()));
-      barra.style.width = ratio * 100 + '%';
-      barra.style.transform = 'translateX(' + avance * ((1 - ratio) / ratio) * 100 + '%)';
-    }
-
-    /* Profundidad: cada foto se desplaza dentro de su marco según dónde esté
-       su tarjeta respecto al centro de la ventana. */
-    var r = ventana.getBoundingClientRect();
-    var centro = r.left + r.width / 2;
-    tarjetas.forEach(function (c) {
-      var img = c.querySelector('.svc-fig img');
-      if (!img) return;
-      var cr = c.getBoundingClientRect();
-      var d = (cr.left + cr.width / 2 - centro) / r.width;
-      img.style.transform = 'translate3d(' + (-d * 6.5).toFixed(2) + '%,0,0)';
-    });
-  };
-
-  embla.on('scroll', pintar);
-  embla.on('reInit', pintar);
-  pintar();
-
-  document.addEventListener('astro:before-swap', function () { embla.destroy(); }, { once: true });
-});
-</script>
 <script>
   /* Barra de reserva fija en movil.
      Sin IntersectionObserver a proposito: aqui basta comparar posiciones en
@@ -666,9 +553,12 @@ document.addEventListener('astro:page-load', function () {
   /* Los tres desplegables del hero.
      Dos trabajos, y ninguno bloquea la reserva:
      1) avisar, no impedir, cuando la facturación es la más baja;
-     2) llevar el contexto a Calendly como UTM, para que Valeria llegue a la
-        llamada sabiendo el tipo de agencia, la zona y el tamaño.
-     Calendly guarda los UTM en la propia reserva sin configurar nada. */
+     2) llevar el contexto al pago, para que Valeria llegue a la llamada
+        sabiendo el tipo de agencia, la zona y el tamaño.
+     Desde el 19/10/2026 el botón va al enlace de pago de Stripe, que sólo
+     guarda sus propios parámetros: lo elegido viaja en client_reference_id
+     (letras, números, guiones y guiones bajos; los valores de los selects
+     ya lo son), y Stripe lo enseña en el propio pago. */
   document.addEventListener('astro:page-load', () => {
     const barra = document.querySelector('.actionbar');
     const boton = document.querySelector('.ab-btn');
@@ -682,13 +572,17 @@ document.addEventListener('astro:page-load', function () {
       const factura = barra.querySelector('#ab-factura');
       if (aviso) aviso.classList.toggle('esta-abierto', !!factura && factura.value === 'menos-100k');
 
+      // Sin enlace de pago todavía (sólo en local): no hay nada que anotar.
+      if (!/^https?:/.test(base)) return;
+
       /* El enlace se reconstruye entero desde el original: así, al cambiar
          de opción, no se van acumulando parámetros de elecciones previas. */
       const url = new URL(base);
-      selects.forEach((sel) => {
-        if (sel.value) url.searchParams.set('utm_' + sel.name, sel.value);
-      });
-      if (selects.some((sel) => sel.value)) url.searchParams.set('utm_source', 'web');
+      const elegido = selects.map((sel) => sel.value || 'sin-dato');
+      if (selects.some((sel) => sel.value)) {
+        url.searchParams.set('client_reference_id', elegido.join('_'));
+        url.searchParams.set('utm_source', 'web');
+      }
       boton.setAttribute('href', url.toString());
     };
 

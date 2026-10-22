@@ -29,13 +29,17 @@ import { SITE } from '../config/site';
         <p>Recopilamos los datos que nos facilitas voluntariamente a través del formulario de diagnóstico. La finalidad es:</p>
         <ul class="mt-2 space-y-1 list-disc list-inside">
           <li>Gestionar tu solicitud de diagnóstico y ponernos en contacto contigo.</li>
+          <li>Cobrar el diagnóstico, que es de pago, y prestártelo.</li>
           <li>Enviarte comunicaciones comerciales y promociones, con el consentimiento que das en ese mismo formulario.</li>
         </ul>
       </section>
 
       <section>
         <h2 class="text-base font-bold mb-2" style="color: var(--color-text)">3. Legitimación</h2>
-        <p>La base legal del tratamiento es el consentimiento del interesado (art. 6.1.a RGPD), que puedes retirar en cualquier momento sin que ello afecte a la licitud del tratamiento previo.</p>
+        {/* Desde el 19/10/2026 el diagnóstico se paga: cobrarlo y prestarlo
+            se apoya en el contrato, no en el consentimiento. Pendiente de
+            que lo revise un abogado. */}
+        <p>La base legal para gestionar tu solicitud y las comunicaciones comerciales es el consentimiento del interesado (art. 6.1.a RGPD), que puedes retirar en cualquier momento sin que ello afecte a la licitud del tratamiento previo. Para cobrar y prestar el diagnóstico, la base es la ejecución del contrato que aceptas al pagarlo (art. 6.1.b RGPD).</p>
       </section>
 
       <section>
@@ -45,7 +49,7 @@ import { SITE } from '../config/site';
 
       <section>
         <h2 class="text-base font-bold mb-2" style="color: var(--color-text)">5. Cesión a terceros</h2>
-        <p>No cedemos tus datos a terceros salvo obligación legal. Utilizamos proveedores de servicios (procesadores de formularios) que actúan bajo contrato de encargo del tratamiento conforme al RGPD.</p>
+        <p>No cedemos tus datos a terceros salvo obligación legal. Utilizamos proveedores de servicios (procesadores de formularios) que actúan bajo contrato de encargo del tratamiento conforme al RGPD. Los pagos los procesa Stripe en su propia página: nosotros no vemos ni guardamos los datos de tu tarjeta.</p>
       </section>
 
       <section>

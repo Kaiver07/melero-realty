@@ -1,0 +1,78 @@
+---
+/* La píldora de reserva de la portada: tres desplegables, el botón al pago
+   del Diagnóstico, lo que cuesta y las otras dos salidas. Sale de
+   Portada.astro el 21/10/2026 para que todas las versiones de portada usen
+   la misma. `sufijo` evita ids repetidos si hay varias en una página. */
+import { SITE, PLANES, IVA } from '../config/site';
+
+interface Props { sufijo?: string }
+const { sufijo = '' } = Astro.props;
+const id = (base: string) => `${base}${sufijo}`;
+const pago = SITE.pagoDiagnosticoUrl;
+---
+
+<div class="reserva">
+{/* Los tres campos eran decorado: parecían un formulario y no hacían
+     nada, lo que hace dudar de si hay que rellenar algo antes de pulsar.
+     Ahora son selects de verdad. No son obligatorios y NUNCA bloquean la
+     reserva: lo que se elige viaja como UTM al pago y de ahí a la reserva,
+     así que Valeria llega a la llamada sabiendo con quién habla. */}
+<div class="actionbar">
+  <div class="ab-field">
+    <label class="solo-lectores" for={id('ab-tipo')}>Tipo de agencia</label>
+    <select class="ab-select" id={id('ab-tipo')} name="tipo">
+      <option value="">Tipo de agencia</option>
+      <option value="agencia">Agencia con oficina</option>
+      <option value="asesor">Asesor independiente</option>
+      <option value="grupo">Grupo con varias oficinas</option>
+    </select>
+    <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
+  </div>
+  <div class="ab-field">
+    <label class="solo-lectores" for={id('ab-zona')}>Zona</label>
+    <select class="ab-select" id={id('ab-zona')} name="zona">
+      <option value="">Zona</option>
+      <option value="espana">España</option>
+      <option value="eeuu">Estados Unidos</option>
+      <option value="otro">Otro país</option>
+    </select>
+    <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
+  </div>
+  <div class="ab-field">
+    <label class="solo-lectores" for={id('ab-factura')}>Facturación</label>
+    <select class="ab-select" id={id('ab-factura')} name="factura">
+      <option value="">Facturación</option>
+      <option value="menos-100k">Menos de 100.000 € al año</option>
+      <option value="100k-300k">100.000 – 300.000 €</option>
+      <option value="300k-1m">300.000 € – 1M €</option>
+      <option value="mas-1m">Más de 1M €</option>
+    </select>
+    <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6.5 8 10.5 12 6.5"/></svg>
+  </div>
+  <a class="ab-btn" data-cta="hero" href={pago} target="_blank" rel="noopener">{PLANES.diagnostico.boton}</a>
+</div>
+
+{/* Lo que cuesta pulsar el botón, dicho junto al botón. Desde el
+     19/10/2026 el diagnóstico es de pago, y la otra salida del hero es
+     ver los planes con su precio antes de pagar nada. */}
+<div class="ab-note">
+  <p><strong>90 minutos</strong> con Valeria e informe escrito en 7 días. <strong>197&nbsp;€&nbsp;{IVA}</strong>; si después contratas un plan, te descontamos 50&nbsp;€ del primer mes.</p>
+  <p class="ab-enlaces">
+    <a class="ab-planes" data-cta="ver-planes-hero" href="#planes">Ver planes y precios</a>
+    <a data-cta="escrito-hero" href="/contacto/">O pide el diagnóstico por escrito</a>
+  </p>
+</div>
+
+{/* Avisa, no bloquea. La FAQ dice que el diagnóstico está abierto a
+     quien nunca ha invertido; cerrarle la puerta aquí sería desmentirse
+     a sí misma nueve secciones más abajo. */}
+<div class="ab-aviso" id={id('abAviso')} aria-live="polite">
+  <div class="ab-aviso-in">
+    <p>
+    Con esa facturación lo habitual es que todavía no compense invertir en
+    captación. Preferimos decírtelo antes de que reserves. Si aun así
+    quieres que lo miremos, el diagnóstico te dirá si merece la pena.
+    </p>
+  </div>
+</div>
+</div>

@@ -12,7 +12,17 @@ export const SITE = {
   description:
     'Generamos leads cualificados para agencias y asesores inmobiliarios en España y EEUU. Sin portales. Sin referidos. Sin curiosos.',
   email: 'melero.realty@gmail.com',
-  // Agenda de la llamada de diagnóstico. Todos los CTA de reserva apuntan aquí.
+  // El Diagnóstico es de pago desde el 19/10/2026 (197 € + IVA). Todos los
+  // CTA de reserva van a este enlace de pago de Stripe, y Stripe, al cobrar,
+  // redirige a Calendly: la agenda sólo se abre después de pagar. La
+  // redirección se configura en el propio enlace de pago, en Stripe
+  // («Después del pago» → redirigir a calendlyUrl).
+  // Mientras esté vacío, el despliegue de producción falla a propósito
+  // (Layout.astro): publicar sin él dejaría todos los botones sin destino.
+  // El enlace lo pasó Valeria el 21/10/2026.
+  pagoDiagnosticoUrl: 'https://buy.stripe.com/9B6bJ2fbgdIredo5Xl3VC0b',
+  // Agenda de la llamada de diagnóstico. Ya no la enlaza ningún botón: se
+  // llega desde Stripe tras pagar.
   calendlyUrl: 'https://calendly.com/valmelemal/45-60min',
   // Aplicación web del Apps Script que recibe el formulario de /contacto:
   // apunta cada lead en la hoja de Yerai y avisa por correo a
@@ -25,7 +35,7 @@ export const SITE = {
   // YouTube video ID for the "Por qué Melero Realty" section
   youtubeId: 'G-OtqipOUAI',
   // El WhatsApp de Valeria es el canal humano: para quien no quiere agendar
-  // una videollamada de 45 minutos pero tampoco rellenar un formulario.
+  // una videollamada pero tampoco rellenar un formulario.
   // El texto va prerrellenado para que no haya que pensar cómo empezar.
   // Desde el 30/9/2026 el número consta también como teléfono, no sólo como
   // WhatsApp (lo pidió Valeria): enlace tel: en el pie y `telephone` en el
@@ -77,6 +87,226 @@ export const SERVICES = [
   },
 ] as const;
 
+/* Desde el 19/10/2026 la home ya no enseña SERVICES: la sección Servicios
+   la sustituye PLANES. SERVICES sigue vivo porque los artículos del blog
+   se relacionan con estos seis títulos (content.config.ts). */
+
+/* El catálogo con precio publicado (documento de Valeria del 19/10/2026,
+   «Cambios web valeriamelero.com — para Yerai»). Sustituye a la decisión
+   del 6/9/2026 de no publicar precios.
+
+   Todos los precios van + IVA, y la plantilla lo escribe junto a cada uno
+   desde IVA: así no puede quedarse un precio sin él.
+
+   Cada tarjeta lleva su botón a su propio pago de Stripe (desde el
+   21/10/2026; antes todas iban al Diagnóstico). El Diagnóstico tiene el
+   suyo y queda para quien no sabe qué plan le encaja.
+
+   El destacado se iba a llamar «Best Seller» o «El más elegido». Los dos
+   dicen que es el que más se vende, y el catálogo es nuevo: todavía no se
+   ha vendido ninguno. Va como «Recomendado» hasta que haya ventas que lo
+   sostengan; cambiarlo es cambiar `etiqueta`. */
+export const IVA = '+ IVA';
+
+/* La portada (20/10/2026). El titular nombra el dolor que más se repite en
+   los diagnósticos (PRODUCT.md): un mensaje para todo el mundo que atrae
+   curiosos. La búsqueda «captación de leads para inmobiliarias» pasa al
+   párrafo de apoyo, que es lo primero que se lee después.
+
+   La bandeja es un EJEMPLO y lo dice en su pie: no son mensajes de ningún
+   cliente ni de ningún portal concreto, y no lleva nombres ni logotipos.
+   Enseña lo que el cliente ya vive: los «¿sigue disponible?» del portal
+   frente a un propietario que llega por su propia landing de valoración
+   (la del plan Captación). Cada mensaje lleva `cualificado` para que la
+   plantilla no tenga que adivinarlo. */
+export const HERO = {
+  kicker: 'Agencia de marketing inmobiliario',
+  titulo: 'Deja de contestar a curiosos.',
+  apoyo:
+    'Captación de leads para inmobiliarias que ya facturan. Un mensaje pensado para tu cliente ideal y un canal propio, junto a los portales, para que el contacto llegue sabiendo quién eres.',
+  bandeja: {
+    titulo: 'Contactos de esta semana',
+    etiqueta: 'Lead cualificado',
+    nota: 'Mensajes de ejemplo.',
+    mensajes: [
+      { origen: 'Portal', hora: 'Lun 09:12', texto: '¿Sigue disponible?', cualificado: false },
+      { origen: 'Portal', hora: 'Lun 11:40', texto: 'Hola, info.', cualificado: false },
+      {
+        origen: 'Tu landing de valoración',
+        hora: 'Mar 13:30',
+        texto: 'Quiero vender mi piso de tres dormitorios. Me mudo en marzo. ¿Podéis venir a valorarlo esta semana?',
+        cualificado: true,
+      },
+      { origen: 'Portal', hora: 'Mar 17:05', texto: '¿Cuánto vale mi casa? Es solo por saber.', cualificado: false },
+      { origen: 'Portal', hora: 'Mié 10:20', texto: 'Solo estaba mirando, gracias.', cualificado: false },
+    ],
+  },
+  /* La tarjeta del lead en el muro (21/10/2026), como una ficha de CRM: por
+     qué encaja y en qué acaba. Es un ejemplo, como el mensaje. */
+  senal: {
+    motivos: ['Quiere vender', 'Plazo: marzo', 'Pide visita'],
+    motivosEtiqueta: 'Por qué encaja',
+    resultado: 'Visita de valoración agendada',
+    cuando: 'Jueves, 10:00',
+  },
+  /* El muro de la portada (20/10/2026): el ruido de fondo, frases cortas
+     de curioso. Son ejemplos, como la bandeja; no son mensajes reales. */
+  muro: [
+    '¿Sigue disponible?', 'Hola, info.', '¿Precio?', '¿Cuánto es lo último?',
+    'Solo estaba mirando.', '¿Se puede ver hoy?', '¿Aceptáis mascotas?', 'Info, por favor.',
+    '¿Cuánto vale mi casa?', '¿Tiene garaje?', 'Me interesa.', '¿Sigue libre?',
+  ],
+} as const;
+
+/* `pago` es el enlace de Stripe de cada pack, que pasó Valeria el
+   21/10/2026. Desde ese día cada plan se contrata directo con su botón, y
+   el Diagnóstico queda como opción aparte para quien no sabe cuál le
+   encaja (lo decidió Yerai).
+   Datos de Valeria del 21/10/2026: el diagnóstico va incluido en cada
+   plan; pagado aparte, sólo descuenta 50 € del primer mes si después se
+   contrata. El presencial sólo existe dentro de un plan. Los anuncios son
+   opcionales y los paga el cliente: Melero los gestiona y optimiza. El
+   enlace de SEO, SEM y GEO cobra sólo la auditoría (290 € + IVA, 350,90 €);
+   el presupuesto del servicio se presenta después. */
+export const PLANES = {
+  antetitulo: 'Planes',
+  titulo: 'Tres planes con precio cerrado y un servicio de posicionamiento a medida.',
+  intro: 'Sabes lo que cuesta antes de hablar con nadie. Cada plan incluye el diagnóstico. Si no sabes cuál te encaja, empieza por él: si después contratas un plan, te descontamos 50 € del primer mes.',
+  boton: 'Contratar este plan',
+  destacado: {
+    etiqueta: 'Recomendado',
+    nombre: 'Plan Completo + SEO, SEM y GEO',
+    para: 'Para quien quiere marca, captación y posicionamiento a la vez.',
+    desde: true,
+    precio: '1.424 €/mes',
+    nota: 'los 3 primeros meses',
+    despues: 'Un 20 % menos por contratarlos juntos. Después, desde 1.780 €/mes + IVA.',
+    anuncios: 'Anuncios opcionales: si los quieres, la inversión la pagas tú y nosotros los gestionamos.',
+    incluye: [
+      'Diagnóstico de captación incluido',
+      '4 Reels al mes con perfil ante cámara',
+      'Guiones y carruseles',
+      'Landing de valoración',
+      'Campaña Meta a propietarios',
+      'Seguimiento por WhatsApp y email',
+      '2 h al mes de formación comercial',
+      'Auditoría inicial y posicionamiento en Google y en la IA',
+    ],
+    condiciones: 'Permanencia mínima de 6 meses',
+    pago: 'https://buy.stripe.com/14A28s3sy7k37P0adB3VC06',
+  },
+  planes: [
+    {
+      id: 'contenido',
+      nombre: 'Contenido',
+      para: 'Marca y presencia',
+      desde: false,
+      precio: '590 €/mes',
+      anuncios: '',
+      incluye: [
+        'Diagnóstico de captación incluido',
+        '4 Reels al mes con perfil ante cámara',
+        'Guiones',
+        '4 carruseles',
+        'Calendario de publicación',
+        'Reporte quincenal',
+      ],
+      condiciones: 'Mínimo 3 meses',
+      pago: 'https://buy.stripe.com/eVqeVe0gm33N7P0gBZ3VC0a',
+    },
+    {
+      id: 'captacion',
+      nombre: 'Captación',
+      para: 'Que lleguen propietarios',
+      desde: false,
+      precio: '790 €/mes',
+      // Hasta el 21/10/2026 Melero pagaba los primeros 20 días de anuncios.
+      // Ya no: los anuncios son opcionales y los paga el cliente (Valeria).
+      anuncios: 'Anuncios opcionales: si los quieres, la inversión la pagas tú y nosotros los gestionamos y optimizamos.',
+      incluye: [
+        'Diagnóstico de captación incluido',
+        'Landing de valoración',
+        'Campaña Meta a propietarios',
+        'Seguimiento por WhatsApp y email',
+        'CRM sencillo',
+        'Reporte quincenal',
+      ],
+      condiciones: 'Mínimo 3 meses · Exclusividad por zona',
+      pago: 'https://buy.stripe.com/cNibJ2aV047R5GS99x3VC09',
+    },
+    {
+      id: 'completo',
+      nombre: 'Completo',
+      para: 'Marca y captación a la vez',
+      desde: false,
+      precio: '1.290 €/mes',
+      anuncios: 'Anuncios opcionales: si los quieres, la inversión la pagas tú y nosotros los gestionamos.',
+      incluye: [
+        'Diagnóstico de captación incluido',
+        'Todo el plan Contenido',
+        'Todo el plan Captación',
+        '2 h al mes de formación comercial',
+      ],
+      condiciones: 'Mínimo 6 meses · Exclusividad por zona',
+      pago: 'https://buy.stripe.com/8x2bJ29QW47R5GSetR3VC08',
+    },
+    {
+      id: 'seo',
+      nombre: 'SEO, SEM y GEO',
+      para: 'Aparecer en Google y en la IA',
+      desde: true,
+      precio: '490 €/mes',
+      anuncios: 'Auditoría inicial: 290 € + IVA.',
+      incluye: [
+        'Diagnóstico de captación incluido',
+        'Auditoría inicial',
+        'Servicio personalizado según la auditoría',
+      ],
+      // Su enlace de pago cobra sólo la auditoría: el botón lo dice.
+      boton: 'Empezar por la auditoría',
+      // La permanencia va escrita en la tarjeta, junto al precio (lo pidió
+      // Valeria): es el único plan cuyo precio final se cierra después.
+      condiciones: 'El presupuesto del servicio se presenta tras la auditoría · Permanencia mínima de 6 meses',
+      pago: 'https://buy.stripe.com/9B69AU1kqfQz6KW1H53VC07',
+    },
+  ],
+  diagnostico: {
+    nombre: 'Diagnóstico de Captación',
+    para: 'Si no sabes qué plan te encaja',
+    precio: '197 €',
+    nota: 'por videollamada',
+    incluye: '90 minutos con Valeria y un informe escrito con tu cuello de botella y un plan de 90 días.',
+    condiciones: 'Si después contratas un plan, te descontamos 50 € del primer mes. Cada plan ya lo incluye.',
+    boton: 'Reservar diagnóstico · 197 €',
+  },
+  extrasTitulo: 'Extras',
+  extrasNota: 'Pago único, con cualquier plan.',
+  extras: [
+    { t: 'Formación individual de captación', precio: '350 €' },
+    { t: 'Jornada de grabación extra', precio: '190 €' },
+    { t: 'Web completa', precio: 'desde 1.500 €' },
+  ],
+} as const;
+
+/* Respaldo, no servicio (documento del 19/10/2026): MBMA va como
+   colaborador, sin sección propia, sin formulario de inversión y sin hablar
+   de rentabilidades. El logotipo lo pasó Yerai el 20/10/2026, en su versión
+   sobre blanco, para la franja de logos de debajo de la portada: sólo se ha
+   recortado el margen, el dibujo no se retoca porque es marca ajena.
+   La web la dio Yerai el mismo día. Si `web` se vacía, el logotipo sale
+   sin enlace. */
+export const COLABORADORES = {
+  antetitulo: 'Colaboradores',
+  lista: [
+    {
+      nombre: 'MBMA Real Estate (Dubái)',
+      papel: 'Colaborador internacional',
+      logo: { src: '/images/colab-mbma.webp', width: 640, height: 201 },
+      web: 'https://www.mbmauae.ae/',
+    },
+  ],
+} as const;
+
 /* El caso de la home. Desde el 30/9/2026 es MundialRooms; sustituye al de
    ARC Proyectos Renovables, que sale de la web por indicación de Valeria.
    Los datos y la reseña los aporta ella: aquí no se redondea ni se adorna
@@ -87,8 +317,10 @@ export const SERVICES = [
    todavía no hay resultado que enseñar. El día que lo haya, necesita
    nombre, empresa, enlace y permiso (CLAUDE.md).
 
-   `sector` da la fecha de inicio (la dio Yerai el 1/10/2026) y no cuánto
-   tiempo llevan: así no caduca.
+   Desde el 19/10/2026 la home enseña sólo el logotipo y la reseña de
+   Damián (documento de Valeria): el caso detallado va únicamente en el
+   dossier comercial. `titulo`, `sector` y `frentes` se quedan aquí para el
+   dossier, pero la home ya no los pinta. El contrato empezó el 26/8/2026.
 
    La cita son las cuatro primeras frases de la reseña que dejó su CEO en
    Google, sin tocar una palabra; la reseña entera está en PRODUCT.md.
@@ -102,7 +334,7 @@ export const CASO = {
   // ajena y el dibujo no se retoca.
   logo: { src: '/images/caso-mundialrooms.webp', width: 640, height: 226 },
   sector:
-    'Agencia inmobiliaria de Madrid, con presencia en Miami y República Dominicana. Trabajan con nosotros desde septiembre de 2026.',
+    'Agencia inmobiliaria de Madrid, con presencia en Miami y República Dominicana. Trabajan con nosotros desde agosto de 2026.',
   // El enlace es parte de la prueba: quien dude puede entrar y comprobar que
   // la empresa existe, está en Madrid y hace lo que decimos que hace.
   web: 'https://mundialrooms.com/',
@@ -127,6 +359,26 @@ export const CASO = {
   citaCargo: 'CEO de MundialRooms · Madrid',
 } as const;
 
+/* La franja de logos que va justo debajo de la portada (20/10/2026). Sale
+   de CASO y de COLABORADORES para que un logotipo cambie en un solo sitio.
+   Cada logotipo enlaza a la web de su empresa cuando la tenemos. El texto
+   «Nuestros partners» lo eligió Yerai el 20/10/2026. */
+export const FRANJA_LOGOS = {
+  texto: 'Nuestros partners',
+  // Una frase de la reseña de Damián, junto a los logotipos (20/10/2026):
+  // la credencial que ui-ux-pro-max pide cerca del botón. Tiene que estar
+  // literal dentro de CASO.cita; si no, la compilación falla (Franja.astro).
+  cita: {
+    texto: 'Desde el primer minuto ha demostrado una gran profesionalidad, implicación y atención a cada detalle.',
+    autor: CASO.citaAutor,
+    cargo: CASO.citaCargo,
+  },
+  logos: [
+    { nombre: CASO.cliente, ...CASO.logo, web: CASO.web },
+    { nombre: 'MBMA Real Estate', ...COLABORADORES.lista[0].logo, web: COLABORADORES.lista[0].web },
+  ],
+} as const;
+
 export const PROCESO = [
   {
     step: '01',
@@ -135,8 +387,8 @@ export const PROCESO = [
   },
   {
     step: '02',
-    title: 'Estrategia a medida',
-    desc: 'Diseñamos el embudo y los canales de captación específicos para tu mercado. Nada genérico.',
+    title: 'Elegimos tu plan',
+    desc: 'El diagnóstico decide qué plan encaja con tu agencia, tu zona y tu objetivo. Sin propuestas a medida que tardan semanas.',
   },
   {
     step: '03',
@@ -161,8 +413,8 @@ export const PROCESO = [
    es la oferta: qué hacemos, qué se enseña, qué se mide y cada cuánto.
 
    Van numeradas, y por eso el orden es cronológico de verdad: diagnóstico,
-   métricas pactadas, montaje, enseñar cómo se hace, revisión quincenal y el
-   recorrido de seis meses. Numerar algo que no es una secuencia sería
+   métricas pactadas, montaje, enseñar cómo se hace, revisión quincenal y la
+   permanencia, que desde el 19/10/2026 depende del plan. Numerar algo que no es una secuencia sería
    decorar; "Puertas abiertas" se movió al cuarto puesto para que la
    numeración diga la verdad y no al revés. */
 export const PILARES = [
@@ -187,8 +439,8 @@ export const PILARES = [
     d: 'Un documento con tus números y qué se ha cambiado, más una llamada para decidir qué se mantiene, qué se prueba y qué se corta.',
   },
   {
-    t: 'Seis meses de recorrido',
-    d: 'No porque nos guste atar a nadie, sino porque los primeros datos útiles llegan hacia los 20 días y una decisión de compra inmobiliaria rara vez se cierra en cuatro semanas. En menos tiempo no se puede ajustar nada con criterio.',
+    t: 'Permanencia según plan',
+    d: '3 meses en Contenido y Captación; 6 en Completo, en SEO, SEM y GEO y en el plan recomendado. No porque nos guste atar a nadie, sino porque los primeros datos útiles llegan hacia los 20 días y una decisión de compra inmobiliaria rara vez se cierra en cuatro semanas.',
   },
 ] as const;
 
@@ -289,8 +541,8 @@ export const FAQ = [
     a: 'Una inmobiliaria en activo y un presupuesto de marketing ya asignado, aunque sea pequeño. Si nunca has invertido, el diagnóstico te dirá si merece la pena empezar.',
   },
   {
-    q: '¿Qué me llevo de la primera llamada?',
-    a: 'En la llamada buscamos dónde está el cuello de botella: de dónde vienen hoy tus contactos y en qué punto se te caen. En los siete días siguientes recibes un informe escrito con el diagnóstico completo y con nuestra respuesta honesta sobre si podemos ayudarte o no. Si la respuesta es que no, te lo decimos.',
+    q: '¿Qué incluye el diagnóstico?',
+    a: 'Cada plan lo incluye. Pagado aparte, para quien no sabe qué plan le encaja, cuesta 197 € + IVA, y si después contratas un plan te descontamos 50 € del primer mes. Son 90 minutos con Valeria para encontrar el cuello de botella: de dónde vienen hoy tus contactos y en qué punto se te caen. En los siete días siguientes recibes un informe escrito con un plan de 90 días y nuestra respuesta honesta sobre si podemos ayudarte. Si la respuesta es que no, te lo decimos.',
   },
   {
     q: '¿Cuánto tiempo hasta ver resultados?',
@@ -298,27 +550,31 @@ export const FAQ = [
   },
   {
     q: 'La inversión publicitaria, ¿va dentro de vuestros honorarios o aparte?',
-    a: 'Los primeros 20 días de campaña los cubrimos nosotros, incluidos en los honorarios, para que veas datos reales antes de poner tu dinero. A partir del día 21 decides tú: te enseñamos los números y te decimos qué haríamos, pero la última palabra es tuya. Si sigues, la inversión la pagas desde tu propia cuenta y ves cada euro gastado. Nunca pasa por nosotros.',
+    // Datos de Valeria del 21/10/2026, los mismos que la nota de «El trato»
+    // (index.astro). Si cambia una, cambian las dos.
+    a: 'Aparte, y sólo si tú decides hacer anuncios: la inversión la pagas tú, desde tu propia cuenta, y nunca pasa por nosotros. Nosotros gestionamos y optimizamos las campañas, te enseñamos los números y te decimos qué haríamos, pero la última palabra es tuya.',
   },
   {
     q: '¿Y si mi zona ya está ocupada?',
-    a: 'Puede pasar: trabajamos con una sola marca por zona. Si es tu caso te lo decimos en la primera llamada, sin rodeos, y te dejamos en lista de espera por si esa colaboración termina. No aceptamos un segundo cliente en la misma zona aunque nos convenga.',
+    a: 'Puede pasar: trabajamos con una sola marca por zona. Una zona es un municipio; en ciudades grandes, un distrito o un grupo de códigos postales, que se fija en el contrato. Si la tuya está ocupada te lo decimos en el diagnóstico, sin rodeos, y te dejamos en lista de espera por si esa colaboración termina. No aceptamos un segundo cliente en la misma zona aunque nos convenga.',
   },
   {
-    q: '¿Puedo salir antes de los seis meses?',
-    a: 'Sí, con 15 días de preaviso, y te llevas todo lo montado: campañas, landing, base de datos y accesos. El contrato es de 6 meses porque antes no hay datos suficientes para juzgar el trabajo, no para atarte.',
+    q: '¿Puedo salir antes del mínimo?',
+    a: 'Una vez cumplido el mínimo de tu plan —3 meses en Contenido y Captación, 6 en el resto— puedes salir cuando quieras con 15 días de preaviso, y te llevas todo lo montado: campañas, landing, base de datos y accesos. El mínimo existe porque antes no hay datos suficientes para juzgar el trabajo, no para atarte.',
   },
   {
     q: '¿Qué presupuesto necesito?',
-    a: 'Depende del caso: cada sistema de captación se dimensiona según la zona, el tipo de propiedades y el objetivo. Se define en el diagnóstico, que es gratuito y sin compromiso.',
+    a: 'Los precios están publicados en la sección Planes, todos + IVA. Sólo SEO, SEM y GEO se cierra tras la auditoría, siempre con un mínimo de 6 meses, porque el posicionamiento tarda en dar resultados.',
+  },
+  {
+    q: '¿Qué plan me conviene?',
+    a: 'Si quieres marca, captación y posicionamiento a la vez, el plan recomendado: Completo + SEO, SEM y GEO. Si no lo tienes claro, el diagnóstico lo decide; para eso está.',
   },
   {
     q: '¿Trabajáis presencialmente?',
-    // Desde el 30/9/2026 cuenta también lo presencial, con los datos de
-    // Valeria: va ella a la agencia del cliente, de forma puntual, y ese
-    // diagnóstico en persona cuesta 120 €. Es el único precio de la web;
-    // Yerai decidió enseñarlo (30/9/2026).
-    a: 'Trabajamos sobre todo en remoto, con agencias de toda España y con clientes en Estados Unidos: el diagnóstico y el seguimiento se hacen por videollamada, así que la zona en la que estés no condiciona nada. De forma puntual, Valeria se desplaza a la agencia del cliente. El diagnóstico por videollamada es gratuito; en persona tiene un coste de 120 €.',
+    // Desde el 21/10/2026 no hay diagnóstico en persona suelto: lo
+    // presencial sólo existe dentro de un plan contratado (Valeria).
+    a: 'Trabajamos en remoto, con agencias de toda España y con clientes en Estados Unidos: el diagnóstico y el seguimiento se hacen por videollamada, así que la zona en la que estés no condiciona nada. Las visitas en persona sólo se hacen dentro de un plan contratado.',
   },
 ] as const;
 
@@ -337,7 +593,8 @@ export const BLOG = {
   leer: 'Leer artículo',
   relacionadosAntetitulo: 'Relacionado',
   relacionados: 'Servicios relacionados',
-  verServicios: 'Ver todos los servicios',
+  // La home ya no tiene sección Servicios: el enlace lleva a los planes.
+  verServicios: 'Ver los planes y precios',
   otros: 'Más artículos',
   // Delante de los nombres de quien firma el artículo.
   por: 'Por',
@@ -348,8 +605,8 @@ export const BLOG = {
   cta: {
     antetitulo: 'Diagnóstico',
     titulo: '¿Quieres que hablemos de tu caso?',
-    texto: '45 minutos. Sin compromiso. Con análisis real de tu situación.',
-    boton: 'Solicitar diagnóstico gratuito',
+    texto: '90 minutos con Valeria e informe escrito en 7 días. 197 € + IVA; si después contratas un plan, te descontamos 50 € del primer mes.',
+    boton: 'Reservar diagnóstico · 197 €',
     // La alternativa al botón, como en la home: el formulario de /contacto.
     // El texto dice adónde lleva, también leído fuera de contexto.
     escrito: 'O pide el diagnóstico por escrito',
@@ -363,9 +620,10 @@ export const NO_ENCONTRADA = {
   antetitulo: 'Error 404',
   h1: 'Esta página no existe',
   texto: 'Puede que el enlace esté mal escrito o que la página ya no esté. Desde aquí puedes seguir por donde quieras.',
-  boton: 'Reservar diagnóstico',
+  boton: 'Reservar diagnóstico · 197 €',
   enlaces: [
     { href: '/', texto: 'Ir al inicio' },
+    { href: '/#planes', texto: 'Ver los planes' },
     { href: '/blog/', texto: 'Leer el blog' },
     { href: '/contacto/', texto: 'Pedir el diagnóstico por escrito' },
   ],

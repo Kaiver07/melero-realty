@@ -8,8 +8,12 @@ Tailwind v4, desplegado en Vercel desde `main`.
   desnudo devuelve un 308 hacia aquí).
 - Proyecto de Vercel: `prj_QaE5SswR7rPo6byGrRAnPho8YLZ9`.
 - **Push a `main` = despliegue.** No hay staging. Tarda ~1 minuto.
-- El DNS lo gestiona **Hostinger** (`*.dns-parking.com`), no Vercel. Los
-  registros TXT y demás se tocan allí.
+- El DNS lo gestiona **Cloudflare** desde el 22/10/2026 (`danica` y
+  `sonny.ns.cloudflare.com`); antes, Hostinger (`*.dns-parking.com`), que
+  sigue siendo donde está registrado el dominio. Los registros se tocan en
+  Cloudflare. El A del dominio y el CNAME de `www` van a Vercel en «DNS
+  only» (nube gris): con el proxy de Cloudflare delante, Vercel no puede
+  emitir el certificado.
 
 La verdad de negocio —a quién se vende, qué se promete, qué está verificado
 y qué no— vive en `PRODUCT.md`. Este archivo es sólo cómo se trabaja el
@@ -42,7 +46,9 @@ src/layouts/Layout.astro  <head>, schema (Organization sólo con
                        includeOrgSchema), ClientRouter, Vercel Web
                        Analytics (y su evento «contacto») y el motor GSAP.
 src/components/        CookieNotice (consentimiento + GA4), Footer, Header,
-                       VideoEmbed (fachada de YouTube), BlogList, BlogCta.
+                       VideoEmbed (fachada de YouTube), BlogList, BlogCta,
+                       Portada (la portada de la home) y Franja (la reseña
+                       y los partners, dentro de la portada).
 src/styles/global.css  Tokens y cromo compartido (nav, footer, .wrap).
 src/styles/home.css    El sistema visual de la home. ~900 líneas.
 src/content/blog/      Un Markdown por artículo; el nombre es el slug.
@@ -77,9 +83,9 @@ Hoy la web no publica ninguna cifra de resultados: la única que las tenía,
 el +30% de ARC, salió el 30/9/2026 con su caso, cuando el de MundialRooms
 pasó a ser el de la home (`CASO`, en `site.ts`). Hubo `STATS`, `STATS_BIG` y
 tres testimonios con nombres inventados; se borraron el 7/9/2026 y no
-vuelven. La regla va de resultados: los 120 € del diagnóstico en persona y
-los años de trayectoria de Valeria son datos del negocio, dados por ella
-(`PRODUCT.md`).
+vuelven. La regla va de resultados: los precios del catálogo, el descuento
+de 50 € del diagnóstico y los años de trayectoria de Valeria son datos del
+negocio, dados por ella (`PRODUCT.md`).
 
 **Nada de analítica fuera del consentimiento.** GA4 (`G-3038QG3XN3`) sólo se
 carga al pulsar Aceptar: el `<script>` de Google no existe en la página
@@ -101,6 +107,10 @@ Search Console. Si desaparece, Google revoca el acceso a la propiedad. Por
 lo mismo, **no activar `cleanUrls` en `vercel.json`**: redirigiría ese
 archivo. `trailingSlash: true` sí está puesto: manda con un 308 cada página
 sin barra a la que la lleva, y no toca los archivos con extensión.
+Desde el 21/10/2026, `vercel.json` también redirige con un 308 todo
+`melero-realty.vercel.app` a `www.valeriamelero.com`: antes servía la web
+entera en esa dirección. Sólo toca ese nombre exacto; las vistas previas de
+cada despliegue tienen otro y siguen funcionando.
 
 **Los números de sección se calculan solos.** `index.astro` define un
 contador y cada antetítulo llama a `num()`. No escribirlos a mano: cuando lo
@@ -130,6 +140,20 @@ nueva, cambia la URL y hay que ponerla en `SITE.sheetsWebAppUrl`. Si se
 añade o se renombra un campo del formulario, hay que añadirlo también en
 `COLUMNAS`, al principio del script. La web sólo da el envío por bueno si
 el script contesta `{"result":"ok"}`.
+
+**La portada es el «muro en vivo»** (desde el 21/10/2026; `Portada.astro`).
+La plancha verde y, de fondo hasta el borde de la pantalla, la foto del
+piso con columnas de mensajes de curioso que suben sin parar; encima, la
+ficha blanca del lead que sí encaja. El texto y la ficha van dentro de la
+caja de la página (`--maxw`): la versión anterior se desparramaba en
+pantallas anchas. Revisarla siempre a 1440, 1920 y 2560 px. Con movimiento
+reducido no se mueve nada. **No lleva botón de pausa** por decisión de
+Yerai (21/10/2026), aunque la WCAG 2.2.2 lo pide para lo que se mueve solo
+más de 5 segundos: si alguien lo reclama, se vuelve a poner. Hubo una prueba A/B de dos fotos
+(20-21/10/2026) que se retiró al elegir esta. `variante="piso"` devuelve la
+portada anterior. Los mensajes son ejemplos; ninguno es de un cliente. Desde
+el 21/10/2026 el rótulo «Mensajes de ejemplo» sólo lo leen los lectores de
+pantalla (lo pidió Yerai).
 
 ## Trampas que ya nos han mordido
 
@@ -184,6 +208,7 @@ Sin dorado en ningún sitio salvo el logotipo, que es donde vive.
 --teal-papel #237479  sólo texto teal sobre --paper, 4.61:1 (el de marca da 4.48)
 --paper  #eaeced   fondo alterno de sección
 --muted  #54696e   texto secundario sobre claro, 72%
+--muted-apagado #66777b  los curiosos de la bandeja, 4.68:1 sobre blanco
 --muted-dark #bdc5c6  texto secundario sobre --ink, 8.06:1
 --rule   #dee2e3   filetes
 ```
@@ -193,7 +218,9 @@ pareja. Si se cambia un color, se recalcula y se anota; no se pone «a ojo».
 
 Las secciones alternan fondo —oscuro, gris, blanco— para que no se lean como
 un bloque. Cero esquinas redondeadas salvo la píldora de la barra del hero y
-sus botones, que son la misma forma a propósito.
+sus botones, que son la misma forma a propósito, y la bandeja de mensajes de
+la portada (18px, desde el 20/10/2026: recta parecía un bloque pegado) y
+las tarjetas de los partners que van debajo del botón (12px).
 
 ## Deudas conocidas
 
@@ -202,8 +229,21 @@ sus botones, que son la misma forma a propósito.
   sólo lo usan las páginas interiores y las legales, que conservan su
   maquetación antigua a base de utilidades mientras la home va con CSS
   propio. Es la costura entre dos rediseños y sigue ahí.
-- **Embudos: manda Calendly** (decidido el 26/9/2026). Todos los botones
-  principales, también los del blog y sobre-nosotros, van a Calendly. El
-  formulario de 5 pasos de `/contacto`, que es el que guarda el lead en la
-  hoja de cálculo, queda como alternativa: enlaces «O pide el diagnóstico
-  por escrito» y el pie. La llamada dura 45 minutos en todas partes.
+- **Embudos: manda el pago del Diagnóstico** (desde el 19/10/2026; antes,
+  Calendly directo). Todos los botones de reserva, también los del menú,
+  el blog, sobre-nosotros y la 404, van a `SITE.pagoDiagnosticoUrl`, el
+  enlace de pago de Stripe, que tras cobrar redirige a Calendly. **Si ese
+  enlace está vacío, el despliegue de producción falla a propósito**
+  (`Layout.astro`); en local y en vista previa compila igual. El
+  formulario de 5 pasos de `/contacto` queda como alternativa por escrito
+  y también es de pago: al enviarlo se pasa al pago. El diagnóstico dura
+  90 minutos en todas partes. **Excepción, desde el 21/10/2026:** el botón
+  de cada plan, en la sección Planes, va a su propio pago de Stripe
+  (`PLANES.destacado.pago` y `PLANES.planes[].pago`); el Diagnóstico
+  queda como opción aparte para quien no sabe cuál le encaja.
+- **`SERVICES` sigue en `site.ts` aunque la home ya no lo pinta.** Los
+  artículos del blog se relacionan con esos seis títulos
+  (`content.config.ts`). La home enseña `PLANES`. Si algún día los
+  artículos se relacionan con planes, `SERVICES` puede irse.
+- **`embla-carousel` sigue en `package.json` sin uso**: sólo lo usaba el
+  carrusel de Servicios, que salió el 19/10/2026.

@@ -3,5 +3,13 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm install",
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "melero-realty.vercel.app" }],
+      "destination": "https://www.valeriamelero.com/:path*",
+      "permanent": true
+    }
+  ]
 }

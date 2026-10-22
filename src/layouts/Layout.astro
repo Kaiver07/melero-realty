@@ -27,6 +27,15 @@ const {
   noindex = false,
 } = Astro.props;
 
+/* Freno de publicación (19/10/2026). Todos los botones de reserva van al
+   enlace de pago del Diagnóstico; sin él, la web saldría con todos sus
+   botones sin destino. Si falta, el despliegue de producción de Vercel se
+   para aquí y sigue en el aire la versión anterior. En local y en las
+   vistas previas compila igual, para poder revisar el resto. */
+if (!SITE.pagoDiagnosticoUrl && process.env.VERCEL_ENV === 'production') {
+  throw new Error('Falta SITE.pagoDiagnosticoUrl (src/config/site.ts): el enlace de pago de Stripe del Diagnóstico.');
+}
+
 /* La tarjeta de enlace. Tiene que ser absoluta: los rastreadores de WhatsApp,
    Instagram y LinkedIn no resuelven rutas relativas, y sin imagen el enlace
    compartido sale como un rectángulo vacío con el nombre. */
@@ -164,13 +173,17 @@ const faqSchema = {
         if (!enlace) return;
         const va = (window as any).va;
         if (typeof va !== 'function') return;
+        // Desde el 19/10/2026 la reserva pasa por el pago (Stripe).
+        const href = enlace.getAttribute('href') || '';
         va('event', {
           name: 'contacto',
           data: {
             origen: enlace.getAttribute('data-cta') || 'desconocido',
-            via: (enlace.getAttribute('href') || '').includes('calendly.com')
-              ? 'llamada'
-              : 'escrito',
+            via: href.includes('stripe.com')
+              ? 'pago'
+              : href.includes('calendly.com')
+                ? 'llamada'
+                : 'escrito',
           },
         });
       });

@@ -274,15 +274,19 @@ import { SITE } from '../config/site';
   }
 
   /* Los clics hacia una reserva. Sin esto sólo habría visitas: la conversión
-     ocurre en calendly.com, otro dominio, donde ya no llegamos. Cada CTA
-     lleva data-cta con su origen para poder comparar cuál funciona. */
+     ocurre en Stripe y Calendly, otros dominios, donde ya no llegamos. Cada
+     CTA lleva data-cta con su origen para poder comparar cuál funciona.
+     Desde el 19/10/2026 la reserva pasa por el pago: `via` vale «pago». */
   function contacto(enlace) {
     if (!cargado || typeof window.gtag !== 'function') return;
+    const href = enlace.getAttribute('href') || '';
     window.gtag('event', 'contacto', {
       origen: enlace.getAttribute('data-cta') || 'desconocido',
-      via: (enlace.getAttribute('href') || '').includes('calendly.com')
-        ? 'llamada'
-        : 'escrito',
+      via: href.includes('stripe.com')
+        ? 'pago'
+        : href.includes('calendly.com')
+          ? 'llamada'
+          : 'escrito',
     });
   }
 

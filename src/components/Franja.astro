@@ -1,0 +1,42 @@
+---
+/* Los partners (FRANJA_LOGOS). Desde el 20/10/2026 van dentro de la
+   portada, debajo de la nota del botón, y no en una banda blanca aparte:
+   la banda quedaba vacía, con dos logotipos pequeños a un lado. Junto al
+   botón son la prueba que se ve antes de pulsar (docs/prompt-diseno.md).
+   Cada logotipo va en su tarjeta blanca porque son marcas ajenas que no se
+   retocan: el de MundialRooms es negro sobre blanco. */
+import { FRANJA_LOGOS, CASO } from '../config/site';
+
+/* `cita` en false quita la frase de Damián: en la portada del muro sólo
+   van los logotipos (21/10/2026); la reseña entera está en el caso. */
+interface Props { cita?: boolean }
+const { cita: conCita = true } = Astro.props;
+
+/* La frase tiene que ser literal de la reseña: si alguien la retoca en
+   site.ts sin cambiar la reseña, la compilación se para aquí. */
+const { cita } = FRANJA_LOGOS;
+if (!CASO.cita.includes(cita.texto)) {
+  throw new Error('FRANJA_LOGOS.cita.texto no está literal en CASO.cita (src/config/site.ts).');
+}
+---
+
+<div class:list={["socios", !conCita && "socios--solo"]}>
+  {conCita && (
+  <blockquote class="socios-cita">
+    <p>«{cita.texto}»</p>
+    <footer><strong>{cita.autor}</strong>, {cita.cargo}</footer>
+  </blockquote>
+  )}
+  <div>
+  <p class="socios-t">{FRANJA_LOGOS.texto}</p>
+  <ul class="socios-logos">
+    {FRANJA_LOGOS.logos.map((l) => (
+      <li>
+        {l.web
+          ? <a class="socio" href={l.web} target="_blank" rel="noopener" aria-label={`Web de ${l.nombre}, se abre en una pestaña nueva`}><img src={l.src} alt={`Logotipo de ${l.nombre}`} width={l.width} height={l.height} decoding="async"></a>
+          : <span class="socio"><img src={l.src} alt={`Logotipo de ${l.nombre}`} width={l.width} height={l.height} decoding="async"></span>}
+      </li>
+    ))}
+  </ul>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+---
+/* La portada de la home (21/10/2026): el «muro en vivo».
+   La plancha verde; a la izquierda, el titular y la reserva; de fondo,
+   hasta el borde de la pantalla, la foto del piso y columnas de mensajes de
+   curioso que suben sin parar, como un móvil que no deja de sonar; y
+   encima, la única ficha blanca: el lead que sí encaja. El texto y la
+   ficha van dentro de la caja de la página (--maxw), para que en pantallas
+   anchas no se desparrame. docs/prompt-diseno.md.
+   - piso: la portada anterior (foto del piso a sangre y bandeja de
+     contactos). Se queda para poder volver a ella cambiando una palabra. */
+import { SITE, HERO } from '../config/site';
+import { srcsetDe } from '../lib/imagenes';
+import Franja from './Franja.astro';
+import Reserva from './Reserva.astro';
+import FichaLead from './FichaLead.astro';
+
+interface Props {
+  variante?: 'muro' | 'piso';
+}
+const { variante = 'muro' } = Astro.props;
+
+/* Todos los botones de reserva van al pago del Diagnóstico (Stripe), que
+   al cobrar redirige a Calendly. Ver SITE.pagoDiagnosticoUrl. */
+const pago = SITE.pagoDiagnosticoUrl;
+
+const mensajes = HERO.bandeja.mensajes;
+/* Cinco columnas de seis frases, cada una empezando en otra, para que no
+   se lea como la misma lista repetida. */
+const columnas = [0, 2, 5, 7, 9].map((ini) => [0, 1, 2, 3, 4, 5].map((k) => HERO.muro[(ini + k) % HERO.muro.length]));
+---
+
+{/* ================= 1 · HERO ================= */}
+<header class:list={['hero', `hero--${variante}`]} id="top">
+  {variante === 'piso' && (
+    <>
+      <div class="hero-media"><img src="/images/hero-piso.webp" srcset={srcsetDe('/images/hero-piso.webp', 1672, [800, 1200])} sizes="100vw" alt="Interior de una vivienda vacía con luz rasante entrando por el ventanal, grabada con un móvil montado en un trípode" width="1672" height="941" fetchpriority="high" decoding="async"></div>
+      <div class="hero-veil" aria-hidden="true"></div>
+      <div class="hero-scrim" aria-hidden="true"></div>
+    </>
+  )}
+
+  <nav class="nav" aria-label="Principal">
+    <a class="nav-brand" href="#top">Melero Realty</a>
+    <ul class="nav-links">
+      <li><a href="#planes">Planes</a></li>
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#equipo">Equipo</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li class="nav-keep"><a href="/blog/">Blog</a></li>
+    </ul>
+    {/* Antes, el correo. Desde el 19/10/2026, el botón al Diagnóstico: el
+         correo sigue en el cierre y en el pie. */}
+    <a class="nav-mail" data-cta="menu" href={pago} target="_blank" rel="noopener">Diagnóstico</a>
+  </nav>
+
+  {variante === 'muro' && (
+    <div class="hero-inner mv">
+      <div class="mv-texto">
+        <h1>{HERO.titulo}</h1>
+        <p class="hero-support">{HERO.apoyo}</p>
+        <Reserva />
+        <Franja cita={false} />
+      </div>
+      {/* Los fondos (foto y muro) se colocan respecto a la portada entera:
+           esta columna es estática a propósito. En la columna sólo queda la
+           ficha. */}
+      <div class="mv-escena">
+        <div class="mv-foto"><img src="/images/hero-piso.webp" srcset={srcsetDe('/images/hero-piso.webp', 1672, [800, 1200])} sizes="(max-width: 900px) 100vw, 60vw" alt="" width="1672" height="941" fetchpriority="high" decoding="async"></div>
+        {/* El giro va en un envoltorio y no en cada columna: girada por
+             separado, cada columna recortaba los mensajes por su borde. */}
+        <div class="mv-muro" aria-hidden="true"><div class="mv-giro">
+          {columnas.map((col, c) => (
+            <div class="mv-col" style={`--c:${c}`}><div class="mv-pista">{[...col, ...col].map((t) => <span>{t}</span>)}</div></div>
+          ))}
+        </div></div>
+        <FichaLead />
+      </div>
+    </div>
+  )}
+
+  {variante === 'piso' && (
+    <div class="hero-inner">
+      <div class="hero-spacer"></div>
+      <div class="hero-word" aria-hidden="true"><span>M</span><span>E</span><span>L</span><span>E</span><span>R</span><span>O</span></div>
+      <div class="hero-cuerpo">
+        <div class="hero-izq">
+          <div class="hero-copy">
+            <p class="hero-kicker">{HERO.kicker}</p>
+            <h1>{HERO.titulo}</h1>
+            <p class="hero-support">{HERO.apoyo}</p>
+          </div>
+          <Reserva />
+          <Franja />
+        </div>
+        <figure class="bandeja">
+          <p class="bx-cab">{HERO.bandeja.titulo}</p>
+          <ol class="bx-lista">
+            {mensajes.map((m, i) => (
+              <li class:list={['bx-msg', m.cualificado ? 'bx-msg--lead' : 'bx-msg--curioso']} style={`--i:${i}`}>
+                <p class="bx-meta"><span class="bx-origen">{m.origen}</span><span class="bx-hora">{m.hora}</span></p>
+                <p class="bx-texto">{m.texto}</p>
+                {m.cualificado && <p class="bx-tag">{HERO.bandeja.etiqueta}</p>}
+              </li>
+            ))}
+          </ol>
+          <figcaption class="bx-nota">{HERO.bandeja.nota}</figcaption>
+        </figure>
+      </div>
+    </div>
+  )}
+</header>
+

@@ -196,28 +196,125 @@ ul,ol{margin:0;padding:0;list-style:none}
 .hero-word span:last-child{margin-right:-.02em}
 
 /* copy */
-.hero-copy{
-  position:relative;
-  display:grid;grid-template-columns:minmax(0,1.62fr) minmax(0,.9fr);
-  gap:clamp(1.2rem,3vw,3.2rem);align-items:end;
-}
+/* Desde el 20/10/2026 el titular es corto («Deja de contestar a
+   curiosos.») y va más grande: es frase de cinco palabras, no una
+   definición. text-wrap:balance lo parte en dos líneas parecidas en vez de
+   dejar «curiosos.» sola. El párrafo de apoyo ya no va a la derecha: ese
+   sitio es de la bandeja. */
+.hero-copy{position:relative}
 .hero-copy h1{
-  font-size:clamp(1.55rem,2.95vw,2.7rem);font-weight:600;letter-spacing:-.03em;
-  line-height:1.1;color:var(--white);
+  font-size:clamp(2rem,4.3vw,3.9rem);font-weight:600;letter-spacing:-.035em;
+  line-height:1.02;color:var(--white);text-wrap:balance;max-width:16ch;
 }
-/* El <br> del titular está puesto para el corte de escritorio. En móvil
-   deja "inmobiliarias" sola en una línea, así que se suelta y el texto
-   rompe por sí mismo. */
-@media (max-width:620px){.hero-copy h1 br{display:none}}
-
 .hero-support{
+  margin-top:clamp(.9rem,1.4vw,1.25rem);
   font-size:clamp(.95rem,1.15vw,1.0625rem);line-height:1.65;font-weight:300;
-  color:rgba(255,255,255,.92);max-width:38ch;
+  color:rgba(255,255,255,.92);max-width:54ch;
 }
-@media (max-width:820px){
-  .hero-copy{grid-template-columns:1fr;align-items:start;gap:1rem}
-  .hero-support{max-width:46ch}
+
+/* ---------- PORTADA EN DOS COLUMNAS + BANDEJA DE EJEMPLO ----------
+   La bandeja es la única cosa llamativa de la portada: una lista de
+   contactos donde los del portal se apagan y el de la landing propia queda
+   marcado. Lleva esquinas redondeadas, la otra excepción junto a la
+   píldora: con esquinas rectas parecía un bloque pegado al lado de la
+   portada (Yerai, 20/10/2026). 18px, el mismo radio que la píldora cuando
+   se pliega en el teléfono. Sin sombras. */
+.hero-cuerpo{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,400px);
+  gap:clamp(2rem,4vw,4.5rem);align-items:end;
 }
+.hero-izq{min-width:0}
+@media (max-width:1100px){
+  .hero-cuerpo{grid-template-columns:1fr;gap:clamp(1.8rem,5vw,2.6rem)}
+  .bandeja{max-width:520px}
+}
+/* Con la bandeja debajo, la portada crece y el titular sube hasta la parte
+   clara de la foto, donde la sombra del 62 % ya no llega. En móvil no hace
+   falta: allí el texto va sobre la plancha, fuera de la foto. */
+@media (min-width:701px) and (max-width:1100px){.hero-scrim{height:90%}}
+
+.bandeja{margin:0;color:var(--text)}
+.bx-cab{
+  background:var(--white);padding:.85rem 1.1rem;border-radius:18px 18px 0 0;
+  font-size:.8rem;font-weight:600;letter-spacing:-.005em;
+  border-bottom:1px solid var(--rule);
+}
+.bx-lista{list-style:none;margin:0;padding:0;background:var(--white);border-radius:0 0 18px 18px;overflow:hidden}
+.bx-msg{padding:.8rem 1.1rem .85rem;border-bottom:1px solid var(--rule)}
+.bx-msg:last-child{border-bottom:0}
+.bx-msg{color:var(--text)}
+.bx-meta{display:flex;justify-content:space-between;gap:1rem;font-size:.72rem;color:var(--muted)}
+.bx-origen{font-weight:600}
+.bx-texto{margin-top:.2rem;font-size:.9rem;line-height:1.45;color:inherit}
+/* El estado final, que es también el de partida sin animación. Se apagan
+   con color y no con opacidad: al 60 % de opacidad la hora caía a 2.54:1.
+   --muted-apagado da 4.68:1 en el texto y en la hora (ui-ux-pro-max,
+   prioridad 1: contraste 4.5:1). */
+.bx-msg--curioso,.bx-msg--curioso .bx-meta{color:var(--muted-apagado)}
+.bx-msg--lead{
+  background:rgba(36,118,123,.07);
+  box-shadow:inset 3px 0 0 var(--teal);
+}
+.bx-msg--lead .bx-origen{color:var(--teal)}
+.bx-tag{margin-top:.4rem;font-size:.72rem;font-weight:600;color:var(--teal)}
+.bx-nota{margin-top:.6rem;font-size:.75rem;color:var(--muted-dark)}
+/* En el teléfono la portada ya es larga: con cuatro mensajes se entiende. */
+@media (max-width:700px){.bx-msg:nth-child(5){display:none}}
+
+/* Un solo momento de movimiento, al cargar y después de que entre el
+   titular: los mensajes llegan uno a uno, los curiosos se apagan y el lead
+   se marca. Sólo CSS, sin observadores: no hay nada que pueda quedarse a
+   medias. La entrada mueve la opacidad y el apagado el color, así que no
+   se pisan. */
+@media (prefers-reduced-motion: no-preference){
+  .bx-msg{animation:bx-llega .5s var(--ease) both;animation-delay:calc(.9s + var(--i) * .2s)}
+  .bx-msg--curioso{
+    animation:bx-llega .5s var(--ease) both,bx-apaga .7s ease both;
+    animation-delay:calc(.9s + var(--i) * .2s),2.5s;
+  }
+  .bx-msg--lead{
+    animation:bx-llega .5s var(--ease) both,bx-marca .7s ease both;
+    animation-delay:calc(.9s + var(--i) * .2s),2.5s;
+  }
+  .bx-tag{animation:bx-aparece .4s ease 2.8s both}
+}
+@keyframes bx-llega{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes bx-apaga{from{color:var(--text)}to{color:var(--muted-apagado)}}
+@keyframes bx-marca{
+  from{background-color:rgba(36,118,123,0);box-shadow:inset 0 0 0 var(--teal)}
+  to{background-color:rgba(36,118,123,.07);box-shadow:inset 3px 0 0 var(--teal)}
+}
+@keyframes bx-aparece{from{opacity:0}to{opacity:1}}
+
+/* ---------- PRUEBA: la reseña y los partners, dentro de la portada ----------
+   Rehecho el 20/10/2026: antes eran tres líneas sueltas de letra pequeña
+   (etiqueta, logotipos y cita a .82rem) que se leían como relleno. Ahora es
+   un bloque propio, separado del botón por un filete: la frase de Damián a
+   tamaño de lectura a la izquierda, y los partners a la derecha. Cada
+   logotipo en su tarjeta blanca, todas iguales, con radio de 12px (la otra
+   excepción a las esquinas rectas junto a la píldora y la tarjeta del
+   muro). */
+.socios{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;
+  gap:1.25rem clamp(1.5rem,3vw,2.75rem);
+  margin-top:clamp(1.6rem,2.8vw,2.4rem);padding-top:clamp(1.2rem,2vw,1.6rem);
+  border-top:1px solid rgba(255,255,255,.14);
+}
+@media (max-width:700px){.socios{grid-template-columns:1fr}}
+.socios-t{margin-bottom:.55rem;font-size:.75rem;color:var(--muted-dark)}
+.socios-logos{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;margin:0;padding:0}
+.socio{
+  display:flex;align-items:center;justify-content:center;
+  width:156px;height:54px;padding:0 14px;
+  background:var(--white);border-radius:12px;
+  transition:opacity .2s var(--ease);
+}
+.socio img{max-height:34px;width:auto;max-width:100%}
+a.socio:hover{opacity:.85}
+.socios-cita{margin:0;max-width:46ch}
+.socios-cita p{font-size:clamp(.95rem,1.1vw,1.05rem);line-height:1.5;font-weight:300;color:var(--white)}
+.socios-cita footer{margin-top:.55rem;font-size:.78rem;color:var(--muted-dark)}
+.socios-cita footer strong{font-weight:600;color:var(--white)}
 
 /* ---------- 2 · PÍLDORA DE FILTROS ----------
    «Reservar diagnóstico» es ~2,5× más largo que la etiqueta corta anterior:
@@ -343,16 +440,16 @@ ul,ol{margin:0;padding:0;list-style:none}
 /* La objeción de precio y de tiempo, resuelta donde se decide. Va fuera de
    la píldora blanca a propósito: dentro competiría con el botón, y esto no
    es una llamada a la acción, es lo que se sabe antes de pulsarla. */
+/* Rehecha el 20/10/2026: era un solo párrafo a .8rem que mezclaba datos y
+   enlaces. Ahora son dos líneas con trabajo distinto: lo que incluye y
+   cuesta, a tamaño legible, y debajo las dos salidas, como enlaces. */
 .ab-note{
-  margin-top:clamp(.85rem,1.5vw,1.1rem);
-  max-width:980px;
-  font-size:.8rem;font-weight:300;line-height:1.55;
+  margin-top:clamp(1rem,1.6vw,1.3rem);max-width:60ch;
+  font-size:.875rem;font-weight:300;line-height:1.6;
   color:rgba(255,255,255,.88);
 }
 .ab-note strong{font-weight:600;color:var(--white)}
-@media (max-width:880px){
-  .ab-note{max-width:520px}
-}
+.ab-enlaces{display:flex;flex-wrap:wrap;gap:.5rem 1.75rem;margin-top:.55rem;font-size:.8125rem;font-weight:600}
 
 /* ==========================================================================
    3 · INTRO A DOS COLUMNAS
@@ -375,48 +472,108 @@ ul,ol{margin:0;padding:0;list-style:none}
 }
 
 /* ==========================================================================
-   4 · SERVICIOS — CARRUSEL HORIZONTAL
+   PLANES — catálogo con precio (sustituye a Servicios el 19/10/2026)
    ========================================================================== */
-.svc{overflow-x:hidden}
-.svc-head{
-  display:flex;justify-content:space-between;align-items:flex-end;
-  gap:2rem;flex-wrap:wrap;margin-bottom:clamp(2.2rem,4vw,3.6rem);
+/* Plancha oscura. El recomendado es la única pieza blanca: así se encuentra
+   de un vistazo sin necesitar otro color. El resto son marcos con filete,
+   sin esquinas redondeadas, como todo lo que no es la píldora del hero. */
+.planes :focus-visible{outline-color:var(--white)}
+.planes .pl-dest :focus-visible{outline-color:var(--teal)}
+.planes-head h2{
+  font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;
+  margin-top:1.3rem;max-width:22ch;line-height:1.03;text-wrap:balance;
 }
-.svc-head h2{font-size:clamp(1.7rem,3.5vw,2.95rem);font-weight:600;max-width:16ch;line-height:1.03;text-wrap:balance}
-.svc-head .eyebrow{margin-bottom:1.1rem}
-/* Ventana del carrusel. El desplazamiento lo gobierna Embla con transform,
-   no el scroll nativo: por eso overflow oculto y no auto. Hacerlo a mano
-   contra scrollLeft nunca da un arrastre fluido, siempre pelea con el
-   navegador. */
-.svc-scroll{overflow:hidden;padding-bottom:6px}
-.svc-track{display:flex;gap:clamp(14px,1.6vw,26px);will-change:transform}
-.svc-scroll::-webkit-scrollbar{display:none}
-.svc-card{flex:0 0 auto;min-width:0;width:clamp(255px,30vw,420px)}
-.svc-fig{margin:0;overflow:hidden;background:var(--paper-2)}
-/* Más ancha que el marco: ese sobrante es el recorrido del desplazamiento.
-   Iba en una regla aparte y la de abajo la pisaba con width:100%, así que la
-   foto no tenía margen para moverse. Fusionadas. */
-.svc-fig img{
-  width:116%;max-width:none;margin-left:-8%;will-change:transform;
-  aspect-ratio:4/5;object-fit:cover;filter:var(--photo);
-  transition:transform .7s var(--ease);
+.planes-head .lead{margin-top:1.3rem}
+
+.pl-dest{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(1.8rem,4vw,3.5rem);align-items:start;
+  margin-top:clamp(2.4rem,4.5vw,3.6rem);
+  padding:clamp(1.6rem,3.5vw,3rem);
+  background:var(--white);color:var(--text);
 }
-.svc-card:hover .svc-fig img{transform:scale(1.035)}
-.svc-card h3{margin-top:1.35rem;font-size:clamp(1.1rem,1.8vw,1.45rem);font-weight:600;letter-spacing:-.025em;line-height:1.15}
-.svc-card p{margin-top:.6rem;font-size:.9rem;line-height:1.6;font-weight:300;color:var(--muted);max-width:34ch}
-.svc-index{
-  font-size:.7rem;font-weight:700;letter-spacing:.2em;
-  color:var(--muted);display:block;margin-bottom:.35rem;
+/* Blanco sobre teal: 5.31:1. */
+.pl-etiqueta{
+  display:inline-block;padding:.45rem .8rem;
+  font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  background:var(--teal);color:var(--white);
 }
-.svc-bar{
-  position:relative;height:2px;background:var(--rule);
-  margin-top:clamp(2.4rem,4vw,3.4rem);overflow:hidden;
+.pl-dest h3{margin-top:1.1rem;font-size:clamp(1.35rem,2.4vw,1.9rem)}
+.pl-card h3,.pl-diag h3,.pl-extras h3{font-size:clamp(1.1rem,1.6vw,1.35rem)}
+
+.pl-para{margin-top:.5rem;font-size:.9rem;line-height:1.55;font-weight:300;color:var(--muted)}
+.pl-precio{margin-top:1.3rem;display:flex;align-items:baseline;flex-wrap:wrap;gap:.4rem}
+.pl-precio strong{font-size:clamp(1.6rem,2.8vw,2.2rem);font-weight:700;letter-spacing:-.03em;line-height:1}
+.pl-desde,.pl-iva{font-size:.8rem;font-weight:400;color:var(--muted)}
+.pl-nota{margin-top:.35rem;font-size:.8rem;font-weight:600}
+.pl-linea{margin-top:.7rem;font-size:.875rem;line-height:1.6;font-weight:300;color:var(--muted)}
+.pl-cond{
+  margin-top:1rem;font-size:.66rem;font-weight:600;line-height:1.6;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--teal);
 }
-.svc-bar-fill{
-  position:absolute;left:0;top:0;height:100%;width:34%;background:var(--ink);
-  will-change:transform;
+.pl-dest-btn{margin-top:1.6rem}
+
+.pl-incluye li{
+  position:relative;padding:.7rem 0 .7rem 1.5rem;
+  border-top:1px solid var(--rule);
+  font-size:.9375rem;line-height:1.5;
 }
-.svc-foot{display:flex;justify-content:center;margin-top:clamp(2.2rem,4vw,3.2rem)}
+.pl-incluye li::before{
+  content:"";position:absolute;left:0;top:1.4em;
+  width:.7rem;height:1px;background:var(--teal);
+}
+
+/* Las cuatro tarjetas y el pie, sobre la plancha oscura. */
+.pl-grid{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:clamp(14px,1.6vw,22px);margin-top:clamp(14px,1.6vw,22px);
+}
+.pl-card,.pl-diag,.pl-extras{
+  border:1px solid var(--rule-dark);
+  padding:clamp(1.3rem,2.2vw,1.8rem);
+}
+.pl-card{display:flex;flex-direction:column}
+.pl-card .pl-para,.pl-card .pl-linea,.pl-card .pl-desde,.pl-card .pl-iva,
+.pl-diag .pl-para,.pl-diag .pl-linea,.pl-diag .pl-iva,
+.pl-card .pl-cond,.pl-diag .pl-cond,.pl-extras .pl-cond{color:var(--muted-dark)}
+.pl-card .pl-incluye{margin-top:1.2rem;flex:1}
+.pl-card .pl-incluye li,.pl-extras li{border-top-color:var(--rule-dark)}
+.pl-card .pl-incluye li{font-size:.875rem;font-weight:300}
+.pl-card .pl-incluye li::before{background:var(--muted-dark)}
+.pl-btn{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:.6rem;
+  margin-top:1.3rem;padding-block:.6rem .4rem;
+  font-size:.68rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--white);text-decoration:none;
+  border-bottom:1px solid rgba(255,255,255,.4);
+  transition:gap .25s var(--ease),border-color .25s var(--ease);
+}
+.pl-btn:hover{gap:1rem;border-bottom-color:var(--white)}
+
+.pl-pie{
+  display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
+  gap:clamp(14px,1.6vw,22px);margin-top:clamp(14px,1.6vw,22px);
+}
+.pl-diag .pl-para:first-child{margin-top:0;font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase}
+.pl-diag h3{margin-top:.5rem}
+.pl-diag .btn{margin-top:1.5rem}
+.pl-extras ul{margin-top:1rem}
+.pl-extras li{
+  display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+  padding:.8rem 0;border-top:1px solid var(--rule-dark);
+  font-size:.9rem;font-weight:300;
+}
+.pl-extra-precio{white-space:nowrap;font-weight:600}
+
+@media (max-width:1100px){
+  .pl-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:860px){
+  .pl-dest,.pl-pie{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  .pl-grid{grid-template-columns:1fr}
+}
 
 /* ==========================================================================
    5 · FILA DE DATOS (términos duros — no hay métricas inventadas)
@@ -849,6 +1006,16 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   transition:gap .25s var(--ease),color .25s var(--ease);
 }
 .vid-cta:hover{gap:1rem;color:var(--teal)}
+/* El enlace a los planes de "El servicio", con el mismo trazo que el del
+   vídeo. Selector doble para ganar a `.intro-side p`. */
+.intro-side .intro-planes{
+  display:inline-flex;align-items:center;gap:.6rem;margin-top:1.4rem;
+  font-size:.7rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--text);text-decoration:none;
+  padding-block:.6rem .5rem;border-bottom:1px solid var(--teal);
+  transition:gap .25s var(--ease),color .25s var(--ease);
+}
+.intro-side .intro-planes:hover{gap:1rem;color:var(--teal)}
 .vid-copy h2{
   font-size:clamp(1.5rem,3vw,2.3rem);font-weight:600;line-height:1.05;
   letter-spacing:-.03em;margin-top:1.1rem;max-width:14ch;color:var(--text);
@@ -1068,18 +1235,27 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
    testimonio— y conviene que no se lean como uno. No hay cifra: el día que
    haya una publicable, va en la columna de la derecha, encima de la cita.
    ========================================================================== */
-/* El ancho va en em para que corte igual a cualquier tamaño: el titular son
-   dos frases, la primera mide unos 11,5em y con la palabra siguiente, 13,7em.
-   Con 12,5em cada frase ocupa su línea. */
-.caso-t{
-  font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;
-  margin-top:1.3rem;max-width:12.5em;line-height:1.03;
-}
+/* Desde el 19/10/2026 la ficha es sólo el logotipo: la reseña se lleva el
+   espacio y el logotipo queda centrado a su altura. */
 .caso-grid{
-  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
-  gap:clamp(2rem,5vw,4.5rem);align-items:start;
+  display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);
+  gap:clamp(2rem,5vw,4.5rem);align-items:center;
   margin-top:clamp(2.2rem,4vw,3.2rem);
 }
+
+/* Colaboradores: respaldo, no servicio. Una línea bajo el caso, en tono
+   menor, sin logotipo hasta que MBMA confirme que se puede usar. */
+.colab{
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem clamp(1.2rem,3vw,2.6rem);
+  margin-top:clamp(2.6rem,5vw,4rem);padding-top:1.4rem;border-top:1px solid var(--rule);
+}
+.colab-t{
+  font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);
+}
+.colab li{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .8rem}
+.colab strong{font-size:.95rem;font-weight:600}
+.colab li span{font-size:.85rem;font-weight:300;color:var(--muted)}
 
 /* El logotipo de MundialRooms es oscuro sobre blanco, así que va tal cual
    sobre el blanco de la sección: sin panel y sin filtros, que es marca
@@ -1089,30 +1265,6 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 .caso-logo:hover{opacity:.72}
 .caso-logo img{width:clamp(180px,20vw,240px);height:auto}
 
-/* El enlace va visible y no sólo bajo el logotipo: que se pueda comprobar
-   es la mitad del valor de publicar un caso, y nadie da por hecho que un
-   logotipo se pueda pulsar. */
-.caso-web{
-  display:inline-block;margin-top:.85rem;
-  font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--teal);text-decoration:none;
-  border-bottom:1px solid rgba(36,118,123,.4);padding-bottom:2px;
-  transition:border-color .2s var(--ease);
-}
-.caso-web:hover{border-bottom-color:var(--teal)}
-.caso-sector{
-  margin-top:1.1rem;font-size:.9rem;font-weight:300;
-  color:var(--muted);max-width:46ch;
-}
-.caso-fases{margin-top:clamp(1.8rem,3vw,2.4rem);display:grid;gap:1.55rem}
-.caso-fases dt{
-  font-size:.63rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--teal);margin-bottom:.5rem;
-}
-.caso-fases dd{
-  margin:0;font-size:1rem;line-height:1.65;font-weight:300;
-  color:var(--text);max-width:52ch;
-}
 
 .caso-voz{border-left:2px solid var(--ink);padding-left:clamp(1.4rem,2.5vw,2.2rem)}
 .caso-cita{margin:0}
@@ -1173,3 +1325,155 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 @media (prefers-reduced-motion:reduce){
   .ab-aviso,.ab-field{transition:none}
 }
+
+/* ==========================================================================
+   PORTADA «MURO EN VIVO» (la de la home desde el 21/10/2026)
+   La plancha verde. De fondo, hasta el borde de la pantalla, la foto del
+   piso y columnas de mensajes de curioso que suben sin parar; encima, la
+   única ficha blanca, el lead que sí encaja. El texto y la ficha, dentro de
+   la caja de la página (--maxw): en pantallas anchas no se desparrama.
+   Salió de comparar en una página temporal la actual y ocho versiones más
+   (docs/prompt-diseno.md). Yerai la eligió; «el formato cuadrado no me
+   gusta»: por eso los fondos no van en un panel.
+   ========================================================================== */
+.hero--muro{min-height:min(94vh,920px)}
+.hero--muro > .nav,.hero--muro .hero-inner{
+  width:100%;max-width:var(--maxw);margin-inline:auto;
+  padding-left:var(--pad);padding-right:var(--pad);
+}
+/* El menú, por encima de los fondos. */
+.hero--muro > .nav{z-index:6}
+.hero--muro .hero-inner{padding-top:clamp(40px,6vw,96px);padding-bottom:clamp(48px,6vw,96px)}
+.hero--muro h1{
+  margin:0;color:var(--white);
+  font-size:clamp(2.4rem,5.2vw,4.6rem);font-weight:600;letter-spacing:-.035em;line-height:1.02;
+  text-wrap:balance;
+}
+.hero--muro .hero-support{margin-top:clamp(1rem,1.6vw,1.4rem);max-width:46ch}
+.hero--muro .socios{border-top:0;padding-top:0;margin-top:clamp(1.8rem,3vw,2.6rem)}
+.socios--solo{grid-template-columns:auto}
+@media (max-width:700px){
+  .hero--muro > .nav{position:relative;padding-bottom:12px}
+}
+
+.hero-inner.mv{
+  position:static;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,400px);
+  gap:clamp(2rem,6vw,7rem);align-items:center;align-content:center;
+}
+/* El texto y la ficha, por encima de los fondos. */
+.mv-texto,.mv-escena .senal{position:relative;z-index:5}
+/* La píldora va en la columna del texto: en dos filas, los tres campos
+   arriba y el botón a lo ancho debajo. */
+.mv .actionbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;border-radius:22px;padding:6px;max-width:640px}
+.mv .ab-field{border-left:0;border-top:0;border-radius:16px;background:rgba(18,47,53,.04);padding:.85rem .95rem}
+.mv .ab-btn{grid-column:1 / -1;width:100%;padding:1.05rem 1rem}
+
+/* Los fondos se colocan respecto a la portada entera, no a la columna: la
+   columna y la caja del texto son estáticas a propósito. Empiezan donde
+   termina el texto y llegan al borde derecho de la pantalla. */
+.mv-escena{position:static}
+.mv-foto,.mv-muro{position:absolute;top:0;bottom:0;left:40%;right:0;pointer-events:none}
+/* Se funde hacia el texto y hacia abajo, para que no corte en seco contra
+   la sección siguiente. */
+.mv-foto{
+  z-index:0;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,#000 72%,transparent);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,#000 72%,transparent);
+  mask-composite:intersect;
+}
+.mv-foto img{width:100%;height:100%;object-fit:cover}
+.mv-foto::after{content:"";position:absolute;inset:0;background:rgba(18,47,53,.58)}
+.mv-muro{
+  z-index:1;overflow:hidden;
+  /* Se desvanece hacia el texto, hacia abajo y bajo el menú: con los
+     mensajes detrás, el blanco del menú no se leía. */
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%),linear-gradient(180deg,transparent 0,transparent 90px,#000 170px,#000 60%,transparent 92%);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent 0,#000 30%),linear-gradient(180deg,transparent 0,transparent 90px,#000 170px,#000 60%,transparent 92%);
+  mask-composite:intersect;
+}
+/* El muro entero, girado de una vez. Las columnas no recortan: el que
+   recorta es .mv-muro, con su degradado. */
+.mv-giro{
+  position:absolute;inset:-12% -6%;
+  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;
+  transform:rotate(-4deg);
+}
+.mv-col{min-width:0}
+/* Blanco al 60 % sobre la foto oscurecida: se lee, pero no compite. */
+.mv-pista span{
+  display:block;width:max-content;max-width:100%;margin-bottom:10px;padding:.55rem .85rem;border-radius:12px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  font-size:.84rem;color:rgba(255,255,255,.6);
+}
+/* Cada columna sube a su ritmo y empieza en otro punto. La lista va dos
+   veces seguida: al llegar a la mitad, vuelve a empezar sin salto. Con
+   movimiento reducido se quedan quietas. Sin botón de pausa, por decisión
+   de Yerai (21/10/2026), aunque la norma (WCAG 2.2.2) lo pide para lo que
+   se mueve solo más de 5 segundos. */
+@media (prefers-reduced-motion: no-preference){
+  .mv-pista{animation:mv-sube calc(26s + var(--c) * 7s) linear infinite;animation-delay:calc(var(--c) * -5s)}
+}
+@keyframes mv-sube{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+.mv-escena .senal{width:100%}
+
+/* Móvil y tableta: los fondos pasan a una banda arriba, detrás del menú, y
+   el texto empieza debajo. */
+@media (max-width:900px){
+  .hero--muro{min-height:0}
+  .hero--muro .hero-inner.mv{grid-template-columns:1fr;padding-top:250px}
+  .mv-foto,.mv-muro{left:0;bottom:auto;height:320px}
+  .mv-foto{-webkit-mask-image:linear-gradient(180deg,#000 45%,transparent);mask-image:linear-gradient(180deg,#000 45%,transparent)}
+  .mv-muro{
+    -webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 56px,#000 110px,#000 45%,transparent);
+    mask-image:linear-gradient(180deg,transparent 0,transparent 56px,#000 110px,#000 45%,transparent);
+  }
+}
+@media (max-width:900px){.mv-giro{grid-template-columns:repeat(3,minmax(0,1fr));inset:-20% -10%}}
+@media (max-width:620px){
+  .mv .actionbar{grid-template-columns:1fr 1fr}
+  .mv .ab-field:first-child{grid-column:1 / -1}
+}
+
+/* ---------- la señal: la ficha del lead ----------
+   Rehecha el 21/10/2026 como una ficha de CRM, con las de contacto de Folk
+   y la actividad de Linear como referencia: de dónde llega, el mensaje, por
+   qué encaja y en qué acaba. Lo único blanco y lo único teal de la portada,
+   junto al botón. */
+.senal{margin:0;align-self:center}
+.senal-ficha{background:var(--white);border-radius:18px;color:var(--text);overflow:hidden}
+.senal-cab{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:1.05rem 1.25rem 0}
+.senal-de{display:flex;flex-direction:column;gap:.1rem;font-size:.72rem;color:var(--muted)}
+.senal-origen{font-weight:600;color:var(--teal)}
+.senal-insignia{
+  flex:none;padding:.28rem .7rem;border-radius:999px;
+  background:var(--teal);color:var(--white);font-size:.7rem;font-weight:600;white-space:nowrap;
+}
+.senal-texto{padding:.7rem 1.25rem 0;font-size:clamp(1.02rem,1.3vw,1.18rem);line-height:1.45}
+.senal-motivos{display:flex;flex-wrap:wrap;gap:.4rem;margin:0;padding:.9rem 1.25rem 1.1rem;list-style:none}
+/* Teal sobre el tinte: 4.9:1, por encima del 4.5 que pide el texto pequeño. */
+.senal-motivos li{
+  display:inline-flex;align-items:center;gap:.35rem;
+  padding:.32rem .65rem .32rem .45rem;border-radius:999px;
+  background:rgba(36,118,123,.09);color:var(--teal-papel);font-size:.75rem;font-weight:600;
+}
+.senal-motivos svg{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+/* El resultado, en una banda teal al pie: blanco sobre teal, 5.31:1. */
+.senal-resultado{display:flex;align-items:center;gap:.75rem;padding:.85rem 1.25rem;background:var(--teal);color:var(--white)}
+.senal-resultado svg{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.senal-resultado span{display:flex;flex-direction:column;font-size:.8rem;line-height:1.35}
+.senal-resultado strong{font-size:.86rem;font-weight:600}
+.senal .bx-nota{margin-top:.7rem}
+/* Un solo momento: llega la ficha, se marcan los motivos uno a uno y al
+   final aparece la visita. Sin movimiento, todo está ahí de entrada. */
+@media (prefers-reduced-motion: no-preference){
+  /* --retraso permite retrasar la ficha entera si hiciera falta. */
+  .senal-ficha{animation:bx-llega .6s var(--ease) calc(.9s + var(--retraso, 0s)) both}
+  .senal-motivos li{animation:senal-marca .45s var(--ease) both;animation-delay:calc(1.6s + var(--retraso, 0s) + var(--i) * .32s)}
+  .senal-motivos path{stroke-dasharray:12;stroke-dashoffset:12;animation:senal-trazo .4s ease both;animation-delay:calc(1.75s + var(--retraso, 0s) + var(--i) * .32s)}
+  .senal-resultado{animation:senal-sube .5s var(--ease) calc(2.8s + var(--retraso, 0s)) both}
+}
+@keyframes senal-marca{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
+@keyframes senal-trazo{to{stroke-dashoffset:0}}
+@keyframes senal-sube{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}

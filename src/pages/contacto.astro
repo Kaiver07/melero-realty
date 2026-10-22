@@ -33,8 +33,10 @@ import { SITE } from '../config/site';
             <p class="ct-eyebrow ct-eyebrow--dark">Primer paso</p>
             <h1>Diagnóstico de Captación Inmobiliaria</h1>
           </div>
+          {/* Desde el 19/10/2026 el diagnóstico por escrito también es de
+               pago: se rellena el formulario y, al enviarlo, se paga. */}
           <p class="ct-hero-support">
-            Rellena este formulario y analizamos tu situación actual. Solo trabajamos con agencias con las que podemos generar un impacto real.
+            Rellena este formulario y analizamos tu situación actual. El diagnóstico cuesta 197&nbsp;€ + IVA, y si después contratas un plan te descontamos 50&nbsp;€ del primer mes. Al enviar el formulario pasas al pago.
           </p>
         </div>
       </div>
@@ -292,18 +294,18 @@ import { SITE } from '../config/site';
                 id="btn-submit"
                 class="ct-btn ct-btn--solid hidden"
               >
-                Enviar diagnóstico →
+                Enviar y pasar al pago →
               </button>
             </div>
           </form>
 
           {/* Success message (hidden) */}
           <div id="form-success" class="ct-success hidden">
-            <p class="ct-success-title">¡Diagnóstico recibido!</p>
+            <p class="ct-success-title">¡Formulario recibido!</p>
             <p class="ct-success-body">
-              Revisaremos tu caso y nos pondremos en contacto contigo en las próximas 24-48h.
+              Falta el pago del diagnóstico: 197 € + IVA. Si después contratas un plan, te descontamos 50 € del primer mes. En cuanto se confirme, revisamos tu caso y te escribimos en 24-48 h.
             </p>
-            <a href="/" class="ct-btn ct-btn--solid">Volver al inicio</a>
+            <a href={SITE.pagoDiagnosticoUrl} class="ct-btn ct-btn--solid" data-cta="pago-escrito" target="_blank" rel="noopener">Pagar el diagnóstico →</a>
           </div>
 
         </div>
@@ -809,7 +811,7 @@ import { SITE } from '../config/site';
       document.getElementById('diag-form')?.previousElementSibling?.classList.add('hidden');
     } catch {
       btnSub.disabled = false;
-      btnSub.textContent = 'Enviar diagnóstico →';
+      btnSub.textContent = 'Enviar y pasar al pago →';
       alert('Hubo un error al enviar. Por favor, inténtalo de nuevo.');
     }
   });

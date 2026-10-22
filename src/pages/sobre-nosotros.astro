@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE, TEAM } from '../config/site';
+import { SITE, TEAM, BLOG } from '../config/site';
 
 /* Cómo trabajamos — mismo contenido que ya estaba aprobado en la página,
    solo movido al frontmatter para poder numerarlo en la maqueta. No se
@@ -143,9 +143,9 @@ const VALORES = [
         <div class="sn-cta-grid">
           <h2 id="sn-cta-t">¿Quieres que hablemos de tu caso?</h2>
           <div class="sn-cta-body">
-            <p>45 minutos. Sin compromiso. Con análisis real de tu situación.</p>
-            <a class="sn-btn" data-cta="sobre-nosotros" href={SITE.calendlyUrl} target="_blank" rel="noopener">
-              Solicitar diagnóstico gratuito
+            <p>{BLOG.cta.texto}</p>
+            <a class="sn-btn" data-cta="sobre-nosotros" href={SITE.pagoDiagnosticoUrl} target="_blank" rel="noopener">
+              {BLOG.cta.boton}
               <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
             </a>
             <p class="sn-cta-alt">
