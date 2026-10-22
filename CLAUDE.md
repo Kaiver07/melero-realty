@@ -110,7 +110,9 @@ sin barra a la que la lleva, y no toca los archivos con extensión.
 Desde el 21/10/2026, `vercel.json` también redirige con un 308 todo
 `melero-realty.vercel.app` a `www.valeriamelero.com`: antes servía la web
 entera en esa dirección. Sólo toca ese nombre exacto; las vistas previas de
-cada despliegue tienen otro y siguen funcionando.
+cada despliegue tienen otro y siguen funcionando. Son tres reglas y hacen
+falta las tres: con `trailingSlash`, `/:path*` sólo pillaba los archivos, y
+la raíz y las páginas con barra final necesitan la suya.
 
 **Los números de sección se calculan solos.** `index.astro` define un
 contador y cada antetítulo llama a `num()`. No escribirlos a mano: cuando lo
