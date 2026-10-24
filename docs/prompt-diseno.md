@@ -126,9 +126,11 @@ señal, En directo, El filtro, Tu zona, La conversación y tres en claro
 Homebot, Rechat, Luxury Presence y RealAdvisor Pro.
 
 Eligió **la señal** (24/10/2026): el muro en vivo, y cada pocos segundos un
-mensaje se enciende en teal con un lead y la ficha pasa a ese lead. La copia
-de propuestas sigue en `../melero-propuestas` por si hay que volver a ver
-las otras; no se publica.
+mensaje se enciende en teal con un lead y la ficha pasa a ese lead. Las dos
+copias de propuestas (`../melero-propuestas` y `../melero-propuestas-2`) se
+borraron el 24/10/2026, con sus ramas. Las propuestas nunca se llegaron a
+commitear, así que las descartadas no están en el historial: lo que queda de
+ellas es esta descripción.
 
 ## El testimonio arriba (24/10/2026)
 
