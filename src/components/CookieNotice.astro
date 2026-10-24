@@ -276,7 +276,9 @@ import { SITE } from '../config/site';
   /* Los clics hacia una reserva. Sin esto sólo habría visitas: la conversión
      ocurre en Stripe y Calendly, otros dominios, donde ya no llegamos. Cada
      CTA lleva data-cta con su origen para poder comparar cuál funciona.
-     Desde el 19/10/2026 la reserva pasa por el pago: `via` vale «pago». */
+     Desde el 19/10/2026 la reserva pasa por el pago: `via` vale «pago». El
+     24/10/2026 se quitó el diagnóstico por escrito: lo que no es pago ni
+     llamada es «planes», «whatsapp» u «otro». */
   function contacto(enlace) {
     if (!cargado || typeof window.gtag !== 'function') return;
     const href = enlace.getAttribute('href') || '';
@@ -286,7 +288,11 @@ import { SITE } from '../config/site';
         ? 'pago'
         : href.includes('calendly.com')
           ? 'llamada'
-          : 'escrito',
+          : href.includes('#planes')
+            ? 'planes'
+            : href.includes('wa.me') || href.includes('whatsapp')
+              ? 'whatsapp'
+              : 'otro',
     });
   }
 

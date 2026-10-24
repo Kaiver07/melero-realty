@@ -114,3 +114,40 @@ Eligió **el muro en vivo**: columnas de mensajes de curioso que suben sin
 parar, con botón de pausa, y la ficha del lead como una ficha de CRM (por
 qué encaja y la visita agendada). Se retiró la prueba A/B. Cómo funciona,
 en `CLAUDE.md`.
+
+## Tercera ronda (22-24/10/2026)
+
+Con las skills nuevas en `.claude/skills` (Impeccable, las de animación de
+Emil Kowalski, las de GSAP y la auditoría de Vercel) se montaron nueve
+portadas con movimiento en una copia aparte del proyecto
+(`../melero-propuestas`, `localhost:4324/portadas/`): Profundidad, La
+señal, En directo, El filtro, Tu zona, La conversación y tres en claro
+(Antes y después, El recorrido, La agenda). Referencias: Ylopo, Lofty,
+Homebot, Rechat, Luxury Presence y RealAdvisor Pro.
+
+Eligió **la señal** (24/10/2026): el muro en vivo, y cada pocos segundos un
+mensaje se enciende en teal con un lead y la ficha pasa a ese lead. La copia
+de propuestas sigue en `../melero-propuestas` por si hay que volver a ver
+las otras; no se publica.
+
+## El testimonio arriba (24/10/2026)
+
+Dos quejas de Yerai: la portada y «El problema» se fundían en un solo
+bloque verde, y el rótulo «Nuestros partners» no le gustaba. Se montaron
+propuestas en otra copia (`../melero-propuestas-2`, `localhost:4324`):
+
+- A, puente: banda blanca con la cita y los logotipos.
+- B: la cita dentro de la portada.
+- C, la hoja: una hoja blanca que sube por encima del borde de la portada.
+- A1, una línea: logotipo, frase corta y MBMA en una sola fila.
+- A2, lectura al bajar: la frase grande, que pasa de gris a negro al bajar.
+- A3, con Valeria: la frase junto a su foto, porque la reseña habla de ella.
+
+Eligió **la A3**. La portada termina en la reserva; el testimonio va
+debajo, en blanco, y cada logotipo dice qué es. El caso de más abajo se
+quitó (ya está arriba) y «El trato» ocupó su sitio para que Planes y
+Proceso, oscuras las dos, no quedaran pegadas.
+
+Lo que se aprendió con la A2, por si vuelve: `animation-timeline: view()`
+no avanza con `html, body { overflow-x: hidden }`, porque el body pasa a
+ser un contenedor de scroll que no se mueve. Hace falta `overflow-x: clip`.

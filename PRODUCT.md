@@ -58,9 +58,9 @@ lo anterior:
 6. **Validación de los packs:** en persona, y Carlos con la prospección que
    sigue haciendo por los canales de Melero.
 
-Quien rellena el formulario suele ser el decisor o está a un paso: el
-formulario pregunta explícitamente por rol, capacidad de decisión y capital
-disponible.
+El formulario de diagnóstico por escrito, que preguntaba por rol,
+capacidad de decisión y capital disponible, se quitó el 24/10/2026: costaba
+lo mismo que el diagnóstico por videollamada y llevaba al mismo pago.
 
 ## Product Purpose
 
@@ -80,8 +80,8 @@ negocio frágil — los leads llegan de forma irregular, muchos no están
 cualificados, y el asesor no controla el canal.
 
 Éxito del sitio: que un responsable de agencia cualificado complete el
-diagnóstico y agende. El formulario largo funciona a la vez como filtro:
-descualificar es un resultado válido, no una pérdida.
+diagnóstico y agende, o contrate un plan. El precio del diagnóstico funciona
+a la vez como filtro: descualificar es un resultado válido, no una pérdida.
 
 ## Positioning
 
@@ -172,18 +172,17 @@ Exclusividad por zona: una sola marca por zona.
   pack lo incluye y se puede contratar directo; pagado aparte, descuenta
   50 € del primer mes del pack que se contrate después. Todos los botones van al enlace de
   pago de Stripe (`SITE.pagoDiagnosticoUrl`), que tras cobrar redirige a
-  Calendly: la agenda sólo se abre después de pagar. El formulario de
-  `/contacto` sigue como alternativa por escrito y también se paga, al
-  enviarlo. Antes era una llamada gratuita de 45 minutos reservada
-  directamente en Calendly.
+  Calendly: la agenda sólo se abre después de pagar. El diagnóstico por
+  escrito de `/contacto` se quitó el 24/10/2026 (lo decidió Yerai). Antes era
+  una llamada gratuita de 45 minutos reservada directamente en Calendly.
 - **Anuncios** (Valeria, 21/10/2026): sólo si el cliente lo decide, y la
   inversión la paga él desde su propia cuenta; Melero los gestiona y
   optimiza. No se exige inversión mínima. *Sustituye al «compromiso de los
   20 días» del 19/10/2026, en el que Melero pagaba los primeros 20 días.*
 - **WhatsApp:** el de la web se mantiene porque lo inicia el cliente. Melero
   no escribe primero por WhatsApp a quien no lo ha pedido (LSSI).
-- **Captación entrante** por un formulario de diagnóstico de 5 pasos en
-  `/contacto` que recoge, entre otros: rol, zona, tipo de propiedades,
+- *Retirado el 24/10/2026:* **captación entrante** por un formulario de diagnóstico de 5 pasos en
+  `/contacto` que recogía, entre otros: rol, zona, tipo de propiedades,
   captación actual, inversión publicitaria, leads/mes, conversión,
   facturación, objetivo a 6 meses, bloqueo principal, qué han intentado ya,
   prioridad, si es decisor, capital disponible y por qué ahora.
@@ -227,7 +226,8 @@ confidencialidad/RGPD y anexos por proyecto.
   (27/9/2026): Valeria no aprueba textos; a ella sólo se le piden datos e
   información.
 - Sin backend, sin base de datos, sin autenticación. La única integración
-  dinámica es el POST del formulario a Google Apps Script.
+  dinámica era el POST del formulario a Google Apps Script, que se quitó
+  con `/contacto` el 24/10/2026: hoy no hay ninguna.
 - Idioma: **castellano únicamente**. No hay i18n planificada; los clientes de
   EEUU son hispanohablantes. Decisión confirmada.
 - Vídeo de YouTube embebido (`SITE.youtubeId`).
@@ -429,7 +429,7 @@ certificaciones o partnerships (Meta/Google Partner u otros).
    desconfianza. Cada promesa de "más clientes" que aparezca en un material
    nos coloca en el bando de la competencia que quemó al cliente.
 3. **Descualificar es una función, no una fuga.** El precio de entrada, el
-   contrato de 6 meses y el formulario largo existen para filtrar. No
+   contrato de 6 meses y la permanencia existen para filtrar. No
    optimizar por volumen de envíos a costa de la calidad del lead.
 4. **La prueba real manda sobre la prueba prestada.** Con testimonios
    placeholder y métricas sin auditar, el peso recae en lo verificable: el

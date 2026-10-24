@@ -24,18 +24,13 @@ export const SITE = {
   // Agenda de la llamada de diagnóstico. Ya no la enlaza ningún botón: se
   // llega desde Stripe tras pagar.
   calendlyUrl: 'https://calendly.com/valmelemal/45-60min',
-  // Aplicación web del Apps Script que recibe el formulario de /contacto:
-  // apunta cada lead en la hoja de Yerai y avisa por correo a
-  // melero.realty@gmail.com. Código y puesta en marcha en google-apps-script/.
-  // Desde el 28/9/2026; la anterior quedó en la cuenta con la que se creó.
-  sheetsWebAppUrl: 'https://script.google.com/macros/s/AKfycby1gMJMU9KTkNWnvr3QantYLpS2wGpuaIey1k_CpslapXk0luBOhWF4-LnhgQpvQ_-8/exec',
   // Google Analytics 4. Sólo se carga si el visitante acepta: GA instala
   // cookies y sin consentimiento previo no puede correr.
   gaId: 'G-3038QG3XN3',
   // YouTube video ID for the "Por qué Melero Realty" section
   youtubeId: 'G-OtqipOUAI',
-  // El WhatsApp de Valeria es el canal humano: para quien no quiere agendar
-  // una videollamada pero tampoco rellenar un formulario.
+  // El WhatsApp de Valeria es el canal humano: para quien todavía no quiere
+  // pagar ni agendar el diagnóstico.
   // El texto va prerrellenado para que no haya que pensar cómo empezar.
   // Desde el 30/9/2026 el número consta también como teléfono, no sólo como
   // WhatsApp (lo pidió Valeria): enlace tel: en el pie y `telephone` en el
@@ -149,6 +144,29 @@ export const HERO = {
     resultado: 'Visita de valoración agendada',
     cuando: 'Jueves, 10:00',
   },
+  /* «La señal» (portada desde el 24/10/2026): tres leads de ejemplo que
+     rotan en la ficha. `corto` es lo que se enciende en el muro. Ninguno
+     es de un cliente real. */
+  leads: [
+    {
+      origen: 'Tu landing de valoración', hora: 'Mar 13:30', corto: 'Quiero vender mi piso',
+      texto: 'Quiero vender mi piso de tres dormitorios. Me mudo en marzo. ¿Podéis venir a valorarlo esta semana?',
+      motivos: ['Quiere vender', 'Plazo: marzo', 'Pide visita'],
+      resultado: 'Visita de valoración agendada', cuando: 'Jueves, 10:00',
+    },
+    {
+      origen: 'Tu web', hora: 'Mié 18:40', corto: 'Hipoteca preaprobada',
+      texto: 'He visto vuestros vídeos de la zona. Tenemos la hipoteca preaprobada y buscamos un ático. ¿Hablamos el jueves?',
+      motivos: ['Compra ya', 'Financiación lista', 'Pide llamada'],
+      resultado: 'Llamada agendada', cuando: 'Jueves, 17:00',
+    },
+    {
+      origen: 'Tu Instagram', hora: 'Vie 12:15', corto: 'Piso heredado, vender ya',
+      texto: 'Hemos heredado un piso en el centro y queremos venderlo antes del verano. ¿Qué documentación necesitáis?',
+      motivos: ['Quiere vender', 'Plazo: verano', 'Pregunta trámites'],
+      resultado: 'Visita de valoración agendada', cuando: 'Lunes, 11:00',
+    },
+  ],
   /* El muro de la portada (20/10/2026): el ruido de fondo, frases cortas
      de curioso. Son ejemplos, como la bandeja; no son mensajes reales. */
   muro: [
@@ -359,23 +377,24 @@ export const CASO = {
   citaCargo: 'CEO de MundialRooms · Madrid',
 } as const;
 
-/* La franja de logos que va justo debajo de la portada (20/10/2026). Sale
-   de CASO y de COLABORADORES para que un logotipo cambie en un solo sitio.
-   Cada logotipo enlaza a la web de su empresa cuando la tenemos. El texto
-   «Nuestros partners» lo eligió Yerai el 20/10/2026. */
+/* Los logotipos de la prueba. Salen de CASO y de COLABORADORES para que un
+   logotipo cambie en un solo sitio. Cada logotipo enlaza a la web de su
+   empresa. Desde el 24/10/2026 van en el testimonio de debajo de la
+   portada (Testimonio.astro), cada uno con lo que es (`papel`) en lugar
+   del rótulo «Nuestros partners», que ya sólo usa la portada «piso». */
 export const FRANJA_LOGOS = {
   texto: 'Nuestros partners',
-  // Una frase de la reseña de Damián, junto a los logotipos (20/10/2026):
-  // la credencial que ui-ux-pro-max pide cerca del botón. Tiene que estar
-  // literal dentro de CASO.cita; si no, la compilación falla (Franja.astro).
+  // La frase de la reseña de Damián que se enseña: la del testimonio y la
+  // de la portada «piso». Tiene que estar literal dentro de CASO.cita; si
+  // no, la compilación falla (Franja.astro y Testimonio.astro).
   cita: {
     texto: 'Desde el primer minuto ha demostrado una gran profesionalidad, implicación y atención a cada detalle.',
     autor: CASO.citaAutor,
     cargo: CASO.citaCargo,
   },
   logos: [
-    { nombre: CASO.cliente, ...CASO.logo, web: CASO.web },
-    { nombre: 'MBMA Real Estate', ...COLABORADORES.lista[0].logo, web: COLABORADORES.lista[0].web },
+    { nombre: CASO.cliente, ...CASO.logo, web: CASO.web, papel: 'Cliente en Madrid' },
+    { nombre: 'MBMA Real Estate', ...COLABORADORES.lista[0].logo, web: COLABORADORES.lista[0].web, papel: 'Colaborador en Dubái' },
   ],
 } as const;
 
@@ -607,9 +626,9 @@ export const BLOG = {
     titulo: '¿Quieres que hablemos de tu caso?',
     texto: '90 minutos con Valeria e informe escrito en 7 días. 197 € + IVA; si después contratas un plan, te descontamos 50 € del primer mes.',
     boton: 'Reservar diagnóstico · 197 €',
-    // La alternativa al botón, como en la home: el formulario de /contacto.
-    // El texto dice adónde lleva, también leído fuera de contexto.
-    escrito: 'O pide el diagnóstico por escrito',
+    // La otra salida, como en la home: los planes con su precio. Hasta el
+    // 24/10/2026 era el diagnóstico por escrito (/contacto), que se quitó.
+    planes: 'O mira antes los planes y precios',
   },
 } as const;
 
@@ -625,6 +644,5 @@ export const NO_ENCONTRADA = {
     { href: '/', texto: 'Ir al inicio' },
     { href: '/#planes', texto: 'Ver los planes' },
     { href: '/blog/', texto: 'Leer el blog' },
-    { href: '/contacto/', texto: 'Pedir el diagnóstico por escrito' },
   ],
 } as const;

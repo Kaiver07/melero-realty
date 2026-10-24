@@ -6,20 +6,45 @@
   "trailingSlash": true,
   "redirects": [
     {
+      "source": "/contacto",
+      "destination": "/#planes",
+      "permanent": true
+    },
+    {
+      "source": "/contacto/",
+      "destination": "/#planes",
+      "permanent": true
+    },
+    {
       "source": "/",
-      "has": [{ "type": "host", "value": "melero-realty.vercel.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "melero-realty.vercel.app"
+        }
+      ],
       "destination": "https://www.valeriamelero.com/",
       "permanent": true
     },
     {
       "source": "/:path+/",
-      "has": [{ "type": "host", "value": "melero-realty.vercel.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "melero-realty.vercel.app"
+        }
+      ],
       "destination": "https://www.valeriamelero.com/:path+/",
       "permanent": true
     },
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "melero-realty.vercel.app" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "melero-realty.vercel.app"
+        }
+      ],
       "destination": "https://www.valeriamelero.com/:path*",
       "permanent": true
     }

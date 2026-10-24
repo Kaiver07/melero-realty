@@ -4,29 +4,41 @@
    marcan uno a uno y al final aparece la visita agendada; sin movimiento,
    se ve todo de entrada. Es un ejemplo: desde el 21/10/2026 el rótulo
    «Mensajes de ejemplo» no se ve (lo pidió Yerai), pero los lectores de
-   pantalla lo siguen leyendo. */
+   pantalla lo siguen leyendo.
+   `todas` (propuesta «la señal», 22/10/2026) pinta las tres fichas de
+   HERO.leads una encima de otra; se ve la que lleva .es-activa. */
 import { HERO } from '../config/site';
 
-const lead = HERO.bandeja.mensajes.find((m) => m.cualificado)!;
+interface Props { todas?: boolean }
+const { todas = false } = Astro.props;
+
+const base = HERO.bandeja.mensajes.find((m) => m.cualificado)!;
+const fichas = todas
+  ? HERO.leads
+  : [{ origen: base.origen, hora: base.hora, texto: base.texto, motivos: HERO.senal.motivos, resultado: HERO.senal.resultado, cuando: HERO.senal.cuando }];
 ---
 
-<figure class="senal">
-  <div class="senal-ficha">
-    <div class="senal-cab">
-      <p class="senal-de"><span class="senal-origen">{lead.origen}</span><span class="senal-hora">{lead.hora}</span></p>
-      <p class="senal-insignia">{HERO.bandeja.etiqueta}</p>
-    </div>
-    <p class="senal-texto">«{lead.texto}»</p>
-    <p class="solo-lectores">{HERO.senal.motivosEtiqueta}:</p>
-    <ul class="senal-motivos">
-      {HERO.senal.motivos.map((m, i) => (
-        <li style={`--i:${i}`}><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.25"/><path d="M4.8 8.2 7 10.4l4.2-4.6"/></svg>{m}</li>
-      ))}
-    </ul>
-    <p class="senal-resultado">
-      <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.75" y="4" width="14.5" height="13.25" rx="2.5"/><path d="M2.75 8.25h14.5M6.5 2.5v3M13.5 2.5v3"/><path d="m7.4 12.4 1.8 1.8 3.6-3.8"/></svg>
-      <span><strong>{HERO.senal.resultado}</strong> {HERO.senal.cuando}</span>
-    </p>
+<figure class:list={['senal', todas && 'senal--rota']}>
+  <div class="senal-pila">
+    {fichas.map((f, n) => (
+      <div class:list={['senal-ficha', n === 0 && 'es-activa']} aria-hidden={n > 0 ? 'true' : undefined}>
+        <div class="senal-cab">
+          <p class="senal-de"><span class="senal-origen">{f.origen}</span><span class="senal-hora">{f.hora}</span></p>
+          <p class="senal-insignia">{HERO.bandeja.etiqueta}</p>
+        </div>
+        <p class="senal-texto">«{f.texto}»</p>
+        <p class="solo-lectores">{HERO.senal.motivosEtiqueta}:</p>
+        <ul class="senal-motivos">
+          {f.motivos.map((m, i) => (
+            <li style={`--i:${i}`}><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.25"/><path d="M4.8 8.2 7 10.4l4.2-4.6"/></svg>{m}</li>
+          ))}
+        </ul>
+        <p class="senal-resultado">
+          <svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.75" y="4" width="14.5" height="13.25" rx="2.5"/><path d="M2.75 8.25h14.5M6.5 2.5v3M13.5 2.5v3"/><path d="m7.4 12.4 1.8 1.8 3.6-3.8"/></svg>
+          <span><strong>{f.resultado}</strong> {f.cuando}</span>
+        </p>
+      </div>
+    ))}
   </div>
   <figcaption class="solo-lectores">{HERO.bandeja.nota}</figcaption>
 </figure>

@@ -183,7 +183,11 @@ const faqSchema = {
               ? 'pago'
               : href.includes('calendly.com')
                 ? 'llamada'
-                : 'escrito',
+                : href.includes('#planes')
+                  ? 'planes'
+                  : href.includes('wa.me') || href.includes('whatsapp')
+                    ? 'whatsapp'
+                    : 'otro',
           },
         });
       });
@@ -257,7 +261,7 @@ const faqSchema = {
                solo de las que entran. Sin registrar las salidas, la última
                que cruzó el centro se quedaba marcada para siempre: bastaba
                con seguir bajando hasta una sección sin enlace en el menú
-               —el caso, el vídeo, el cierre— para dejar "Proceso"
+               —el vídeo, el cierre— para dejar "Proceso"
                encendido el resto de la página. */
             const dentro = new Set();
 

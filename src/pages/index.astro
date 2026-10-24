@@ -3,8 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import VideoEmbed from '../components/VideoEmbed.astro';
 import Portada from '../components/Portada.astro';
+import Testimonio from '../components/Testimonio.astro';
 import '../styles/home.css';
-import { SITE, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL, CASO, PILARES, PLANES, IVA, COLABORADORES } from '../config/site';
+import { SITE, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL, PILARES, PLANES, IVA } from '../config/site';
 import { existsSync } from 'node:fs';
 import { srcsetDe } from '../lib/imagenes';
 
@@ -53,6 +54,10 @@ const sitio = {
 <Portada />
 
 <main>
+
+  {/* La reseña de Damián con la foto de Valeria, en blanco entre la portada
+       y «El problema», que son las dos verdes (24/10/2026). */}
+  <Testimonio />
 
   {/* ================= 6 · BANDA OSCURA ================= */}
   <section class="section band" aria-labelledby="band-t">
@@ -176,9 +181,10 @@ const sitio = {
   {/* ================= PLANES =================
        Sustituye a Servicios desde el 19/10/2026 y va justo después de "La
        diferencia" (documento de Valeria): tras decir en qué somos
-       distintos, el precio de cada cosa. Plancha oscura porque cae entre
-       "La diferencia" (--paper) y el caso, que tiene que ser blanco: el
-       logotipo de MundialRooms va sobre blanco puro.
+       distintos, el precio de cada cosa. Plancha oscura entre "La
+       diferencia" (--paper) y "El trato" (blanco). Detrás no puede ir
+       Proceso, que también es oscuro: hasta el 24/10/2026 los separaba el
+       caso, que subió a debajo de la portada (Testimonio.astro).
        Todo el texto sale de PLANES y cada precio lleva IVA al lado desde la
        plantilla. Desde el 21/10/2026 el botón de cada plan va a su pago de
        Stripe (PLANES.*.pago); el del Diagnóstico, al suyo. */}
@@ -261,78 +267,15 @@ const sitio = {
     </div>
   </section>
 
-  {/* ================= CASO =================
-       Desde el 19/10/2026, sólo el logotipo y la reseña de Damián: el caso
-       detallado va únicamente en el dossier comercial (documento de
-       Valeria). El titular se queda para lectores de pantalla, porque la
-       sección necesita nombre. No lleva cifra: todavía no hay ninguna que
-       se pueda publicar.
-       Debajo, la franja de colaboradores: MBMA como respaldo, no como
-       servicio. */}
-  <section class="section section--white caso" aria-labelledby="caso-t">
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">({num()}) Un caso</p>
-        <h2 id="caso-t" class="solo-lectores">Lo que dice {CASO.cliente} de nuestro trabajo</h2>
-      </div>
-
-      <div class="caso-grid reveal">
-        <div class="caso-ficha">
-          <a class="caso-logo" href={CASO.web} target="_blank" rel="noopener"
-             aria-label={`Web de ${CASO.cliente}, se abre en una pestaña nueva`}>
-            <img src={CASO.logo.src} alt={`Logotipo de ${CASO.cliente}`}
-                 width={CASO.logo.width} height={CASO.logo.height} loading="lazy" decoding="async" />
-          </a>
-        </div>
-
-        <aside class="caso-voz">
-          <blockquote class="caso-cita">
-            <p>{CASO.cita}</p>
-            <footer>
-              <strong>{CASO.citaAutor}</strong>
-              <span>{CASO.citaCargo}</span>
-            </footer>
-          </blockquote>
-        </aside>
-      </div>
-
-      <div class="colab reveal">
-        <p class="colab-t">{COLABORADORES.antetitulo}</p>
-        <ul>
-          {COLABORADORES.lista.map((c) => (
-            <li><strong>{c.nombre}</strong><span>{c.papel}</span></li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  {/* ================= 7 · PROCESO ================= */}
-  <section class="section proc" id="proceso" aria-labelledby="proc-t">
-    <p class="proc-mark" aria-hidden="true">PROCESO</p>
-    <div class="wrap">
-      <div class="proc-head reveal">
-        <p class="eyebrow eyebrow--dark">({num()}) Cómo trabajamos</p>
-        <h2 id="proc-t">Cinco fases. Ninguna decorativa.</h2>
-      </div>
-      <ol class="steps reveal">
-        {PROCESO.map((p) => (
-          <li class="step">
-            <span class="step-n">{p.step}</span>
-            <h3>{p.title}</h3>
-            <p>{p.desc}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
   {/* ================= 5 · DATOS ================= */}
   {/* Lo que no cambia. Antes aquí había tres cifras sueltas —a medida,
        6 meses, 1 marca— que enunciaban las condiciones pero no decían qué se
        lleva el cliente. Seis servicios en tarjetas tampoco son un paquete.
        Esto sí responde a "¿qué recibo exactamente?", que era el agujero más
-       caro de la página: se pedían seis meses sin decirlo. */}
+       caro de la página: se pedían seis meses sin decirlo.
+       Desde el 24/10/2026 va justo detrás de Planes, en el sitio del caso:
+       «trabajemos como trabajemos» se lee mejor con los planes delante, y
+       su blanco separa las dos planchas oscuras, Planes y Proceso. */}
   <section class="section section--white" aria-labelledby="pil-t">
     <div class="wrap">
       <div class="reveal">
@@ -358,6 +301,26 @@ const sitio = {
         La inversión sale de tu propia cuenta y nunca pasa por nosotros:
         nosotros los gestionamos y optimizamos.
       </p>
+    </div>
+  </section>
+
+  {/* ================= 7 · PROCESO ================= */}
+  <section class="section proc" id="proceso" aria-labelledby="proc-t">
+    <p class="proc-mark" aria-hidden="true">PROCESO</p>
+    <div class="wrap">
+      <div class="proc-head reveal">
+        <p class="eyebrow eyebrow--dark">({num()}) Cómo trabajamos</p>
+        <h2 id="proc-t">Cinco fases. Ninguna decorativa.</h2>
+      </div>
+      <ol class="steps reveal">
+        {PROCESO.map((p) => (
+          <li class="step">
+            <span class="step-n">{p.step}</span>
+            <h3>{p.title}</h3>
+            <p>{p.desc}</p>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
@@ -476,7 +439,7 @@ const sitio = {
       </div>
       <p class="cta-note">
         197&nbsp;€&nbsp;{IVA}; si después contratas un plan, te descontamos 50&nbsp;€ del primer mes.
-        <a data-cta="escrito-cierre" href="/contacto/">O pide el diagnóstico por escrito</a>
+        <a data-cta="ver-planes-cierre" href="#planes">O mira antes los planes y precios</a>
       </p>
     </div>
   </section>

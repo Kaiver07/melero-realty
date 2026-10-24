@@ -7,8 +7,9 @@
    retocan: el de MundialRooms es negro sobre blanco. */
 import { FRANJA_LOGOS, CASO } from '../config/site';
 
-/* `cita` en false quita la frase de Damián: en la portada del muro sólo
-   van los logotipos (21/10/2026); la reseña entera está en el caso. */
+/* Desde el 24/10/2026 sólo la usa la portada «piso»: la del muro termina
+   en la reserva y la prueba va debajo, en Testimonio.astro. `cita` en false
+   quita la frase de Damián. */
 interface Props { cita?: boolean }
 const { cita: conCita = true } = Astro.props;
 

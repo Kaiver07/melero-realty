@@ -1228,65 +1228,43 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 .social-tipo svg{width:11px;height:11px;margin-left:1px}
 
 /* ==========================================================================
-   CASO
-   Un solo cliente, con nombre, ciudad y web. La ficha a la izquierda cuenta
-   qué se hace; la columna de la derecha lleva la voz del cliente. Se separan
-   con una regla vertical porque son dos tipos de prueba distintos —hechos y
-   testimonio— y conviene que no se lean como uno. No hay cifra: el día que
-   haya una publicable, va en la columna de la derecha, encima de la cita.
+   TESTIMONIO (desde el 24/10/2026; Testimonio.astro)
+   La reseña de Damián en blanco, justo debajo de la portada, junto a la foto
+   de Valeria, de quien habla. Separa la portada de «El problema», las dos
+   en la plancha verde. Sustituye al caso que iba detrás de Planes, y sus
+   logotipos dicen qué es cada uno en lugar de «Nuestros partners».
    ========================================================================== */
-/* Desde el 19/10/2026 la ficha es sólo el logotipo: la reseña se lleva el
-   espacio y el logotipo queda centrado a su altura. */
-.caso-grid{
-  display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);
-  gap:clamp(2rem,5vw,4.5rem);align-items:center;
-  margin-top:clamp(2.2rem,4vw,3.2rem);
+.tval{background:var(--white);color:var(--text);padding:clamp(56px,7vw,112px) 0}
+.tval-in{
+  display:grid;grid-template-columns:clamp(180px,18vw,260px) minmax(0,1fr);
+  gap:clamp(2rem,5vw,5rem);align-items:end;
 }
-
-/* Colaboradores: respaldo, no servicio. Una línea bajo el caso, en tono
-   menor, sin logotipo hasta que MBMA confirme que se puede usar. */
-.colab{
-  display:flex;flex-wrap:wrap;align-items:baseline;gap:.6rem clamp(1.2rem,3vw,2.6rem);
-  margin-top:clamp(2.6rem,5vw,4rem);padding-top:1.4rem;border-top:1px solid var(--rule);
+.tval-foto{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 18%}
+.tval-cita{margin:0}
+/* Con dos clases: una suelta perdería contra cualquier «.bloque p». */
+.tval-cita .tval-frase{
+  max-width:30ch;color:var(--text);
+  font-size:clamp(1.5rem,2.6vw,2.4rem);line-height:1.2;font-weight:600;letter-spacing:-.03em;
+  text-wrap:balance;
 }
-.colab-t{
-  font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--muted);
+.tval-cita footer{margin-top:1.2rem;font-size:.92rem;color:var(--muted)}
+.tval-cita footer strong{color:var(--text);font-weight:600}
+.tval-logos{
+  display:flex;flex-wrap:wrap;gap:1rem clamp(1.5rem,3vw,3rem);
+  list-style:none;margin:clamp(1.8rem,3vw,2.6rem) 0 0;
+  padding:clamp(1.2rem,2vw,1.6rem) 0 0;border-top:1px solid var(--rule);
 }
-.colab li{display:flex;flex-wrap:wrap;align-items:baseline;gap:.3rem .8rem}
-.colab strong{font-size:.95rem;font-weight:600}
-.colab li span{font-size:.85rem;font-weight:300;color:var(--muted)}
-
-/* El logotipo de MundialRooms es oscuro sobre blanco, así que va tal cual
-   sobre el blanco de la sección: sin panel y sin filtros, que es marca
-   ajena. (El de ARC era de letras blancas e iba en una píldora oscura; está
-   en el historial por si un logotipo futuro la necesita.) */
-.caso-logo{display:inline-block;transition:opacity .2s var(--ease)}
-.caso-logo:hover{opacity:.72}
-.caso-logo img{width:clamp(180px,20vw,240px);height:auto}
-
-
-.caso-voz{border-left:2px solid var(--ink);padding-left:clamp(1.4rem,2.5vw,2.2rem)}
-.caso-cita{margin:0}
-.caso-cita p{
-  font-size:clamp(1rem,1.35vw,1.1rem);line-height:1.65;font-weight:300;color:var(--text);
-}
-.caso-cita p::before{content:'\201C'}
-.caso-cita p::after{content:'\201D'}
-.caso-cita footer{margin-top:1.35rem;display:flex;flex-direction:column;gap:.3rem}
-.caso-cita footer strong{font-size:.95rem;font-weight:600;color:var(--ink)}
-.caso-cita footer span{
-  font-size:.66rem;font-weight:600;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--muted);
-}
-
-@media (max-width:900px){
-  /* En una columna la regla vertical no separa nada: pasa a horizontal. */
-  .caso-grid{grid-template-columns:1fr;gap:2.4rem}
-  .caso-voz{
-    border-left:0;border-top:2px solid var(--ink);
-    padding-left:0;padding-top:1.8rem;
-  }
+.tval-logos li{display:flex;align-items:center;gap:.8rem;font-size:.82rem;color:var(--muted)}
+/* Marcas ajenas: tal cual sobre el blanco, sin panel ni filtros. */
+.tval-logo{display:block;flex:none;transition:opacity .2s var(--ease)}
+.tval-logo:hover{opacity:.7}
+.tval-logo img{height:clamp(34px,2.8vw,42px);width:auto}
+/* En el móvil, la foto pequeña encima y la cita a todo lo ancho: al lado de
+   la foto quedaba una columna de tres palabras por línea. */
+@media (max-width:700px){
+  .tval-in{grid-template-columns:minmax(0,1fr);gap:1.4rem}
+  .tval-foto{width:96px;aspect-ratio:1}
+  .tval-cita .tval-frase{font-size:1.4rem}
 }
 
 /* Los antetitulos van en versalitas con .22em de tracking: a 11,2px eso se
@@ -1373,13 +1351,17 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
    termina el texto y llegan al borde derecho de la pantalla. */
 .mv-escena{position:static}
 .mv-foto,.mv-muro{position:absolute;top:0;bottom:0;left:40%;right:0;pointer-events:none}
-/* Se funde hacia el texto y hacia abajo, para que no corte en seco contra
-   la sección siguiente. */
+/* Desde el 22/10/2026 la foto empieza más a la izquierda, por detrás del
+   texto, y casi no se recorta: la caja tiene casi la proporción de la foto.
+   Se funde despacio hacia el texto y hacia abajo, para que no corte en
+   seco contra la sección siguiente. Detrás del texto queda muy oscura: el
+   blanco sigue leyéndose igual. */
+.hero .mv-foto{left:14%}
 .mv-foto{
   z-index:0;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,#000 72%,transparent);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 22%,#000 48%),linear-gradient(180deg,#000 72%,transparent);
   -webkit-mask-composite:source-in;
-  mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,#000 72%,transparent);
+  mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 22%,#000 48%),linear-gradient(180deg,#000 72%,transparent);
   mask-composite:intersect;
 }
 .mv-foto img{width:100%;height:100%;object-fit:cover}
@@ -1388,34 +1370,44 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   z-index:1;overflow:hidden;
   /* Se desvanece hacia el texto, hacia abajo y bajo el menú: con los
      mensajes detrás, el blanco del menú no se leía. */
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%),linear-gradient(180deg,transparent 0,transparent 90px,#000 170px,#000 60%,transparent 92%);
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%),linear-gradient(180deg,transparent 0,transparent 90px,#000 170px,#000 80%,transparent);
   -webkit-mask-composite:source-in;
-  mask-image:linear-gradient(90deg,transparent 0,#000 30%),linear-gradient(180deg,transparent 0,transparent 90px,#000 170px,#000 60%,transparent 92%);
+  mask-image:linear-gradient(90deg,transparent 0,#000 30%),linear-gradient(180deg,transparent 0,transparent 90px,#000 170px,#000 80%,transparent);
   mask-composite:intersect;
 }
 /* El muro entero, girado de una vez. Las columnas no recortan: el que
    recorta es .mv-muro, con su degradado. */
+/* Columnas del ancho de su mensaje más largo y pegadas unas a otras (22/10/
+   2026: con columnas iguales quedaban huecos grandes entre mensajes). Hay
+   más columnas de las que caben: lo que sobra lo recorta .mv-muro. */
 .mv-giro{
-  position:absolute;inset:-12% -6%;
-  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;
-  transform:rotate(-4deg);
+  position:absolute;inset:-12% -40% -12% 0;
+  display:flex;gap:8px;
+  transform:rotate(-4deg);transform-origin:0 50%;
 }
-.mv-col{min-width:0}
-/* Blanco al 60 % sobre la foto oscurecida: se lee, pero no compite. */
+.mv-col{flex:none}
+/* Blanco al 60 % sobre la foto oscurecida: se lee, pero no compite. El
+   fondo es la plancha casi opaca: con uno transparente, los marcos claros
+   de las ventanas de la foto cruzaban los mensajes y parecían rotos. */
 .mv-pista span{
-  display:block;width:max-content;max-width:100%;margin-bottom:10px;padding:.55rem .85rem;border-radius:12px;
-  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  display:block;width:max-content;max-width:15rem;margin-bottom:8px;padding:.55rem .85rem;border-radius:12px;
+  background:rgba(22,55,61,.82);border:1px solid rgba(255,255,255,.1);
   font-size:.84rem;color:rgba(255,255,255,.6);
 }
-/* Cada columna sube a su ritmo y empieza en otro punto. La lista va dos
-   veces seguida: al llegar a la mitad, vuelve a empezar sin salto. Con
+/* Cada columna sube a su ritmo y empieza en otro punto. La lista va tres
+   veces seguida y sube un tercio: al llegar, vuelve a empezar sin salto, y
+   las otras dos copias tapan siempre el fondo (con dos, al final de cada
+   vuelta quedaba un hueco abajo). Con
    movimiento reducido se quedan quietas. Sin botón de pausa, por decisión
    de Yerai (21/10/2026), aunque la norma (WCAG 2.2.2) lo pide para lo que
    se mueve solo más de 5 segundos. */
 @media (prefers-reduced-motion: no-preference){
-  .mv-pista{animation:mv-sube calc(26s + var(--c) * 7s) linear infinite;animation-delay:calc(var(--c) * -5s)}
+  /* Con doce frases el recorrido es el doble: el doble de tiempo, para que
+     suban a la misma velocidad que antes. */
+  .mv-pista{animation:mv-sube calc(52s + var(--c) * 12s) linear infinite;animation-delay:calc(var(--c) * -9s)}
 }
-@keyframes mv-sube{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+.en-pausa .mv-pista{animation-play-state:paused}
+@keyframes mv-sube{from{transform:translateY(0)}to{transform:translateY(-33.3333%)}}
 .mv-escena .senal{width:100%}
 
 /* Móvil y tableta: los fondos pasan a una banda arriba, detrás del menú, y
@@ -1424,13 +1416,14 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   .hero--muro{min-height:0}
   .hero--muro .hero-inner.mv{grid-template-columns:1fr;padding-top:250px}
   .mv-foto,.mv-muro{left:0;bottom:auto;height:320px}
+  .hero .mv-foto{left:0}
   .mv-foto{-webkit-mask-image:linear-gradient(180deg,#000 45%,transparent);mask-image:linear-gradient(180deg,#000 45%,transparent)}
   .mv-muro{
     -webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 56px,#000 110px,#000 45%,transparent);
     mask-image:linear-gradient(180deg,transparent 0,transparent 56px,#000 110px,#000 45%,transparent);
   }
 }
-@media (max-width:900px){.mv-giro{grid-template-columns:repeat(3,minmax(0,1fr));inset:-20% -10%}}
+@media (max-width:900px){.mv-giro{inset:-20% -60% -20% -4%}}
 @media (max-width:620px){
   .mv .actionbar{grid-template-columns:1fr 1fr}
   .mv .ab-field:first-child{grid-column:1 / -1}
@@ -1477,3 +1470,25 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 @keyframes senal-marca{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
 @keyframes senal-trazo{to{stroke-dashoffset:0}}
 @keyframes senal-sube{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ---------- la señal (24/10/2026) ----------
+   Un mensaje del muro se enciende en teal con un lead y la ficha pasa a ese
+   lead. Curva de entrada: la ease-out fuerte de Emil Kowalski. */
+.mv-pista span{transition:background-color .45s cubic-bezier(0.23, 1, 0.32, 1),color .45s cubic-bezier(0.23, 1, 0.32, 1),transform .45s cubic-bezier(0.23, 1, 0.32, 1),box-shadow .45s cubic-bezier(0.23, 1, 0.32, 1),border-color .45s cubic-bezier(0.23, 1, 0.32, 1)}
+.mv-pista span.mv-luz{
+  background:var(--teal);color:var(--white);border-color:transparent;
+  transform:scale(1.06);box-shadow:0 0 0 6px rgba(36,118,123,.28),0 10px 30px rgba(36,118,123,.45);
+}
+/* Las tres fichas en la misma casilla; se ve la activa. El cambio es un
+   fundido con un pequeño desplazamiento, sin repetir la entrada de cada
+   motivo. */
+.senal-pila{display:grid}
+.senal-pila > .senal-ficha{grid-area:1 / 1}
+.senal--rota .senal-ficha{animation:none;transition:opacity .5s cubic-bezier(0.23, 1, 0.32, 1),transform .55s cubic-bezier(0.23, 1, 0.32, 1),visibility 0s linear .55s}
+.senal--rota .senal-ficha:not(.es-activa){opacity:0;transform:translateY(10px);visibility:hidden}
+.senal--rota .senal-ficha.es-activa{transition-delay:0s,0s,0s}
+.senal--rota .senal-motivos li,.senal--rota .senal-motivos path,.senal--rota .senal-resultado{animation:none}
+.senal--rota .senal-motivos path{stroke-dashoffset:0}
+@media (prefers-reduced-motion: no-preference){
+  .senal--rota .senal-pila{animation:bx-llega .6s cubic-bezier(0.23, 1, 0.32, 1) .9s both}
+}

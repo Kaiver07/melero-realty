@@ -47,8 +47,10 @@ src/layouts/Layout.astro  <head>, schema (Organization sólo con
                        Analytics (y su evento «contacto») y el motor GSAP.
 src/components/        CookieNotice (consentimiento + GA4), Footer, Header,
                        VideoEmbed (fachada de YouTube), BlogList, BlogCta,
-                       Portada (la portada de la home) y Franja (la reseña
-                       y los partners, dentro de la portada).
+                       Portada (la portada de la home), Testimonio (la
+                       reseña de Damián con la foto de Valeria, justo debajo
+                       de la portada) y Franja (los partners; sólo la usa
+                       la portada «piso», que no está puesta).
 src/styles/global.css  Tokens y cromo compartido (nav, footer, .wrap).
 src/styles/home.css    El sistema visual de la home. ~900 líneas.
 src/content/blog/      Un Markdown por artículo; el nombre es el slug.
@@ -63,8 +65,8 @@ src/pages/404.astro    La 404 propia, con noindex y fuera del sitemap.
 public/fonts/          Poppins 300/400/600/700, subconjunto latino.
 docs/                  Estudio comparativo con otras agencias y propuestas
                        pendientes de aprobar. No se publica en la web.
-google-apps-script/    El script que recibe el formulario de /contacto. Se
-                       publica en Google, no con la web (LEEME.md).
+google-apps-script/    El script que recibía el formulario de /contacto.
+                       Fuera de uso desde el 24/10/2026 (se quitó la página).
 ```
 
 Lo pendiente del blog está en `NOTAS.md`. Cada artículo lleva firma
@@ -132,23 +134,31 @@ pasaron todos a `{/* */}` el 27/9/2026, y así se quedan.
 canónica lleva la barra; sin ella, Vercel sirve la misma página en otra
 dirección y Google la ve duplicada.
 
-**El formulario escribe en la hoja de Yerai y avisa por correo.** Cada
-envío de `/contacto` es una fila en la pestaña «Leads» de su hoja de
-cálculo y un correo a `melero.realty@gmail.com` (desde el 28/9/2026,
-probado de punta a punta). El script es `google-apps-script/Codigo.gs` y
-se publica en Google, no con la web: si se cambia, se pega en su editor de
-Apps Script y se publica una versión nueva; si se hace una publicación
-nueva, cambia la URL y hay que ponerla en `SITE.sheetsWebAppUrl`. Si se
-añade o se renombra un campo del formulario, hay que añadirlo también en
-`COLUMNAS`, al principio del script. La web sólo da el envío por bueno si
-el script contesta `{"result":"ok"}`.
+**No hay diagnóstico por escrito** (desde el 24/10/2026). La página
+`/contacto/`, con su formulario de 5 pasos, se quitó: costaba lo mismo que
+el diagnóstico por videollamada y llevaba al mismo pago. `vercel.json`
+redirige `/contacto/` a `/#planes`, y la otra salida de cada botón de
+reserva son los planes. Sin formulario, la política de privacidad sólo
+habla de Stripe, Calendly, el correo y WhatsApp: si vuelve un formulario,
+hay que volver a contarlo allí. El script de `google-apps-script/` y la
+hoja de Yerai se quedan, pero ya no les llega nada.
 
-**La portada es el «muro en vivo»** (desde el 21/10/2026; `Portada.astro`).
-La plancha verde y, de fondo hasta el borde de la pantalla, la foto del
-piso con columnas de mensajes de curioso que suben sin parar; encima, la
-ficha blanca del lead que sí encaja. El texto y la ficha van dentro de la
+**La portada es «la señal»** (desde el 24/10/2026; `Portada.astro`), que
+parte del «muro en vivo» del 21/10/2026. La plancha verde y, de fondo
+hasta el borde de la pantalla, la foto del piso con columnas de mensajes
+de curioso que suben sin parar; encima, la ficha blanca del lead que sí
+encaja. Cada 4,6 s un mensaje del muro se enciende en teal con un lead y
+la ficha pasa a ese lead: rotan los tres de `HERO.leads` (`FichaLead
+todas`). Ese guion y el muro se paran cuando la portada sale de la
+pantalla o la pestaña se oculta. El texto y la ficha van dentro de la
 caja de la página (`--maxw`): la versión anterior se desparramaba en
-pantallas anchas. Revisarla siempre a 1440, 1920 y 2560 px. Con movimiento
+pantallas anchas. La portada termina en la reserva: desde el 24/10/2026
+los logotipos y la reseña van justo debajo, en `Testimonio.astro`, una
+banda blanca con la foto de Valeria (la reseña habla de ella) y cada
+logotipo con lo que es («Cliente en Madrid», «Colaborador en Dubái») en
+lugar de «Nuestros partners». Esa banda separa la portada de «El
+problema», que son las dos verdes; sustituye a la sección «Un caso», que
+iba detrás de Planes. La eligió Yerai entre cinco propuestas. Revisarla siempre a 1440, 1920 y 2560 px. Con movimiento
 reducido no se mueve nada. **No lleva botón de pausa** por decisión de
 Yerai (21/10/2026), aunque la WCAG 2.2.2 lo pide para lo que se mueve solo
 más de 5 segundos: si alguien lo reclama, se vuelve a poner. Hubo una prueba A/B de dos fotos
@@ -219,7 +229,10 @@ Los comentarios de `global.css` llevan el ratio de contraste de cada
 pareja. Si se cambia un color, se recalcula y se anota; no se pone «a ojo».
 
 Las secciones alternan fondo —oscuro, gris, blanco— para que no se lean como
-un bloque. Cero esquinas redondeadas salvo la píldora de la barra del hero y
+un bloque. **Nunca dos oscuras seguidas**: pasó entre la portada y «El
+problema», y se arregló con el testimonio en medio. Planes y Proceso son
+oscuras las dos; desde el 24/10/2026 las separa «El trato», que subió al
+sitio del caso. Al mover o quitar una sección, mirar qué queda a cada lado. Cero esquinas redondeadas salvo la píldora de la barra del hero y
 sus botones, que son la misma forma a propósito, y la bandeja de mensajes de
 la portada (18px, desde el 20/10/2026: recta parecía un bloque pegado) y
 las tarjetas de los partners que van debajo del botón (12px).
@@ -237,8 +250,7 @@ las tarjetas de los partners que van debajo del botón (12px).
   enlace de pago de Stripe, que tras cobrar redirige a Calendly. **Si ese
   enlace está vacío, el despliegue de producción falla a propósito**
   (`Layout.astro`); en local y en vista previa compila igual. El
-  formulario de 5 pasos de `/contacto` queda como alternativa por escrito
-  y también es de pago: al enviarlo se pasa al pago. El diagnóstico dura
+  diagnóstico por escrito de `/contacto` se quitó el 24/10/2026. El diagnóstico dura
   90 minutos en todas partes. **Excepción, desde el 21/10/2026:** el botón
   de cada plan, en la sección Planes, va a su propio pago de Stripe
   (`PLANES.destacado.pago` y `PLANES.planes[].pago`); el Diagnóstico

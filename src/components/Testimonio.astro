@@ -1,0 +1,41 @@
+---
+/* El testimonio de Damián, justo debajo de la portada (desde el 24/10/2026;
+   elegido por Yerai entre cinco propuestas, la «A3»). Hace dos trabajos:
+   - Separa la portada de «El problema», las dos en la plancha verde, que se
+     fundían en un bloque.
+   - Sube la prueba arriba, para quien no baja hasta el final: antes la
+     reseña entera estaba en «Un caso», después de Planes.
+   La reseña habla de Valeria, así que va junto a su foto. La frase es
+   literal (FRANJA_LOGOS.cita, comprobada contra CASO.cita) y cada logotipo
+   dice qué es, en lugar del rótulo «Nuestros partners». */
+import { CASO, FRANJA_LOGOS, TEAM } from '../config/site';
+
+const { cita } = FRANJA_LOGOS;
+if (!CASO.cita.includes(cita.texto)) {
+  throw new Error('FRANJA_LOGOS.cita.texto no está literal en CASO.cita (src/config/site.ts).');
+}
+const valeria = TEAM.find((t) => t.id === 'valeria-melero');
+if (!valeria) throw new Error('Testimonio.astro necesita a valeria-melero en TEAM.');
+const firma = cita.cargo.replace(' · ', ', ');
+---
+
+<section class="tval" aria-labelledby="tval-t">
+  <h2 id="tval-t" class="solo-lectores">Lo que dice {CASO.cliente} del trabajo de {valeria.name}</h2>
+  <div class="wrap tval-in">
+    <img class="tval-foto" src={valeria.photo} alt={`Retrato de ${valeria.name}`} width="640" height="961" loading="lazy" decoding="async">
+    <div>
+      <blockquote class="tval-cita">
+        <p class="tval-frase">«{cita.texto}»</p>
+        <footer><strong>{cita.autor}</strong>, {firma}, sobre {valeria.name}</footer>
+      </blockquote>
+      <ul class="tval-logos">
+        {FRANJA_LOGOS.logos.map((l) => (
+          <li>
+            <a class="tval-logo" href={l.web} target="_blank" rel="noopener" aria-label={`Web de ${l.nombre}, se abre en una pestaña nueva`}><img src={l.src} alt={`Logotipo de ${l.nombre}`} width={l.width} height={l.height} loading="lazy" decoding="async"></a>
+            <span>{l.papel}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

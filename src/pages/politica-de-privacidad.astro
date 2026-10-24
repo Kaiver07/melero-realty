@@ -23,14 +23,15 @@ import { SITE } from '../config/site';
 
       <section>
         <h2 class="text-base font-bold mb-2" style="color: var(--color-text)">2. Datos que recopilamos y finalidad</h2>
-        {/* La web no tiene newsletter: la política hablaba de un formulario
-            que no existe. La segunda finalidad es la que acepta la casilla
-            del formulario de /contacto. */}
-        <p>Recopilamos los datos que nos facilitas voluntariamente a través del formulario de diagnóstico. La finalidad es:</p>
+        {/* Desde el 24/10/2026 la web no tiene formulario: se quitó el
+            diagnóstico por escrito (/contacto). Los datos llegan al pagar
+            (Stripe), al reservar la llamada (Calendly) o al escribirnos. Las
+            comunicaciones comerciales salen: su casilla estaba en ese
+            formulario. */}
+        <p>Recopilamos los datos que nos facilitas voluntariamente al pagar el diagnóstico o un plan, al reservar la videollamada y al escribirnos por correo o WhatsApp. La finalidad es:</p>
         <ul class="mt-2 space-y-1 list-disc list-inside">
-          <li>Gestionar tu solicitud de diagnóstico y ponernos en contacto contigo.</li>
-          <li>Cobrar el diagnóstico, que es de pago, y prestártelo.</li>
-          <li>Enviarte comunicaciones comerciales y promociones, con el consentimiento que das en ese mismo formulario.</li>
+          <li>Gestionar tu solicitud y ponernos en contacto contigo.</li>
+          <li>Cobrar el diagnóstico o el plan que contrates y prestártelo.</li>
         </ul>
       </section>
 
@@ -39,7 +40,7 @@ import { SITE } from '../config/site';
         {/* Desde el 19/10/2026 el diagnóstico se paga: cobrarlo y prestarlo
             se apoya en el contrato, no en el consentimiento. Pendiente de
             que lo revise un abogado. */}
-        <p>La base legal para gestionar tu solicitud y las comunicaciones comerciales es el consentimiento del interesado (art. 6.1.a RGPD), que puedes retirar en cualquier momento sin que ello afecte a la licitud del tratamiento previo. Para cobrar y prestar el diagnóstico, la base es la ejecución del contrato que aceptas al pagarlo (art. 6.1.b RGPD).</p>
+        <p>Cuando nos escribes por correo o WhatsApp, la base legal es tu consentimiento (art. 6.1.a RGPD), que puedes retirar en cualquier momento sin que ello afecte a la licitud del tratamiento previo. Para cobrar y prestar el diagnóstico o el plan, la base es la ejecución del contrato que aceptas al pagarlo (art. 6.1.b RGPD).</p>
       </section>
 
       <section>
@@ -49,7 +50,7 @@ import { SITE } from '../config/site';
 
       <section>
         <h2 class="text-base font-bold mb-2" style="color: var(--color-text)">5. Cesión a terceros</h2>
-        <p>No cedemos tus datos a terceros salvo obligación legal. Utilizamos proveedores de servicios (procesadores de formularios) que actúan bajo contrato de encargo del tratamiento conforme al RGPD. Los pagos los procesa Stripe en su propia página: nosotros no vemos ni guardamos los datos de tu tarjeta.</p>
+        <p>No cedemos tus datos a terceros salvo obligación legal. Utilizamos proveedores de servicios que actúan bajo contrato de encargo del tratamiento conforme al RGPD: Stripe procesa los pagos en su propia página (nosotros no vemos ni guardamos los datos de tu tarjeta) y Calendly gestiona la reserva de la videollamada.</p>
       </section>
 
       <section>

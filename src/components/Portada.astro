@@ -1,11 +1,16 @@
 ---
-/* La portada de la home (21/10/2026): el «muro en vivo».
+/* La portada de la home: «la señal» (desde el 24/10/2026; antes, el
+   «muro en vivo» del 21/10/2026, del que sale).
    La plancha verde; a la izquierda, el titular y la reserva; de fondo,
    hasta el borde de la pantalla, la foto del piso y columnas de mensajes de
    curioso que suben sin parar, como un móvil que no deja de sonar; y
-   encima, la única ficha blanca: el lead que sí encaja. El texto y la
+   encima, la única ficha blanca: el lead que sí encaja. Cada pocos
+   segundos, entre el ruido, un mensaje se enciende en teal con un lead y la
+   ficha pasa a ese lead (rotan los tres de HERO.leads). El texto y la
    ficha van dentro de la caja de la página (--maxw), para que en pantallas
    anchas no se desparrame. docs/prompt-diseno.md.
+   Desde el 24/10/2026 la portada termina en la reserva: los logotipos y la
+   reseña van justo debajo, en el testimonio (Testimonio.astro).
    - piso: la portada anterior (foto del piso a sangre y bandeja de
      contactos). Se queda para poder volver a ella cambiando una palabra. */
 import { SITE, HERO } from '../config/site';
@@ -24,13 +29,16 @@ const { variante = 'muro' } = Astro.props;
 const pago = SITE.pagoDiagnosticoUrl;
 
 const mensajes = HERO.bandeja.mensajes;
-/* Cinco columnas de seis frases, cada una empezando en otra, para que no
-   se lea como la misma lista repetida. */
-const columnas = [0, 2, 5, 7, 9].map((ini) => [0, 1, 2, 3, 4, 5].map((k) => HERO.muro[(ini + k) % HERO.muro.length]));
+/* Nueve columnas con las doce frases, cada una empezando en otra, para que
+   no se lea como la misma lista repetida. Con doce (repetidas, 24) la
+   columna mide más que la portada y el muro llega hasta abajo; con seis se
+   acababa a media altura. Caben las columnas que caben: el resto lo
+   recorta el muro, también en pantallas muy anchas. */
+const columnas = [0, 2, 5, 7, 9, 3, 10, 6, 1].map((ini) => HERO.muro.map((_, k) => HERO.muro[(ini + k) % HERO.muro.length]));
 ---
 
 {/* ================= 1 · HERO ================= */}
-<header class:list={['hero', `hero--${variante}`]} id="top">
+<header class:list={['hero', `hero--${variante}`]} id="top" data-cortos={variante === 'muro' ? JSON.stringify(HERO.leads.map((l) => l.corto)) : undefined}>
   {variante === 'piso' && (
     <>
       <div class="hero-media"><img src="/images/hero-piso.webp" srcset={srcsetDe('/images/hero-piso.webp', 1672, [800, 1200])} sizes="100vw" alt="Interior de una vivienda vacía con luz rasante entrando por el ventanal, grabada con un móvil montado en un trípode" width="1672" height="941" fetchpriority="high" decoding="async"></div>
@@ -59,7 +67,6 @@ const columnas = [0, 2, 5, 7, 9].map((ini) => [0, 1, 2, 3, 4, 5].map((k) => HERO
         <h1>{HERO.titulo}</h1>
         <p class="hero-support">{HERO.apoyo}</p>
         <Reserva />
-        <Franja cita={false} />
       </div>
       {/* Los fondos (foto y muro) se colocan respecto a la portada entera:
            esta columna es estática a propósito. En la columna sólo queda la
@@ -70,10 +77,10 @@ const columnas = [0, 2, 5, 7, 9].map((ini) => [0, 1, 2, 3, 4, 5].map((k) => HERO
              separado, cada columna recortaba los mensajes por su borde. */}
         <div class="mv-muro" aria-hidden="true"><div class="mv-giro">
           {columnas.map((col, c) => (
-            <div class="mv-col" style={`--c:${c}`}><div class="mv-pista">{[...col, ...col].map((t) => <span>{t}</span>)}</div></div>
+            <div class="mv-col" style={`--c:${c}`}><div class="mv-pista">{[...col, ...col, ...col].map((t) => <span>{t}</span>)}</div></div>
           ))}
         </div></div>
-        <FichaLead />
+        <FichaLead todas />
       </div>
     </div>
   )}
@@ -109,4 +116,52 @@ const columnas = [0, 2, 5, 7, 9].map((ini) => [0, 1, 2, 3, 4, 5].map((k) => HERO
     </div>
   )}
 </header>
+
+<script>
+  /* La señal. Cada pocos segundos, un mensaje del muro que esté a la vista,
+     y no debajo de la ficha, se enciende en teal con un lead, y la ficha
+     pasa a ese lead. Con movimiento reducido no arranca: se ve la primera
+     ficha y el muro quieto. Se para cuando la portada no se ve o la pestaña
+     está oculta (Impeccable: ningún bucle de adorno sigue fuera de vista). */
+  const portada = document.querySelector<HTMLElement>('.hero--muro');
+  if (portada && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let visible = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(([e]) => {
+        visible = e.isIntersecting;
+        portada.classList.toggle('en-pausa', !visible);
+      }, { threshold: 0.05 }).observe(portada);
+    }
+    const cortos: string[] = JSON.parse(portada.dataset.cortos || '[]');
+    const fichas = [...portada.querySelectorAll<HTMLElement>('.senal-ficha')];
+    const muro = portada.querySelector<HTMLElement>('.mv-muro');
+    const ficha = portada.querySelector<HTMLElement>('.senal');
+    let n = 0;
+    const tic = () => {
+      if (visible && !document.hidden && muro && ficha && fichas.length) {
+        n = (n + 1) % fichas.length;
+        const m = muro.getBoundingClientRect(), f = ficha.getBoundingClientRect();
+        const libres = [...muro.querySelectorAll<HTMLElement>('.mv-pista span')].filter((s) => {
+          const r = s.getBoundingClientRect();
+          const dentro = r.left > m.left + m.width * 0.28 && r.right < m.right - 20 && r.top > m.top + 150 && r.bottom < m.top + m.height * 0.72;
+          const tapado = r.right > f.left - 12 && r.left < f.right + 12 && r.bottom > f.top - 12 && r.top < f.bottom + 12;
+          return dentro && !tapado && !s.classList.contains('mv-luz');
+        });
+        const s = libres[Math.floor(Math.random() * libres.length)];
+        if (s && cortos[n]) {
+          const antes = s.textContent;
+          s.textContent = cortos[n];
+          s.classList.add('mv-luz');
+          setTimeout(() => { s.classList.remove('mv-luz'); setTimeout(() => { s.textContent = antes; }, 450); }, 2200);
+        }
+        fichas.forEach((el, i) => {
+          el.classList.toggle('es-activa', i === n);
+          if (i === n) el.removeAttribute('aria-hidden'); else el.setAttribute('aria-hidden', 'true');
+        });
+      }
+      setTimeout(tic, 4600);
+    };
+    setTimeout(tic, 3800);
+  }
+</script>
 
