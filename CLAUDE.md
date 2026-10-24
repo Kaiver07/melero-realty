@@ -14,6 +14,13 @@ Tailwind v4, desplegado en Vercel desde `main`.
   Cloudflare. El A del dominio y el CNAME de `www` van a Vercel en «DNS
   only» (nube gris): con el proxy de Cloudflare delante, Vercel no puede
   emitir el certificado.
+- **Correo:** `info@valeriamelero.com` se reenvía a
+  `melero.realty@gmail.com` con Email Routing de Cloudflare (desde el
+  24/10/2026). Sólo recibe: no hay buzón ni envío como info@. Los MX
+  (`route1-3.mx.cloudflare.net`), el SPF y el DKIM (`cf2024-1`) los pone
+  Email Routing y salen bloqueados en DNS. Los MX y el SPF de Hostinger se
+  borraron ese día: allí no había buzones y el correo se perdía. El
+  catch-all está desactivado a propósito.
 
 La verdad de negocio —a quién se vende, qué se promete, qué está verificado
 y qué no— vive en `PRODUCT.md`. Este archivo es sólo cómo se trabaja el
