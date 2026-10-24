@@ -121,12 +121,17 @@ la home), que es otra cosa.
   enlaza a su biografía en sobre-nosotros (`#valeria-melero`,
   `#yerai-jimenez`). El campo `autores` del frontmatter es obligatorio y
   sólo acepta nombres de `TEAM`.
-- **Destino del cierre — resuelto el 26/9/2026: manda Calendly.** El botón
-  del cierre del blog y el de sobre-nosotros van a Calendly, como los de la
-  home, y debajo queda «O pide el diagnóstico por escrito» hacia
-  `/contacto/`. La llamada dura 45 minutos (antes el blog y sobre-nosotros
-  decían 30).
-- **Oferta de los 20 días** — confirmada vigente el 26/9/2026.
+- **Destino del cierre — desde el 24/10/2026: el pago del Diagnóstico.** El
+  botón del cierre del blog y el de sobre-nosotros van, como los de la
+  home, a `SITE.pagoDiagnosticoUrl` (Stripe, que al cobrar redirige a
+  Calendly). Debajo, «O mira antes los planes y precios» hacia `/#planes`
+  (`BLOG.cta.planes`). El diagnóstico dura 90 minutos y cuesta 197 € + IVA.
+  *Antes:* el 26/9/2026 mandaba Calendly directo, con «O pide el
+  diagnóstico por escrito» hacia `/contacto/` y una llamada de 45 minutos.
+  El diagnóstico por escrito se quitó el 24/10/2026 (`CLAUDE.md`).
+- **Oferta de los 20 días** — retirada el 21/10/2026. Valeria: los anuncios
+  sólo si el cliente quiere, y los paga él (`PRODUCT.md`). Los «20 días»
+  que quedan en la web son cuándo llegan los primeros datos, no una oferta.
 - **Masterclass «Captación sin portales».** Todavía no está disponible
   (Valeria, 30/9/2026): se anunciará por Instagram y LinkedIn. El enlace,
   **[PENDIENTE DE CONFIRMAR]**: lo pasará ella cuando esté publicada. Hasta
@@ -142,10 +147,12 @@ la home), que es otra cosa.
   artículos se relacionan con servicios, no con zonas. `PRODUCT.md` menciona
   una investigación de palabras clave para Sevilla y Marbella que no está
   en el repositorio; si se quiere escribir sobre zonas, hace falta.
-- **Servicios sin página propia.** Los servicios sólo existen como sección de
-  la home, así que «Ver todos los servicios» lleva a `/#servicios` y no a una
-  página por servicio. Así se queda: Valeria dijo el 30/9/2026 que no hace
-  falta una página por servicio y que se deja general.
+- **Servicios sin página propia.** Valeria dijo el 30/9/2026 que no hace
+  falta una página por servicio y que se deja general. Desde el 19/10/2026
+  la home ya no tiene sección de Servicios sino Planes, así que el enlace de
+  cada artículo es «Ver los planes y precios» y lleva a `/#planes`
+  (`BLOG.verServicios`). Los artículos se siguen relacionando con los títulos
+  de `SERVICES`.
 - **Imagen al compartir el enlace.** Los artículos usan la tarjeta general
   del sitio (`og-melero.jpg`, 1200×630). No hay imagen 1200×630 propia para
   el artículo; la foto del artículo es vertical y quedaría recortada.
@@ -161,7 +168,8 @@ La auditoría está en `docs/auditoria-seo.md`, con el estado de cada
 problema. Lo técnico está arreglado. Los textos nuevos (títulos de la home,
 de sobre-nosotros y de los artículos, antetítulo del hero, descripción de
 contacto, «O pide el diagnóstico por escrito», «Publicado el», la 404 y las
-biografías) los aprobó Yerai el 27/9/2026. Valeria mandó sus datos el
+biografías) los aprobó Yerai el 27/9/2026. La página de contacto y ese
+enlace salieron el 24/10/2026, con el diagnóstico por escrito. Valeria mandó sus datos el
 30/9/2026 (ver «Datos de Valeria», abajo). Lo que queda:
 
 - **Biografías.** La de Valeria ya lleva su trayectoria. Las de Yerai y
@@ -172,9 +180,11 @@ biografías) los aprobó Yerai el 27/9/2026. Valeria mandó sus datos el
 - **Aviso legal y privacidad.** Identifican a la titular (Valeria Melero
   Maldonado, nombre comercial Melero Realty) con su NIF, añadido el
   28/9/2026 (`SITE.nif`). Queda **[PENDIENTE DE CONFIRMAR]** revisar con
-  quien lleve lo legal si hay que publicar domicilio (LSSI-CE, art. 10) y la
-  casilla de consentimiento de `/contacto`, que obliga a aceptar
-  comunicaciones comerciales. La política ya no habla de la newsletter, que
+  quien lleve lo legal si hay que publicar domicilio (LSSI-CE, art. 10). La
+  casilla de consentimiento de `/contacto`, que obligaba a aceptar
+  comunicaciones comerciales, desapareció con el formulario el 24/10/2026:
+  la política de privacidad ya sólo habla de Stripe, Calendly, el correo y
+  WhatsApp. La política ya no habla de la newsletter, que
   no existe.
 - **Artículos con experiencia propia** (problema 2 de la auditoría) —
   hecho el 30/9/2026 con lo que contó Valeria: los dos artículos dicen qué
@@ -202,11 +212,13 @@ Respuestas a la lista que se le pidió (la del PDF del 28/9/2026). Qué se
 hizo con cada una y qué sigue abierto:
 
 - **Atención en persona.** Sí, de forma puntual, y siempre yendo ella a la
-  agencia del cliente. El diagnóstico por videollamada es gratuito; en
-  persona cuesta 120 €. Horario: lunes a viernes, de 9:00 a 14:00 y de
-  16:00 a 18:00. En la web: la pregunta «¿Trabajáis presencialmente?» de la
-  FAQ lo cuenta, con el precio (Yerai decidió enseñarlo: es el único de la
-  web), y el horario sale en el pie (`SITE.horario`).
+  agencia del cliente. Horario: lunes a viernes, de 9:00 a 14:00 y de
+  16:00 a 18:00; sale en el pie (`SITE.horario`). *Cambió dos veces:* el
+  30/9/2026 el diagnóstico por videollamada era gratuito y el presencial
+  costaba 120 €; el 19/10/2026 el diagnóstico pasó a ser de pago (197 €,
+  por videollamada), y el 21/10/2026 Valeria quitó el presencial suelto.
+  Hoy la FAQ «¿Trabajáis presencialmente?» dice que las visitas en persona
+  sólo se hacen dentro de un plan contratado (`PRODUCT.md`).
 - **Ficha de Google.** Las normas de Google admiten a las empresas que
   visitan a sus clientes «estén donde estén»; las llama empresas de
   servicios locales y les pide ocultar la dirección e indicar la zona de
@@ -221,9 +233,14 @@ hizo con cada una y qué sigue abierto:
   pasado, así que la biografía dice «desde 2025».
 - **Lo que ve en los diagnósticos.** En los dos artículos, con sus
   palabras y sin nombres de clientes.
-- **El caso: MundialRooms en lugar de ARC.** La sección «Un caso» de la
-  home enseña ahora a MundialRooms (`CASO`, en `site.ts`): quiénes son, los
-  tres frentes en los que se trabaja y la reseña de su CEO, Damián. ARC
+- **El caso: MundialRooms en lugar de ARC.** El 30/9/2026 la sección «Un
+  caso» de la home pasó a enseñar a MundialRooms (`CASO`, en `site.ts`):
+  quiénes son, los tres frentes en los que se trabaja y la reseña de su
+  CEO, Damián. El 19/10/2026 se quedó en el logotipo y la reseña. Desde el
+  24/10/2026 no hay sección «Un caso»: una frase literal de la reseña va
+  justo debajo de la portada, con la foto de Valeria y los logotipos de
+  MundialRooms y MBMA (`Testimonio.astro`); la reseña entera sigue en
+  `CASO.cita` y en el dossier comercial. ARC
   sale entero: caso, +30 %, logotipo (`public/images/caso-arc.webp`,
   borrado) y cita. Sin cifras. El nombre del CEO, el permiso de
   MundialRooms y su logotipo los dio Yerai el 30/9/2026. El logotipo es
@@ -231,8 +248,9 @@ hizo con cada una y qué sigue abierto:
   al dibujo; va sobre el blanco de la sección, sin la píldora oscura que
   llevaba el de ARC (está en el historial, commit `d525b19` y anteriores).
   El trabajo empezó a principios de septiembre de 2026 (lo dijo Yerai el
-  1/10/2026): la web pone «Trabajan con nosotros desde septiembre de 2026»
-  en lugar del «llevan un mes» que daba Valeria, que caducaba.
+  1/10/2026). La web llegó a poner «Trabajan con nosotros desde septiembre
+  de 2026», en lugar del «llevan un mes» que daba Valeria, que caducaba;
+  esa línea salió con la ficha del caso y hoy no aparece.
   **[PENDIENTE DE CONFIRMAR]** (en `PRODUCT.md`): el enlace a la reseña. El
   30/9/2026 la ficha de Melero no aparecía en Google Maps, así que la web
   no dice que la reseña esté en Google.
@@ -242,9 +260,11 @@ hizo con cada una y qué sigue abierto:
   el pie de todas las páginas y `telephone` en el schema de la
   organización. WhatsApp sigue aparte.
 - **Masterclass.** Todavía no está disponible; falta el enlace.
-- **Servicios.** Sin página por servicio. Lo demás que contó (trabajo a
-  medida, contratos de 6 meses, revisión quincenal, proceso transparente)
-  ya lo decía la web en «El trato».
+- **Servicios.** Sin página por servicio. Lo demás que contó (revisión
+  quincenal, proceso transparente) lo dice la web en «El trato». El trabajo
+  a medida y los contratos de 6 meses cambiaron el 19/10/2026: catálogo
+  cerrado con precio publicado y permanencia según plan, 3 meses en
+  Contenido y Captación y 6 en el resto (`PLANES`).
 
 [gbp]: https://support.google.com/business/answer/3038177?hl=es
 
