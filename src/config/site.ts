@@ -406,8 +406,10 @@ export const PROCESO = [
   },
   {
     step: '02',
-    title: 'Elegimos tu plan',
-    desc: 'El diagnóstico decide qué plan encaja con tu agencia, tu zona y tu objetivo. Sin propuestas a medida que tardan semanas.',
+    // Valeria, 25/10/2026: si el cliente ya ha pagado un plan, se trabaja
+    // ese plan; el diagnóstico sólo decide el plan cuando se contrata suelto.
+    title: 'Ajustamos tu plan',
+    desc: 'Si ya has contratado un plan, el diagnóstico lo ajusta a tu agencia, tu zona y tu objetivo. Si empezaste por el diagnóstico, es él quien decide qué plan te encaja. Sin propuestas a medida que tardan semanas.',
   },
   {
     step: '03',
