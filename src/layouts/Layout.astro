@@ -48,9 +48,9 @@ const fullTitle =
    ProfessionalService: ése es un tipo de negocio local, que exige dirección
    física, y Melero no tiene (persona física sin domicilio social, ver
    PRODUCT.md). Google lo quiere en la home o en la página «sobre nosotros»,
-   no en todas: por eso va detrás de includeOrgSchema. El logo es el favicon
-   de 512 px, porque el isotipo suelto, dorado sobre transparente, no se lee
-   sobre blanco. El LinkedIn y el canal de YouTube son de Valeria, no de la
+   no en todas: por eso va detrás de includeOrgSchema. El logo es el icono
+   de 512 px del paquete de marca (el monograma MR sobre el principal), que
+   se lee sobre cualquier fondo. El LinkedIn y el canal de YouTube son de Valeria, no de la
    empresa: van con ella, no con la organización, y su url lleva a su
    biografía en sobre-nosotros. El teléfono es el mismo que se ve en el pie
    de todas las páginas (Valeria pidió el 30/9/2026 que constara como
@@ -96,7 +96,13 @@ const faqSchema = {
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     {!noindex && <link rel="canonical" href={canonical} />}
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    {/* Iconos del paquete de marca (06_Favicon-web, 14/11/2026): el monograma
+        MR. El SVG para navegadores que lo admiten; el .ico, para los demás. */}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    {/* DM Sans pinta casi todo lo que hay en pantalla al cargar: se pide
+        antes de que la descubra la hoja de estilos. */}
+    <link rel="preload" href="/fonts/dmsans-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#122f35" />
     {/* max-image-preview:large deja a Google usar las fotos grandes en
@@ -130,7 +136,7 @@ const faqSchema = {
     {/* Lo que cada página añade a su <head>: el schema del artículo, p. ej. */}
     <slot name="head" />
 
-    {/* Poppins se sirve desde /fonts (global.css). Antes venía de Google
+    {/* DM Sans se sirve desde /fonts (global.css). Poppins venía de Google
         Fonts: una hoja externa que retrasaba el pintado de todas las
         páginas, más dos conexiones previas a Google y una a YouTube que
         nadie usaba (el póster del vídeo es local). */}
@@ -326,7 +332,7 @@ const faqSchema = {
             });
           });
 
-          /* Las posiciones se calculan antes de que cargue Poppins. Al llegar
+          /* Las posiciones se calculan antes de que cargue DM Sans. Al llegar
              la fuente cambian los cortes de linea y las alturas, y los
              disparadores apuntan a donde ya no hay nada: por eso algunos
              titulares no llegaban a revelarse nunca. */

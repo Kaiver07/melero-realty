@@ -43,6 +43,9 @@ conocido de npm con dependencias opcionales:
 npm i @rollup/rollup-win32-x64-msvc --no-save
 ```
 
+No hay tests ni linter: la comprobación es compilar, `astro check` y mirar
+el resultado servido con `preview`.
+
 ## Dónde está cada cosa
 
 ```
@@ -52,14 +55,18 @@ src/pages/index.astro  La home entera, sección a sección.
 src/layouts/Layout.astro  <head>, schema (Organization sólo con
                        includeOrgSchema), ClientRouter, Vercel Web
                        Analytics (y su evento «contacto») y el motor GSAP.
-src/components/        CookieNotice (consentimiento + GA4), Footer, Header,
+src/components/        CookieNotice (consentimiento + GA4), Footer, Header
+                       (la cabecera de todas las páginas, con sus estilos),
                        VideoEmbed (fachada de YouTube), BlogList, BlogCta,
-                       Portada (la portada de la home), Testimonio (la
-                       reseña de Damián con la foto de Valeria, justo debajo
-                       de la portada) y Franja (los partners; sólo la usa
-                       la portada «piso», que no está puesta).
-src/styles/global.css  Tokens y cromo compartido (nav, footer, .wrap).
-src/styles/home.css    El sistema visual de la home. ~900 líneas.
+                       Portada (la portada de la home, con el vídeo),
+                       Reserva (la píldora de reserva de la portada) y
+                       Testimonio (la reseña de Damián con la foto de
+                       Valeria, justo debajo de la portada).
+src/styles/global.css  Tokens, DM Sans y cromo compartido (footer, .wrap).
+src/styles/home.css    El sistema visual de la home. ~1.100 líneas.
+public/video/          El vídeo de la portada (MP4 de 1920 y 1280 px) y su
+                       fotograma fijo.
+public/images/logo/    El logotipo en SVG, con y sin claim.
 src/content/blog/      Un Markdown por artículo; el nombre es el slug.
 src/content.config.ts  Esquema de los artículos. Valida imagen, longitudes
                        de título y descripción, y servicios relacionados.
@@ -69,9 +76,12 @@ src/lib/imagenes.ts    srcsetDe(): el srcset con las versiones reducidas
                        <nombre>-<ancho>.webp que haya en public/. Al cambiar
                        una foto grande, regenerar sus versiones con sharp.
 src/pages/404.astro    La 404 propia, con noindex y fuera del sitemap.
-public/fonts/          Poppins 300/400/600/700, subconjunto latino.
+public/fonts/          DM Sans variable (300–700), subconjunto latino.
 docs/                  Estudio comparativo con otras agencias y propuestas
                        pendientes de aprobar. No se publica en la web.
+DESIGN.md, DESIGN-v2.md  Briefs de rediseño. El v2 explica por qué Valeria
+                       rechazó la estética «Modernist» del primero: leer
+                       antes de proponer un cambio visual grande.
 google-apps-script/    El script que recibía el formulario de /contacto.
                        Fuera de uso desde el 24/10/2026 (se quitó la página).
 ```
@@ -150,29 +160,31 @@ habla de Stripe, Calendly, el correo y WhatsApp: si vuelve un formulario,
 hay que volver a contarlo allí. El script de `google-apps-script/` y la
 hoja de Yerai se quedan, pero ya no les llega nada.
 
-**La portada es «la señal»** (desde el 24/10/2026; `Portada.astro`), que
-parte del «muro en vivo» del 21/10/2026. La plancha verde y, de fondo
-hasta el borde de la pantalla, la foto del piso con columnas de mensajes
-de curioso que suben sin parar; encima, la ficha blanca del lead que sí
-encaja. Cada 4,6 s un mensaje del muro se enciende en teal con un lead y
-la ficha pasa a ese lead: rotan los tres de `HERO.leads` (`FichaLead
-todas`). Ese guion y el muro se paran cuando la portada sale de la
-pantalla o la pestaña se oculta. El texto y la ficha van dentro de la
-caja de la página (`--maxw`): la versión anterior se desparramaba en
-pantallas anchas. La portada termina en la reserva: desde el 24/10/2026
-los logotipos y la reseña van justo debajo, en `Testimonio.astro`, una
-banda blanca con la foto de Valeria (la reseña habla de ella) y cada
-logotipo con lo que es («Cliente en Madrid», «Colaborador en Dubái») en
-lugar de «Nuestros partners». Esa banda separa la portada de «El
-problema», que son las dos verdes; sustituye a la sección «Un caso», que
-iba detrás de Planes. La eligió Yerai entre cinco propuestas. Revisarla siempre a 1440, 1920 y 2560 px. Con movimiento
-reducido no se mueve nada. **No lleva botón de pausa** por decisión de
-Yerai (21/10/2026), aunque la WCAG 2.2.2 lo pide para lo que se mueve solo
-más de 5 segundos: si alguien lo reclama, se vuelve a poner. Hubo una prueba A/B de dos fotos
-(20-21/10/2026) que se retiró al elegir esta. `variante="piso"` devuelve la
-portada anterior. Los mensajes son ejemplos; ninguno es de un cliente. Desde
-el 21/10/2026 el rótulo «Mensajes de ejemplo» sólo lo leen los lectores de
-pantalla (lo pidió Yerai).
+**La portada y la cabecera siguen a españoladetelefonia.es** (desde el
+14/11/2026; las eligió Yerai). La portada (`Portada.astro`) es un vídeo a
+sangre: ocho tomas de ciudades de 3,5 s unidas con fundidos, 25 s en
+bucle y sin sonido. Encima van el titular, el apoyo y la píldora de
+reserva, dentro de la caja de la página (`--maxw`) y sobre un velo del
+principal. Lo primero que se pinta es el fotograma fijo, un `<img>` que es
+el LCP. El vídeo se pide al terminar la carga y se para fuera de pantalla.
+Con movimiento reducido o ahorro de datos no se pide. **No lleva botón de
+pausa**, como la portada anterior (Yerai, 21/10/2026), aunque la WCAG
+2.2.2 lo pide para lo que se mueve solo más de 5 segundos: si alguien lo
+reclama, se pone. El vídeo se rehace con `ffmpeg` desde los originales en
+4K, que están en las Descargas de Yerai, no en el repositorio. Va en MP4
+porque en WebM pesaba más.
+La cabecera (`Header.astro`) es la misma en todas las páginas. Lleva el
+logotipo, el menú en una píldora blanca con filetes, el teléfono con
+`SITE.horarioCorto` y el botón del Diagnóstico. En la home (`sobreVideo`)
+empieza transparente sobre el vídeo, con el logotipo con claim en crema; al
+bajar 24 px se vuelve blanca y más baja, con el logotipo sin claim. En el
+resto es blanca y fija desde el principio. Por debajo de 1000 px el menú
+es un panel desplegable.
+Debajo de la portada, `Testimonio.astro`: una banda blanca con la reseña,
+la foto de Valeria y los logotipos con lo que es cada uno. Separa la
+portada de «El problema», que son las dos oscuras. Revisarla siempre a
+1440, 1920 y 2560 px. La portada anterior, «la señal» (el muro de
+mensajes con la ficha del lead), está en git hasta el commit `7a8558c`.
 
 ## Trampas que ya nos han mordido
 
@@ -206,7 +218,13 @@ línea desplazada y a opacidad 0 hasta que dispara el ScrollTrigger; en el
 teléfono la barra de direcciones cambia la altura del viewport y las
 posiciones calculadas caducan, dejando el titular medio caído y medio
 invisible. En escritorio se anima, con `ScrollTrigger.refresh()` al cargar
-Poppins y una red de seguridad que limpia lo que siga invisible.
+la fuente y una red de seguridad que limpia lo que siga invisible.
+
+**Con el vídeo de la portada en marcha, las capturas de Chrome DevTools se
+cuelgan** (`Page.captureScreenshot timed out`), sobre todo con la emulación
+de móvil. Antes de capturar, pausar el vídeo desde la consola
+(`document.querySelector('.portada-video').pause()`) o verificar por DOM
+(14/11/2026).
 
 **Todo revelado necesita red de seguridad.** Si algo parte de `opacity: 0`
 esperando a un observador, tiene que haber un plan B que lo muestre. Página
@@ -214,35 +232,38 @@ invisible es peor fallo que animación perdida.
 
 ## Sistema visual
 
-Fuente única: **Poppins** (300/400/600/700), servida desde el propio
-dominio (`public/fonts/`, `@font-face` en `global.css`). No volver a Google
-Fonts: era una hoja externa que retrasaba el pintado de todas las páginas.
-Sin dorado en ningún sitio salvo el logotipo, que es donde vive.
+Todo sale del manual de marca nuevo (14/11/2026; resumen en `PRODUCT.md`,
+Brand Commitments). Fuente única: **DM Sans**, una variable de 300 a 700,
+servida desde el propio dominio (`public/fonts/`, `@font-face` en
+`global.css`, precargada en `Layout.astro`). No volver a Google Fonts: era
+una hoja externa que retrasaba el pintado de todas las páginas. El
+logotipo es un dibujo en SVG y no se escribe con ninguna fuente.
 
 ```
 --text   #000000   el texto va en negro, es regla de marca
---ink    #122f35   planchas oscuras: hero, proceso, cierre, footer
+--ink    #122f35   principal. Planchas oscuras: portada, proceso, cierre, footer
 --ink-2  #0d2226   segundo plano oscuro
---teal   #24767b   color de identidad, 5.31:1 sobre blanco
---teal-papel #237479  sólo texto teal sobre --paper, 4.61:1 (el de marca da 4.48)
---paper  #eaeced   fondo alterno de sección
---muted  #54696e   texto secundario sobre claro, 72%
---muted-apagado #66777b  los curiosos de la bandeja, 4.68:1 sobre blanco
+--teal   #2b6670   secundario, 6.49:1 sobre blanco. Nunca texto sobre --ink
+--arena  #cdb59a   acento. Texto sólo sobre oscuro (7.19:1); 1.97:1 sobre blanco
+--crema  #f6f0e9   texto y logotipo sobre oscuro, 12.51:1 sobre --ink
+--paper  #f1e9de   arena clara, fondo alterno de sección
+--teal-papel #2b6670  texto teal sobre --paper, 5.39:1 (ya es el mismo tono)
+--muted  #54696e   texto secundario sobre claro, 4.82:1 sobre --paper
 --muted-dark #bdc5c6  texto secundario sobre --ink, 8.06:1
---rule   #dee2e3   filetes
+--rule   #e2d9cb   filetes
 ```
 
 Los comentarios de `global.css` llevan el ratio de contraste de cada
 pareja. Si se cambia un color, se recalcula y se anota; no se pone «a ojo».
 
-Las secciones alternan fondo —oscuro, gris, blanco— para que no se lean como
+Las secciones alternan fondo —oscuro, arena clara, blanco— para que no se lean como
 un bloque. **Nunca dos oscuras seguidas**: pasó entre la portada y «El
 problema», y se arregló con el testimonio en medio. Planes y Proceso son
 oscuras las dos; desde el 24/10/2026 las separa «El trato», que subió al
-sitio del caso. Al mover o quitar una sección, mirar qué queda a cada lado. Cero esquinas redondeadas salvo la píldora de la barra del hero y
-sus botones, que son la misma forma a propósito, y la bandeja de mensajes de
-la portada (18px, desde el 20/10/2026: recta parecía un bloque pegado) y
-las tarjetas de los partners que van debajo del botón (12px).
+sitio del caso. Al mover o quitar una sección, mirar qué queda a cada lado.
+Cero esquinas redondeadas salvo las píldoras: la de reserva de la portada y
+sus botones, y en la cabecera el menú, el botón del Diagnóstico y el
+círculo del teléfono (14/11/2026).
 
 ## Deudas conocidas
 
@@ -266,5 +287,10 @@ las tarjetas de los partners que van debajo del botón (12px).
   artículos del blog se relacionan con esos seis títulos
   (`content.config.ts`). La home enseña `PLANES`. Si algún día los
   artículos se relacionan con planes, `SERVICES` puede irse.
+- **Restos de la portada anterior, inertes** (14/11/2026). En
+  `Layout.astro`, `pestanas()` (el cursor del menú viejo, `.nav-links`) y
+  la entrada de `.hero-word`. En `home.css`, la deriva de `.hero-word`. Y
+  `--muted-apagado` en `global.css`. No pintan nada porque esos elementos
+  ya no existen; se pueden borrar.
 - **`embla-carousel` sigue en `package.json` sin uso**: sólo lo usaba el
   carrusel de Servicios, que salió el 19/10/2026.

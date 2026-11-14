@@ -1,61 +1,63 @@
 @import "tailwindcss";
 
-/* Poppins desde el propio dominio (public/fonts): sólo el subconjunto
-   latino, que cubre el castellano, con los mismos archivos y rangos que
-   servía Google Fonts. Aquella hoja era externa y retrasaba el pintado de
-   todas las páginas (auditoría SEO del 27/9/2026). */
-@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 300; font-display: swap; src: url('/fonts/poppins-latin-300.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/poppins-latin-400.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/poppins-latin-600.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/poppins-latin-700.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* DM Sans, la tipografía del manual de marca (desde el 14/11/2026; antes,
+   Poppins). Una sola fuente variable, pesos 300 a 700, servida desde el
+   propio dominio y sólo con el subconjunto latino, que cubre el castellano.
+   No cargarla de Google Fonts: una hoja externa retrasa el pintado de todas
+   las páginas (auditoría SEO del 27/9/2026). */
+@font-face { font-family: 'DM Sans'; font-style: normal; font-weight: 300 700; font-display: swap; src: url('/fonts/dmsans-latin-variable.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
 :root {
-  /* Paleta oficial de marca Melero Realty. Sin dorado en ningún elemento.
-     Confirmada por Valeria; ver PRODUCT.md § Brand Commitments. */
+  /* Paleta del manual de marca (LEEME de los logotipos, 14/11/2026):
+     principal #122F35 · secundario #2B6670 · apoyo claro #E4EEEF ·
+     arena #CDB59A · arena clara #F1E9DE · crema #F6F0E9.
+     Ya no rige «sin dorado»: la arena es acento de la paleta. */
   --color-bg:        #ffffff; /* blanco: color principal */
-  --color-surface:   #f6f7f7; /* #122f35 al 4% sobre blanco */
+  --color-surface:   #f6f0e9; /* crema */
   --color-ink:       #122f35; /* planchas oscuras a sangre: hero, CTA, footer */
   --color-ink-2:     #0d2226; /* segundo plano oscuro, derivado de --color-ink */
   --color-text:      #000000; /* regla de marca: el texto va en negro */
-  --color-muted:     #63767a; /* #122f35 al 66% sobre blanco — 4.77:1 */
+  --color-muted:     #54696e; /* 5.80:1 sobre blanco */
   --color-muted-dark:#bdc5c6; /* blanco al 72% sobre #122f35 — 8.06:1 */
-  --color-accent:    #24767b; /* color de identidad. 5.31:1 sobre blanco.
-                                 OJO: 2.66:1 sobre --color-ink — nunca como
-                                 texto sobre plancha oscura, solo fondo o filete. */
+  --color-accent:    #2b6670; /* el secundario. 6.49:1 sobre blanco. Nunca
+                                 como texto sobre plancha oscura. */
   --color-accent-600: color-mix(in oklch, var(--color-accent) 88%, #000);
   --color-accent-700: color-mix(in oklch, var(--color-accent) 72%, #000);
-  --color-divider:   #dee2e3; /* #122f35 al 14% sobre blanco */
+  --color-divider:   #e2d9cb; /* filete cálido */
 
-  --font-heading: 'Poppins', system-ui, sans-serif;
+  --font-heading: 'DM Sans', system-ui, sans-serif;
   --font-heading-weight: 700;
-  --font-body: 'Poppins', system-ui, sans-serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
 
   --radius-md: 0px; /* sin esquinas redondeadas, salvo la tarjeta del hero */
 
   /* Tokens del sistema V4A, ahora globales para que la cabecera y el pie
      compartidos funcionen en todas las páginas, no solo en la home. */
-/* Paleta oficial de marca Melero Realty. Sin dorado en ningún elemento. */
+  /* La paleta del manual con los nombres que usa el CSS de la web. */
   --text:#000000;         /* texto — regla de marca: el texto va en negro */
-  --ink:#122f35;          /* planchas y sólidos oscuros */
+  --ink:#122f35;          /* principal: planchas y sólidos oscuros */
   --ink-2:#0d2226;        /* segundo plano oscuro, derivado de #122f35 */
   --ink-hover:#28454b;    /* sólo estados hover de sólidos */
-  --teal:#24767b;         /* color de identidad. 5.31:1 sobre blanco.
-                             OJO: 2.66:1 sobre #122f35 — nunca como texto
-                             sobre plancha oscura, solo fondo o filete. */
+  --teal:#2b6670;         /* secundario. 6.49:1 sobre blanco, 5.73:1 sobre
+                             crema y 5.39:1 sobre arena clara. Nunca como
+                             texto sobre plancha oscura (2.1:1). */
+  --arena:#cdb59a;        /* acento. 7.19:1 sobre #122f35 y 8.38:1 sobre
+                             #0d2226, pero 1.97:1 sobre blanco: como texto,
+                             sólo sobre oscuro; sobre claro, fondo o filete. */
+  --crema:#f6f0e9;        /* texto y logotipo sobre oscuro (12.51:1 sobre
+                             #122f35) y fondo claro cálido. */
+  --apoyo:#e4eeef;        /* apoyo claro del manual */
   --white:#ffffff;
-  --paper:#eaeced;        /* #122f35 al 9% sobre blanco. Al 4% que tenía
-                             antes era indistinguible del blanco puro y las
-                             secciones se leían como una sola masa. */
-  --paper-2:#e2e6e7;      /* #122f35 al 12%: tiene que quedar por debajo de
-                             --paper, que ha subido a 9%. */
-  --teal-papel:#237479;   /* teal para TEXTO sobre --paper: 4.61:1. El de
-                             marca (#24767b) da ahí 4.48:1, por debajo de AA.
-                             Sólo para texto; fondos y filetes, --teal. */
-  --rule:#dee2e3;         /* #122f35 al 14% sobre blanco */
+  --paper:#f1e9de;        /* arena clara: el fondo alterno de sección
+                             (hasta el 14/11/2026, un gris #eaeced). */
+  --paper-2:#e8dccb;      /* arena clara un punto más oscura, para hovers
+                             sobre --paper. */
+  --teal-papel:#2b6670;   /* texto teal sobre --paper. Con el secundario da
+                             5.39:1 y vale el mismo tono que --teal. */
+  --rule:#e2d9cb;         /* filete cálido, entre arena clara y blanco */
   --rule-dark:rgba(255,255,255,.16);
-  --muted:#54696e;        /* #122f35 al 72%. Al 66% daba 4.02:1 sobre el
-                             fondo nuevo, por debajo de AA. Ahora 4.89:1
-                             sobre --paper y 5.80:1 sobre blanco. */
+  --muted:#54696e;        /* #122f35 al 72%: 5.80:1 sobre blanco, 5.12:1
+                             sobre crema y 4.82:1 sobre --paper. */
   --muted-dark:#bdc5c6;   /* blanco al 72% sobre #122f35 — 8.06:1 */
   --muted-apagado:#66777b; /* los curiosos de la bandeja de la portada:
                              4.68:1 sobre blanco. Antes se apagaban con
@@ -180,49 +182,11 @@ details[open] .faq-plus { transform: rotate(45deg); }
 
 
 /* ==========================================================================
-   CHROME COMPARTIDO — cabecera y pie
-   Vivían en home.css, pero Header.astro y Footer.astro los usan en todas
-   las páginas. Aquí para que no haya dos cabeceras distintas en el sitio.
+   CHROME COMPARTIDO — caja y pie
+   Vivían en home.css, pero Footer.astro está en todas las páginas. La
+   cabecera lleva sus propios estilos, en Header.astro.
    ========================================================================== */
 .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--pad);padding-right:var(--pad)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
-.nav-brand{
-  font-size:.72rem;font-weight:600;
-  letter-spacing:.28em;text-transform:uppercase;text-decoration:none;color:var(--white);
-}
-/* Pestañas con cursor deslizante. El bloque de fondo persigue al enlace bajo
-   el ratón y vuelve al activo al salir. El efecto es el de slide-tabs de
-   21st.dev, pero sin React ni framer-motion: es un pseudo-elemento al que se
-   le animan left y width. El menú está en todas las páginas, así que hacerlo
-   con librería habría costado ~95 KB comprimidos en cada una.
-   El recuadro es rectangular, no píldora: el sistema es de radio 0. */
-.nav-links{
-  position:relative;display:flex;align-items:center;
-  gap:clamp(.2rem,1vw,.6rem);
-}
-.nav-links::before{
-  content:"";position:absolute;z-index:0;
-  left:var(--tab-x,0);width:var(--tab-w,0);
-  top:0;bottom:0;
-  background:rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.22);
-  opacity:var(--tab-o,0);
-  transition:left .42s var(--ease),width .42s var(--ease),opacity .28s var(--ease);
-  pointer-events:none;
-}
-.nav-links a,.nav-mail{
-  font-size:.68rem;font-weight:400;
-  letter-spacing:.2em;text-transform:uppercase;text-decoration:none;color:var(--white);
-  opacity:.84;transition:opacity .2s var(--ease);white-space:nowrap;
-}
-.nav-links a{
-  position:relative;z-index:1;
-  padding:.62rem clamp(.55rem,1.1vw,.95rem);
-}
-.nav-links a:hover{opacity:1}
-@media (prefers-reduced-motion:reduce){
-  .nav-links::before{transition:none}
-}
 /* footer en #0d2226 — es la banda contigua al CTA en #122f35, con filete */
 .footer{
   background:var(--ink-2);color:var(--white);

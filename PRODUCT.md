@@ -246,8 +246,8 @@ repositorio Astro. Comprobado por cabeceras HTTP y por el HTML servido, sin
 rastro de Framer. La referencia a Framer/Upreach del documento de negocio
 está desactualizada.)*
 - **La plantilla de Canva (`DAHNSVIRk8M`) sigue en dorado** (#cfaa4a,
-  #cfaa3a, #cfa421) para portada, remates y CTA. Con la paleta nueva, sin
-  dorado, esa plantilla queda desactualizada. Falta confirmar si se rehace
+  #cfaa3a, #cfa421) para portada, remates y CTA. Con la paleta del manual
+  nuevo, esa plantilla queda desactualizada. Falta confirmar si se rehace
   con los colores nuevos o si el diseño de Canva es un sistema aparte que se
   mantiene. **Sin resolver.**
 *(Resuelto: **Carlos Cortés no va en la web.** Forma parte del equipo de
@@ -261,31 +261,29 @@ intermedias.» es correcto tal cual.)*
   `valeriamelero.com`. Email: **`melero.realty@gmail.com`** (confirmado el
   6/9/2026; sustituye a `hola@valeriamelero.com`, que ya no se usa). Vive en
   `SITE.email` y de ahí lo toman todas las páginas.
-- **Paleta oficial — sin dorado en ningún material:**
-  - Blanco `#FFFFFF` — color principal.
-  - `#24767B` (verde azulado / teal) — color de identidad.
-  - `#122F35` (azul petróleo muy oscuro) — color de identidad.
-  - Negro `#000000` — para todo el texto.
-- **Logo: excepción confirmada a la regla del dorado.** El logo es la M
-  dorada sobre disco negro, con «MELERO» en blanco y «.REALTY» en dorado.
-  **Se sigue usando tal cual, de momento** — decisión del usuario el
-  6/9/2026. La regla «sin dorado» sigue vigente para todo lo demás: el
-  dorado existe en el logo y solo ahí.
-  - Isotipo transparente en `public/logo-melero.png` (trazo `#CEB277`).
-    Sobre `#122f35` da 6.91:1 y sobre `#0d2226` 8.05:1, así que funciona en
-    las planchas oscuras. Sobre blanco cae a 2.05:1 — ahí no vale suelto.
-  - El logo completo que circula va sobre **disco negro**, no sobre
-    `#122f35`. Si se coloca sin más sobre una plancha, se ve el disco
-    recortado. Usar el isotipo transparente, o el logo solo sobre negro.
-  - `favicon.png` y `apple-touch-icon.png` se regeneraron el 6/9/2026: el
-    monograma ocupaba el 2% del lienzo y se veía enclenque en la pestaña.
-    Ahora va al 80% del diámetro del disco, que es donde se distingue a
-    16 px sin tocar el borde.
-  - **No hay archivo del logo completo (lockup) en el repositorio**, solo el
-    isotipo. Si se necesita la marca con texto, hay que pedirlo.
-- **Tipografía:** **Poppins**, confirmada directamente por Valeria. Sustituye
-  a Cormorant Garamond + DM Sans, que es lo que recogía el documento de
-  contexto anterior; ese par ha quedado desactualizado al menos para la web.
+- **Manual de marca nuevo (paquete «Melero-Realty-Logotipos», noviembre de
+  2026).** Desde el 14/11/2026 la web lo sigue entero (lo decidió Yerai).
+  El paquete original está fuera del repositorio, en las Descargas de
+  Yerai; su `LEEME.txt` dice qué archivo usar para cada cosa.
+- **Paleta oficial** (la del `LEEME.txt`):
+  - Principal `#122F35` · Secundario `#2B6670` · Apoyo claro `#E4EEEF`.
+  - Acento arena `#CDB59A` · Arena clara `#F1E9DE` · Crema `#F6F0E9`.
+  - Blanco `#FFFFFF` de fondo y negro `#000000` para el texto, como antes.
+  - La regla anterior, «sin dorado en ningún material», ya no rige: la arena
+    es parte de la paleta. El dorado antiguo del logo (`#CEB277`) se fue con
+    él.
+- **Logotipo:** un dibujo, «Melero Realty» con o sin el claim «Marketing
+  inmobiliario». No se reescribe con ninguna fuente. Tintas: principal
+  sobre crema, arena clara, apoyo claro o blanco; crema sobre principal o
+  secundario; arena sólo sobre principal.
+  - En la web, `public/images/logo/` (principal y sin claim, en SVG). La
+    cabecera los usa como máscara CSS: el color lo pone la página.
+  - Favicon e iconos: el monograma MR del paquete (`06_Favicon-web`), en
+    `public/favicon.*` y `apple-touch-icon.png`.
+  - `public/logo-melero.png` es el isotipo antiguo (la M dorada). Ya no lo
+    usa ninguna página.
+- **Tipografía:** **DM Sans** en todos los textos, la del manual. En la web
+  desde el 14/11/2026; antes, Poppins, que había confirmado Valeria.
 - **No mezclar con SIN HUMO**, el otro proyecto de Valeria, que tiene
   identidad propia y distinta: negro + Anton/Barlow + dorado.
 
@@ -312,24 +310,18 @@ intermedias.» es correcto tal cual.)*
 4. Sin datos ni cifras inventadas, sin promesas exageradas.
 5. Nada de tono motivacional genérico; nada centrado en Valeria como
    protagonista.
-6. Respetar el sistema visual: blanco + `#24767B` + `#122F35` + negro para el
-   texto, Cormorant Garamond / DM Sans. Nada de dorado, y no mezclar con la
-   estética de SIN HUMO.
+6. Respetar el sistema visual del manual de marca (paleta y DM Sans, en
+   Brand Commitments), y no mezclar con la estética de SIN HUMO.
 7. Los carruseles se montan sobre el diseño modelo de Canva sin cambiar las
    tipografías (pendiente de actualizar sus colores — ver decisiones
    abiertas).
 
 ### Nota sobre la tipografía
 
-**Poppins la confirmó Valeria**, no es una preferencia de implementación ni
-una desviación del manual: es la marca cambiando de tipografía. El documento
-de contexto del negocio todavía recoge Cormorant Garamond + DM Sans, así que
-ese punto del documento está desactualizado.
-
-**Alcance confirmado: Poppins es solo para la web.** El resto de materiales
-—carruseles de Canva, reels, LinkedIn— mantienen Cormorant Garamond + DM
-Sans. No es un descuido ni algo pendiente de unificar: son dos tipografías
-conviviendo a propósito, web por un lado y contenido por otro.
+Hasta el 14/11/2026 la web iba en **Poppins**, que confirmó Valeria, y el
+resto de materiales en Cormorant Garamond + DM Sans. El manual nuevo pone
+**DM Sans en todos los textos**, y la web pasó a DM Sans ese día. Falta
+saber si los carruseles, los reels y LinkedIn dejan Cormorant Garamond.
 
 ## Evidence on Hand
 
@@ -447,7 +439,10 @@ certificaciones o partnerships (Meta/Google Partner u otros).
 Sin requisito de estándar establecido por el usuario. Restricción de producto
 relevante: interfaz monolingüe en castellano, sin i18n prevista.
 
-Limitación técnica confirmada de la paleta de marca: **`#24767B` sobre
-`#122F35` da 2,66:1**, muy por debajo del mínimo AA. El teal solo es
-utilizable sobre blanco (5,31:1) o como fondo con texto blanco encima
-(5,31:1), nunca como texto sobre las planchas oscuras.
+Limitaciones técnicas de la paleta de marca (14/11/2026):
+- **El secundario `#2B6670` no vale como texto sobre el principal
+  `#122F35`.** Sobre blanco da 6,49:1, sobre crema 5,73:1 y sobre arena
+  clara 5,39:1.
+- **La arena `#CDB59A` sólo vale como texto sobre oscuro**: 7,19:1 sobre
+  el principal, pero 1,97:1 sobre blanco. Sobre claro, sólo como fondo
+  (con texto principal encima, 7,19:1) o filete.

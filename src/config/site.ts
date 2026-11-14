@@ -37,6 +37,8 @@ export const SITE = {
   // schema de la organización. El horario es el de atención que dio ella.
   telefono: '+34 674 82 90 42',
   horario: 'Lunes a viernes, de 9 a 14 h y de 16 a 18 h',
+  // El mismo horario, en el hueco que deja la cabecera bajo el teléfono.
+  horarioCorto: 'L a V · 9–14 h y 16–18 h',
   whatsapp:
     'https://wa.me/34674829042?text=Hola%2C%20os%20escribo%20por%20el%20diagn%C3%B3stico.',
   social: {
@@ -106,74 +108,13 @@ export const IVA = '+ IVA';
 /* La portada (20/10/2026). El titular nombra el dolor que más se repite en
    los diagnósticos (PRODUCT.md): un mensaje para todo el mundo que atrae
    curiosos. La búsqueda «captación de leads para inmobiliarias» pasa al
-   párrafo de apoyo, que es lo primero que se lee después.
-
-   La bandeja es un EJEMPLO y lo dice en su pie: no son mensajes de ningún
-   cliente ni de ningún portal concreto, y no lleva nombres ni logotipos.
-   Enseña lo que el cliente ya vive: los «¿sigue disponible?» del portal
-   frente a un propietario que llega por su propia landing de valoración
-   (la del plan Captación). Cada mensaje lleva `cualificado` para que la
-   plantilla no tenga que adivinarlo. */
+   párrafo de apoyo, que es lo primero que se lee después. Desde el
+   14/11/2026 va sobre el vídeo de la portada (Portada.astro). */
 export const HERO = {
   kicker: 'Agencia de marketing inmobiliario',
   titulo: 'Deja de contestar a curiosos.',
   apoyo:
     'Captación de leads para inmobiliarias que ya facturan. Un mensaje pensado para tu cliente ideal y un canal propio, junto a los portales, para que el contacto llegue sabiendo quién eres.',
-  bandeja: {
-    titulo: 'Contactos de esta semana',
-    etiqueta: 'Lead cualificado',
-    nota: 'Mensajes de ejemplo.',
-    mensajes: [
-      { origen: 'Portal', hora: 'Lun 09:12', texto: '¿Sigue disponible?', cualificado: false },
-      { origen: 'Portal', hora: 'Lun 11:40', texto: 'Hola, info.', cualificado: false },
-      {
-        origen: 'Tu landing de valoración',
-        hora: 'Mar 13:30',
-        texto: 'Quiero vender mi piso de tres dormitorios. Me mudo en marzo. ¿Podéis venir a valorarlo esta semana?',
-        cualificado: true,
-      },
-      { origen: 'Portal', hora: 'Mar 17:05', texto: '¿Cuánto vale mi casa? Es solo por saber.', cualificado: false },
-      { origen: 'Portal', hora: 'Mié 10:20', texto: 'Solo estaba mirando, gracias.', cualificado: false },
-    ],
-  },
-  /* La tarjeta del lead en el muro (21/10/2026), como una ficha de CRM: por
-     qué encaja y en qué acaba. Es un ejemplo, como el mensaje. */
-  senal: {
-    motivos: ['Quiere vender', 'Plazo: marzo', 'Pide visita'],
-    motivosEtiqueta: 'Por qué encaja',
-    resultado: 'Visita de valoración agendada',
-    cuando: 'Jueves, 10:00',
-  },
-  /* «La señal» (portada desde el 24/10/2026): tres leads de ejemplo que
-     rotan en la ficha. `corto` es lo que se enciende en el muro. Ninguno
-     es de un cliente real. */
-  leads: [
-    {
-      origen: 'Tu landing de valoración', hora: 'Mar 13:30', corto: 'Quiero vender mi piso',
-      texto: 'Quiero vender mi piso de tres dormitorios. Me mudo en marzo. ¿Podéis venir a valorarlo esta semana?',
-      motivos: ['Quiere vender', 'Plazo: marzo', 'Pide visita'],
-      resultado: 'Visita de valoración agendada', cuando: 'Jueves, 10:00',
-    },
-    {
-      origen: 'Tu web', hora: 'Mié 18:40', corto: 'Hipoteca preaprobada',
-      texto: 'He visto vuestros vídeos de la zona. Tenemos la hipoteca preaprobada y buscamos un ático. ¿Hablamos el jueves?',
-      motivos: ['Compra ya', 'Financiación lista', 'Pide llamada'],
-      resultado: 'Llamada agendada', cuando: 'Jueves, 17:00',
-    },
-    {
-      origen: 'Tu Instagram', hora: 'Vie 12:15', corto: 'Piso heredado, vender ya',
-      texto: 'Hemos heredado un piso en el centro y queremos venderlo antes del verano. ¿Qué documentación necesitáis?',
-      motivos: ['Quiere vender', 'Plazo: verano', 'Pregunta trámites'],
-      resultado: 'Visita de valoración agendada', cuando: 'Lunes, 11:00',
-    },
-  ],
-  /* El muro de la portada (20/10/2026): el ruido de fondo, frases cortas
-     de curioso. Son ejemplos, como la bandeja; no son mensajes reales. */
-  muro: [
-    '¿Sigue disponible?', 'Hola, info.', '¿Precio?', '¿Cuánto es lo último?',
-    'Solo estaba mirando.', '¿Se puede ver hoy?', '¿Aceptáis mascotas?', 'Info, por favor.',
-    '¿Cuánto vale mi casa?', '¿Tiene garaje?', 'Me interesa.', '¿Sigue libre?',
-  ],
 } as const;
 
 /* `pago` es el enlace de Stripe de cada pack, que pasó Valeria el
@@ -384,9 +325,9 @@ export const CASO = {
    del rótulo «Nuestros partners», que ya sólo usa la portada «piso». */
 export const FRANJA_LOGOS = {
   texto: 'Nuestros partners',
-  // La frase de la reseña de Damián que se enseña: la del testimonio y la
-  // de la portada «piso». Tiene que estar literal dentro de CASO.cita; si
-  // no, la compilación falla (Franja.astro y Testimonio.astro).
+  // La frase de la reseña de Damián que se enseña en el testimonio. Tiene
+  // que estar literal dentro de CASO.cita; si no, la compilación falla
+  // (Testimonio.astro).
   cita: {
     texto: 'Desde el primer minuto ha demostrado una gran profesionalidad, implicación y atención a cada detalle.',
     autor: CASO.citaAutor,

@@ -1,58 +1,252 @@
 ---
 import { SITE } from '../config/site';
 
-/* Cabecera de las páginas interiores.
-   La home NO usa este componente: su navegación va dentro del hero, en
-   transparente sobre la fotografía. Esta es la misma navegación —mismas
-   fuentes, mismo tracking, mismos enlaces— pero sobre una banda sólida en
-   #122f35, para que al pasar de la home a contacto no cambie el lenguaje.
-   Los anclajes van a /#ancla porque desde aquí no existen en la página. */
-const nav = [
-  { href: '/#planes', label: 'Planes' },
-  { href: '/#proceso', label: 'Proceso' },
-  { href: '/#equipo', label: 'Equipo' },
-  { href: '/#faq', label: 'FAQ' },
-  // keep: sigue visible en móvil, donde el resto del menú se esconde.
-  { href: '/blog/', label: 'Blog', keep: true },
+/* La cabecera de todas las páginas (desde el 14/11/2026; antes, la home
+   llevaba su propio menú dentro de la portada y las interiores una banda
+   verde). Sigue el esquema de españoladetelefonia.es: el logotipo a la
+   izquierda, el menú en una píldora blanca con los enlaces separados por
+   filetes y, a la derecha, el teléfono con su horario y el botón del
+   Diagnóstico.
+   - sobreVideo (la home): empieza transparente, encima del vídeo de la
+     portada, con el logotipo grande en crema. Al bajar se vuelve blanca,
+     más baja y con el logotipo sin claim en el color principal.
+   - sin él (el resto): blanca y fija desde el principio.
+   Las anclas van a /#ancla fuera de la home, porque allí no existen.
+   La píldora y los botones redondos son excepción a las esquinas rectas,
+   como la píldora de reserva. */
+interface Props { sobreVideo?: boolean }
+const { sobreVideo = false } = Astro.props;
+
+const base = sobreVideo ? '' : '/';
+const enlaces = [
+  { href: `${base}#planes`, label: 'Planes' },
+  { href: `${base}#proceso`, label: 'Proceso' },
+  { href: `${base}#equipo`, label: 'Equipo' },
+  { href: `${base}#faq`, label: 'FAQ' },
+  { href: '/blog/', label: 'Blog' },
 ];
+const tel = SITE.telefono.replace(/\s/g, '');
+// En la cabecera, sin el prefijo: el número cabe y se lee de un vistazo.
+const telVisible = SITE.telefono.replace(/^\+34\s*/, '');
+const pago = SITE.pagoDiagnosticoUrl;
 ---
 
-<header class="site-hdr">
-  <div class="wrap">
-    <nav class="nav" aria-label="Principal">
-      <a class="nav-brand" href="/">{SITE.name}</a>
-      <ul class="nav-links">
-        {nav.map((n) => (
-          <li class:list={[{ 'nav-keep': n.keep }]}><a href={n.href}>{n.label}</a></li>
-        ))}
+<header class:list={['cab', { 'cab--video': sobreVideo, 'cab--solida': !sobreVideo }]} data-cab>
+  <div class="cab-in">
+    <a class="cab-marca" href={sobreVideo ? '#top' : '/'} aria-label={`${SITE.name}, inicio`}>
+      <span class="cab-logo cab-logo--claim" aria-hidden="true"></span>
+      <span class="cab-logo cab-logo--corto" aria-hidden="true"></span>
+    </a>
+
+    <button class="cab-menu" type="button" aria-expanded="false" aria-controls="cab-nav" aria-label="Abrir menú">
+      <span></span><span></span>
+    </button>
+
+    <nav class="cab-nav" id="cab-nav" aria-label="Principal">
+      <ul class="cab-enlaces">
+        {enlaces.map((e) => <li><a href={e.href}>{e.label}</a></li>)}
       </ul>
-      {/* Antes, el correo; desde el 19/10/2026, el botón al Diagnóstico.
-          El correo sigue en el pie. */}
-      <a class="nav-mail" data-cta="menu" href={SITE.pagoDiagnosticoUrl} target="_blank" rel="noopener">Diagnóstico</a>
+      <div class="cab-contacto">
+        <a class="cab-tel" data-cta="telefono-menu" href={`tel:${tel}`}>
+          <span class="cab-tel-ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" focusable="false"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg>
+          </span>
+          <span class="cab-tel-txt"><b>{telVisible}</b><small>{SITE.horarioCorto}</small></span>
+        </a>
+        <a class="cab-btn" data-cta="menu" href={pago} target="_blank" rel="noopener">Diagnóstico</a>
+      </div>
     </nav>
   </div>
 </header>
 
+<script>
+  /* Dos trabajos: volver sólida la cabecera de la home al bajar, y abrir y
+     cerrar el menú en el teléfono. Con las transiciones de página el script
+     se vuelve a ejecutar en cada navegación: el AbortController retira los
+     oyentes de la página anterior. */
+  document.addEventListener('astro:page-load', () => {
+    const cab = document.querySelector<HTMLElement>('[data-cab]');
+    if (!cab) return;
+    const boton = cab.querySelector<HTMLButtonElement>('.cab-menu');
+    const control = new AbortController();
+    const { signal } = control;
+
+    const abierta = () => cab.classList.contains('cab--abierta');
+    const cerrar = () => {
+      cab.classList.remove('cab--abierta');
+      boton?.setAttribute('aria-expanded', 'false');
+      boton?.setAttribute('aria-label', 'Abrir menú');
+    };
+
+    boton?.addEventListener('click', () => {
+      const abrir = !abierta();
+      cab.classList.toggle('cab--abierta', abrir);
+      boton.setAttribute('aria-expanded', String(abrir));
+      boton.setAttribute('aria-label', abrir ? 'Cerrar menú' : 'Abrir menú');
+    }, { signal });
+    // Un enlace del menú lleva a otra parte: el panel no se queda abierto.
+    cab.querySelectorAll('.cab-nav a').forEach((a) => a.addEventListener('click', cerrar, { signal }));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && abierta()) { cerrar(); boton?.focus(); }
+    }, { signal });
+    window.addEventListener('resize', () => { if (window.innerWidth > 1000 && abierta()) cerrar(); }, { signal });
+
+    if (cab.classList.contains('cab--video')) {
+      let encolado = false;
+      const decidir = () => { encolado = false; cab.classList.toggle('cab--bajada', window.scrollY > 24); };
+      window.addEventListener('scroll', () => {
+        if (!encolado) { encolado = true; requestAnimationFrame(decidir); }
+      }, { passive: true, signal });
+      decidir();
+    }
+
+    document.addEventListener('astro:before-swap', () => control.abort(), { once: true });
+  });
+</script>
+
 <style is:global>
-  .site-hdr {
-    background: var(--ink);
-    color: var(--white);
-    padding-block: clamp(14px, 1.8vw, 22px);
-    position: sticky;
-    top: 0;
-    z-index: 50;
+  .cab {
+    --cab-alto: 112px;
+    position: sticky; top: 0; z-index: 50;
+    color: var(--ink);
+    transition: background-color .3s var(--ease), box-shadow .3s var(--ease), color .3s var(--ease);
   }
-  /* Las anclas se ocultan en móvil: el Diagnóstico y la marca bastan para
-     volver, y no vale la pena un menú desplegable en páginas que ya son un
-     único documento. El blog se queda: es otra página, no un ancla. */
-  @media (max-width: 860px) {
-    .site-hdr .nav-links li:not(.nav-keep) {
-      display: none;
-    }
+  /* En la home va por encima del vídeo: fija, sin ocupar sitio. */
+  .cab--video { position: fixed; left: 0; right: 0; color: var(--crema); }
+  /* Sólida: la de las interiores, la de la home al bajar y la de cualquier
+     página con el menú del teléfono abierto. */
+  .cab--solida, .cab--bajada, .cab--abierta {
+    --cab-alto: 76px;
+    background: var(--white); color: var(--ink);
+    box-shadow: 0 1px 0 var(--rule), 0 8px 24px rgba(18,47,53,.08);
   }
-  @media (max-width: 520px) {
-    .site-hdr .nav-mail {
-      display: none;
+
+  .cab-in {
+    max-width: var(--maxw); margin: 0 auto; padding: 0 var(--pad);
+    height: var(--cab-alto);
+    display: flex; align-items: center; gap: clamp(1rem, 2vw, 2rem);
+    transition: height .3s var(--ease);
+  }
+
+  /* El logotipo es un dibujo: no se escribe con ninguna fuente (manual de
+     marca). Va como máscara para que un solo archivo sirva en crema sobre
+     el vídeo y en el principal sobre blanco: el color es el del texto. */
+  .cab-marca { position: relative; flex: none; display: block; color: inherit; margin-right: auto; }
+  .cab-logo {
+    display: block; background: currentColor;
+    -webkit-mask: no-repeat left center / contain; mask: no-repeat left center / contain;
+    transition: opacity .3s var(--ease);
+  }
+  .cab-logo--claim {
+    -webkit-mask-image: url('/images/logo/melero-realty-principal.svg');
+    mask-image: url('/images/logo/melero-realty-principal.svg');
+    height: clamp(52px, 5vw, 70px); aspect-ratio: 972.5 / 311.8;
+  }
+  .cab-logo--corto {
+    -webkit-mask-image: url('/images/logo/melero-realty-sin-claim.svg');
+    mask-image: url('/images/logo/melero-realty-sin-claim.svg');
+    height: 38px; aspect-ratio: 972.5 / 291.4;
+    position: absolute; left: 0; top: 50%; translate: 0 -50%; opacity: 0;
+  }
+  /* Al volverse sólida, el logotipo con claim deja paso al corto: a la
+     altura de la barra baja, «Marketing inmobiliario» no se leería. */
+  .cab--solida .cab-logo--claim, .cab--bajada .cab-logo--claim, .cab--abierta .cab-logo--claim { opacity: 0; }
+  .cab--solida .cab-logo--corto, .cab--bajada .cab-logo--corto, .cab--abierta .cab-logo--corto { opacity: 1; }
+  .cab--solida .cab-marca, .cab--bajada .cab-marca, .cab--abierta .cab-marca { width: calc(38px * 972.5 / 291.4); }
+  .cab--solida .cab-logo--claim, .cab--bajada .cab-logo--claim, .cab--abierta .cab-logo--claim { height: 38px; }
+
+  .cab-nav { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.75rem); }
+
+  /* La píldora del menú: blanca en los dos estados, con los enlaces
+     separados por filetes. Sobre blanco la marca un filete en lugar de la
+     sombra que la despega del vídeo. */
+  .cab-enlaces {
+    display: flex; list-style: none; margin: 0; padding: 0;
+    background: var(--white); border-radius: 999px; overflow: hidden;
+    box-shadow: 0 4px 18px rgba(13,34,38,.18);
+    border: 1px solid transparent;
+  }
+  .cab--solida .cab-enlaces, .cab--bajada .cab-enlaces { box-shadow: none; border-color: var(--rule); }
+  .cab-enlaces li + li { border-left: 1px solid var(--rule); }
+  .cab-enlaces a {
+    display: block; padding: .8rem clamp(1rem, 1.5vw, 1.6rem);
+    font-size: .95rem; font-weight: 600; color: var(--ink); text-decoration: none;
+    transition: background-color .2s var(--ease), color .2s var(--ease);
+  }
+  .cab-enlaces a:hover { background: var(--paper); color: var(--ink); }
+
+  .cab-contacto { display: flex; align-items: center; gap: clamp(.9rem, 1.6vw, 1.4rem); padding-left: clamp(1rem, 2vw, 1.75rem); border-left: 1px solid currentColor; border-left-color: color-mix(in srgb, currentColor 25%, transparent); }
+  .cab-tel { display: flex; align-items: center; gap: .7rem; color: inherit; text-decoration: none; }
+  .cab-tel:hover { color: inherit; }
+  /* Arena con el icono en el principal: 7.19:1. */
+  .cab-tel-ico {
+    display: grid; place-items: center; flex: none;
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--arena); color: var(--ink);
+    transition: transform .2s var(--ease);
+  }
+  .cab-tel:hover .cab-tel-ico { transform: scale(1.06); }
+  .cab-tel-txt { display: flex; flex-direction: column; line-height: 1.2; }
+  .cab-tel-txt b { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+  .cab-tel-txt small { font-size: .75rem; font-weight: 400; opacity: .85; white-space: nowrap; }
+  /* Sobre el vídeo, una sombra suave para que el crema no dependa del
+     fotograma que pase por detrás. */
+  .cab--video:not(.cab--bajada):not(.cab--abierta) .cab-tel-txt { text-shadow: 0 1px 10px rgba(13,34,38,.55); }
+
+  /* El principal sobre arena: 7.19:1. */
+  .cab-btn {
+    flex: none; display: inline-flex; align-items: center;
+    padding: .8rem 1.35rem; border-radius: 999px;
+    background: var(--arena); color: var(--ink);
+    font-size: .9rem; font-weight: 700; text-decoration: none; white-space: nowrap;
+    transition: background-color .2s var(--ease), color .2s var(--ease);
+  }
+  .cab-btn:hover { background: var(--ink); color: var(--crema); }
+  .cab--video:not(.cab--bajada):not(.cab--abierta) .cab-btn:hover { background: var(--crema); color: var(--ink); }
+
+  .cab :focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+  .cab-enlaces a:focus-visible { outline: 2px solid var(--teal); outline-offset: -4px; }
+
+  .cab-menu { display: none; }
+
+  /* Entre 1000 y 1180 px sobra el horario: el teléfono se queda solo. */
+  @media (max-width: 1180px) {
+    .cab-tel-txt small { display: none; }
+    .cab-enlaces a { padding-inline: .9rem; font-size: .9rem; }
+  }
+
+  /* Teléfono y tableta: el menú pasa a un panel que se despliega bajo la
+     barra, con el teléfono y el botón al pie. */
+  @media (max-width: 1000px) {
+    .cab { --cab-alto: 76px; }
+    .cab-logo--claim { height: 46px; }
+    .cab-menu {
+      display: grid; place-content: center; gap: 6px;
+      width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%;
+      background: transparent; color: inherit; cursor: pointer;
     }
+    .cab-menu span { display: block; width: 22px; height: 2px; background: currentColor; transition: transform .25s var(--ease); }
+    .cab--abierta .cab-menu span:first-child { transform: translateY(4px) rotate(45deg); }
+    .cab--abierta .cab-menu span:last-child { transform: translateY(-4px) rotate(-45deg); }
+
+    .cab-nav {
+      position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 1.25rem;
+      padding: .5rem var(--pad) 1.5rem;
+      background: var(--white); color: var(--ink);
+      box-shadow: 0 16px 24px rgba(18,47,53,.12);
+      visibility: hidden; opacity: 0; translate: 0 -8px;
+      transition: opacity .25s var(--ease), translate .25s var(--ease), visibility 0s .25s;
+    }
+    .cab--abierta .cab-nav { visibility: visible; opacity: 1; translate: 0 0; transition: opacity .25s var(--ease), translate .25s var(--ease); }
+    .cab-enlaces { flex-direction: column; border-radius: 0; box-shadow: none; border: 0; background: none; }
+    .cab-enlaces li + li { border-left: 0; border-top: 1px solid var(--rule); }
+    .cab-enlaces a { padding: 1rem 0; font-size: 1.05rem; }
+    .cab-enlaces a:hover { background: none; color: var(--teal); }
+    .cab-contacto { flex-wrap: wrap; justify-content: space-between; padding: 1.25rem 0 0; border-left: 0; border-top: 1px solid var(--rule); }
+    .cab-tel-txt small { display: block; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cab, .cab-in, .cab-logo, .cab-nav, .cab-menu span { transition: none !important; }
   }
 </style>

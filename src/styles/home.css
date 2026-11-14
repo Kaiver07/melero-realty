@@ -52,7 +52,7 @@ body{
   margin:0;
   background:var(--white);
   color:var(--text);
-  font-family:"Poppins","Helvetica Neue",Arial,sans-serif;
+  font-family:"DM Sans","Helvetica Neue",Arial,sans-serif;
   font-weight:400;
   font-size:16px;
   line-height:1.65;
@@ -65,7 +65,7 @@ p{margin:0}
 a{color:inherit}
 ul,ol{margin:0;padding:0;list-style:none}
 :focus-visible{outline:2px solid var(--teal);outline-offset:3px}
-.hero :focus-visible,.band :focus-visible,.proc :focus-visible,
+.portada :focus-visible,.band :focus-visible,.proc :focus-visible,
 .cta :focus-visible,.footer :focus-visible{outline-color:var(--white)}
 
 /* ---------- utilidades ---------- */
@@ -76,8 +76,8 @@ ul,ol{margin:0;padding:0;list-style:none}
   display:flex;align-items:center;gap:.7rem;
 }
 .eyebrow::before{content:"";width:26px;height:1px;background:var(--teal);flex:none}
-.eyebrow--dark{color:var(--muted-dark)}
-.eyebrow--dark::before{background:var(--white);opacity:.5}
+.eyebrow--dark{color:var(--arena)}
+.eyebrow--dark::before{background:var(--arena);opacity:.7}
 .lead{font-size:clamp(1rem,1.4vw,1.0625rem);line-height:1.68;color:var(--muted);max-width:62ch;font-weight:400}
 .section{padding-block:clamp(72px,10vw,150px)}
 .section--white{background:var(--white)}
@@ -108,214 +108,6 @@ ul,ol{margin:0;padding:0;list-style:none}
 .btn:active{transform:scale(.985)}
 .btn svg{width:15px;height:15px;flex:none}
 
-/* ==========================================================================
-   1 · HERO EN TARJETA — margen blanco + radio 4px
-   ========================================================================== */
-.hero{
-  position:relative;
-  /* A sangre. Antes iba con un margen de 10-18px y esquinas redondeadas, y
-     eso dibujaba un marco blanco alrededor de la portada que la hacía
-     parecer una tarjeta metida en la página en vez de la página misma. */
-  overflow:hidden;                 /* contiene la palabra gigante */
-  background:var(--ink);
-  min-height:min(90vh,880px);
-  display:flex;flex-direction:column;
-}
-.hero-media{position:absolute;inset:0;z-index:0}
-.hero-media img{width:100%;height:100%;object-fit:cover;filter:var(--photo)}
-/* El velo hacía dos trabajos a la vez: teñir la foto de verde y garantizar
-   que el texto se leyera. Al aligerarlo para que la fotografía respirase, el
-   párrafo de la derecha caía a 4.45:1, por debajo del mínimo AA de 4.5.
-   Ahora están separados: este tinte es suave y solo da unidad cromática, y
-   la legibilidad la resuelve .hero-scrim, una sombra local bajo el texto. */
-.hero-veil{
-  position:absolute;inset:0;z-index:1;
-  background:
-    linear-gradient(180deg,rgba(18,47,53,.42) 0%,rgba(18,47,53,.06) 30%,rgba(18,47,53,.10) 55%,rgba(18,47,53,.30) 82%,rgba(18,47,53,.44) 100%),
-    linear-gradient(90deg,rgba(18,47,53,.22) 0%,rgba(18,47,53,0) 55%);
-}
-/* Sombra local: cubre solo la franja inferior donde viven el titular, el
-   párrafo y la píldora. Arranca transparente para que no se vea el borde. */
-.hero-scrim{
-  position:absolute;inset:auto 0 0 0;height:62%;z-index:1;pointer-events:none;
-  background:linear-gradient(180deg,
-    rgba(13,34,38,0) 0%,
-    rgba(13,34,38,.30) 38%,
-    rgba(13,34,38,.62) 62%,
-    rgba(13,34,38,.80) 82%,
-    rgba(13,34,38,.86) 100%);
-}
-.hero > .nav{
-  position:relative;z-index:2;color:var(--white);
-  padding:clamp(18px,2.6vw,34px) clamp(18px,3.4vw,52px) 0;
-}
-.hero-inner{
-  position:relative;z-index:2;
-  display:flex;flex-direction:column;flex:1;
-  padding:0 clamp(18px,3.4vw,52px) clamp(24px,3.2vw,44px);
-  color:var(--white);
-}
-
-/* nav */
-
-.nav-links a:hover,.nav-mail:hover{opacity:1}
-.nav-mail{border-bottom:1px solid rgba(255,255,255,.4);padding-bottom:2px}
-/* En movil las anclas sobran (la pagina se recorre bajando), pero el blog
-   es otra pagina y sin este enlace solo se llegaba a el desde el pie. */
-@media (max-width:860px){.nav-links li:not(.nav-keep){display:none}}
-@media (max-width:520px){
-  /* La marca sube a un tamano legible y el correo se va: a .6rem eran 9,6px
-     reales, ilegibles y con 19px de alto tactil. Sigue estando en el pie, en
-     el cierre y en la cabecera de las paginas interiores. */
-  .nav-brand{letter-spacing:.2em;font-size:.74rem}
-  .nav-mail{display:none}
-}
-
-/* palabra gigante — Poppins 700, -.02em, blanco a baja opacidad */
-.hero-spacer{flex:1;min-height:clamp(40px,12vh,150px)}
-.hero-word{
-  display:flex;justify-content:space-between;width:100%;
-  font-weight:700;
-  font-size:clamp(3rem,15.5vw,11rem);
-  letter-spacing:-.02em;
-  line-height:.86;
-  color:rgba(255,255,255,.22);
-  user-select:none;pointer-events:none;
-  /* El margen negativo hace que las letras solapen el titular, que es grande
-     y pesado y lo aguanta. Al -.13em se metían también 12px dentro de la
-     primera línea del párrafo de apoyo, que es texto pequeño y ahí el solape
-     solo genera ruido. Al -.04em sigue montando sobre el titular y libera
-     el párrafo. Se elige separación limpia en vez de solape mínimo: el
-     párrafo está bottom-aligned con el titular y solo 11px por debajo, así
-     que no caben las dos cosas. Entre rozar el titular y meterse en el
-     texto pequeño, mejor un margen positivo que aguante en cualquier ancho. */
-  margin-bottom:.02em;
-}
-.hero-word span{display:block}
-/* el tracking negativo deja aire muerto tras la última letra: se recupera */
-.hero-word span:last-child{margin-right:-.02em}
-
-/* copy */
-/* Desde el 20/10/2026 el titular es corto («Deja de contestar a
-   curiosos.») y va más grande: es frase de cinco palabras, no una
-   definición. text-wrap:balance lo parte en dos líneas parecidas en vez de
-   dejar «curiosos.» sola. El párrafo de apoyo ya no va a la derecha: ese
-   sitio es de la bandeja. */
-.hero-copy{position:relative}
-.hero-copy h1{
-  font-size:clamp(2rem,4.3vw,3.9rem);font-weight:600;letter-spacing:-.035em;
-  line-height:1.02;color:var(--white);text-wrap:balance;max-width:16ch;
-}
-.hero-support{
-  margin-top:clamp(.9rem,1.4vw,1.25rem);
-  font-size:clamp(.95rem,1.15vw,1.0625rem);line-height:1.65;font-weight:300;
-  color:rgba(255,255,255,.92);max-width:54ch;
-}
-
-/* ---------- PORTADA EN DOS COLUMNAS + BANDEJA DE EJEMPLO ----------
-   La bandeja es la única cosa llamativa de la portada: una lista de
-   contactos donde los del portal se apagan y el de la landing propia queda
-   marcado. Lleva esquinas redondeadas, la otra excepción junto a la
-   píldora: con esquinas rectas parecía un bloque pegado al lado de la
-   portada (Yerai, 20/10/2026). 18px, el mismo radio que la píldora cuando
-   se pliega en el teléfono. Sin sombras. */
-.hero-cuerpo{
-  display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,400px);
-  gap:clamp(2rem,4vw,4.5rem);align-items:end;
-}
-.hero-izq{min-width:0}
-@media (max-width:1100px){
-  .hero-cuerpo{grid-template-columns:1fr;gap:clamp(1.8rem,5vw,2.6rem)}
-  .bandeja{max-width:520px}
-}
-/* Con la bandeja debajo, la portada crece y el titular sube hasta la parte
-   clara de la foto, donde la sombra del 62 % ya no llega. En móvil no hace
-   falta: allí el texto va sobre la plancha, fuera de la foto. */
-@media (min-width:701px) and (max-width:1100px){.hero-scrim{height:90%}}
-
-.bandeja{margin:0;color:var(--text)}
-.bx-cab{
-  background:var(--white);padding:.85rem 1.1rem;border-radius:18px 18px 0 0;
-  font-size:.8rem;font-weight:600;letter-spacing:-.005em;
-  border-bottom:1px solid var(--rule);
-}
-.bx-lista{list-style:none;margin:0;padding:0;background:var(--white);border-radius:0 0 18px 18px;overflow:hidden}
-.bx-msg{padding:.8rem 1.1rem .85rem;border-bottom:1px solid var(--rule)}
-.bx-msg:last-child{border-bottom:0}
-.bx-msg{color:var(--text)}
-.bx-meta{display:flex;justify-content:space-between;gap:1rem;font-size:.72rem;color:var(--muted)}
-.bx-origen{font-weight:600}
-.bx-texto{margin-top:.2rem;font-size:.9rem;line-height:1.45;color:inherit}
-/* El estado final, que es también el de partida sin animación. Se apagan
-   con color y no con opacidad: al 60 % de opacidad la hora caía a 2.54:1.
-   --muted-apagado da 4.68:1 en el texto y en la hora (ui-ux-pro-max,
-   prioridad 1: contraste 4.5:1). */
-.bx-msg--curioso,.bx-msg--curioso .bx-meta{color:var(--muted-apagado)}
-.bx-msg--lead{
-  background:rgba(36,118,123,.07);
-  box-shadow:inset 3px 0 0 var(--teal);
-}
-.bx-msg--lead .bx-origen{color:var(--teal)}
-.bx-tag{margin-top:.4rem;font-size:.72rem;font-weight:600;color:var(--teal)}
-.bx-nota{margin-top:.6rem;font-size:.75rem;color:var(--muted-dark)}
-/* En el teléfono la portada ya es larga: con cuatro mensajes se entiende. */
-@media (max-width:700px){.bx-msg:nth-child(5){display:none}}
-
-/* Un solo momento de movimiento, al cargar y después de que entre el
-   titular: los mensajes llegan uno a uno, los curiosos se apagan y el lead
-   se marca. Sólo CSS, sin observadores: no hay nada que pueda quedarse a
-   medias. La entrada mueve la opacidad y el apagado el color, así que no
-   se pisan. */
-@media (prefers-reduced-motion: no-preference){
-  .bx-msg{animation:bx-llega .5s var(--ease) both;animation-delay:calc(.9s + var(--i) * .2s)}
-  .bx-msg--curioso{
-    animation:bx-llega .5s var(--ease) both,bx-apaga .7s ease both;
-    animation-delay:calc(.9s + var(--i) * .2s),2.5s;
-  }
-  .bx-msg--lead{
-    animation:bx-llega .5s var(--ease) both,bx-marca .7s ease both;
-    animation-delay:calc(.9s + var(--i) * .2s),2.5s;
-  }
-  .bx-tag{animation:bx-aparece .4s ease 2.8s both}
-}
-@keyframes bx-llega{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-@keyframes bx-apaga{from{color:var(--text)}to{color:var(--muted-apagado)}}
-@keyframes bx-marca{
-  from{background-color:rgba(36,118,123,0);box-shadow:inset 0 0 0 var(--teal)}
-  to{background-color:rgba(36,118,123,.07);box-shadow:inset 3px 0 0 var(--teal)}
-}
-@keyframes bx-aparece{from{opacity:0}to{opacity:1}}
-
-/* ---------- PRUEBA: la reseña y los partners, dentro de la portada ----------
-   Rehecho el 20/10/2026: antes eran tres líneas sueltas de letra pequeña
-   (etiqueta, logotipos y cita a .82rem) que se leían como relleno. Ahora es
-   un bloque propio, separado del botón por un filete: la frase de Damián a
-   tamaño de lectura a la izquierda, y los partners a la derecha. Cada
-   logotipo en su tarjeta blanca, todas iguales, con radio de 12px (la otra
-   excepción a las esquinas rectas junto a la píldora y la tarjeta del
-   muro). */
-.socios{
-  display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;
-  gap:1.25rem clamp(1.5rem,3vw,2.75rem);
-  margin-top:clamp(1.6rem,2.8vw,2.4rem);padding-top:clamp(1.2rem,2vw,1.6rem);
-  border-top:1px solid rgba(255,255,255,.14);
-}
-@media (max-width:700px){.socios{grid-template-columns:1fr}}
-.socios-t{margin-bottom:.55rem;font-size:.75rem;color:var(--muted-dark)}
-.socios-logos{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;margin:0;padding:0}
-.socio{
-  display:flex;align-items:center;justify-content:center;
-  width:156px;height:54px;padding:0 14px;
-  background:var(--white);border-radius:12px;
-  transition:opacity .2s var(--ease);
-}
-.socio img{max-height:34px;width:auto;max-width:100%}
-a.socio:hover{opacity:.85}
-.socios-cita{margin:0;max-width:46ch}
-.socios-cita p{font-size:clamp(.95rem,1.1vw,1.05rem);line-height:1.5;font-weight:300;color:var(--white)}
-.socios-cita footer{margin-top:.55rem;font-size:.78rem;color:var(--muted-dark)}
-.socios-cita footer strong{font-weight:600;color:var(--white)}
-
 /* ---------- 2 · PÍLDORA DE FILTROS ----------
    «Reservar diagnóstico» es ~2,5× más largo que la etiqueta corta anterior:
    píldora a 980px, se recorta el tracking del botón a .12em y se estrecha el
@@ -340,7 +132,7 @@ a.socio:hover{opacity:.85}
 .ab-field:first-child{border-left:0}
 .ab-field{transition:background-color .2s var(--ease)}
 .ab-field:hover{background:rgba(18,47,53,.045)}
-.ab-field:focus-within{background:rgba(36,118,123,.07)}
+.ab-field:focus-within{background:rgba(43,102,112,.07)}
 /* Etiqueta accesible sin ocupar sitio: el rótulo visible es la primera
    opción del select, pero un lector de pantalla necesita un <label> real. */
 .solo-lectores{
@@ -1078,60 +870,6 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   }
 }
 
-/* ==========================================================================
-   HERO EN MÓVIL — la foto no se recorta
-   A 375 px el contenedor del hero tiene ratio 0.49 y la foto 1.78: con
-   object-fit:cover solo sobrevivía el 27% del ancho, la franja central. Se
-   perdían el ventanal por la izquierda y el estabilizador por la derecha,
-   que son justo los dos elementos que hacen que la imagen signifique algo.
-   Ningún recorte vertical los conserva: están en extremos opuestos.
-   Por eso en móvil la imagen pasa a ser una banda 16:9 completa y el texto
-   baja debajo, sobre la plancha oscura del propio hero.
-   ========================================================================== */
-@media (max-width:700px){
-  .hero{min-height:0}
-  /* la imagen entra en el flujo, ocupando todo el ancho y sin recortar */
-  .hero-media{position:relative;inset:auto;width:100%;aspect-ratio:16/9}
-  .hero-media img{height:100%}
-  /* El velo cubre solo la banda. La última parada es el color de la plancha,
-     no una transparencia: así el pie de la foto se funde con el fondo y no
-     queda un corte duro entre imagen y texto. Sin esto se leían tres bandas
-     apiladas y la foto parecía un rectángulo pegado. */
-  .hero-veil{
-    inset:0 0 auto 0;height:auto;aspect-ratio:16/9;
-    background:linear-gradient(180deg,
-      rgba(18,47,53,.44) 0%,
-      rgba(18,47,53,.06) 38%,
-      rgba(18,47,53,.10) 60%,
-      rgba(18,47,53,.70) 90%,
-      var(--ink) 100%);
-  }
-  .hero-scrim{display:none}
-  .hero-spacer{display:none}
-  /* La nav va ENCIMA de la foto, como en escritorio: una banda menos.
-     El techo de la vivienda está en sombra, así que el texto blanco da
-     9.19:1 ahí sin necesidad de oscurecer la imagen. */
-  .hero > .nav{position:absolute;top:0;left:0;right:0;z-index:3;padding-bottom:0}
-  .hero-inner{padding-top:clamp(6px,2vw,14px)}
-  /* La palabra gigante ya no cruza una foto clara, sino la plancha oscura.
-     Al .16 daba 1.65:1 contra el fondo: invisible, no sutil. Al .30 da 2.6:1,
-     que se lee como marca de agua sin competir con el titular. */
-  .hero-word{font-size:clamp(2.9rem,14vw,5rem);color:rgba(255,255,255,.30)}
-}
-
-/* Kicker del hero. En escritorio el titular llega acompañado de la palabra
-   MELERO, el párrafo lateral y todo el ancho de la tarjeta: se entiende el
-   registro. En móvil el primer pantallazo es mucho más estrecho, así que
-   conviene decir la categoría antes que la promesa. Solo ahí. */
-.hero-kicker{display:none}
-@media (max-width:700px){
-  .hero-kicker{
-    display:block;margin-bottom:.85rem;
-    font-size:.74rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
-    color:var(--muted-dark);
-  }
-}
-
 /* Quién atiende la videollamada, junto al CTA final. */
 .cta-who{
   display:flex;align-items:center;gap:clamp(1rem,1.6vw,1.4rem);
@@ -1304,191 +1042,74 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   .ab-aviso,.ab-field{transition:none}
 }
 
+
 /* ==========================================================================
-   PORTADA «MURO EN VIVO» (la de la home desde el 21/10/2026)
-   La plancha verde. De fondo, hasta el borde de la pantalla, la foto del
-   piso y columnas de mensajes de curioso que suben sin parar; encima, la
-   única ficha blanca, el lead que sí encaja. El texto y la ficha, dentro de
-   la caja de la página (--maxw): en pantallas anchas no se desparrama.
-   Salió de comparar en una página temporal la actual y ocho versiones más
-   (docs/prompt-diseno.md). Yerai la eligió; «el formato cuadrado no me
-   gusta»: por eso los fondos no van en un panel.
+   PORTADA CON VÍDEO (desde el 14/11/2026; Portada.astro)
+   El vídeo a sangre, con la cabecera transparente encima. El texto va a la
+   izquierda, dentro de la caja de la página (--maxw), sobre un velo del
+   principal que es más denso donde está el texto: el crema y la píldora no
+   dependen del fotograma que pase por detrás. Las tomas son luminosas
+   (cielos, fachadas blancas), por eso el velo no baja de .55 bajo el texto.
    ========================================================================== */
-.hero--muro{min-height:min(94vh,920px)}
-.hero--muro > .nav,.hero--muro .hero-inner{
-  width:100%;max-width:var(--maxw);margin-inline:auto;
-  padding-left:var(--pad);padding-right:var(--pad);
+.portada{
+  position:relative;isolation:isolate;overflow:hidden;
+  min-height:max(100svh,640px);
+  display:flex;align-items:center;
+  background:var(--ink);color:var(--crema);
 }
-/* El menú, por encima de los fondos. */
-.hero--muro > .nav{z-index:6}
-.hero--muro .hero-inner{padding-top:clamp(40px,6vw,96px);padding-bottom:clamp(48px,6vw,96px)}
-.hero--muro h1{
-  margin:0;color:var(--white);
-  font-size:clamp(2.4rem,5.2vw,4.6rem);font-weight:600;letter-spacing:-.035em;line-height:1.02;
+.portada-fondo{position:absolute;inset:0;z-index:-1}
+.portada-poster,.portada-video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+}
+/* El vídeo aparece sobre el fotograma cuando ya se reproduce: sin
+   parpadeo negro mientras carga. */
+.portada-video{opacity:0;transition:opacity .8s var(--ease)}
+.portada--video .portada-video{opacity:1}
+.portada-velo{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,rgba(18,47,53,.86) 0%,rgba(18,47,53,.72) 38%,rgba(18,47,53,.30) 72%,rgba(18,47,53,.18) 100%),
+    linear-gradient(180deg,rgba(13,34,38,.55) 0%,rgba(13,34,38,0) 26%,rgba(13,34,38,0) 70%,rgba(13,34,38,.45) 100%);
+}
+.portada-in{
+  width:100%;max-width:var(--maxw);margin-inline:auto;
+  /* Arriba deja sitio a la cabecera, que va fija por encima. */
+  padding:calc(112px + clamp(24px,4vw,56px)) var(--pad) clamp(56px,7vw,104px);
+}
+/* El antetítulo, en arena: 7.19:1 sobre el principal. */
+.portada-kicker{
+  display:flex;align-items:center;gap:.7rem;margin-bottom:clamp(1rem,1.6vw,1.4rem);
+  font-size:.78rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--arena);
+}
+.portada-kicker::before{content:"";width:28px;height:1px;background:currentColor;flex:none}
+.portada h1{
+  max-width:15ch;color:var(--crema);
+  font-size:clamp(2.6rem,6vw,5.4rem);font-weight:700;letter-spacing:-.035em;line-height:1;
   text-wrap:balance;
 }
-.hero--muro .hero-support{margin-top:clamp(1rem,1.6vw,1.4rem);max-width:46ch}
-.hero--muro .socios{border-top:0;padding-top:0;margin-top:clamp(1.8rem,3vw,2.6rem)}
-.socios--solo{grid-template-columns:auto}
+.portada-apoyo{
+  margin-top:clamp(1.1rem,1.8vw,1.6rem);max-width:52ch;
+  font-size:clamp(1rem,1.25vw,1.15rem);font-weight:400;line-height:1.6;
+  color:color-mix(in srgb,var(--crema) 90%,transparent);
+}
+.portada .ab-note{color:color-mix(in srgb,var(--crema) 88%,transparent)}
+.portada .ab-note strong,.portada .ab-planes{color:var(--crema)}
+
+@media (max-width:1000px){
+  .portada-in{padding-top:calc(76px + clamp(32px,8vw,64px))}
+}
+/* En vertical el texto ocupa casi todo el ancho: el velo se vuelve
+   uniforme para que ninguna línea caiga sobre la parte clara. */
 @media (max-width:700px){
-  .hero--muro > .nav{position:relative;padding-bottom:12px}
-}
-
-.hero-inner.mv{
-  position:static;display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,400px);
-  gap:clamp(2rem,6vw,7rem);align-items:center;align-content:center;
-}
-/* El texto y la ficha, por encima de los fondos. */
-.mv-texto,.mv-escena .senal{position:relative;z-index:5}
-/* La píldora va en la columna del texto: en dos filas, los tres campos
-   arriba y el botón a lo ancho debajo. */
-.mv .actionbar{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;border-radius:22px;padding:6px;max-width:640px}
-.mv .ab-field{border-left:0;border-top:0;border-radius:16px;background:rgba(18,47,53,.04);padding:.85rem .95rem}
-.mv .ab-btn{grid-column:1 / -1;width:100%;padding:1.05rem 1rem}
-
-/* Los fondos se colocan respecto a la portada entera, no a la columna: la
-   columna y la caja del texto son estáticas a propósito. Empiezan donde
-   termina el texto y llegan al borde derecho de la pantalla. */
-.mv-escena{position:static}
-.mv-foto,.mv-muro{position:absolute;top:0;bottom:0;left:40%;right:0;pointer-events:none}
-/* Desde el 22/10/2026 la foto empieza más a la izquierda, por detrás del
-   texto, y casi no se recorta: la caja tiene casi la proporción de la foto.
-   Se funde despacio hacia el texto y hacia abajo, para que no corte en
-   seco contra la sección siguiente. Detrás del texto queda muy oscura: el
-   blanco sigue leyéndose igual. */
-.hero .mv-foto{left:14%}
-.mv-foto{
-  z-index:0;
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 22%,#000 48%),linear-gradient(180deg,#000 72%,transparent);
-  -webkit-mask-composite:source-in;
-  mask-image:linear-gradient(90deg,transparent 0,rgba(0,0,0,.35) 22%,#000 48%),linear-gradient(180deg,#000 72%,transparent);
-  mask-composite:intersect;
-}
-.mv-foto img{width:100%;height:100%;object-fit:cover}
-.mv-foto::after{content:"";position:absolute;inset:0;background:rgba(18,47,53,.58)}
-.mv-muro{
-  z-index:1;overflow:hidden;
-  /* Se desvanece hacia el texto, hacia abajo y bajo el menú: con los
-     mensajes detrás, el blanco del menú no se leía. */
-  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 30%),linear-gradient(180deg,transparent 0,transparent 90px,#000 170px,#000 80%,transparent);
-  -webkit-mask-composite:source-in;
-  mask-image:linear-gradient(90deg,transparent 0,#000 30%),linear-gradient(180deg,transparent 0,transparent 90px,#000 170px,#000 80%,transparent);
-  mask-composite:intersect;
-}
-/* El muro entero, girado de una vez. Las columnas no recortan: el que
-   recorta es .mv-muro, con su degradado. */
-/* Columnas del ancho de su mensaje más largo y pegadas unas a otras (22/10/
-   2026: con columnas iguales quedaban huecos grandes entre mensajes). Hay
-   más columnas de las que caben: lo que sobra lo recorta .mv-muro. */
-.mv-giro{
-  position:absolute;inset:-12% -40% -12% 0;
-  display:flex;gap:8px;
-  transform:rotate(-4deg);transform-origin:0 50%;
-}
-.mv-col{flex:none}
-/* Blanco al 60 % sobre la foto oscurecida: se lee, pero no compite. El
-   fondo es la plancha casi opaca: con uno transparente, los marcos claros
-   de las ventanas de la foto cruzaban los mensajes y parecían rotos. */
-.mv-pista span{
-  display:block;width:max-content;max-width:15rem;margin-bottom:8px;padding:.55rem .85rem;border-radius:12px;
-  background:rgba(22,55,61,.82);border:1px solid rgba(255,255,255,.1);
-  font-size:.84rem;color:rgba(255,255,255,.6);
-}
-/* Cada columna sube a su ritmo y empieza en otro punto. La lista va tres
-   veces seguida y sube un tercio: al llegar, vuelve a empezar sin salto, y
-   las otras dos copias tapan siempre el fondo (con dos, al final de cada
-   vuelta quedaba un hueco abajo). Con
-   movimiento reducido se quedan quietas. Sin botón de pausa, por decisión
-   de Yerai (21/10/2026), aunque la norma (WCAG 2.2.2) lo pide para lo que
-   se mueve solo más de 5 segundos. */
-@media (prefers-reduced-motion: no-preference){
-  /* Con doce frases el recorrido es el doble: el doble de tiempo, para que
-     suban a la misma velocidad que antes. */
-  .mv-pista{animation:mv-sube calc(52s + var(--c) * 12s) linear infinite;animation-delay:calc(var(--c) * -9s)}
-}
-.en-pausa .mv-pista{animation-play-state:paused}
-@keyframes mv-sube{from{transform:translateY(0)}to{transform:translateY(-33.3333%)}}
-.mv-escena .senal{width:100%}
-
-/* Móvil y tableta: los fondos pasan a una banda arriba, detrás del menú, y
-   el texto empieza debajo. */
-@media (max-width:900px){
-  .hero--muro{min-height:0}
-  .hero--muro .hero-inner.mv{grid-template-columns:1fr;padding-top:250px}
-  .mv-foto,.mv-muro{left:0;bottom:auto;height:320px}
-  .hero .mv-foto{left:0}
-  .mv-foto{-webkit-mask-image:linear-gradient(180deg,#000 45%,transparent);mask-image:linear-gradient(180deg,#000 45%,transparent)}
-  .mv-muro{
-    -webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 56px,#000 110px,#000 45%,transparent);
-    mask-image:linear-gradient(180deg,transparent 0,transparent 56px,#000 110px,#000 45%,transparent);
+  .portada{align-items:flex-end}
+  /* A 390 px el antetítulo con su tracking no cabe en una línea y el
+     filete se quedaba descolgado a media altura: más estrecho y sin él. */
+  .portada-kicker{font-size:.7rem;letter-spacing:.14em}
+  .portada-kicker::before{display:none}
+  .portada-velo{
+    background:linear-gradient(180deg,rgba(18,47,53,.55) 0%,rgba(18,47,53,.62) 40%,rgba(18,47,53,.88) 100%);
   }
 }
-@media (max-width:900px){.mv-giro{inset:-20% -60% -20% -4%}}
-@media (max-width:620px){
-  .mv .actionbar{grid-template-columns:1fr 1fr}
-  .mv .ab-field:first-child{grid-column:1 / -1}
-}
-
-/* ---------- la señal: la ficha del lead ----------
-   Rehecha el 21/10/2026 como una ficha de CRM, con las de contacto de Folk
-   y la actividad de Linear como referencia: de dónde llega, el mensaje, por
-   qué encaja y en qué acaba. Lo único blanco y lo único teal de la portada,
-   junto al botón. */
-.senal{margin:0;align-self:center}
-.senal-ficha{background:var(--white);border-radius:18px;color:var(--text);overflow:hidden}
-.senal-cab{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;padding:1.05rem 1.25rem 0}
-.senal-de{display:flex;flex-direction:column;gap:.1rem;font-size:.72rem;color:var(--muted)}
-.senal-origen{font-weight:600;color:var(--teal)}
-.senal-insignia{
-  flex:none;padding:.28rem .7rem;border-radius:999px;
-  background:var(--teal);color:var(--white);font-size:.7rem;font-weight:600;white-space:nowrap;
-}
-.senal-texto{padding:.7rem 1.25rem 0;font-size:clamp(1.02rem,1.3vw,1.18rem);line-height:1.45}
-.senal-motivos{display:flex;flex-wrap:wrap;gap:.4rem;margin:0;padding:.9rem 1.25rem 1.1rem;list-style:none}
-/* Teal sobre el tinte: 4.9:1, por encima del 4.5 que pide el texto pequeño. */
-.senal-motivos li{
-  display:inline-flex;align-items:center;gap:.35rem;
-  padding:.32rem .65rem .32rem .45rem;border-radius:999px;
-  background:rgba(36,118,123,.09);color:var(--teal-papel);font-size:.75rem;font-weight:600;
-}
-.senal-motivos svg{width:15px;height:15px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-/* El resultado, en una banda teal al pie: blanco sobre teal, 5.31:1. */
-.senal-resultado{display:flex;align-items:center;gap:.75rem;padding:.85rem 1.25rem;background:var(--teal);color:var(--white)}
-.senal-resultado svg{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-.senal-resultado span{display:flex;flex-direction:column;font-size:.8rem;line-height:1.35}
-.senal-resultado strong{font-size:.86rem;font-weight:600}
-.senal .bx-nota{margin-top:.7rem}
-/* Un solo momento: llega la ficha, se marcan los motivos uno a uno y al
-   final aparece la visita. Sin movimiento, todo está ahí de entrada. */
-@media (prefers-reduced-motion: no-preference){
-  /* --retraso permite retrasar la ficha entera si hiciera falta. */
-  .senal-ficha{animation:bx-llega .6s var(--ease) calc(.9s + var(--retraso, 0s)) both}
-  .senal-motivos li{animation:senal-marca .45s var(--ease) both;animation-delay:calc(1.6s + var(--retraso, 0s) + var(--i) * .32s)}
-  .senal-motivos path{stroke-dasharray:12;stroke-dashoffset:12;animation:senal-trazo .4s ease both;animation-delay:calc(1.75s + var(--retraso, 0s) + var(--i) * .32s)}
-  .senal-resultado{animation:senal-sube .5s var(--ease) calc(2.8s + var(--retraso, 0s)) both}
-}
-@keyframes senal-marca{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
-@keyframes senal-trazo{to{stroke-dashoffset:0}}
-@keyframes senal-sube{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
-/* ---------- la señal (24/10/2026) ----------
-   Un mensaje del muro se enciende en teal con un lead y la ficha pasa a ese
-   lead. Curva de entrada: la ease-out fuerte de Emil Kowalski. */
-.mv-pista span{transition:background-color .45s cubic-bezier(0.23, 1, 0.32, 1),color .45s cubic-bezier(0.23, 1, 0.32, 1),transform .45s cubic-bezier(0.23, 1, 0.32, 1),box-shadow .45s cubic-bezier(0.23, 1, 0.32, 1),border-color .45s cubic-bezier(0.23, 1, 0.32, 1)}
-.mv-pista span.mv-luz{
-  background:var(--teal);color:var(--white);border-color:transparent;
-  transform:scale(1.06);box-shadow:0 0 0 6px rgba(36,118,123,.28),0 10px 30px rgba(36,118,123,.45);
-}
-/* Las tres fichas en la misma casilla; se ve la activa. El cambio es un
-   fundido con un pequeño desplazamiento, sin repetir la entrada de cada
-   motivo. */
-.senal-pila{display:grid}
-.senal-pila > .senal-ficha{grid-area:1 / 1}
-.senal--rota .senal-ficha{animation:none;transition:opacity .5s cubic-bezier(0.23, 1, 0.32, 1),transform .55s cubic-bezier(0.23, 1, 0.32, 1),visibility 0s linear .55s}
-.senal--rota .senal-ficha:not(.es-activa){opacity:0;transform:translateY(10px);visibility:hidden}
-.senal--rota .senal-ficha.es-activa{transition-delay:0s,0s,0s}
-.senal--rota .senal-motivos li,.senal--rota .senal-motivos path,.senal--rota .senal-resultado{animation:none}
-.senal--rota .senal-motivos path{stroke-dashoffset:0}
-@media (prefers-reduced-motion: no-preference){
-  .senal--rota .senal-pila{animation:bx-llega .6s cubic-bezier(0.23, 1, 0.32, 1) .9s both}
+@media (prefers-reduced-motion:reduce){
+  .portada-video{display:none}
 }
