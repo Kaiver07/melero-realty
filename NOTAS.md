@@ -162,6 +162,19 @@ la home), que es otra cosa.
   portátil se leen cifras (gasto, ROAS) que en un artículo sobre métricas
   pasarían por resultados reales.
 
+## Auditoría SEO del 15/11/2026 (versión nueva, en local)
+
+En `docs/auditoria-seo-2026-11-15.md`. Sana: Lighthouse 100 en escritorio y
+97-99 en móvil, JSON-LD válido, 11 URL en el sitemap. Lo principal:
+1. Publicar la versión nueva y, después, pedir en Search Console la
+   indexación de `/planes/`, `/proceso/` y `/preguntas/` y reenviar el sitemap.
+2. Que Valeria pida restituir la ficha de Google (sigue retirada).
+3. Acortar el title de `/proceso/` (73) y `/preguntas/` (70) y la description
+   de `/proceso/` (176).
+4. Fotos del diagnóstico en móvil: versiones de 480 px y `sizes` ajustado
+   (~360 KB menos por visita).
+5. Cabeceras de seguridad en `vercel.json` (sólo hay HSTS).
+
 ## Auditoría SEO: lo que queda (27/9/2026)
 
 La auditoría está en `docs/auditoria-seo.md`, con el estado de cada
