@@ -1,0 +1,73 @@
+---
+/* El Diagnóstico de la home «de seguido» (15/11/2026): la tarjeta se queda
+   fija a la izquierda y los tres pasos pasan por la derecha. La tarjeta
+   lleva una foto por paso (agenda, videollamada, informe) y funde a la que
+   toca según el paso activo, que marca el script de index.astro. Sin JS,
+   en móvil o con movimiento reducido: foto 1 y los tres pasos sin atenuar.
+   Estilos en home.css (bloque «HOME DE SEGUIDO»), prefijo dgs-. */
+import { SITE, PLANES, IVA, DIAGNOSTICO } from '../config/site';
+import { srcsetDe } from '../lib/imagenes';
+
+interface Props { n: string }
+const { n } = Astro.props;
+const pago = SITE.pagoDiagnosticoUrl;
+
+/* Una foto por paso, en el orden de DIAGNOSTICO.pasos. */
+const fotos = [
+  { src: '/images/band-campanas.webp', w: 1100, h: 1375, ver: [480, 700], alt: 'Cuaderno con la agenda de la semana escrita a mano junto a un portátil' },
+  { src: '/images/svc-consultoria.webp', w: 900, h: 1125, ver: [480, 600], alt: 'Videollamada en un portátil sobre una mesa de cristal, con un cuaderno de notas al lado' },
+  { src: '/images/diagnostico-informe.webp', w: 1100, h: 1467, ver: [480, 700], alt: 'Dos personas del equipo revisan documentos impresos sobre una mesa de cristal, vistas desde arriba' },
+];
+---
+
+<section class="section section--white dgs" id="diagnostico" aria-labelledby="diag-t">
+  <div class="wrap dgs-grid">
+    <div class="dgs-tarjeta" data-lado="izq">
+      <div class="dgs-fotos" data-paso="1">
+        {fotos.map((f, i) => (
+          <figure class="dgs-foto" data-n={i + 1}>
+            <img src={f.src} srcset={srcsetDe(f.src, f.w, f.ver)} sizes="(max-width: 960px) min(560px, calc(100vw - 48px)), 42vw" alt={f.alt} width={f.w} height={f.h} loading="lazy" decoding="async">
+            <figcaption><span>{String(i + 1).padStart(2, '0')}</span> {DIAGNOSTICO.pasos[i].t}</figcaption>
+          </figure>
+        ))}
+        <div class="dgs-ficha">
+          <span class="dgs-ficha-k">{PLANES.diagnostico.nombre}</span>
+          <span class="dgs-ficha-p">{PLANES.diagnostico.precio} <small>{IVA}</small></span>
+          <span class="dgs-ficha-d">90 min · por videollamada</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="dgs-cuerpo">
+      <div class="dgs-cab" data-lado="der">
+        <p class="eyebrow">({n}) {DIAGNOSTICO.antetitulo}</p>
+        <h2 id="diag-t" class="dgs-t">{DIAGNOSTICO.titulo}</h2>
+        <p class="dgs-problema">{DIAGNOSTICO.problema}</p>
+      </div>
+
+      <div class="dgs-recorrido">
+      <ol class="dgs-pasos">
+        {DIAGNOSTICO.pasos.map((x, i) => (
+          <li class="dgs-paso" data-n={i + 1} data-lado="der">
+            <span class="dgs-num" aria-hidden="true">{i + 1}</span>
+            <div>
+              <h3>{x.t}</h3>
+              <p class="dgs-paso-txt">{x.d}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      </div>
+
+      <div class="dgs-accion" data-lado="der">
+        <div class="dgs-botones">
+          <a class="btn btn--dark" data-cta="diagnostico-landing" href={pago} target="_blank" rel="noopener">{DIAGNOSTICO.boton}
+            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+          </a>
+          <a class="dgs-link" href="#planes">{DIAGNOSTICO.verPlanes} <span aria-hidden="true">&#8594;</span></a>
+        </div>
+        <p class="dgs-cond">{PLANES.diagnostico.condiciones}</p>
+      </div>
+    </div>
+  </div>
+</section>

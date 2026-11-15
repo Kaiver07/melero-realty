@@ -1,0 +1,71 @@
+---
+/* Planes y precios (15/11/2026). La comparativa y los planes, los mismos de la home,
+   con su propia página para poder enlazarla desde el menú, el pie y el
+   blog. Fondos: blanco (comparativa), oscuro (planes), blanco (preguntas)
+   y el cierre oscuro. */
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Comparativa from '../components/Comparativa.astro';
+import Planes from '../components/Planes.astro';
+import PreguntasCortas from '../components/PreguntasCortas.astro';
+import BlogCta from '../components/BlogCta.astro';
+import '../styles/home.css';
+import '../styles/blog.css';
+import { SITE, PLANES } from '../config/site';
+
+let seccion = 0;
+const num = () => String(++seccion).padStart(2, '0');
+
+/* El catálogo para buscadores y asistentes de IA (OfferCatalog). No da
+   resultado enriquecido en Google; describe lo que se ve. Los precios salen
+   de PLANES ("1.290 €/mes" → 1290), sin IVA, como en la página. */
+const euros = (p: string) => Number(p.replace(/[^0-9,]/g, '').replace(',', '.'));
+const oferta = (nombre: string, descripcion: string, precio: string, mensual: boolean, desde = false) => ({
+  '@type': 'Offer',
+  name: nombre,
+  description: descripcion,
+  url: `${SITE.url}/planes/`,
+  offeredBy: { '@id': `${SITE.url}/#organizacion` },
+  priceSpecification: {
+    '@type': 'UnitPriceSpecification',
+    // «desde 490 €/mes»: precio mínimo, no cerrado.
+    ...(desde ? { minPrice: euros(precio) } : { price: euros(precio) }),
+    priceCurrency: 'EUR',
+    valueAddedTaxIncluded: false,
+    ...(mensual ? { unitText: 'mes' } : {}),
+  },
+});
+const catalogo = {
+  '@context': 'https://schema.org',
+  '@type': 'OfferCatalog',
+  name: 'Planes de Melero Realty',
+  url: `${SITE.url}/planes/`,
+  itemListElement: [
+    oferta(PLANES.destacado.nombre, PLANES.destacado.para, PLANES.destacado.precio, true, PLANES.destacado.desde),
+    ...PLANES.planes.map((p) => oferta(p.nombre, p.para, p.precio, true, p.desde)),
+    oferta(PLANES.diagnostico.nombre, PLANES.diagnostico.incluye, PLANES.diagnostico.precio, false),
+  ],
+};
+---
+
+<Layout
+  title="Planes y precios de marketing inmobiliario"
+  miga="Planes y precios"
+  description="Planes de captación para inmobiliarias con precio publicado: Contenido, Captación, Completo y SEO, SEM y GEO. Cada plan incluye el diagnóstico."
+>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(catalogo)} />
+  </Fragment>
+<Header />
+<main>
+  {/* El h1 de la página, para lectores de pantalla y buscadores: la
+      primera sección visible es la comparativa, «antes de los precios». */}
+  <h1 class="solo-lectores">Planes y precios de Melero Realty</h1>
+  <Comparativa n={num()} />
+  <Planes n={num()} />
+  <PreguntasCortas n={num()} />
+  <BlogCta />
+</main>
+<Footer />
+</Layout>

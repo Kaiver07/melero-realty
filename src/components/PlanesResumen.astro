@@ -1,0 +1,69 @@
+---
+/* La versión reducida de los planes, para la home (15/11/2026, la pidió
+   Yerai). El detalle (fotos, listas, extras) está en /planes/; aquí sólo
+   lo que hace falta para decidir: el título en boca del cliente, el
+   precio, lo que no incluye y el botón de pago de cada plan. Debajo, el
+   enlace a /planes/ y la salida del Diagnóstico para quien no sabe cuál.
+   Mismo id="planes" que la sección completa: los enlaces #planes de la
+   home siguen llegando aquí. Estilos en home.css, prefijo pr-. */
+import { SITE, PLANES, IVA, PLANES_VOZ } from '../config/site';
+
+interface Props { n: string }
+const { n } = Astro.props;
+const d = PLANES.destacado;
+const dv = PLANES_VOZ.destacado;
+---
+
+<section class="section section--dark planes pr" id="planes" aria-labelledby="planes-t">
+  <div class="wrap">
+    <div class="planes-head reveal">
+      <p class="eyebrow eyebrow--dark">({n}) {PLANES.antetitulo}</p>
+      <h2 id="planes-t">{PLANES.titulo}</h2>
+    </div>
+
+    {/* El recomendado, en una franja blanca a lo ancho. */}
+    <article class="pr-dest reveal" aria-labelledby="pr-dest-t">
+      <div class="pr-dest-txt">
+        <p class="pl-etiqueta">{d.etiqueta}</p>
+        <h3 id="pr-dest-t" class="pr-voz pr-voz--dest">«{dv.voz}»</h3>
+        <p class="pr-nombre">{d.nombre}</p>
+      </div>
+      <div class="pr-dest-precio">
+        <p class="pr-precio">
+          {d.desde && <span class="pr-desde">desde</span>}
+          <strong>{d.precio}</strong>
+        </p>
+        <p class="pr-excluye">{d.nota} · {dv.excluye}</p>
+      </div>
+      <a class="btn btn--dark pr-dest-btn" data-cta="plan-recomendado-home" href={d.pago} target="_blank" rel="noopener">{PLANES.boton}
+        <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+      </a>
+    </article>
+
+    <div class="pr-grid reveal">
+      {PLANES.planes.map((p) => {
+        const v = PLANES_VOZ.planes[p.id];
+        return (
+          <article class="pr-card" aria-labelledby={`pr-${p.id}-t`}>
+            <p class="pr-nombre">{p.nombre}</p>
+            <h3 id={`pr-${p.id}-t`} class="pr-voz">«{v.voz}»</h3>
+            <p class="pr-precio">
+              {p.desde && <span class="pr-desde">desde</span>}
+              <strong>{p.precio}</strong>
+            </p>
+            <p class="pr-excluye">{v.excluye}</p>
+            <a class="pl-btn pr-btn" data-cta={`plan-${p.id}-home`} href={p.pago} target="_blank" rel="noopener">{'boton' in p ? p.boton : PLANES.boton} <span aria-hidden="true">&#8594;</span></a>
+          </article>
+        );
+      })}
+    </div>
+
+    <div class="pr-pie reveal">
+      <a class="pr-todos" href="/planes/">{PLANES_VOZ.verTodos} <span aria-hidden="true">&#8594;</span></a>
+      <p class="pr-diag">
+        {PLANES_VOZ.noSabes}
+        <a data-cta="plan-diagnostico-home" href={SITE.pagoDiagnosticoUrl} target="_blank" rel="noopener">{PLANES.diagnostico.boton}&nbsp;{IVA}</a>
+      </p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,109 @@
+---
+/* La sección Planes (15/11/2026, aprobada por Yerai: la «propuesta de
+   planes», con ideas de airpro.es). Foto real por plan, el título en boca
+   del cliente (PLANES_VOZ), lo que no incluye pegado al precio y la lista
+   de lo que incluye plegada en un <details>. Precios, listas, condiciones
+   y enlaces de pago: los de PLANES. Va detrás de Comparativa.astro en la
+   home y en /planes/. `n` es el número de sección. */
+import { SITE, PLANES, IVA, PLANES_VOZ } from '../config/site';
+import { srcsetDe } from '../lib/imagenes';
+
+interface Props { n: string }
+const { n } = Astro.props;
+const pago = SITE.pagoDiagnosticoUrl;
+
+/* Ancho original y versiones reducidas de cada foto. */
+const anchos: Record<string, [number, number[]]> = {
+  '/images/svc-contenido.webp': [900, [600]],
+  '/images/real-rodaje.webp': [900, [600]],
+  '/images/band-campanas.webp': [1100, [700]],
+  '/images/real-set.webp': [900, [600]],
+  '/images/svc-marca.webp': [900, [600]],
+};
+const srcset = (f: string) => srcsetDe(f, anchos[f][0], anchos[f][1]);
+const d = PLANES.destacado;
+const dv = PLANES_VOZ.destacado;
+---
+
+<section class="section section--dark planes pp-planes" id="planes" aria-labelledby="planes-t">
+  <div class="wrap">
+    <div class="planes-head reveal">
+      <p class="eyebrow eyebrow--dark">({n}) {PLANES.antetitulo}</p>
+      <h2 id="planes-t">{PLANES.titulo}</h2>
+      <p class="lead">{PLANES.intro}</p>
+    </div>
+
+    <article class="pp-dest reveal" aria-labelledby="pp-dest-t">
+      <div class="pp-dest-media"><img class="pp-dest-foto" src={dv.foto} srcset={srcset(dv.foto)} sizes="(max-width: 900px) 100vw, 40vw" alt={dv.alt} width="900" height="1125" loading="lazy" decoding="async"></div>
+      <div class="pp-dest-cuerpo">
+        <p class="pl-etiqueta">{d.etiqueta}</p>
+        <h3 id="pp-dest-t" class="pp-voz pp-voz--dest">«{dv.voz}»</h3>
+        <p class="pp-nombre">{d.nombre}</p>
+        <p class="pp-precio">
+          {d.desde && <span class="pp-desde">desde</span>}
+          <strong>{d.precio}</strong>
+          <span class="pp-nota">{d.nota}</span>
+        </p>
+        <p class="pp-excluye">{dv.excluye}</p>
+        <p class="pp-linea">{d.despues}</p>
+        <a class="btn btn--dark pp-dest-btn" data-cta="plan-recomendado" href={d.pago} target="_blank" rel="noopener">{PLANES.boton}
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+        </a>
+        <p class="pp-cond">{d.condiciones}</p>
+        <details class="pp-incluye">
+          <summary>{PLANES_VOZ.verIncluye}<span class="plus" aria-hidden="true"></span></summary>
+          <ul>{d.incluye.map((x) => <li>{x}</li>)}</ul>
+        </details>
+      </div>
+    </article>
+
+    <div class="pp-grid">
+      {PLANES.planes.map((p) => {
+        const v = PLANES_VOZ.planes[p.id];
+        return (
+          <article class="pp-card reveal" aria-labelledby={`pp-${p.id}-t`}>
+            <img class="pp-card-foto" src={v.foto} srcset={srcset(v.foto)} sizes="(max-width: 900px) 100vw, 25vw" alt={v.alt} width="900" height="1125" loading="lazy" decoding="async">
+            <div class="pp-card-cuerpo">
+              <p class="pp-nombre">{p.nombre}</p>
+              <h3 id={`pp-${p.id}-t`} class="pp-voz">«{v.voz}»</h3>
+              <p class="pp-precio">
+                {p.desde && <span class="pp-desde">desde</span>}
+                <strong>{p.precio}</strong>
+              </p>
+              <p class="pp-excluye">{v.excluye}</p>
+              <p class="pp-cond">{p.condiciones}</p>
+              {/* Lista a la vista, sin plegar (pedido el 15/11/2026). */}
+              <div class="pp-incluye">
+                <ul>{p.incluye.map((x) => <li>{x}</li>)}</ul>
+              </div>
+              <a class="pl-btn pp-btn" data-cta={`plan-${p.id}`} href={p.pago} target="_blank" rel="noopener">{'boton' in p ? p.boton : PLANES.boton} <span aria-hidden="true">&#8594;</span></a>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+
+    <div class="pl-pie reveal">
+      <article class="pl-diag" aria-labelledby="pl-diag-t">
+        <p class="pl-para">{PLANES.diagnostico.para}</p>
+        <h3 id="pl-diag-t">{PLANES.diagnostico.nombre}</h3>
+        <p class="pl-precio"><strong>{PLANES.diagnostico.precio}</strong><span class="pl-iva">{IVA}</span></p>
+        <p class="pl-nota">{PLANES.diagnostico.nota}</p>
+        <p class="pl-linea">{PLANES.diagnostico.incluye}</p>
+        <p class="pl-cond">{PLANES.diagnostico.condiciones}</p>
+        <a class="btn btn--light" data-cta="plan-diagnostico" href={pago} target="_blank" rel="noopener">{PLANES.diagnostico.boton}
+          <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+        </a>
+      </article>
+      <div class="pl-extras">
+        <h3>{PLANES.extrasTitulo}</h3>
+        <ul>
+          {PLANES.extras.map((x) => (
+            <li><span>{x.t}</span><span class="pl-extra-precio">{x.precio} {IVA}</span></li>
+          ))}
+        </ul>
+        <p class="pl-cond">{PLANES.extrasNota}</p>
+      </div>
+    </div>
+  </div>
+</section>

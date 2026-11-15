@@ -2,7 +2,8 @@
 /* La portada de la home (desde el 14/11/2026): vídeo a sangre hasta el
    borde de la pantalla, en el esquema de españoladetelefonia.es, con la
    cabecera transparente por encima (Header.astro, sobreVideo). Encima del
-   vídeo, el titular, el apoyo y la píldora de reserva.
+   vídeo, el titular y la píldora de reserva (el párrafo de apoyo pasó a la
+   sección del vídeo el 15/11/2026: Yerai quería la portada sin texto).
    El vídeo son ocho tomas de 3,5 s (Madrid, Barcelona, Sevilla, Benidorm,
    Marbella, Dubái, Santo Domingo y Lauterbrunnen) unidas con fundidos de
    0,4 s: 25 s en bucle, sin sonido. En public/video, en MP4 de 1920 px
@@ -30,7 +31,6 @@ import Reserva from './Reserva.astro';
   <div class="portada-in">
     <p class="portada-kicker">{HERO.kicker}</p>
     <h1 id="portada-t">{HERO.titulo}</h1>
-    <p class="portada-apoyo">{HERO.apoyo}</p>
     <Reserva />
   </div>
 </section>

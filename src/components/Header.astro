@@ -19,10 +19,10 @@ const { sobreVideo = false } = Astro.props;
 
 const base = sobreVideo ? '' : '/';
 const enlaces = [
-  { href: `${base}#planes`, label: 'Planes' },
-  { href: `${base}#proceso`, label: 'Proceso' },
-  { href: `${base}#equipo`, label: 'Equipo' },
-  { href: `${base}#faq`, label: 'FAQ' },
+  { href: '/planes/', label: 'Planes' },
+  { href: '/proceso/', label: 'Proceso' },
+  { href: '/sobre-nosotros/#equipo', label: 'Equipo' },
+  { href: '/preguntas/', label: 'FAQ' },
   { href: '/blog/', label: 'Blog' },
 ];
 const tel = SITE.telefono.replace(/\s/g, '');
@@ -34,8 +34,8 @@ const pago = SITE.pagoDiagnosticoUrl;
 <header class:list={['cab', { 'cab--video': sobreVideo, 'cab--solida': !sobreVideo }]} data-cab>
   <div class="cab-in">
     <a class="cab-marca" href={sobreVideo ? '#top' : '/'} aria-label={`${SITE.name}, inicio`}>
-      <span class="cab-logo cab-logo--claim" aria-hidden="true"></span>
-      <span class="cab-logo cab-logo--corto" aria-hidden="true"></span>
+      <img class="cab-logo cab-logo--claim" src="/images/logo/melero-realty-principal-crema.svg" alt="" width="973" height="312" fetchpriority="high">
+      <img class="cab-logo cab-logo--corto" src="/images/logo/melero-realty-sin-claim.svg" alt="" width="973" height="291">
     </a>
 
     <button class="cab-menu" type="button" aria-expanded="false" aria-controls="cab-nav" aria-label="Abrir menú">
@@ -118,7 +118,9 @@ const pago = SITE.pagoDiagnosticoUrl;
   .cab--solida, .cab--bajada, .cab--abierta {
     --cab-alto: 76px;
     background: var(--white); color: var(--ink);
-    box-shadow: 0 1px 0 var(--rule), 0 8px 24px rgba(18,47,53,.08);
+    /* Filete gris fino (no arena, que pesaba; no --rule, que no se veía):
+       lo justo para que la barra no choque con la sección blanca de debajo. */
+    box-shadow: 0 1px 0 rgba(0,0,0,.1), 0 8px 24px rgba(18,47,53,.06);
   }
 
   .cab-in {
@@ -129,31 +131,28 @@ const pago = SITE.pagoDiagnosticoUrl;
   }
 
   /* El logotipo es un dibujo: no se escribe con ninguna fuente (manual de
-     marca). Va como máscara para que un solo archivo sirva en crema sobre
-     el vídeo y en el principal sobre blanco: el color es el del texto. */
-  .cab-marca { position: relative; flex: none; display: block; color: inherit; margin-right: auto; }
-  .cab-logo {
-    display: block; background: currentColor;
-    -webkit-mask: no-repeat left center / contain; mask: no-repeat left center / contain;
-    transition: opacity .3s var(--ease);
-  }
-  .cab-logo--claim {
-    -webkit-mask-image: url('/images/logo/melero-realty-principal.svg');
-    mask-image: url('/images/logo/melero-realty-principal.svg');
-    height: clamp(52px, 5vw, 70px); aspect-ratio: 972.5 / 311.8;
-  }
+     marca). */
+  .cab-marca { position: relative; flex: none; display: block; margin-right: auto; }
+  /* El logotipo es un enlace: a:hover de global.css (0,1,1) le cambiaba el
+     color al pasar el ratón y sobre el vídeo desaparecía. (0,2,0) le gana. */
+  .cab .cab-marca, .cab .cab-marca:hover { color: inherit; }
+  /* Desde el 15/11/2026 son los SVG del paquete de marca tal cual, cada uno
+     en su tinta: el de claim en crema (sólo se ve sobre el vídeo) y el corto
+     en principal (sólo sobre la barra blanca). Antes era una máscara CSS. */
+  .cab-logo { display: block; width: auto; transition: opacity .3s var(--ease); }
+  .cab-logo--claim { height: clamp(52px, 5vw, 70px); }
   .cab-logo--corto {
-    -webkit-mask-image: url('/images/logo/melero-realty-sin-claim.svg');
-    mask-image: url('/images/logo/melero-realty-sin-claim.svg');
-    height: 38px; aspect-ratio: 972.5 / 291.4;
-    position: absolute; left: 0; top: 50%; translate: 0 -50%; opacity: 0;
+    height: 44px;
+    /* La «y» de Realty baja mucho: centrar la caja deja las letras altas.
+       Las letras van del 7 % al 75 % del dibujo; -40,7 % centra las letras. */
+    position: absolute; left: 0; top: 50%; translate: 0 -40.7%; opacity: 0;
   }
   /* Al volverse sólida, el logotipo con claim deja paso al corto: a la
      altura de la barra baja, «Marketing inmobiliario» no se leería. */
   .cab--solida .cab-logo--claim, .cab--bajada .cab-logo--claim, .cab--abierta .cab-logo--claim { opacity: 0; }
   .cab--solida .cab-logo--corto, .cab--bajada .cab-logo--corto, .cab--abierta .cab-logo--corto { opacity: 1; }
-  .cab--solida .cab-marca, .cab--bajada .cab-marca, .cab--abierta .cab-marca { width: calc(38px * 972.5 / 291.4); }
-  .cab--solida .cab-logo--claim, .cab--bajada .cab-logo--claim, .cab--abierta .cab-logo--claim { height: 38px; }
+  .cab--solida .cab-marca, .cab--bajada .cab-marca, .cab--abierta .cab-marca { width: calc(44px * 972.5 / 291.4); }
+  .cab--solida .cab-logo--claim, .cab--bajada .cab-logo--claim, .cab--abierta .cab-logo--claim { height: 44px; }
 
   .cab-nav { display: flex; align-items: center; gap: clamp(1rem, 2vw, 1.75rem); }
 

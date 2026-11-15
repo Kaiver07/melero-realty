@@ -20,7 +20,9 @@ Tailwind v4, desplegado en Vercel desde `main`.
   (`route1-3.mx.cloudflare.net`), el SPF y el DKIM (`cf2024-1`) los pone
   Email Routing y salen bloqueados en DNS. Los MX y el SPF de Hostinger se
   borraron ese día: allí no había buzones y el correo se perdía. El
-  catch-all está desactivado a propósito.
+  catch-all está desactivado a propósito: `contacto@` u otra dirección
+  rebota. Desde el 15/11/2026 es la dirección que enseña la web
+  (`SITE.email`); antes enseñaba el Gmail.
 
 La verdad de negocio —a quién se vende, qué se promete, qué está verificado
 y qué no— vive en `PRODUCT.md`. Este archivo es sólo cómo se trabaja el
@@ -51,7 +53,20 @@ el resultado servido con `preview`.
 ```
 src/config/site.ts     TODO el contenido: copy, servicios, proceso, FAQ,
                        equipo, el caso de la home, enlaces y claves.
-src/pages/index.astro  La home entera, sección a sección.
+src/pages/index.astro  La home: la landing corta del Diagnóstico y los planes
+                       (desde el 15/11/2026). Portada · testimonio · vídeo ·
+                       Diagnostico · Comparativa · PlanesResumen (la versión
+                       reducida; el detalle, en /planes/) · 4 preguntas ·
+                       cierre.
+src/pages/proceso.astro   Las cinco fases, El trato y La diferencia, que
+                       salieron de la home el 15/11/2026.
+src/pages/preguntas.astro Las 8 preguntas de FAQ, con el schema FAQPage (la
+                       home enseña sólo las 4 de DIAGNOSTICO.faq, sin schema).
+src/pages/planes.astro  Planes con su propia página (15/11/2026): h1 sólo
+                       para lectores, Comparativa, Planes, las 4 preguntas
+                       (PreguntasCortas) y el cierre del blog. La home
+                       conserva su sección de planes. El menú,
+                       el pie, el blog y el 308 de /contacto/ van a /planes/.
 src/layouts/Layout.astro  <head>, schema (Organization sólo con
                        includeOrgSchema), ClientRouter, Vercel Web
                        Analytics (y su evento «contacto») y el motor GSAP.
@@ -61,12 +76,29 @@ src/components/        CookieNotice (consentimiento + GA4), Footer, Header
                        Portada (la portada de la home, con el vídeo),
                        Reserva (la píldora de reserva de la portada) y
                        Testimonio (la reseña de Damián con la foto de
-                       Valeria, justo debajo de la portada).
+                       Valeria, justo debajo de la portada), Diagnostico
+                       (tarjeta fija con una foto por paso y la ficha del precio;
+                       texto en DIAGNOSTICO), Comparativa (otras agencias
+                       frente a Melero, filas de COMPARISON) y Planes (foto
+                       y título en boca del cliente por plan, lo que no
+                       incluye junto al precio y la lista plegada; texto en
+                       PLANES y PLANES_VOZ). Ideas de airpro.es. Antes:
+                       la sección de precios con listas largas.
+                       PlanesResumen es la versión de la home: recomendado
+                       en franja blanca y cuatro tarjetas con precio y
+                       botón, sin fotos ni listas, y el enlace a /planes/.
 src/styles/global.css  Tokens, DM Sans y cromo compartido (footer, .wrap).
 src/styles/home.css    El sistema visual de la home. ~1.100 líneas.
 public/video/          El vídeo de la portada (MP4 de 1920 y 1280 px) y su
                        fotograma fijo.
-public/images/logo/    El logotipo en SVG, con y sin claim.
+public/images/logo/    El logotipo en SVG: con claim (principal y crema) y
+                       sin claim. La cabecera y el pie los usan como <img>.
+                       Son los del paquete de marca, en las Descargas de
+                       Yerai, con un cambio: en los dos con claim, el claim
+                       va 14 unidades a la izquierda (translate en su
+                       <path>) para que la «O» final no choque con la cola
+                       de la «y» (15/11/2026). Si se recopian del paquete,
+                       repetirlo.
 src/content/blog/      Un Markdown por artículo; el nombre es el slug.
 src/content.config.ts  Esquema de los artículos. Valida imagen, longitudes
                        de título y descripción, y servicios relacionados.
@@ -132,15 +164,31 @@ entera en esa dirección. Sólo toca ese nombre exacto; las vistas previas de
 cada despliegue tienen otro y siguen funcionando. Son tres reglas y hacen
 falta las tres: con `trailingSlash`, `/:path*` sólo pillaba los archivos, y
 la raíz y las páginas con barra final necesitan la suya.
+Desde el 15/11/2026 `vercel.json` manda también cabeceras de seguridad a
+todas las rutas (`X-Content-Type-Options`, `Referrer-Policy`,
+`X-Frame-Options: SAMEORIGIN` y `Permissions-Policy`, que corta cámara,
+micrófono, ubicación, pago y USB). Si un día se incrusta algo que los
+necesite, hay que abrirlo ahí.
+
+**Datos estructurados** (auditoría del 15/11/2026,
+`docs/auditoria-seo-2026-11-15.md`). La empresa lleva `@id`
+`https://www.valeriamelero.com/#organizacion`, y los artículos (`publisher`,
+`worksFor`) y el catálogo de `/planes/` (`offeredBy`) la enlazan con él.
+Las páginas interiores pasan `miga` al `Layout` y salen con su
+`BreadcrumbList`. `/planes/` lleva un `OfferCatalog` con los precios
+sacados de `PLANES`. Cada artículo se comparte con su foto recortada a
+1200×630 en `public/images/blog/og/<slug>.jpg`, hecha con sharp; si falta,
+usa la común.
 
 **Los números de sección se calculan solos.** `index.astro` define un
 contador y cada antetítulo llama a `num()`. No escribirlos a mano: cuando lo
 estaban había dos `(08)` a la vez, invisibles sólo porque la sección de
 Instagram está oculta.
 
-**La sección de Instagram aparece sola.** Se pinta si existen las miniaturas
-en `public/images/social/<código>.webp`. Instagram no deja descargarlas por
-programa: se aportan a mano.
+**La sección de Instagram salió con la home larga** (15/11/2026). Se
+pintaba sola si existían las miniaturas en
+`public/images/social/<código>.webp`; nunca las hubo. `SOCIAL` sigue en
+`site.ts` y el marcado está en git (commit `5db73df`) si vuelve.
 
 **Comentarios en las plantillas, con `{/* */}`.** Los `<!-- -->` se publican
 en el HTML y cualquiera los lee con «ver código fuente»: la home llegó a
@@ -163,8 +211,9 @@ hoja de Yerai se quedan, pero ya no les llega nada.
 **La portada y la cabecera siguen a españoladetelefonia.es** (desde el
 14/11/2026; las eligió Yerai). La portada (`Portada.astro`) es un vídeo a
 sangre: ocho tomas de ciudades de 3,5 s unidas con fundidos, 25 s en
-bucle y sin sonido. Encima van el titular, el apoyo y la píldora de
-reserva, dentro de la caja de la página (`--maxw`) y sobre un velo del
+bucle y sin sonido. Encima van el antetítulo, el titular y la píldora de
+reserva, sin más texto (15/11/2026: el apoyo pasó a la sección del vídeo y
+la nota del precio se quitó), dentro de la caja de la página (`--maxw`) y sobre un velo del
 principal. Lo primero que se pinta es el fotograma fijo, un `<img>` que es
 el LCP. El vídeo se pide al terminar la carga y se para fuera de pantalla.
 Con movimiento reducido o ahorro de datos no se pide. **No lleva botón de
@@ -177,12 +226,14 @@ La cabecera (`Header.astro`) es la misma en todas las páginas. Lleva el
 logotipo, el menú en una píldora blanca con filetes, el teléfono con
 `SITE.horarioCorto` y el botón del Diagnóstico. En la home (`sobreVideo`)
 empieza transparente sobre el vídeo, con el logotipo con claim en crema; al
-bajar 24 px se vuelve blanca y más baja, con el logotipo sin claim. En el
+bajar 24 px se vuelve blanca y más baja, con el logotipo sin claim en
+principal (44 px, centrado por las letras y no por la caja: la cola de la
+«y» lo descuadraba) y un filete gris fino debajo. En el
 resto es blanca y fija desde el principio. Por debajo de 1000 px el menú
 es un panel desplegable.
 Debajo de la portada, `Testimonio.astro`: una banda blanca con la reseña,
 la foto de Valeria y los logotipos con lo que es cada uno. Separa la
-portada de «El problema», que son las dos oscuras. Revisarla siempre a
+portada del vídeo (antes, de «El problema», que ya no está). Revisarla siempre a
 1440, 1920 y 2560 px. La portada anterior, «la señal» (el muro de
 mensajes con la ficha del lead), está en git hasta el commit `7a8558c`.
 
@@ -229,6 +280,28 @@ de móvil. Antes de capturar, pausar el vídeo desde la consola
 esperando a un observador, tiene que haber un plan B que lo muestre. Página
 invisible es peor fallo que animación perdida.
 
+**`overflow-x: hidden` en `html` o `body` rompe todo `position: sticky`.**
+Convierte el `body` en contenedor de scroll, que nunca se desplaza, y nada
+se pega. Pasaba con la cabecera de las páginas interiores sin que nadie lo
+viera. Desde el 15/11/2026, `home.css` usa `overflow-x: clip` (con `hidden`
+delante como plan B). Para recortar una sección, `clip` y nunca `hidden`.
+
+**La home se lee «de seguido»** (15/11/2026). Los bloques alternan de lado:
+la foto del testimonio a la izquierda, el vídeo a la derecha, la tarjeta del
+Diagnóstico **fija** a la izquierda, la comparativa y los planes en tarjetas
+(el recomendado iba fijo a la derecha hasta que llegó la comparativa, el
+mismo día) y el titular de las preguntas **fijo** a la izquierda. Lo fijo es
+`position: sticky` de CSS, no el `pin` de GSAP: no añade espacio y sigue
+funcionando sin JS. El script del final de `index.astro` hace dos cosas.
+Primero, las entradas laterales: lo que lleva `[data-lado]` entra desde su
+lado; lo que viene de componentes compartidos se marca por selector en el
+propio script, con red de seguridad. Segundo, el Diagnóstico (sólo en
+escritorio, con `gsap.matchMedia`): el paso cuyo número cruza el 62 % de la
+pantalla se activa y la tarjeta funde a su foto. Los pasos inactivos sólo
+se atenúan si el script marcó `.dgs--vivo`. Por debajo de 960 px, una
+columna y nada fijo. Al medir con `scrollTo()` en DevTools, pasar
+`behavior: 'instant'`: la web tiene scroll suave y la medida sale vieja.
+
 ## Sistema visual
 
 Todo sale del manual de marca nuevo (14/11/2026; resumen en `PRODUCT.md`,
@@ -257,12 +330,13 @@ pareja. Si se cambia un color, se recalcula y se anota; no se pone «a ojo».
 
 Las secciones alternan fondo —oscuro, arena clara, blanco— para que no se lean como
 un bloque. **Nunca dos oscuras seguidas**: pasó entre la portada y «El
-problema», y se arregló con el testimonio en medio. Planes y Proceso son
-oscuras las dos; desde el 24/10/2026 las separa «El trato», que subió al
-sitio del caso. Al mover o quitar una sección, mirar qué queda a cada lado.
+problema», y se arregló con el testimonio en medio. En la home de hoy
+(15/11/2026) Planes y el cierre son oscuras y las separan las 4 preguntas,
+en blanco. Al mover o quitar una sección, mirar qué queda a cada lado.
 Cero esquinas redondeadas salvo las píldoras: la de reserva de la portada y
 sus botones, y en la cabecera el menú, el botón del Diagnóstico y el
-círculo del teléfono (14/11/2026).
+círculo del teléfono (14/11/2026); y los círculos arena de los pasos del
+Diagnóstico, que copian el del teléfono (15/11/2026).
 
 ## Deudas conocidas
 

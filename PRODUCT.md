@@ -258,9 +258,10 @@ intermedias.» es correcto tal cual.)*
 ## Brand Commitments
 
 - **Nombre:** Melero Realty. **Handle:** `@melero.realty`. Dominio:
-  `valeriamelero.com`. Email: **`melero.realty@gmail.com`** (confirmado el
-  6/9/2026; sustituye a `hola@valeriamelero.com`, que ya no se usa). Vive en
-  `SITE.email` y de ahí lo toman todas las páginas.
+  `valeriamelero.com`. Email de la web: **`info@valeriamelero.com`** (desde
+  el 15/11/2026, lo pidió Yerai), que se reenvía a `melero.realty@gmail.com`
+  (confirmado el 6/9/2026; antes la web enseñaba ese Gmail). `hola@` ya no
+  se usa. Vive en `SITE.email` y de ahí lo toman todas las páginas.
 - **Manual de marca nuevo (paquete «Melero-Realty-Logotipos», noviembre de
   2026).** Desde el 14/11/2026 la web lo sigue entero (lo decidió Yerai).
   El paquete original está fuera del repositorio, en las Descargas de
@@ -327,16 +328,18 @@ saber si los carruseles, los reels y LinkedIn dejan Cormorant Garamond.
 
 Reales y utilizables:
 
-- **Equipo:** Valeria Melero (CEO & Founder), Yerai Jiménez (Marketing y
-  guiones), Carlos Bernabé (Comercial y guiones), Carlos Cortés (guiones).
+- **Equipo:** Valeria Melero (CEO & Founder), Yerai Jiménez (web, SEO y
+  marketing; guiones y blog), Carlos Bernabé (captación de leads y redes
+  sociales; guiones), Carlos Cortés (guiones). Roles de Yerai y Carlos
+  Bernabé actualizados el 15/11/2026 (los dio Yerai).
   Fotos reales en `public/team/` para los tres primeros.
 - **Trayectoria de Valeria** (la aportó ella el 30/9/2026; va en su
   biografía de sobre-nosotros): más de 8 años en marketing digital; venta
   consultiva B2B en OVB, NUR y Melero Realty; impartió el programa
   «Generación Digital PYMES» en ESCP Business School junto a Anova CTI;
   trabaja en captación inmobiliaria desde 2025 (el año lo dio Yerai el
-  30/9/2026: en el texto de ella venía como «[año]»). La de Yerai y la de
-  Carlos siguen sin aportar.
+  30/9/2026: en el texto de ella venía como «[año]»). Las de Yerai y
+  Carlos las dio Yerai el 15/11/2026 (la suya, de su portfolio).
 - **Caso de la web: MundialRooms** (`mundialrooms.com`; así escriben ellos
   su nombre). Sustituye al de ARC desde el 30/9/2026, por indicación de
   Valeria. Agencia inmobiliaria de Madrid con presencia en Miami y

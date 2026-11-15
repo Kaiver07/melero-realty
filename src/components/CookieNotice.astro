@@ -288,7 +288,7 @@ import { SITE } from '../config/site';
         ? 'pago'
         : href.includes('calendly.com')
           ? 'llamada'
-          : href.includes('#planes')
+          : href.includes('#planes') || href.includes('/planes/')
             ? 'planes'
             : href.includes('wa.me') || href.includes('whatsapp')
               ? 'whatsapp'

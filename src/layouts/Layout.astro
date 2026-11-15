@@ -9,6 +9,12 @@ interface Props {
   description?: string;
   canonical?: string;
   ogImage?: string;
+  // Texto alternativo de la og:image, si la página trae la suya (artículos).
+  ogImageAlt?: string;
+  // Migas de pan (BreadcrumbList) de las páginas interiores: Inicio > página.
+  // Sólo el nombre de la página; la url es la canónica. Los artículos llevan
+  // las suyas, de tres niveles, en su propio schema.
+  miga?: string;
   ogType?: 'website' | 'article';
   includeFaqSchema?: boolean;
   includeOrgSchema?: boolean;
@@ -21,6 +27,8 @@ const {
   description = SITE.description,
   canonical = new URL(Astro.url.pathname, SITE.url).href,
   ogImage = '/images/og-melero.jpg',
+  ogImageAlt = 'Interior de una vivienda vacía grabada con un móvil en trípode, con el titular: captación de leads para inmobiliarias',
+  miga,
   ogType = 'website',
   includeFaqSchema = false,
   includeOrgSchema = false,
@@ -56,9 +64,23 @@ const fullTitle =
    de todas las páginas (Valeria pidió el 30/9/2026 que constara como
    teléfono y no sólo como WhatsApp). */
 const fundadora = TEAM.find((m) => m.role.includes('Founder'));
+const ORG_ID = `${SITE.url}/#organizacion`;
+
+const migaSchema = miga && {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: `${SITE.url}/` },
+    { '@type': 'ListItem', position: 2, name: miga, item: canonical },
+  ],
+};
+
 const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  // El mismo @id en publisher y worksFor de los artículos: una sola empresa
+  // para Google, no una copia por artículo.
+  '@id': ORG_ID,
   name: SITE.name,
   url: SITE.url,
   logo: new URL('/favicon.png', SITE.url).href,
@@ -118,7 +140,7 @@ const faqSchema = {
     <meta property="og:image" content={ogImageUrl} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Interior de una vivienda vacía grabada con un móvil en trípode, con el titular: captación de leads para inmobiliarias" />
+    <meta property="og:image:alt" content={ogImageAlt} />
 
     {/* Twitter Card */}
     <meta name="twitter:card" content="summary_large_image" />
@@ -127,6 +149,7 @@ const faqSchema = {
     <meta name="twitter:image" content={ogImageUrl} />
 
     {/* Schema.org */}
+    {migaSchema && <script type="application/ld+json" set:html={JSON.stringify(migaSchema)} />}
     {includeOrgSchema && (
       <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
     )}
@@ -189,7 +212,7 @@ const faqSchema = {
               ? 'pago'
               : href.includes('calendly.com')
                 ? 'llamada'
-                : href.includes('#planes')
+                : href.includes('#planes') || href.includes('/planes/')
                   ? 'planes'
                   : href.includes('wa.me') || href.includes('whatsapp')
                     ? 'whatsapp'
@@ -446,6 +469,63 @@ const faqSchema = {
         setTimeout(rescatar, 1800);
       }
       document.addEventListener('astro:page-load', initReveal);
+    </script>
+
+    <script>
+      /* Desplegables con «+» (15/11/2026): las preguntas y el «Ver qué
+         incluye» de los planes. Se abren y se cierran animando la altura
+         (la única forma en un acordeón) y, al abrir, el contenido entra con
+         un escalonado de 30 ms. 260 ms con --ease, el ease-out fuerte de la
+         web. Un segundo clic a medias invierte desde donde esté. Con
+         movimiento reducido no se intercepta nada: abre y cierra de golpe,
+         como el <details> de siempre. */
+      function desplegables() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const curva = getComputedStyle(document.documentElement).getPropertyValue('--ease').trim() || 'ease-out';
+        const DURACION = 260;
+
+        document.querySelectorAll('details').forEach((d) => {
+          const resumen = d.querySelector(':scope > summary');
+          if (!resumen || !resumen.querySelector('.plus') || d.dataset.anima) return;
+          d.dataset.anima = '1';
+          let anim = null;
+
+          resumen.addEventListener('click', (e) => {
+            e.preventDefault();
+            const desde = d.getBoundingClientRect().height;
+            const abrir = !d.open || d.classList.contains('cerrando');
+            anim?.cancel();
+            d.style.overflow = 'hidden';
+
+            let hasta;
+            if (abrir) {
+              d.classList.remove('cerrando');
+              d.open = true;
+              hasta = d.getBoundingClientRect().height;
+              // El contenido entra escalonado, sin mover la altura.
+              [...d.querySelectorAll(':scope > :not(summary), :scope > ul > li')]
+                .filter((el) => !el.matches('ul'))
+                .slice(0, 10)
+                .forEach((el, i) => el.animate(
+                  [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }],
+                  { duration: DURACION, delay: 40 + i * 30, easing: curva, fill: 'backwards' },
+                ));
+            } else {
+              d.classList.add('cerrando');
+              const bordes = d.offsetHeight - d.clientHeight;
+              hasta = resumen.getBoundingClientRect().height + bordes;
+            }
+
+            anim = d.animate({ height: [`${desde}px`, `${hasta}px`] }, { duration: DURACION, easing: curva });
+            anim.onfinish = () => {
+              anim = null;
+              d.style.overflow = '';
+              if (!abrir) { d.open = false; d.classList.remove('cerrando'); }
+            };
+          });
+        });
+      }
+      document.addEventListener('astro:page-load', desplegables);
     </script>
   </body>
 </html>

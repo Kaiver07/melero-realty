@@ -3,7 +3,7 @@
    del Diagnóstico, lo que cuesta y las otras dos salidas. Sale de
    Portada.astro el 21/10/2026 para que todas las versiones de portada usen
    la misma. `sufijo` evita ids repetidos si hay varias en una página. */
-import { SITE, PLANES, IVA } from '../config/site';
+import { SITE, PLANES } from '../config/site';
 
 interface Props { sufijo?: string }
 const { sufijo = '' } = Astro.props;
@@ -52,16 +52,10 @@ const pago = SITE.pagoDiagnosticoUrl;
   <a class="ab-btn" data-cta="hero" href={pago} target="_blank" rel="noopener">{PLANES.diagnostico.boton}</a>
 </div>
 
-{/* Lo que cuesta pulsar el botón, dicho junto al botón. Desde el
-     19/10/2026 el diagnóstico es de pago, y la otra salida del hero es
-     ver los planes con su precio antes de pagar nada. El diagnóstico por
-     escrito (/contacto) se quitó el 24/10/2026. */}
-<div class="ab-note">
-  <p><strong>90 minutos</strong> con Valeria e informe escrito en 7 días. <strong>197&nbsp;€&nbsp;{IVA}</strong>; si después contratas un plan, te descontamos 50&nbsp;€ del primer mes.</p>
-  <p class="ab-enlaces">
-    <a class="ab-planes" data-cta="ver-planes-hero" href="#planes">Ver planes y precios</a>
-  </p>
-</div>
+{/* Aquí iba la nota del precio (90 minutos, 197 € + IVA, los 50 € de
+     descuento) con «Ver planes y precios». Se quitó el 15/11/2026: Yerai
+     quería la portada sin texto. El precio está en el propio botón y en la
+     ficha de la sección del Diagnóstico, justo debajo. */}
 
 {/* Avisa, no bloquea. La FAQ dice que el diagnóstico está abierto a
      quien nunca ha invertido; cerrarle la puerta aquí sería desmentirse

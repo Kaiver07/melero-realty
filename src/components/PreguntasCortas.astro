@@ -1,0 +1,33 @@
+---
+/* Las cuatro preguntas de DIAGNOSTICO.faq (15/11/2026), en la home y en
+   /planes/. Las ocho, con el schema FAQPage, están en /preguntas/. `n` es
+   el número de sección de la página que lo usa. */
+import { FAQ, DIAGNOSTICO } from '../config/site';
+
+interface Props { n: string }
+const { n } = Astro.props;
+
+const faqCorta = DIAGNOSTICO.faq
+  .map((q) => FAQ.find((f) => f.q === q))
+  .filter((f): f is (typeof FAQ)[number] => !!f);
+---
+
+<section class="section section--white" id="faq" aria-labelledby="faq-t">
+  <div class="wrap">
+    <div class="faq-grid">
+      <div class="reveal">
+        <p class="eyebrow">({n}) Preguntas</p>
+        <h2 id="faq-t">Lo que preguntan antes de reservar.</h2>
+        <p class="lead">Si falta algo, escríbenos y te lo contestamos por correo antes de agendar nada. <a class="faq-todas" href="/preguntas/">Ver todas las preguntas</a></p>
+      </div>
+      <div class="reveal">
+        {faqCorta.map((f) => (
+          <details>
+            <summary>{f.q}<span class="plus" aria-hidden="true"></span></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

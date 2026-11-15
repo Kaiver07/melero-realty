@@ -1,0 +1,32 @@
+---
+/* «Otras agencias / Melero Realty» (15/11/2026, aprobada por Yerai), justo
+   antes de los planes en la home y en /planes/. Las filas son las de
+   COMPARISON, ya aprobadas: sin precios ni cifras de la competencia, que
+   serían inventadas. `n` es el número de sección de la página. */
+import { COMPARISON, PLANES_VOZ } from '../config/site';
+
+interface Props { n: string }
+const { n } = Astro.props;
+const c = PLANES_VOZ.comparativa;
+---
+
+<section class="section section--paper pp-comp" aria-labelledby="pp-comp-t">
+  <div class="wrap">
+    <div class="pp-comp-head reveal">
+      <p class="eyebrow">({n}) {c.antetitulo}</p>
+      <h2 id="pp-comp-t">{c.titulo}</h2>
+    </div>
+    <div class="pp-tabla reveal" role="table" aria-label={`${c.ellos} frente a ${c.nosotros}`}>
+      <div class="pp-fila pp-fila--cab" role="row">
+        <span role="columnheader" class="pp-col-ellos">{c.ellos}</span>
+        <span role="columnheader" class="pp-col-nos">{c.nosotros}</span>
+      </div>
+      {COMPARISON.map((f) => (
+        <div class="pp-fila" role="row">
+          <span role="cell" class="pp-ellos"><span class="pp-ico pp-ico--no" aria-hidden="true">✕</span>{f.ellos}</span>
+          <span role="cell" class="pp-nos"><span class="pp-ico pp-ico--si" aria-hidden="true">✓</span>{f.nosotros}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

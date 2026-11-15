@@ -1,31 +1,35 @@
 ---
+/* La home es, desde el 15/11/2026, la landing corta (lo decidió Yerai: la
+   «propuesta 1»). Siete bloques que llevan al Diagnóstico y a los planes:
+   portada · testimonio · vídeo · el diagnóstico · planes · cuatro
+   preguntas · cierre. Fondos: oscuro, blanco, arena, blanco, oscuro,
+   blanco, oscuro; nunca dos oscuras seguidas.
+   Lo que salió de aquí tiene su página: Proceso, El trato y La diferencia
+   en /proceso/; el equipo en /sobre-nosotros/; las ocho preguntas, con su
+   schema, en /preguntas/. «El problema» quedó en dos frases dentro del
+   diagnóstico. La home anterior está en git hasta el commit 5db73df.
+   Se lee «de seguido» (15/11/2026): lados alternos, con la tarjeta del
+   Diagnóstico, el plan recomendado y el titular de las preguntas fijos
+   mientras pasa el resto. El script del final mueve las entradas laterales
+   y los pasos del Diagnóstico; los estilos, en home.css. */
 import Layout from '../layouts/Layout.astro';
 import Footer from '../components/Footer.astro';
 import VideoEmbed from '../components/VideoEmbed.astro';
 import Header from '../components/Header.astro';
 import Portada from '../components/Portada.astro';
 import Testimonio from '../components/Testimonio.astro';
+import Diagnostico from '../components/Diagnostico.astro';
+import Comparativa from '../components/Comparativa.astro';
+import PlanesResumen from '../components/PlanesResumen.astro';
+import PreguntasCortas from '../components/PreguntasCortas.astro';
 import '../styles/home.css';
-import { SITE, PROCESO, COMPARISON, TEAM, FAQ, SOCIAL, PILARES, PLANES, IVA } from '../config/site';
-import { existsSync } from 'node:fs';
+import { SITE, IVA, HERO } from '../config/site';
 import { srcsetDe } from '../lib/imagenes';
 
 /* Los números de sección se emiten en orden de render en lugar de escribirse
-   a mano. La sección de publicaciones sólo existe si hay miniaturas en disco,
-   así que con números fijos el día que aparezca habría dos (08) seguidos: de
-   hecho ya los había en el código, sin que se notara porque está oculta. */
+   a mano: cuando lo estaban hubo dos (08) a la vez. */
 let seccion = 0;
 const num = () => String(++seccion).padStart(2, '0');
-
-/* Solo se pintan las publicaciones cuya miniatura existe en disco. Instagram
-   no permite descargarlas automáticamente, así que se aportan a mano y este
-   filtro garantiza que una que falte no deje un hueco roto en la web. */
-const SOCIAL_CON_IMAGEN = SOCIAL
-  .map((item) => {
-    const codigo = item.url.match(/\/(?:p|reel)\/([^/?]+)/)?.[1] ?? '';
-    return { ...item, codigo, img: `/images/social/${codigo}.webp` };
-  })
-  .filter((item) => item.codigo && existsSync(`public${item.img}`));
 
 /* Todos los botones de reserva van al pago del Diagnóstico (Stripe), que
    al cobrar redirige a Calendly. Ver SITE.pagoDiagnosticoUrl. */
@@ -43,82 +47,28 @@ const sitio = {
 
 {/* El título nombra cómo se define el negocio («agencia de marketing
     inmobiliario», PRODUCT.md) y la otra búsqueda por la que se llega
-    («captación de leads»); la marca va detrás. Con la marca pasa de 60
-    caracteres: Google no fija un máximo, y si recorta se pierde la marca,
-    que ya sale como nombre del sitio (auditoría SEO del 27/9/2026). */}
-<Layout title="Marketing inmobiliario y captación de leads" includeFaqSchema={true} includeOrgSchema={true}>
+    («captación de leads»); la marca va detrás. */}
+<Layout title="Marketing inmobiliario y captación de leads" includeOrgSchema={true}>
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(sitio)} />
   </Fragment>
 
-
 <Header sobreVideo />
+
 <Portada />
 
-<main>
+<main class="seguido">
 
   {/* La reseña de Damián con la foto de Valeria, en blanco entre la portada
-       y «El problema», que son las dos verdes (24/10/2026). */}
+       y el vídeo. */}
   <Testimonio />
 
-  {/* ================= 6 · BANDA OSCURA ================= */}
-  <section class="section band" aria-labelledby="band-t">
-    <div class="wrap">
-      <div class="band-grid">
-        <div class="band-copy reveal">
-          <p class="eyebrow eyebrow--dark">({num()}) El problema</p>
-          <h2 id="band-t">Si el 80% de tus leads<br>vienen de un portal,<br>tienes un problema.</h2>
-          <p>Un portal te alquila la demanda: el día que dejas de pagar, desaparece, y el contacto nunca llegó a ser tuyo. Nosotros construimos un canal dentro de tu marca que corre en paralelo, para que el lead llegue a tu nombre y sepas exactamente qué te cuesta cada cliente.</p>
-          {/* El remate desarma la objeción de verdad, que no es "el portal es
-               malo" sino "no puedo permitirme soltarlo". Concesión en voz baja,
-               petición en alto. */}
-          <p class="band-pivot">
-            <span>No te pedimos que dejes el portal.</span>
-            Te pedimos que dejes de depender de él.
-          </p>
-        </div>
-
-        <div class="band-media reveal">
-          <img src="/images/band-campanas.webp" srcset={srcsetDe('/images/band-campanas.webp', 1100, [700])} sizes="(max-width: 1039px) 100vw, 50vw" alt="Mesa de trabajo vista desde arriba: un portátil con un panel de campañas publicitarias, un cuaderno con el plan de la semana escrito a mano y notas adhesivas con los tests pendientes" width="1100" height="1375" loading="lazy" decoding="async">
-          <div class="float-cards">
-            <article class="fcard">
-              <div class="fcard-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
-              </div>
-              <h3>Exclusividad por zona</h3>
-              <p>Una sola marca por área de captación. No abrimos una segunda cuenta en tu mercado.</p>
-            </article>
-            <article class="fcard">
-              <div class="fcard-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M6.5 21V12"/><path d="M12 21V4.5"/><path d="M17.5 21v-6.5"/></svg>
-              </div>
-              <h3>Revisión cada 15 días</h3>
-              <p>Coste por lead y coste por cliente, cada 15 días. Nada de impresiones ni alcance.</p>
-            </article>
-            <article class="fcard">
-              <div class="fcard-ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.4 2.7-5.6 6-5.6"/><circle cx="17" cy="11.2" r="2.4"/><path d="M13.4 20c0-2.4 1.6-4 3.6-4s3.6 1.6 3.6 4"/></svg>
-              </div>
-              <h3>Acompañamiento 1:1</h3>
-              <p>Comunicación directa con la CEO durante todo el contrato. Sin capas intermedias.</p>
-            </article>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* ================= 4 · SERVICIOS ================= */}
-  {/* (02) Vídeo. Va inmediatamente después de la declaración de intenciones:
-       la página dice lo que hace y acto seguido lo dice la CEO en su propia
-       voz, antes de entrar a enumerar servicios.
-       Fachada de YouTube: solo se carga la miniatura y el iframe se inserta
-       al pulsar. Sin JavaScript de framework. */}
   <section class="section section--paper vid" id="video" aria-labelledby="vid-t">
     <div class="wrap vid-grid reveal">
       <div class="vid-copy">
         <p class="eyebrow">({num()}) En vídeo</p>
         <h2 id="vid-t">¿Qué es <span class="destaca">realmente</span> Melero&nbsp;Realty?</h2>
+        <p class="vid-apoyo">{HERO.apoyo}</p>
         <p class="vid-by">Valeria Melero &mdash; CEO &amp; Founder</p>
         <a class="vid-cta" data-cta="video" href={pago} target="_blank" rel="noopener">
           Reservar diagnóstico
@@ -126,290 +76,16 @@ const sitio = {
         </a>
       </div>
       <div class="vid-media">
-        <VideoEmbed
-          videoId={SITE.youtubeId}
-          poster="/images/video-poster.webp"
-          ratio="9/16"
-          title="¿Qué es realmente Melero Realty?"
-        />
+        <VideoEmbed videoId={SITE.youtubeId} poster="/images/video-poster.webp" ratio="9/16" title="¿Qué es realmente Melero Realty?" />
       </div>
     </div>
   </section>
 
-  {/* ================= 3 · INTRO ================= */}
-  <section class="section section--white" aria-labelledby="intro-t">
-    <div class="wrap">
-      <div class="intro-grid reveal">
-        <div class="intro-side">
-          <p class="eyebrow">({num()}) El servicio</p>
-          <p>Trabajamos con inmobiliarias en activo y con exclusividad por zona: una sola marca por área de captación.</p>
-          <a class="intro-planes" data-cta="ver-planes-servicio" href="#planes">Ver planes <span aria-hidden="true">&#8594;</span></a>
-        </div>
-        <div>
-          {/* Acortado el 19/10/2026: el detalle de qué se hace ya está en
-               los planes, con su precio. */}
-          <h2 id="intro-t" class="intro-big">Creamos sistemas de captación para inmobiliarias en activo, del primer clic a la llamada agendada. <em>Sin portales. Sin referidos. Sin curiosos.</em></h2>
-        </div>
-      </div>
-      <div class="intro-rule" aria-hidden="true"></div>
-    </div>
-  </section>
+  <Diagnostico n={num()} />
+  <Comparativa n={num()} />
+  <PlanesResumen n={num()} />
 
-  {/* ================= 8 · COMPARATIVA ================= */}
-  <section class="section section--paper" aria-labelledby="cmp-t">
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">({num()}) La diferencia</p>
-        <h2 id="cmp-t" style="font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;margin-top:1.3rem;max-width:20ch;line-height:1.03">Lo que suele pasar, y lo que hacemos nosotros.</h2>
-
-        <div class="cmp-head-row">
-          <p class="cmp-h cmp-h--them">Otras agencias</p>
-          <p class="cmp-h cmp-h--us">Melero Realty</p>
-        </div>
-
-        <div class="cmp">
-        {COMPARISON.map((c) => (
-          <>
-            <div class="cmp-cell cmp-cell--them"><span class="cmp-tag">Otras agencias</span>{c.ellos}</div>
-            <div class="cmp-cell cmp-cell--us"><span class="cmp-tag">Melero Realty</span>{c.nosotros}</div>
-          </>
-        ))}
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* ================= PLANES =================
-       Sustituye a Servicios desde el 19/10/2026 y va justo después de "La
-       diferencia" (documento de Valeria): tras decir en qué somos
-       distintos, el precio de cada cosa. Plancha oscura entre "La
-       diferencia" (--paper) y "El trato" (blanco). Detrás no puede ir
-       Proceso, que también es oscuro: hasta el 24/10/2026 los separaba el
-       caso, que subió a debajo de la portada (Testimonio.astro).
-       Todo el texto sale de PLANES y cada precio lleva IVA al lado desde la
-       plantilla. Desde el 21/10/2026 el botón de cada plan va a su pago de
-       Stripe (PLANES.*.pago); el del Diagnóstico, al suyo. */}
-  <section class="section section--dark planes" id="planes" aria-labelledby="planes-t">
-    <div class="wrap">
-      <div class="planes-head reveal">
-        <p class="eyebrow eyebrow--dark">({num()}) {PLANES.antetitulo}</p>
-        <h2 id="planes-t">{PLANES.titulo}</h2>
-        <p class="lead">{PLANES.intro}</p>
-      </div>
-
-      <article class="pl-dest reveal" aria-labelledby="pl-dest-t">
-        <div class="pl-dest-main">
-          <p class="pl-etiqueta">{PLANES.destacado.etiqueta}</p>
-          <h3 id="pl-dest-t">{PLANES.destacado.nombre}</h3>
-          <p class="pl-para">{PLANES.destacado.para}</p>
-          <p class="pl-precio">
-            {PLANES.destacado.desde && <span class="pl-desde">desde</span>}
-            <strong>{PLANES.destacado.precio}</strong>
-            <span class="pl-iva">{IVA}</span>
-          </p>
-          <p class="pl-nota">{PLANES.destacado.nota}</p>
-          <p class="pl-linea">{PLANES.destacado.despues}</p>
-          <p class="pl-linea">{PLANES.destacado.anuncios}</p>
-          <p class="pl-cond">{PLANES.destacado.condiciones}</p>
-          <a class="btn btn--dark pl-dest-btn" data-cta="plan-recomendado" href={PLANES.destacado.pago} target="_blank" rel="noopener">{PLANES.boton}
-            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
-          </a>
-        </div>
-        <ul class="pl-incluye pl-incluye--dest">
-          {PLANES.destacado.incluye.map((x) => <li>{x}</li>)}
-        </ul>
-      </article>
-
-      <div class="pl-grid reveal">
-        {PLANES.planes.map((p) => (
-          <article class="pl-card" aria-labelledby={`pl-${p.id}-t`}>
-            <h3 id={`pl-${p.id}-t`}>{p.nombre}</h3>
-            <p class="pl-para">{p.para}</p>
-            <p class="pl-precio">
-              {p.desde && <span class="pl-desde">desde</span>}
-              <strong>{p.precio}</strong>
-              <span class="pl-iva">{IVA}</span>
-            </p>
-            {p.anuncios && <p class="pl-linea">{p.anuncios}</p>}
-            <ul class="pl-incluye">
-              {p.incluye.map((x) => <li>{x}</li>)}
-            </ul>
-            <p class="pl-cond">{p.condiciones}</p>
-            <a class="pl-btn" data-cta={`plan-${p.id}`} href={p.pago} target="_blank" rel="noopener">{'boton' in p ? p.boton : PLANES.boton} <span aria-hidden="true">&#8594;</span></a>
-          </article>
-        ))}
-      </div>
-
-      <div class="pl-pie reveal">
-        <article class="pl-diag" aria-labelledby="pl-diag-t">
-          <p class="pl-para">{PLANES.diagnostico.para}</p>
-          <h3 id="pl-diag-t">{PLANES.diagnostico.nombre}</h3>
-          <p class="pl-precio">
-            <strong>{PLANES.diagnostico.precio}</strong>
-            <span class="pl-iva">{IVA}</span>
-          </p>
-          <p class="pl-nota">{PLANES.diagnostico.nota}</p>
-          <p class="pl-linea">{PLANES.diagnostico.incluye}</p>
-          <p class="pl-cond">{PLANES.diagnostico.condiciones}</p>
-          <a class="btn btn--light" data-cta="plan-diagnostico" href={pago} target="_blank" rel="noopener">{PLANES.diagnostico.boton}
-            <svg viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
-          </a>
-        </article>
-        <div class="pl-extras">
-          <h3>{PLANES.extrasTitulo}</h3>
-          <ul>
-            {PLANES.extras.map((x) => (
-              <li><span>{x.t}</span><span class="pl-extra-precio">{x.precio} {IVA}</span></li>
-            ))}
-          </ul>
-          <p class="pl-cond">{PLANES.extrasNota}</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* ================= 5 · DATOS ================= */}
-  {/* Lo que no cambia. Antes aquí había tres cifras sueltas —a medida,
-       6 meses, 1 marca— que enunciaban las condiciones pero no decían qué se
-       lleva el cliente. Seis servicios en tarjetas tampoco son un paquete.
-       Esto sí responde a "¿qué recibo exactamente?", que era el agujero más
-       caro de la página: se pedían seis meses sin decirlo.
-       Desde el 24/10/2026 va justo detrás de Planes, en el sitio del caso:
-       «trabajemos como trabajemos» se lee mejor con los planes delante, y
-       su blanco separa las dos planchas oscuras, Planes y Proceso. */}
-  <section class="section section--white" aria-labelledby="pil-t">
-    <div class="wrap">
-      <div class="reveal">
-        <p class="eyebrow">({num()}) El trato</p>
-        <h2 id="pil-t" class="pil-t">Lo que no cambia, trabajemos como trabajemos.</h2>
-      </div>
-      <div class="pilares reveal">
-        {PILARES.map((x, i) => (
-          <article class="pilar">
-            <span class="pilar-n">{String(i + 1).padStart(2, '0')}</span>
-            <h3>{x.t}</h3>
-            <p class="pilar-txt">{x.d}</p>
-          </article>
-        ))}
-      </div>
-
-      {/* Quién paga los anuncios, dicho donde se decide. Datos de Valeria
-           (21/10/2026), los mismos que la FAQ de la inversión publicitaria:
-           si cambia una, cambian las dos. Hasta ese día aquí ponía que
-           Melero pagaba los primeros 20 días. */}
-      <p class="pil-nota reveal">
-        <strong>Los anuncios, sólo si tú quieres, y los pagas tú.</strong>
-        La inversión sale de tu propia cuenta y nunca pasa por nosotros:
-        nosotros los gestionamos y optimizamos.
-      </p>
-    </div>
-  </section>
-
-  {/* ================= 7 · PROCESO ================= */}
-  <section class="section proc" id="proceso" aria-labelledby="proc-t">
-    <p class="proc-mark" aria-hidden="true">PROCESO</p>
-    <div class="wrap">
-      <div class="proc-head reveal">
-        <p class="eyebrow eyebrow--dark">({num()}) Cómo trabajamos</p>
-        <h2 id="proc-t">Cinco fases. Ninguna decorativa.</h2>
-      </div>
-      <ol class="steps reveal">
-        {PROCESO.map((p) => (
-          <li class="step">
-            <span class="step-n">{p.step}</span>
-            <h3>{p.title}</h3>
-            <p>{p.desc}</p>
-          </li>
-        ))}
-      </ol>
-    </div>
-  </section>
-
-  {/* ================= 9 · EQUIPO ================= */}
-  <section class="section section--paper" id="equipo" style="padding-bottom:0" aria-labelledby="team-t">
-    <div class="wrap team-head reveal">
-      <p class="eyebrow">({num()}) Equipo</p>
-      <h2 id="team-t">Tres personas, sin capas intermedias.</h2>
-      {/* La única entrada a sobre-nosotros desde la home: es la página que
-          dice quién está detrás y donde están las biografías. */}
-      <a class="team-more" href="/sobre-nosotros/">Conoce al equipo y cómo trabajamos <span aria-hidden="true">&#8594;</span></a>
-    </div>
-    <div class="wrap">
-    <div class="team-grid">
-      {TEAM.map((m) => (
-        <figure class="member">
-          <img src={m.photo} alt={`Retrato de ${m.name}, ${m.role} de Melero Realty`}
-               width="1000" height="1250" loading="lazy" decoding="async" />
-          <figcaption>
-            <span class="member-name">{m.name}</span>
-            <span class="member-role">{m.role}</span>
-          </figcaption>
-        </figure>
-      ))}
-    </div>
-    </div>
-  </section>
-
-  {/* ================= SOCIAL ================= */}
-  {/* (08) Publicaciones. La sección solo existe si hay contenido en SOCIAL:
-       una rejilla vacía sería peor que no tenerla. Las miniaturas son locales
-       y cada tarjeta enlaza a Instagram; no hay script de terceros, así que
-       no entra ni una cookie de seguimiento. */}
-  {SOCIAL_CON_IMAGEN.length > 0 && (
-  <section class="section section--white social" aria-labelledby="social-t">
-    <div class="wrap">
-      <div class="social-head reveal">
-        <div>
-          <p class="eyebrow">({num()}) Lo que publicamos</p>
-          <h2 id="social-t">Contenido que filtra, no que rellena.</h2>
-        </div>
-        <a class="social-perfil" href={SITE.social.instagram} rel="noopener" target="_blank">
-          Ver el perfil
-          <span aria-hidden="true">&#8594;</span>
-        </a>
-      </div>
-
-      <div class="social-grid reveal">
-        {SOCIAL_CON_IMAGEN.map((item) => (
-          <a class="social-item" href={item.url} target="_blank" rel="noopener">
-            <img
-              src={item.img}
-              alt={item.alt}
-              width="640" height="800" loading="lazy" decoding="async"
-            />
-            {item.tipo === 'reel' && (
-              <span class="social-tipo" aria-label="Reel">
-                <svg viewBox="0 0 16 16" aria-hidden="true" fill="currentColor"><polygon points="5 3 13 8 5 13"/></svg>
-              </span>
-            )}
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-  )}
-
-  {/* ================= 10 · FAQ ================= */}
-  <section class="section section--white" id="faq" aria-labelledby="faq-t">
-    <div class="wrap">
-      <div class="faq-grid">
-        <div class="reveal">
-          <p class="eyebrow">({num()}) Preguntas</p>
-          <h2 id="faq-t">Lo que preguntan antes de la primera llamada.</h2>
-          <p class="lead">Si falta algo, escríbenos y te lo contestamos por correo antes de agendar nada.</p>
-        </div>
-        <div class="reveal">
-          {FAQ.map((f) => (
-            <details>
-              <summary>{f.q}<span class="plus" aria-hidden="true"></span></summary>
-              <p>{f.a}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
+  <PreguntasCortas n={num()} />
 
   {/* ================= CTA FINAL ================= */}
   <section class="cta" id="contacto" aria-labelledby="cta-t">
@@ -447,6 +123,7 @@ const sitio = {
   </section>
 
 </main>
+
 
 {/* Barra de reserva fija, solo en movil. La home mide 13.000px en un movil
      y solo tiene boton arriba del todo y al final: en todo el medio, quien se
@@ -556,5 +233,83 @@ const sitio = {
   });
 </script>
 
+
+<script>
+  /* Movimiento de la propuesta «de seguido». Dos piezas:
+     1) Entradas laterales: cada [data-lado] entra desde su lado al llegar
+        a pantalla (IntersectionObserver), con red de seguridad.
+     2) El diagnóstico (sólo escritorio, gsap.matchMedia): el paso que cruza
+        el 62 % de la pantalla se marca como activo, la tarjeta funde a su
+        foto (la línea arena de progreso se quitó: se veía rota). */
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener('astro:page-load', () => {
+    const main = document.querySelector('.seguido');
+    if (!main) return;
+
+    // Lo que no lleva data-lado en su componente se marca aquí, para no
+    // tocar los componentes que comparte con la home.
+    const asignar: [string, string][] = [
+      ['.tval-foto', 'izq'], ['.tval-in > :not(.tval-foto)', 'der'],
+      ['.vid-copy', 'izq'], ['.vid-media > *', 'der'],
+      ['#faq .faq-grid > :first-child', 'izq'], ['#faq details', 'der'],
+    ];
+    asignar.forEach(([sel, lado]) =>
+      main.querySelectorAll<HTMLElement>(sel).forEach((el) => { if (!el.dataset.lado) el.dataset.lado = lado; }));
+
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) return;
+
+    const control = new AbortController();
+    document.documentElement.classList.add('seg-js');
+
+    const elementos = [...main.querySelectorAll<HTMLElement>('[data-lado]')];
+    const io = new IntersectionObserver((entradas) => {
+      entradas.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('dentro'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    elementos.forEach((el) => io.observe(el));
+
+    // Red de seguridad: lo que ya está por encima del borde inferior se
+    // muestra aunque el observador no haya disparado.
+    const rescatar = () => elementos.forEach((el) => {
+      if (!el.classList.contains('dentro') && el.getBoundingClientRect().top < window.innerHeight) {
+        el.classList.add('dentro');
+      }
+    });
+    let espera: number | undefined;
+    window.addEventListener('scroll', () => {
+      clearTimeout(espera); espera = window.setTimeout(rescatar, 700);
+    }, { passive: true, signal: control.signal });
+    window.setTimeout(rescatar, 2000);
+
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 961px)', () => {
+      const sec = main.querySelector<HTMLElement>('.dgs');
+      const fotos = sec?.querySelector<HTMLElement>('.dgs-fotos');
+      if (!sec || !fotos) return;
+      const pasos = [...sec.querySelectorAll<HTMLElement>('.dgs-paso')];
+      const marcar = (n: string) => {
+        fotos.dataset.paso = n;
+        pasos.forEach((p) => p.classList.toggle('activo', p.dataset.n === n));
+      };
+      sec.classList.add('dgs--vivo');
+      marcar('1');
+      pasos.forEach((p) => ScrollTrigger.create({
+        trigger: p, start: 'top 62%', end: 'bottom 62%',
+        onEnter: () => marcar(p.dataset.n || '1'), onEnterBack: () => marcar(p.dataset.n || '1'),
+      }));
+      return () => { sec.classList.remove('dgs--vivo'); marcar('1'); };
+    });
+
+    document.addEventListener('astro:before-swap', () => {
+      control.abort(); io.disconnect(); mm.revert();
+      document.documentElement.classList.remove('seg-js');
+    }, { once: true });
+  });
+</script>
 
 </Layout>

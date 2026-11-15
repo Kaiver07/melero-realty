@@ -1,0 +1,46 @@
+---
+/* Preguntas frecuentes (15/11/2026). Las ocho de FAQ, enteras; la home sólo
+   enseña las cuatro de DIAGNOSTICO.faq. El schema FAQPage va aquí y no en
+   la home: Google pide que el marcado coincida con lo que se ve. */
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BlogCta from '../components/BlogCta.astro';
+import '../styles/home.css';
+import '../styles/blog.css';
+import { FAQ } from '../config/site';
+---
+
+<Layout
+  title="Preguntas sobre el diagnóstico y los planes"
+  miga="Preguntas frecuentes"
+  description="Lo que preguntan las inmobiliarias antes de reservar el diagnóstico: qué incluye, plazos, quién paga los anuncios, zonas ocupadas, permanencia y presupuesto."
+  includeFaqSchema={true}
+>
+<Header />
+<main>
+  {/* ================= 10 · FAQ ================= */}
+  <section class="section section--white" id="faq" aria-labelledby="faq-t">
+    <div class="wrap">
+      <div class="faq-grid">
+        <div class="reveal">
+          <p class="eyebrow">Preguntas</p>
+          <h1 id="faq-t">Lo que preguntan antes de la primera llamada.</h1>
+          <p class="lead">Si falta algo, escríbenos y te lo contestamos por correo antes de agendar nada.</p>
+        </div>
+        <div class="reveal">
+          {FAQ.map((f) => (
+            <details>
+              <summary>{f.q}<span class="plus" aria-hidden="true"></span></summary>
+              <p>{f.a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <BlogCta />
+</main>
+<Footer />
+</Layout>

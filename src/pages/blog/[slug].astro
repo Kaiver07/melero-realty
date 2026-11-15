@@ -8,6 +8,7 @@ import BlogCta from '../../components/BlogCta.astro';
 import { SITE, SERVICES, BLOG, TEAM } from '../../config/site';
 import { articulos, fecha, isoDia, isoMadrid, minutos, type Articulo } from '../../lib/blog';
 import { srcsetDe } from '../../lib/imagenes';
+import { existsSync } from 'node:fs';
 import '../../styles/blog.css';
 
 export async function getStaticPaths() {
@@ -29,6 +30,11 @@ const d = post.data;
 const url = new URL(`/blog/${post.id}/`, SITE.url).href;
 // Con hora y zona para Google; la fecha visible lleva sólo el día.
 const publicado = isoMadrid(d.publishDate);
+
+// og:image propia (su foto a 1200×630) si existe; si no, la común del sitio.
+const ogPropia = `/images/blog/og/${post.id}.jpg`;
+const ogImage = existsSync(`public${ogPropia}`) ? ogPropia : undefined;
+const ogImageAlt = ogImage ? d.image.alt : undefined;
 const modificado = isoMadrid(d.updatedDate ?? d.publishDate);
 
 // En el orden de SERVICES, que es el de la home.
@@ -59,10 +65,11 @@ const schema = [
       // identifique a esa persona en concreto.
       url: `${SITE.url}/sobre-nosotros/#${m.id}`,
       ...(m.perfiles.length > 0 ? { sameAs: [...m.perfiles] } : {}),
-      worksFor: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+      worksFor: { '@type': 'Organization', '@id': `${SITE.url}/#organizacion`, name: SITE.name, url: SITE.url },
     })),
     publisher: {
       '@type': 'Organization',
+      '@id': `${SITE.url}/#organizacion`,
       name: SITE.name,
       url: SITE.url,
       // El favicon de 512 px: el isotipo dorado sobre transparente no se lee
@@ -83,7 +90,9 @@ const schema = [
 ];
 ---
 
-<Layout title={d.seoTitle ?? d.title} description={d.description} ogType="article">
+{/* La og:image es su foto recortada a 1200×630 (public/images/blog/og/,
+    generada con sharp): así cada artículo se comparte con su imagen. */}
+<Layout title={d.seoTitle ?? d.title} description={d.description} ogType="article" ogImage={ogImage} ogImageAlt={ogImageAlt}>
   <Fragment slot="head">
     <meta property="article:published_time" content={publicado} />
     <meta property="article:modified_time" content={modificado} />
@@ -164,7 +173,7 @@ const schema = [
                 </li>
               ))}
             </ul>
-            <a class="bl-svc-link" href="/#planes">{BLOG.verServicios}</a>
+            <a class="bl-svc-link" href="/planes/">{BLOG.verServicios}</a>
           </div>
         </div>
       </section>

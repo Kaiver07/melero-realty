@@ -11,7 +11,10 @@ export const SITE = {
   domain: 'valeriamelero.com',
   description:
     'Generamos leads cualificados para agencias y asesores inmobiliarios en España y EEUU. Sin portales. Sin referidos. Sin curiosos.',
-  email: 'melero.realty@gmail.com',
+  // info@ (15/11/2026, lo pidió Yerai). Sólo recibe: Email Routing de
+  // Cloudflare lo reenvía a melero.realty@gmail.com, y las respuestas
+  // salen desde ese Gmail. No hay otras direcciones: contacto@ rebota.
+  email: 'info@valeriamelero.com',
   // El Diagnóstico es de pago desde el 19/10/2026 (197 € + IVA). Todos los
   // CTA de reserva van a este enlace de pago de Stripe, y Stripe, al cobrar,
   // redirige a Calendly: la agenda sólo se abre después de pagar. La
@@ -109,12 +112,42 @@ export const IVA = '+ IVA';
    los diagnósticos (PRODUCT.md): un mensaje para todo el mundo que atrae
    curiosos. La búsqueda «captación de leads para inmobiliarias» pasa al
    párrafo de apoyo, que es lo primero que se lee después. Desde el
-   14/11/2026 va sobre el vídeo de la portada (Portada.astro). */
+   14/11/2026 va sobre el vídeo de la portada (Portada.astro). Desde el
+   15/11/2026 `apoyo` ya no está en la portada (Yerai la quería sin
+   texto): va bajo «¿Qué es realmente Melero Realty?», en la sección del
+   vídeo. */
 export const HERO = {
   kicker: 'Agencia de marketing inmobiliario',
   titulo: 'Deja de contestar a curiosos.',
   apoyo:
     'Captación de leads para inmobiliarias que ya facturan. Un mensaje pensado para tu cliente ideal y un canal propio, junto a los portales, para que el contacto llegue sabiendo quién eres.',
+} as const;
+
+/* La sección «El diagnóstico» de la home (15/11/2026, aprobada por Yerai:
+   la landing corta, Diagnostico.astro). El problema va en dos
+   frases, y los tres pasos sólo cuentan datos ya dados por Valeria: precio,
+   90 minutos por videollamada, informe en 7 días con el cuello de botella y
+   un plan de 90 días, y la respuesta honesta si no podemos ayudar. */
+export const DIAGNOSTICO = {
+  antetitulo: 'El diagnóstico',
+  titulo: 'Antes de venderte un plan, buscamos dónde se te pierden los clientes.',
+  problema:
+    'Si el 80 % de tus leads vienen de un portal, el contacto nunca llega a ser tuyo. No te pedimos que dejes el portal: te pedimos que dejes de depender de él. El diagnóstico te dice por dónde empezar.',
+  pasos: [
+    { t: 'Reservas y pagas', d: 'La agenda se abre al pagar y eliges el día. Si ya contratas un plan, va incluido.' },
+    { t: '90 minutos con Valeria', d: 'Por videollamada. Revisamos de dónde vienen hoy tus leads, qué te cuesta cada cliente y si tu zona sigue libre.' },
+    { t: 'Informe en 7 días', d: 'Por escrito: tu cuello de botella, un plan de 90 días y si podemos ayudarte. Si la respuesta es que no, también te la damos.' },
+  ],
+  boton: 'Reservar diagnóstico',
+  verPlanes: 'Ver los planes',
+  /* Las preguntas de la FAQ que se quedan en la landing; el resto iría a
+     /preguntas/. Se eligen por el texto de la pregunta. */
+  faq: [
+    '¿Qué incluye el diagnóstico?',
+    '¿Qué plan me conviene?',
+    '¿Cuánto tiempo hasta ver resultados?',
+    'La inversión publicitaria, ¿va dentro de vuestros honorarios o aparte?',
+  ],
 } as const;
 
 /* `pago` es el enlace de Stripe de cada pack, que pasó Valeria el
@@ -245,6 +278,35 @@ export const PLANES = {
     { t: 'Jornada de grabación extra', precio: '190 €' },
     { t: 'Web completa', precio: 'desde 1.500 €' },
   ],
+} as const;
+
+/* Aprobado por Yerai el 15/11/2026 (Comparativa.astro y Planes.astro). Ideas de
+   airpro.es que pidió Yerai: el título de cada plan en boca del cliente,
+   lo que no incluye pegado al precio y una foto real por plan. Los
+   precios, listas y condiciones siguen saliendo de PLANES. */
+export const PLANES_VOZ = {
+  comparativa: {
+    antetitulo: 'Antes de los precios',
+    titulo: 'Lo que suele pasar, y lo que hacemos nosotros.',
+    ellos: 'Otras agencias',
+    nosotros: 'Melero Realty',
+  },
+  verIncluye: 'Ver qué incluye',
+  // PlanesResumen.astro: la línea del Diagnóstico al pie del resumen.
+  noSabes: '¿No sabes cuál te encaja?',
+  verTodos: 'Ver los planes completos y lo que incluye cada uno',
+  destacado: {
+    voz: 'Lo quiero todo, también en Google',
+    excluye: '+ IVA · anuncios aparte, si los quieres',
+    foto: '/images/svc-contenido.webp',
+    alt: 'Portátil con la edición de un vídeo inmobiliario sobre una mesa de trabajo',
+  },
+  planes: {
+    contenido: { voz: 'Que me conozcan en mi zona', excluye: '+ IVA', foto: '/images/real-rodaje.webp', alt: 'Rodaje de un Reel en una vivienda, con la cámara en trípode' },
+    captacion: { voz: 'Que me lleguen propietarios', excluye: '+ IVA · anuncios aparte, si los quieres', foto: '/images/band-campanas.webp', alt: 'Portátil con un panel de campañas y un cuaderno con el plan de la semana' },
+    completo: { voz: 'Marca y propietarios a la vez', excluye: '+ IVA · anuncios aparte, si los quieres', foto: '/images/real-set.webp', alt: 'Salón preparado para grabar, con la cámara en trípode' },
+    seo: { voz: 'Que me encuentren en Google y en la IA', excluye: '+ IVA · auditoría inicial de 290 € + IVA', foto: '/images/svc-marca.webp', alt: 'Fotos impresas de viviendas y un móvil con la galería de una inmobiliaria' },
+  },
 } as const;
 
 /* Respaldo, no servicio (documento del 19/10/2026): MBMA va como
@@ -474,18 +536,22 @@ export const TEAM = [
   },
   {
     name: 'Yerai Jiménez',
-    role: 'Marketing & Comunicación',
+    /* Perfil real de Yerai (15/11/2026, de su portfolio): SEO técnico,
+       contenido con IA y email marketing. En Melero lleva la web. */
+    role: 'Web, SEO y Marketing',
     photo: '/team/yerai.webp',
     id: 'yerai-jimenez',
-    bio: 'Lleva el marketing y la comunicación: escribe los guiones y el contenido de Melero Realty, también los artículos del blog.',
-    perfiles: [],
+    bio: 'Lleva la web de Melero Realty y su posicionamiento: SEO técnico y email marketing.',
+    perfiles: ['https://www.linkedin.com/in/yeray-jimenez0770/'],
   },
   {
     name: 'Carlos Bernabé',
-    role: 'Director Comercial',
+    /* Dato de Yerai del 15/11/2026: Carlos capta leads y gestiona las
+       redes sociales. */
+    role: 'Captación de leads y Redes sociales',
     photo: '/team/carlos.webp',
     id: 'carlos-bernabe',
-    bio: 'Dirige el área comercial y participa en los guiones del contenido de Melero Realty.',
+    bio: 'Capta leads para Melero Realty y gestiona sus redes sociales. También participa en los guiones del contenido.',
     perfiles: [],
   },
 ] as const;
@@ -585,7 +651,7 @@ export const NO_ENCONTRADA = {
   boton: 'Reservar diagnóstico · 197 €',
   enlaces: [
     { href: '/', texto: 'Ir al inicio' },
-    { href: '/#planes', texto: 'Ver los planes' },
+    { href: '/planes/', texto: 'Ver los planes' },
     { href: '/blog/', texto: 'Leer el blog' },
   ],
 } as const;

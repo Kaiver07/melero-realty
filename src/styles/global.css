@@ -194,8 +194,10 @@ details[open] .faq-plus { transform: rotate(45deg); }
   border-top:1px solid var(--rule-dark);
 }
 .footer-top{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(2,minmax(0,1fr));gap:2.4rem;padding-bottom:2.6rem;border-bottom:1px solid var(--rule-dark)}
-.footer-brand{font-size:clamp(1.3rem,2.4vw,1.9rem);font-weight:700;letter-spacing:-.03em}
-.footer-brand span{color:rgba(255,255,255,.4)}
+/* Logotipo con claim en crema (manual: crema sobre principal), el SVG del
+   paquete de marca. */
+.footer-brand{display:inline-block}
+.footer-logo{display:block;height:clamp(52px,5vw,64px);width:auto}
 .footer-top p{margin-top:.9rem;color:var(--muted-dark);font-size:.9rem;font-weight:300;max-width:32ch}
 .footer h3{font-size:.66rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--white);margin-bottom:1rem}
 .footer li{margin-bottom:.6rem}

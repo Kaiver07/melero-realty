@@ -8,10 +8,10 @@ import { SITE } from '../config/site';
 const year = new Date().getFullYear();
 
 const nav = [
-  { href: '/#planes', label: 'Planes' },
-  { href: '/#proceso', label: 'Proceso' },
-  { href: '/#equipo', label: 'Equipo' },
-  { href: '/#faq', label: 'Preguntas' },
+  { href: '/planes/', label: 'Planes' },
+  { href: '/proceso/', label: 'Proceso' },
+  { href: '/sobre-nosotros/#equipo', label: 'Equipo' },
+  { href: '/preguntas/', label: 'Preguntas' },
 ];
 ---
 
@@ -19,7 +19,11 @@ const nav = [
   <div class="wrap">
     <div class="footer-top">
       <div>
-        <p class="footer-brand">MELERO<span>.</span></p>
+        {/* El logotipo del manual, con claim, en crema sobre el oscuro: el
+             SVG tal cual viene en el paquete de marca (01_Logo-principal). */}
+        <a class="footer-brand" href="/">
+          <img class="footer-logo" src="/images/logo/melero-realty-principal-crema.svg" alt={`${SITE.name}, inicio`} width="973" height="312" loading="lazy" decoding="async">
+        </a>
         <p>
           Captación de leads para negocios inmobiliarios en activo.
           Exclusividad por zona.

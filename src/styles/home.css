@@ -47,7 +47,10 @@
 
 *,*::before,*::after{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
-html,body{max-width:100%;overflow-x:hidden}
+/* clip y no hidden: hidden convierte el body en contenedor de scroll y
+   ningún position:sticky se pega (ni la cabecera de las interiores). El
+   hidden de delante es el plan B de los navegadores sin clip. */
+html,body{max-width:100%;overflow-x:hidden;overflow-x:clip}
 body{
   margin:0;
   background:var(--white);
@@ -271,7 +274,7 @@ ul,ol{margin:0;padding:0;list-style:none}
    sin esquinas redondeadas, como todo lo que no es la píldora del hero. */
 .planes :focus-visible{outline-color:var(--white)}
 .planes .pl-dest :focus-visible{outline-color:var(--teal)}
-.planes-head h2{
+.planes-head h1,.planes-head h2{
   font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;
   margin-top:1.3rem;max-width:22ch;line-height:1.03;text-wrap:balance;
 }
@@ -503,7 +506,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 }
 .proc .wrap{position:relative;z-index:1}
 .proc-head{margin-bottom:clamp(2.4rem,5vw,4.2rem);max-width:52ch}
-.proc-head h2{font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;color:var(--white);margin-top:1.3rem;line-height:1.03}
+.proc-head h1,.proc-head h2{font-size:clamp(1.7rem,3.5vw,2.85rem);font-weight:600;color:var(--white);margin-top:1.3rem;line-height:1.03}
 .steps{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0}
 .step{padding:1.6rem clamp(.9rem,1.4vw,1.5rem) 0;border-top:1px solid var(--rule-dark);border-left:1px solid var(--rule-dark)}
 .step:first-child{border-left:0;padding-left:0}
@@ -634,8 +637,11 @@ ul,ol{margin:0;padding:0;list-style:none}
    10 · FAQ / CTA / FOOTER
    ========================================================================== */
 .faq-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.7fr);gap:clamp(2rem,6vw,6rem);align-items:start}
-.faq-grid h2{font-size:clamp(1.7rem,3.3vw,2.65rem);font-weight:600;margin-top:1.3rem;line-height:1.05}
+.faq-grid h1,.faq-grid h2{font-size:clamp(1.7rem,3.3vw,2.65rem);font-weight:600;margin-top:1.3rem;line-height:1.05}
 .faq-grid .lead{margin-top:1.3rem}
+/* A /preguntas/, desde el bloque de las cuatro (PreguntasCortas). */
+.faq-grid .faq-todas{display:inline-block;margin-top:.6rem;font-weight:600;color:var(--ink);text-decoration:none;border-bottom:1px solid currentColor}
+.faq-grid .faq-todas:hover{color:var(--teal)}
 details{border-top:1px solid var(--rule)}
 details:last-of-type{border-bottom:1px solid var(--rule)}
 summary{
@@ -649,6 +655,9 @@ summary::-webkit-details-marker{display:none}
 .plus::before{left:0;top:6px;width:14px;height:1.5px}
 .plus::after{left:6px;top:0;width:1.5px;height:14px}
 details[open] .plus::after{transform:rotate(90deg);opacity:0}
+/* Al cerrar, el <details> sigue abierto hasta que acaba la animación (el
+   script de desplegables, en Layout.astro): el «+» vuelve ya al empezar. */
+details[open].cerrando .plus::after{transform:none;opacity:1}
 details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:300;color:var(--muted);max-width:62ch}
 @media (max-width:880px){.faq-grid{grid-template-columns:1fr;gap:2rem}}
 
@@ -1087,10 +1096,13 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
   font-size:clamp(2.6rem,6vw,5.4rem);font-weight:700;letter-spacing:-.035em;line-height:1;
   text-wrap:balance;
 }
-.portada-apoyo{
-  margin-top:clamp(1.1rem,1.8vw,1.6rem);max-width:52ch;
-  font-size:clamp(1rem,1.25vw,1.15rem);font-weight:400;line-height:1.6;
-  color:color-mix(in srgb,var(--crema) 90%,transparent);
+/* El apoyo de HERO, que salió de la portada (15/11/2026): debajo de «¿Qué
+   es realmente Melero Realty?», a la que responde. --muted sobre --paper,
+   4.82:1. */
+.vid-apoyo{
+  margin-top:1.1rem;max-width:44ch;
+  font-size:clamp(1rem,1.2vw,1.0625rem);font-weight:300;line-height:1.65;
+  color:var(--muted);
 }
 .portada .ab-note{color:color-mix(in srgb,var(--crema) 88%,transparent)}
 .portada .ab-note strong,.portada .ab-planes{color:var(--crema)}
@@ -1112,4 +1124,266 @@ details p{padding:0 3rem 1.5rem 0;font-size:.95rem;line-height:1.7;font-weight:3
 }
 @media (prefers-reduced-motion:reduce){
   .portada-video{display:none}
+}
+
+/* ==========================================================================
+   HOME «DE SEGUIDO» (15/11/2026, aprobada por Yerai). Lados alternos: en
+   cada bloque una tarjeta se queda fija (position: sticky de CSS, no el pin
+   de GSAP) y el contenido pasa por el otro lado. Entradas laterales con
+   [data-lado]; el script está en index.astro. Por debajo de 960 px, una
+   columna y nada fijo.
+   ========================================================================== */
+/* ---------- Ritmo: entradas laterales ----------
+   Sólo con .seg-js, que pone el script si hay JS y no hay movimiento
+   reducido. Sin eso, todo está quieto y visible. */
+.seguido > section { overflow-x: clip; } /* clip, no hidden: hidden rompe sticky */
+.seg-js .seguido [data-lado] {
+  opacity: 0;
+  transition: opacity .9s var(--ease), transform 1s var(--ease);
+}
+.seg-js .seguido [data-lado="izq"] { transform: translateX(-56px); }
+.seg-js .seguido [data-lado="der"] { transform: translateX(56px); }
+.seg-js .seguido [data-lado].dentro { opacity: 1; transform: none; }
+@media (max-width: 960px) {
+  .seg-js .seguido [data-lado="izq"], .seg-js .seguido [data-lado="der"] { transform: translateY(24px); }
+}
+
+/* ---------- Diagnóstico: tarjeta fija a la izquierda ---------- */
+.dgs-grid {
+  display: grid; grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  gap: clamp(2.5rem, 6vw, 6rem); align-items: start;
+}
+.dgs-tarjeta { position: sticky; top: calc(76px + 5vh); }
+.dgs-fotos {
+  position: relative; width: 100%;
+  height: min(calc(100vh - 76px - 14vh), 700px);
+}
+.dgs-foto {
+  position: absolute; inset: 0; margin: 0;
+  opacity: 0; transform: scale(1.04);
+  transition: opacity .7s var(--ease), transform 1.4s var(--ease);
+}
+.dgs-fotos[data-paso="1"] .dgs-foto[data-n="1"],
+.dgs-fotos[data-paso="2"] .dgs-foto[data-n="2"],
+.dgs-fotos[data-paso="3"] .dgs-foto[data-n="3"] { opacity: 1; transform: none; }
+.dgs-foto img { width: 100%; height: 100%; object-fit: cover; }
+.dgs-foto figcaption {
+  position: absolute; left: 1rem; bottom: 1rem;
+  padding: .6rem .95rem; background: rgba(13, 34, 38, .86); color: var(--crema);
+  font-size: .85rem; font-weight: 600;
+}
+.dgs-foto figcaption span { color: var(--arena); margin-right: .35rem; }
+.dgs-ficha {
+  position: absolute; z-index: 2; top: 1.6rem; left: -1.4rem;
+  display: grid; gap: .2rem; padding: 1.1rem 1.4rem 1.2rem;
+  background: var(--ink); color: var(--crema);
+  box-shadow: 0 14px 34px rgba(18, 47, 53, .25);
+}
+.dgs-ficha-k { font-size: .68rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--arena); }
+.dgs-ficha-p { font-size: clamp(1.9rem, 3vw, 2.4rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.05; }
+.dgs-ficha-p small { font-size: .8rem; font-weight: 400; letter-spacing: 0; color: var(--muted-dark); }
+.dgs-ficha-d { font-size: .85rem; font-weight: 300; color: var(--muted-dark); }
+
+.dgs-t { font-size: clamp(1.7rem, 3.3vw, 2.65rem); font-weight: 600; margin-top: 1.3rem; max-width: 20ch; line-height: 1.05; }
+.dgs-problema { margin-top: 1.2rem; max-width: 52ch; font-size: clamp(1rem, 1.3vw, 1.0625rem); line-height: 1.68; font-weight: 300; color: var(--muted); }
+
+.dgs-recorrido { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+.dgs-pasos { list-style: none; margin: 0; padding: 0; }
+.dgs-paso {
+  position: relative; display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: 1.3rem;
+  align-items: start; min-height: 48vh; padding-block: 1.6rem;
+}
+.dgs-num {
+  display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 50%;
+  background: var(--arena); color: var(--ink); font-size: 1.1rem; font-weight: 700;
+  transition: background-color .4s var(--ease), color .4s var(--ease), transform .4s var(--ease);
+}
+.dgs-paso h3 { font-size: clamp(1.15rem, 1.6vw, 1.4rem); font-weight: 600; line-height: 1.25; color: var(--text); padding-top: .55rem; }
+.dgs-paso-txt { margin-top: .5rem; max-width: 44ch; font-size: 1rem; line-height: 1.65; font-weight: 300; color: var(--muted); }
+/* Paso activo: sólo si el script llegó a marcar la sección (.dgs--vivo).
+   La atenuación va en los hijos para no pelearse con la entrada lateral,
+   que también usa la opacidad del <li>. */
+.dgs--vivo .dgs-paso > * { transition: opacity .45s var(--ease); }
+.dgs--vivo .dgs-paso:not(.activo) > * { opacity: .38; }
+.dgs--vivo .dgs-paso.activo .dgs-num { background: var(--ink); color: var(--crema); transform: scale(1.08); }
+
+.dgs-accion { margin-top: 1rem; }
+.dgs-botones { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; }
+.dgs-link { display: inline-flex; gap: .6rem; align-items: center; font-weight: 600; color: var(--ink); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 2px; }
+.section .dgs-link:hover { color: var(--teal); }
+.dgs-cond { margin-top: 1rem; font-size: .86rem; line-height: 1.6; font-weight: 300; color: var(--muted); }
+
+/* ---------- Preguntas: titular fijo a la izquierda ---------- */
+.seguido #faq .faq-grid > :first-child { position: sticky; top: calc(76px + 6vh); }
+
+@media (max-width: 960px) {
+  .dgs-grid { grid-template-columns: 1fr; }
+  .dgs-tarjeta { position: static; max-width: 560px; }
+  .dgs-fotos { height: auto; aspect-ratio: 4 / 5; }
+  .dgs-ficha { left: 1rem; }
+  .dgs-paso { min-height: 0; padding-block: 1rem; }
+  .seguido #faq .faq-grid > :first-child { position: static; }
+}
+
+/* ==========================================================================
+   COMPARATIVA Y PLANES (15/11/2026, aprobados por Yerai). Comparativa.astro
+   y Planes.astro, en la home y en /planes/. Prefijo pp-.
+   ========================================================================== */
+/* ---------- Comparativa ---------- */
+.pp-comp-head h2 {
+  margin-top: 1.3rem; max-width: 20ch;
+  font-size: clamp(1.7rem, 3.5vw, 2.85rem); font-weight: 600; line-height: 1.03;
+}
+.pp-tabla { margin-top: clamp(2rem, 4vw, 3rem); }
+.pp-fila {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  border-top: 1px solid var(--rule);
+}
+.pp-fila:last-child { border-bottom: 1px solid var(--rule); }
+.pp-fila > span { display: flex; gap: .9rem; align-items: flex-start; padding: 1.25rem 1.5rem; line-height: 1.5; }
+/* La sección va sobre arena clara (entre el Diagnóstico, blanco, y los
+   planes, oscuros); la columna de Melero, en blanco de arriba abajo. */
+.pp-fila > span:last-child { background: var(--white); }
+.pp-fila--cab > span {
+  padding-block: 1rem; font-size: .7rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+}
+.pp-col-ellos { color: var(--muted); }
+.pp-col-nos { color: var(--ink); }
+.pp-ellos { color: var(--muted); font-weight: 300; font-size: .98rem; }
+.pp-nos { color: var(--text); font-weight: 600; font-size: 1.02rem; }
+.pp-ico {
+  flex: none; display: grid; place-items: center; width: 1.6rem; height: 1.6rem; border-radius: 50%;
+  font-size: .8rem; font-weight: 700; line-height: 1; margin-top: -.05rem;
+}
+.pp-ico--no { background: var(--rule); color: var(--muted); }
+.pp-ico--si { background: var(--ink); color: var(--crema); }
+
+/* ---------- Planes ---------- */
+.pp-dest {
+  display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  margin-top: clamp(2.4rem, 4.5vw, 3.6rem);
+  background: var(--white); color: var(--text);
+}
+/* La foto llena su marco, que toma la altura del texto: sin aire de sobra
+   debajo cuando la lista está plegada. */
+.pp-dest-media { position: relative; min-height: 320px; }.pp-dest-foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.pp-dest-cuerpo { padding: clamp(1.6rem, 3.5vw, 3rem); }
+.pp-voz { margin-top: .5rem; font-size: clamp(1.2rem, 1.7vw, 1.45rem); font-weight: 600; letter-spacing: -.02em; line-height: 1.2; color: var(--white); }
+.pp-voz--dest { margin-top: 1.1rem; font-size: clamp(1.6rem, 2.8vw, 2.3rem); color: var(--text); }
+.pp-nombre { font-size: .68rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--arena); }
+.pp-dest .pp-nombre { margin-top: .7rem; color: var(--teal); }
+.pp-precio { margin-top: 1.2rem; display: flex; align-items: baseline; flex-wrap: wrap; gap: .4rem; }
+.pp-precio strong { font-size: clamp(1.7rem, 2.6vw, 2.2rem); font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+.pp-desde, .pp-nota { font-size: .82rem; color: var(--muted-dark); }
+.pp-dest .pp-desde, .pp-dest .pp-nota { color: var(--muted); }
+.pp-dest .pp-nota { font-weight: 600; color: var(--text); }
+/* Lo que no incluye, pegado al precio (idea de airpro.es). */
+.pp-excluye { margin-top: .35rem; font-size: .85rem; color: var(--muted-dark); }
+.pp-dest .pp-excluye { color: var(--muted); }
+.pp-linea { margin-top: .9rem; font-size: .9rem; line-height: 1.6; font-weight: 300; color: var(--muted); }
+.pp-dest-btn { margin-top: 1.5rem; }
+.pp-cond { margin-top: 1rem; font-size: .66rem; font-weight: 600; line-height: 1.6; letter-spacing: .14em; text-transform: uppercase; color: var(--muted-dark); }
+.pp-dest .pp-cond { color: var(--teal); }
+
+.pp-grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 22px); margin-top: clamp(14px, 1.6vw, 22px);
+}
+.pp-card { display: flex; flex-direction: column; border: 1px solid var(--rule-dark); }
+.pp-card-foto { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
+.pp-card-cuerpo { display: flex; flex-direction: column; flex: 1; padding: clamp(1.2rem, 2vw, 1.6rem); }
+.pp-card .pp-voz { min-height: 2.4em; }
+.pp-btn { margin-top: auto; padding-top: 1.2rem; }
+
+/* «Ver qué incluye», plegado. Pisa el estilo general de details/summary
+   de las preguntas. */
+.pp-incluye { margin-top: 1rem; border-top: 1px solid var(--rule-dark); }
+.pp-incluye:last-of-type { border-bottom: 1px solid var(--rule-dark); }
+.pp-dest .pp-incluye { border-color: var(--rule); }
+.pp-incluye summary { padding: .9rem 2rem .9rem 0; font-size: .82rem; font-weight: 600; letter-spacing: .02em; }
+.pp-incluye .plus { top: 1.05rem; width: 12px; height: 12px; }
+.pp-incluye .plus::before { width: 12px; top: 5px; }
+.pp-incluye .plus::after { left: 5px; height: 12px; }
+.pp-planes .pp-card .plus::before, .pp-planes .pp-card .plus::after { background: var(--crema); }
+.pp-incluye ul { list-style: none; margin: 0 0 1rem; padding: 0; }
+/* En las tarjetas la lista va a la vista, sin summary: aire arriba. */
+.pp-card .pp-incluye ul { padding-top: .6rem; }
+.pp-incluye li { position: relative; padding: .45rem 0 .45rem 1.1rem; font-size: .88rem; line-height: 1.45; font-weight: 300; }
+.pp-incluye li::before { content: ""; position: absolute; left: 0; top: 1.05em; width: .55rem; height: 1px; background: var(--arena); }
+.pp-dest .pp-incluye li::before { background: var(--teal); }
+
+@media (max-width: 1100px) { .pp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) {
+  .pp-dest { grid-template-columns: 1fr; }
+  .pp-dest-media { aspect-ratio: 16 / 9; min-height: 0; }
+}
+@media (max-width: 640px) {
+  .pp-grid { grid-template-columns: 1fr; }
+  .pp-fila > span { padding: 1rem .9rem; font-size: .9rem; }
+  .pp-fila--cab > span { font-size: .6rem; letter-spacing: .12em; }
+}
+
+/* ==========================================================================
+   PLANES EN RESUMEN (15/11/2026): la versión reducida de la home,
+   PlanesResumen.astro. El detalle completo está en /planes/. Prefijo pr-.
+   ========================================================================== */
+.pr-dest {
+  display: grid; grid-template-columns: minmax(0, 1.3fr) auto auto;
+  gap: clamp(1.4rem, 3vw, 3rem); align-items: center;
+  margin-top: clamp(2.2rem, 4vw, 3.2rem);
+  padding: clamp(1.4rem, 2.8vw, 2.2rem) clamp(1.4rem, 3vw, 2.6rem);
+  background: var(--white); color: var(--text);
+}
+.pr-voz { margin-top: .45rem; font-size: clamp(1.1rem, 1.5vw, 1.3rem); font-weight: 600; letter-spacing: -.02em; line-height: 1.2; color: var(--white); }
+.pr-voz--dest { margin-top: .9rem; font-size: clamp(1.35rem, 2.2vw, 1.85rem); color: var(--text); }
+.pr-nombre { font-size: .66rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--arena); }
+.pr-dest .pr-nombre { margin-top: .55rem; color: var(--teal); }
+.pr-precio { display: flex; align-items: baseline; gap: .4rem; flex-wrap: wrap; }
+.pr-precio strong { font-size: clamp(1.5rem, 2.3vw, 2rem); font-weight: 700; letter-spacing: -.03em; line-height: 1; }
+.pr-desde { font-size: .8rem; color: var(--muted-dark); }
+.pr-dest .pr-desde { color: var(--muted); }
+.pr-excluye { margin-top: .35rem; font-size: .82rem; line-height: 1.45; color: var(--muted-dark); }
+.pr-dest .pr-excluye { color: var(--muted); }
+.pr-dest-btn { white-space: nowrap; }
+
+.pr-grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 22px); margin-top: clamp(14px, 1.6vw, 22px);
+}
+.pr-card {
+  display: flex; flex-direction: column;
+  padding: clamp(1.2rem, 2vw, 1.6rem);
+  border: 1px solid var(--rule-dark);
+  transition: border-color .25s var(--ease), background-color .25s var(--ease);
+}
+@media (hover: hover) and (pointer: fine) {
+  .pr-card:hover { border-color: var(--arena); background: rgba(255, 255, 255, .03); }
+}
+.pr-card .pr-voz { min-height: 2.4em; }
+.pr-card .pr-precio { margin-top: 1.1rem; }
+.pr-btn { margin-top: auto; padding-top: 1.1rem; align-self: flex-start; }
+
+.pr-pie {
+  display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+  gap: 1rem 2rem; margin-top: clamp(1.8rem, 3vw, 2.4rem);
+}
+.pr-todos {
+  display: inline-flex; gap: .6rem; align-items: center;
+  font-weight: 600; color: var(--white); text-decoration: none;
+  border-bottom: 1px solid var(--arena); padding-bottom: 3px;
+  transition: gap .25s var(--ease), color .25s var(--ease);
+}
+.pr-todos:hover { gap: 1rem; color: var(--arena); }
+.planes .pr-diag { font-size: .92rem; font-weight: 300; color: var(--muted-dark); }
+.pr-diag a { margin-left: .4rem; font-weight: 600; color: var(--crema); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
+.pr-diag a:hover { color: var(--arena); }
+
+@media (max-width: 1100px) {
+  .pr-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pr-dest { grid-template-columns: minmax(0, 1fr) auto; }
+  .pr-dest-btn { grid-column: 1 / -1; justify-self: start; }
+}
+@media (max-width: 640px) {
+  .pr-grid { grid-template-columns: 1fr; }
+  .pr-dest { grid-template-columns: 1fr; }
 }
