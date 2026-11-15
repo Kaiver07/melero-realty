@@ -204,14 +204,13 @@ se lo pide uno al usuario. Si se hace una captura en móvil nada más cargar,
 las fotos pueden salir como un bloque gris: esperar un par de segundos
 antes de capturar. Pasó con el blog y no era un fallo de la web.
 
-**`astro dev` no ejecuta ningún script.** Todas las peticiones de módulos
-devuelven 500 («Missing field `moduleType`», del plugin de React, que está
-instalado en una versión que no es la de Astro 5). Los estilos se ven porque
-van incrustados en el HTML, pero no corren ni el motor GSAP ni los
-revelados ni el aviso de cookies. Para ver la web como es: compilar y servir
-el resultado con `node node_modules/astro/astro.js preview`. Para una
-captura fiable, Chrome sin ventana por el protocolo de depuración contra
-ese servidor: ahí sí hay scroll de verdad y observadores (30/9/2026).
+**`@astrojs/react` tiene que ser la 4.x, la de Astro 5.** Con la 6.x
+(la de Astro 6) `astro dev` no ejecutaba ningún script: todos los módulos
+devolvían 500 («Missing field `moduleType`») y, entre otras cosas, la
+cabecera de la home se quedaba transparente al bajar. Se bajó a la 4 el
+14/11/2026. No subirla sin subir Astro. Para una captura fiable, Chrome
+sin ventana por el protocolo de depuración: ahí sí hay scroll de verdad y
+observadores (30/9/2026).
 
 **Los titulares no se animan en móvil, a propósito.** `gsap.from()` deja la
 línea desplazada y a opacidad 0 hasta que dispara el ScrollTrigger; en el
