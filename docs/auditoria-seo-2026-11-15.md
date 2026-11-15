@@ -39,7 +39,7 @@ impida posicionar.**
 | 4 | **Media** | Acortar el title de `/proceso/` (73) y de `/preguntas/` (70) a ≤ 60, y la description de `/proceso/` (176) a ≤ 160 | Claude | 5 min |
 | 5 | **Media** | Fotos del diagnóstico en móvil: generar versiones de 480 px y ajustar `sizes` a lo que de verdad ocupa la tarjeta (≤ 560 px). Ahorro medido: ~360 KB por visita en móvil | Claude | 15 min |
 | 6 | *Baja* | Cabeceras de seguridad en `vercel.json`: `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options` y `Permissions-Policy` (sólo está HSTS) | Claude | 10 min |
-| 7 | *Baja* | `http://valeriamelero.com` da dos saltos (http → https → www). En Vercel, que el dominio sin `www` redirija directo a `https://www.` | Usuario (panel de Vercel) | 5 min |
+| 7 | *Baja* | `http://valeriamelero.com` da dos saltos (http → https → www). **Revisado en Vercel el mismo día: no se puede evitar.** El dominio sin `www` ya redirige con 308 a `www`; el primer salto (http → https) lo hace Vercel siempre antes que la redirección de dominio | — | — |
 | 8 | *Baja* | `/proceso/`: los pasos van en h3 justo debajo del h1 (salta el h2). Pasarlos a h2 o meter un h2 de sección | Claude | 5 min |
 | 9 | *Baja* | Datos estructurados: `@id` en la Organization para enlazarla desde los artículos; `BreadcrumbList` en las páginas interiores; un `OfferCatalog` con los planes en `/planes/` (informativo, no da resultado enriquecido) | Claude | 30 min |
 | 10 | *Baja* | Póster del vídeo de YouTube sin `width`/`height` (`VideoEmbed.astro`). Hoy no mueve nada (CLS 0) porque el contenedor tiene proporción fija; es higiene | Claude | 2 min |
@@ -86,7 +86,7 @@ correctos: el enlace ya lleva su `aria-label`.
 - **Alta.** Producción todavía es la versión anterior: `/contacto/` lleva a
   `/#planes` (en local ya va a `/planes/`) y las páginas nuevas no existen.
   Se arregla al publicar.
-- *Baja.* `http://valeriamelero.com/` hace dos saltos
+- *Baja, sin arreglo posible.* `http://valeriamelero.com/` hace dos saltos
   (→ `https://valeriamelero.com/` → `https://www.`).
 
 ## 2. Títulos, descripciones y encabezados
